@@ -1,0 +1,113 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace EVCMonoGame.src
+{
+    class AnimatedSprite : IUpdateable, IDrawable
+    {
+        struct Animation
+        {
+            public Rectangle[] frames;
+            public float frameDelay;
+
+            public Animation(Rectangle[] frames, float frameDelay)
+            {
+                this.frames = frames;
+                this.frameDelay = frameDelay;
+            }
+        }
+
+        #region InternalVariables
+
+        private String spritesheetName;
+        private Texture2D spritesheet;
+        private Dictionary<String, Animation> animations;
+        private String currentAnimation;
+        private int frameIndex;
+        private float elapsedSeconds;
+
+        private Vector2 position;
+        private float scale;
+
+        #endregion
+        #region Properties
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        #endregion
+
+        public AnimatedSprite(String spritesheetName, Vector2 position, float scale = 1.0f)
+        {
+            this.spritesheetName = spritesheetName;
+            animations = new Dictionary<string, Animation>();
+            currentAnimation = "NONE";
+            frameIndex = 0;
+            elapsedSeconds = 0;
+
+            this.position = position;
+            this.scale = scale;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            elapsedSeconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Animation animation = animations[currentAnimation];
+            if (elapsedSeconds >= animation.frameDelay)
+            {
+                elapsedSeconds = 0;
+                frameIndex = (frameIndex + 1) == animation.frames.Length ? 0 : ++frameIndex;
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (currentAnimation == "NONE")
+            {
+                return;
+            }
+
+            spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
+                0, Vector2.Zero, scale, SpriteEffects.None, 1);
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            spritesheet = content.Load<Texture2D>(spritesheetName);
+        }
+
+        public void UnloadContent()
+        {
+            // TODO
+        }
+
+        public void AddAnimation(String name, Rectangle[] frames, float frameDelay)
+        {
+            animations[name] = new Animation(frames, frameDelay);
+            currentAnimation = name;
+        }
+
+        public void SetAnimation(String name)
+        {
+            if (!animations.ContainsKey(name))
+            {
+                throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
+                    "the given Animation.");
+            }
+            currentAnimation = name;
+            elapsedSeconds = 0;
+            frameIndex = 0;
+        }
+    }
+}
