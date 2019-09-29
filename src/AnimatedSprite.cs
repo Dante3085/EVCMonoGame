@@ -98,6 +98,38 @@ namespace EVCMonoGame.src
             currentAnimation = name;
         }
 
+        // TODO: Problem bei 2. Überladung von AddAnimation(). Kann erst aufgerufen werden, nachdem LoadContent() aufgerufen wurde,
+        // weil vorher die Spritesheet Texture noch nicht geladen wurde. Globaler ContentManager ?
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="frameSize"></param>
+        /// <param name="firstFramePosition">x=column, y=row</param>
+        /// <param name="numFrames"></param>
+        /// <param name="frameDelay"></param>
+        public void AddAnimation(String name, int frameWidth, int frameHeight, int xColumn, int yRow, int numFrames, float frameDelay)
+        {
+            Rectangle[] frames = new Rectangle[numFrames];
+
+            int spritesheetWidht = spritesheet.Width;
+            int frame = 0;
+
+            // frame++ wird zu früh inkrementiert.
+            while(frame < numFrames)
+            {
+                if (xColumn * frameWidth == spritesheetWidht)
+                {
+                    ++yRow;
+                    xColumn = 0;
+                }
+                frames[frame++] = new Rectangle(xColumn++ * frameWidth, yRow * frameHeight, frameWidth, frameHeight);
+            }
+
+            AddAnimation(name, frames, frameDelay);
+        }
+
         public void SetAnimation(String name)
         {
             if (!animations.ContainsKey(name))
