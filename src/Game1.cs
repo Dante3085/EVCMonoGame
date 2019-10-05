@@ -1,8 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+// usings mit fremden Code
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using System.Collections.Generic;
+using C3.MonoGame;
+using System;
+
+// usings mit eigenem Code
+using EVCMonoGame.src.input;
+using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src
 {
@@ -14,12 +21,13 @@ namespace EVCMonoGame.src
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private List<IUpdateable> updateables; // Hält alle Sachen die geupdatet werden können.
-        private List<IDrawable> drawables;     // Hält alle Sachen die gezeichnet werden können.
+        private SpriteFont text;
+        private String textString;
 
-        private FpsCounter fpsCounter;
-        private AnimatedSprite cronoSprite;
-        private AnimatedSprite phantomSprite;
+        private Texture2D sprite;
+        private Vector2 spritePos;
+
+        private Healthbar healthbar;
 
         public Game1()
         {
@@ -41,49 +49,10 @@ namespace EVCMonoGame.src
         protected override void Initialize()
         {
             IsMouseVisible = true;
+            textString = "EMPTY";
+            spritePos = new Vector2(0, 0);
 
-            fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
-
-            cronoSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", 
-                new Vector2(100, 100), 8.0f);
-
-            // Frames sind leicht falsch(Abgeschnittene Ecken).
-            cronoSprite.AddAnimation("IDLE", new Rectangle[]
-            {
-                new Rectangle(59, 14, 15, 34), new Rectangle(79, 14, 15, 34), new Rectangle(99, 14, 15, 34)
-            }, 0.8f);
-            cronoSprite.AddAnimation("WALK_UP", new Rectangle[]
-            {
-                new Rectangle(130, 59, 17, 32), new Rectangle(152, 60, 17, 31), new Rectangle(174, 57, 15, 34), 
-                new Rectangle(193, 57, 15, 34), new Rectangle(213, 60, 17, 31), new Rectangle(235, 59, 17, 32),
-            }, 0.15f);
-            cronoSprite.AddAnimation("WALK_LEFT", new Rectangle[]
-            {
-                new Rectangle(34, 683, 14, 33), new Rectangle(56, 684, 13, 32), new Rectangle(75, 685, 21, 31),
-                new Rectangle(103, 683, 13, 33), new Rectangle(125, 684, 14, 32), new Rectangle(145, 685, 20, 32)
-            }, 0.15f);
-            cronoSprite.AddAnimation("WALK_DOWN", new Rectangle[]
-            {
-                new Rectangle(130, 15, 15, 33), new Rectangle(150, 17, 16, 31), new Rectangle(171, 14, 17, 34), 
-                new Rectangle(193, 15, 15, 33), new Rectangle(213, 17, 16, 31),
-            }, 0.15f);
-            cronoSprite.AddAnimation("WALK_RIGHT", new Rectangle[]
-            {
-                new Rectangle(126, 100, 19, 31), new Rectangle(151, 99, 14, 32), new Rectangle(174, 98, 13, 33), 
-                new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
-            }, 0.15f);
-
-            phantomSprite = new AnimatedSprite("rsrc/spritesheets/14_phantom_spritesheet", new Vector2(300, 100), 8.0f);
-
-            updateables = new List<IUpdateable>();
-            updateables.Add(fpsCounter);
-            updateables.Add(cronoSprite);
-            updateables.Add(phantomSprite);
-
-            drawables = new List<IDrawable>();
-            drawables.Add(fpsCounter);
-            drawables.Add(cronoSprite);
-            drawables.Add(phantomSprite);
+            healthbar = new Healthbar(2385, 1654, new Rectangle(100, 100, 200, 25));
 
             base.Initialize();
         }
@@ -96,13 +65,9 @@ namespace EVCMonoGame.src
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            foreach (IDrawable drawable in drawables)
-            {
-                drawable.LoadContent(Content);
-            }
-
-            phantomSprite.AddAnimation("IDLE", 100, 100, 0, 0, 61, 0.05f);
+            text = Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+            sprite = Content.Load<Texture2D>("rsrc/spritesheets/1_magicspell_spritesheet");
+            healthbar.LoadContent(Content);
         }
 
         /// <summary>
@@ -111,10 +76,7 @@ namespace EVCMonoGame.src
         /// </summary>
         protected override void UnloadContent()
         {
-            foreach(IDrawable drawable in drawables)
-            {
-                drawable.UnloadContent();
-            }
+            
         }
 
         /// <summary>
@@ -124,37 +86,44 @@ namespace EVCMonoGame.src
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GlobalState.keyboardState = Keyboard.GetState();
-            GlobalState.gamePadState = GamePad.GetState(PlayerIndex.One);
+            InputManager.UpdateCurrentInputStates();
 
-            if (GlobalState.gamePadState.IsButtonDown(Buttons.Start) || 
-                GlobalState.keyboardState.IsKeyDown(Keys.Escape))
+            if (InputManager.OnKeyPressed(Keys.Right))
             {
-                Exit();
+                spritePos.X += 50;
+                textString = "Right pressed";
             }
-
-            if (GlobalState.keyboardState.IsKeyDown(Keys.W))
+            if (InputManager.OnKeyReleased(Keys.Left))
             {
-                cronoSprite.SetAnimation("WALK_UP");
+                spritePos.X -= 50;
+                textString = "Left Released";
             }
-            else if (GlobalState.keyboardState.IsKeyDown(Keys.A))
+            if (InputManager.OnKeyPressed(Keys.Space))
             {
-                cronoSprite.SetAnimation("WALK_LEFT");
-            }
-            else if (GlobalState.keyboardState.IsKeyDown(Keys.S))
-            {
-                cronoSprite.SetAnimation("WALK_DOWN");
-            }
-            else if (GlobalState.keyboardState.IsKeyDown(Keys.D))
-            {
-                cronoSprite.SetAnimation("WALK_RIGHT");
+                healthbar.MaxHp = healthbar.MaxHp == 100 ? 1000 : 100;
+                Console.WriteLine("MaxHp: " + healthbar.MaxHp + ", currentHp: " + healthbar.CurrentHp);
             }
 
-            foreach (IUpdateable updateable in updateables)
+            if (InputManager.IsKeyPressed(Keys.Right))
             {
-                updateable.Update(gameTime);
+                healthbar.CurrentHp += 1;
+            }
+            else if (InputManager.IsKeyPressed(Keys.Left))
+            {
+                healthbar.CurrentHp -= 1;
             }
 
+            if (InputManager.OnKeyPressed(Keys.Q))
+            {
+                healthbar.DrawOutline = healthbar.DrawOutline ? false : true;
+            }
+
+            if (InputManager.OnKeyPressed(Keys.Escape))
+            {
+                base.Exit();
+            }
+
+            InputManager.UpdatePreviousInputStates();
             base.Update(gameTime);
         }
 
@@ -169,10 +138,9 @@ namespace EVCMonoGame.src
             // SamplerState.PointClamp sorgt dafür, dass Sprites nicht verschwommen sind.
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            foreach(IDrawable drawable in drawables)
-            {
-                drawable.Draw(spriteBatch);
-            }
+            spriteBatch.DrawString(text, textString, Vector2.Zero, Color.White);
+            spriteBatch.Draw(sprite, spritePos, Color.White);
+            healthbar.Draw(spriteBatch);
 
             spriteBatch.End();
 
