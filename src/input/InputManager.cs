@@ -36,8 +36,8 @@ namespace EVCMonoGame.src.input
 
         /// <summary>
         /// Returns true on the initial press of the given key.
-        /// <para>Returns true only when the given key was up in the previous Update() call,
-        /// but is now down in the current Update() call. </para>
+        /// <para>Returns true if the given key was up in the previous Update() call,
+        /// but is now down in the current Update() call, otherwise false. </para>
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -48,14 +48,34 @@ namespace EVCMonoGame.src.input
 
         /// <summary>
         /// Returns true on the initial release of the given key.
-        /// <para>Returns true only when the given key was down in the previous Update() call,
-        /// but is now up in the current Update() call.</para>
+        /// <para>Returns true if the given key was down in the previous Update() call,
+        /// but is now up in the current Update() call, otherwise false.</para>
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public static bool OnKeyReleased(Keys key)
         {
             return previousKeyboardState.IsKeyDown(key) && !currentKeyboardState.IsKeyDown(key);
+        }
+
+        /// <summary>
+        /// Returns true if the given key is down in the current Update() call, otherwise false.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool IsKeyPressed(Keys key)
+        {
+            return currentKeyboardState.IsKeyDown(key);
+        }
+
+        /// <summary>
+        /// Returns true if the given key was down in the previous Update() call, otherwise false.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool WasKeyPressed(Keys key)
+        {
+            return previousKeyboardState.IsKeyDown(key);
         }
 
         //public static bool OnKeyCombinationPressed(params Keys[] keys)
