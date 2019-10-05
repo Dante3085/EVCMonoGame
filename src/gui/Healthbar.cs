@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.gui
 
         // Actual Healthbar bounds(The red bar that shrinks and grows).
         private Rectangle barBounds;
+        private Color barColor;
 
         private int maxHp;
         private int currentHp;
@@ -48,7 +49,7 @@ namespace EVCMonoGame.src.gui
 
                 slope = (float)outlineBounds.Width / maxHp;
                 barBounds.Width = (int)(slope * currentHp);
-                strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+                // strHpText = currentHp.ToString() + "/" + maxHp.ToString();
             }
         }
 
@@ -59,7 +60,22 @@ namespace EVCMonoGame.src.gui
             {
                 currentHp = value < 0 ? 0 : value > maxHp ? maxHp : value;
                 barBounds.Width = (int)(slope * currentHp);
-                strHpText = strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+                // strHpText = strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+
+                if (currentHp <= maxHp / 4)
+                {
+                    barColor = Color.DarkRed;
+                }
+
+                else if (currentHp <= maxHp * 0.75)
+                {
+                    barColor = Color.Yellow;
+                }
+
+                else
+                {
+                    barColor = Color.Green;
+                }
             }
         }
 
@@ -76,10 +92,13 @@ namespace EVCMonoGame.src.gui
             barBounds.Width = (int)(outlineBounds.Width - outlineThickness);
             barBounds.Height = (int)(outlineBounds.Height - outlineThickness);
 
+            barColor = Color.Green;
+
             MaxHp = maxHp;
             CurrentHp = currentHp;
 
-            strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+            // strHpText = currentHp.ToString() + "/" + maxHp.ToString();s
+            strHpText = "Leben";
             hpTextPosition = new Vector2(outlineBounds.X, outlineBounds.Y);
 
             DrawOutline = true;
@@ -87,7 +106,7 @@ namespace EVCMonoGame.src.gui
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Primitives2D.FillRectangle(spriteBatch, barBounds, Color.DarkRed);
+            Primitives2D.FillRectangle(spriteBatch, barBounds, barColor);
 
             if (DrawOutline)
             {
