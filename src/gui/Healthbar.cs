@@ -16,6 +16,8 @@ namespace EVCMonoGame.src.gui
     {
         #region Fields
 
+        private Rectangle bounds;
+
         private Rectangle outlineBounds;
         float outlineThickness;
 
@@ -31,11 +33,26 @@ namespace EVCMonoGame.src.gui
         private float slope;
 
         private SpriteFont hpTextFont;
-        private String strHpText;
-        private Vector2 hpTextPosition;
+        private String hpTextStr;
+        private Rectangle hpTextBounds;
 
         #endregion
         #region Properties
+
+        public Vector2 Position
+        {
+            get { return bounds.Location.ToVector2(); }
+            set
+            {
+                // Berechne Richtungsvektor, um den alle Healthbar Elemente verschoben werden müssen.
+                Point shiftVector = value.ToPoint() - bounds.Location;
+
+                bounds.Location += shiftVector;
+                outlineBounds.Location += shiftVector;
+                barBounds.Location += shiftVector;
+                hpTextBounds.Location += shiftVector;
+            }
+        }
 
         public int MaxHp
         {
@@ -47,9 +64,9 @@ namespace EVCMonoGame.src.gui
                 if (maxHp < currentHp)
                     currentHp = maxHp;
 
-                slope = (float)outlineBounds.Width / maxHp;
+                slope = (float)(outlineBounds.Width - outlineThickness) / maxHp;
                 barBounds.Width = (int)(slope * currentHp);
-                // strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+                hpTextStr = currentHp.ToString() + "/" + maxHp.ToString();
             }
         }
 
@@ -60,7 +77,7 @@ namespace EVCMonoGame.src.gui
             {
                 currentHp = value < 0 ? 0 : value > maxHp ? maxHp : value;
                 barBounds.Width = (int)(slope * currentHp);
-                // strHpText = strHpText = currentHp.ToString() + "/" + maxHp.ToString();
+                hpTextStr = currentHp.ToString() + "/" + maxHp.ToString();
 
                 if (currentHp <= maxHp / 4)
                 {
@@ -69,56 +86,57 @@ namespace EVCMonoGame.src.gui
 
                 else if (currentHp <= maxHp * 0.75)
                 {
-                    barColor = Color.Yellow;
+                    barColor = new Color(238, 238, 0);
                 }
 
                 else
                 {
-                    barColor = Color.Green;
+                    barColor = new Color(124, 252, 0);
                 }
             }
         }
 
-        public bool DrawOutline { get; set; }
         #endregion
 
-        public Healthbar(int maxHp, int currentHp, Rectangle bounds)
+        public Healthbar(int maxHp, int currentHp, Vector2 position, Vector2 size)
         {
-            outlineBounds = bounds;
             outlineThickness = 1;
 
-            barBounds.X = outlineBounds.X; // X-Coordinate does not change with varying outlineThickness.
-            barBounds.Y = (int)(outlineBounds.Y + outlineThickness);
-            barBounds.Width = (int)(outlineBounds.Width - outlineThickness);
-            barBounds.Height = (int)(outlineBounds.Height - outlineThickness);
+            bounds.Location = position.ToPoint();
+            bounds.Width = (int)size.X;
 
-            barColor = Color.Green;
+            hpTextBounds.Location = position.ToPoint();
+            hpTextStr = "Leben";
 
+            outlineBounds.X = (int)position.X;
+            outlineBounds.Size = size.ToPoint();
+
+            barBounds.X = (int)(position.X + outlineThickness);
+            barBounds.Size = (size - new Vector2(outlineThickness, outlineThickness)).ToPoint();
+
+            // TODO: 
             MaxHp = maxHp;
             CurrentHp = currentHp;
-
-            // strHpText = currentHp.ToString() + "/" + maxHp.ToString();s
-            strHpText = "Leben";
-            hpTextPosition = new Vector2(outlineBounds.X, outlineBounds.Y);
-
-            DrawOutline = true;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.DrawString(hpTextFont, hpTextStr, hpTextBounds.Location.ToVector2(), Color.White);
             Primitives2D.FillRectangle(spriteBatch, barBounds, barColor);
-
-            if (DrawOutline)
-            {
-                Primitives2D.DrawRectangle(spriteBatch, outlineBounds, Color.White, outlineThickness);
-            }
-            spriteBatch.DrawString(hpTextFont, strHpText, hpTextPosition, Color.White);
+            Primitives2D.DrawRectangle(spriteBatch, outlineBounds, Color.White, outlineThickness);
         }
 
         public void LoadContent(ContentManager content)
         {
             hpTextFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
-            hpTextPosition.Y -= hpTextFont.MeasureString(strHpText).Y;
+            Vector2 hpTextSize = hpTextFont.MeasureString(hpTextStr);
+
+            hpTextBounds.Size = hpTextSize.ToPoint();
+            bounds.Height = (int)(hpTextSize.Y + outlineBounds.Height);
+            outlineBounds.Y = (int)(bounds.Y + hpTextSize.Y);
+            barBounds.Y = (int)(outlineBounds.Y + outlineThickness);
+
+
         }
 
         public void UnloadContent()
