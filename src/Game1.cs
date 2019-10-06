@@ -29,6 +29,9 @@ namespace EVCMonoGame.src
 
         private Healthbar healthbar;
 
+        private AnimatedSprite cronoSprite;
+        private float cronoSpeed;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,7 +55,38 @@ namespace EVCMonoGame.src
             textString = "EMPTY";
             spritePos = new Vector2(0, 0);
 
-            healthbar = new Healthbar(2385, 1654, new Rectangle(100, 100, 200, 25));
+            healthbar = new Healthbar(346, 867, new Vector2(100, 100), new Vector2(250, 30));
+            cronoSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
+                new Vector2(100, 100), 6.0f);
+            cronoSpeed = 8;
+
+            // Frames sind leicht falsch(Abgeschnittene Ecken).
+            cronoSprite.AddAnimation("IDLE", new Rectangle[]
+            {
+                new Rectangle(59, 14, 15, 34), new Rectangle(79, 14, 15, 34), new Rectangle(99, 14, 15, 34)
+            }, 0.8f);
+            cronoSprite.AddAnimation("WALK_UP", new Rectangle[]
+            {
+                new Rectangle(130, 59, 17, 32), new Rectangle(152, 60, 17, 31), new Rectangle(174, 57, 15, 34),
+                new Rectangle(193, 57, 15, 34), new Rectangle(213, 60, 17, 31), new Rectangle(235, 59, 17, 32),
+            }, 0.15f);
+            cronoSprite.AddAnimation("WALK_LEFT", new Rectangle[]
+            {
+                new Rectangle(34, 683, 14, 33), new Rectangle(56, 684, 13, 32), new Rectangle(75, 685, 21, 31),
+                new Rectangle(103, 683, 13, 33), new Rectangle(125, 684, 14, 32), new Rectangle(145, 685, 20, 32)
+            }, 0.15f);
+            cronoSprite.AddAnimation("WALK_DOWN", new Rectangle[]
+            {
+                new Rectangle(130, 15, 15, 33), new Rectangle(150, 17, 16, 31), new Rectangle(171, 14, 17, 34),
+                new Rectangle(193, 15, 15, 33), new Rectangle(213, 17, 16, 31),
+            }, 0.15f);
+            cronoSprite.AddAnimation("WALK_RIGHT", new Rectangle[]
+            {
+                new Rectangle(126, 100, 19, 31), new Rectangle(151, 99, 14, 32), new Rectangle(174, 98, 13, 33),
+                new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
+            }, 0.15f);
+
+            cronoSprite.SetAnimation("IDLE");
 
             base.Initialize();
         }
@@ -67,7 +101,9 @@ namespace EVCMonoGame.src
             spriteBatch = new SpriteBatch(GraphicsDevice);
             text = Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             sprite = Content.Load<Texture2D>("rsrc/spritesheets/1_magicspell_spritesheet");
+            cronoSprite.LoadContent(Content);
             healthbar.LoadContent(Content);
+            healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
         }
 
         /// <summary>
@@ -104,25 +140,49 @@ namespace EVCMonoGame.src
                 Console.WriteLine("MaxHp: " + healthbar.MaxHp + ", currentHp: " + healthbar.CurrentHp);
             }
 
-            if (InputManager.IsKeyPressed(Keys.Right))
+            if (InputManager.OnKeyPressed(Keys.Left)) { cronoSprite.SetAnimation("WALK_LEFT"); }
+            else if (InputManager.OnKeyPressed(Keys.Up)) { cronoSprite.SetAnimation("WALK_UP"); }
+            else if (InputManager.OnKeyPressed(Keys.Right)) { cronoSprite.SetAnimation("WALK_RIGHT"); }
+            else if (InputManager.OnKeyPressed(Keys.Down)) { cronoSprite.SetAnimation("WALK_DOWN"); }
+            
+            if (InputManager.OnKeyReleased(Keys.Left)
+                || InputManager.OnKeyReleased(Keys.Up)
+                || InputManager.OnKeyReleased(Keys.Right)
+                || InputManager.OnKeyReleased(Keys.Down)) 
             {
-                healthbar.CurrentHp += 1;
-            }
-            else if (InputManager.IsKeyPressed(Keys.Left))
-            {
-                healthbar.CurrentHp -= 1;
-            }
-
-            if (InputManager.OnKeyPressed(Keys.Q))
-            {
-                healthbar.DrawOutline = healthbar.DrawOutline ? false : true;
-            }
-
-            if (InputManager.OnKeyPressed(Keys.Escape))
-            {
-                base.Exit();
+                cronoSprite.SetAnimation("IDLE");
             }
 
+            if (InputManager.IsKeyPressed(Keys.Left))
+            {
+                cronoSprite.Position += new Vector2(-cronoSpeed, 0);
+                healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
+            }
+
+            else if (InputManager.IsKeyPressed(Keys.Up))
+            {
+                cronoSprite.Position += new Vector2(0, -cronoSpeed);
+                healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
+            }
+
+            else if (InputManager.IsKeyPressed(Keys.Right))
+            {
+                cronoSprite.Position += new Vector2(cronoSpeed, 0);
+                healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
+            }
+
+            else if (InputManager.IsKeyPressed(Keys.Down))
+            {
+                cronoSprite.Position += new Vector2(0, cronoSpeed);
+                healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
+            }
+
+            if (InputManager.IsKeyPressed(Keys.A)) { healthbar.CurrentHp -= 1; }
+            else if (InputManager.IsKeyPressed(Keys.D)) { healthbar.CurrentHp += 1; }
+
+            cronoSprite.Update(gameTime);
+
+            if (InputManager.OnKeyPressed(Keys.Escape)) { base.Exit(); }
             InputManager.UpdatePreviousInputStates();
             base.Update(gameTime);
         }
@@ -139,8 +199,9 @@ namespace EVCMonoGame.src
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             spriteBatch.DrawString(text, textString, Vector2.Zero, Color.White);
-            spriteBatch.Draw(sprite, spritePos, Color.White);
+            // spriteBatch.Draw(sprite, spritePos, Color.White);
             healthbar.Draw(spriteBatch);
+            cronoSprite.Draw(spriteBatch);
 
             spriteBatch.End();
 
