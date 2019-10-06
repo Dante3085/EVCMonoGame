@@ -73,11 +73,6 @@ namespace EVCMonoGame.src
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (currentAnimation == "NONE")
-            {
-                return;
-            }
-
             spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, SpriteEffects.None, 1);
         }

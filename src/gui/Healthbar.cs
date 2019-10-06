@@ -39,6 +39,11 @@ namespace EVCMonoGame.src.gui
         #endregion
         #region Properties
 
+        public Vector2 Size
+        {
+            get { return bounds.Size.ToVector2(); }
+        }
+
         public Vector2 Position
         {
             get { return bounds.Location.ToVector2(); }
