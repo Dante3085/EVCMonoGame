@@ -10,6 +10,7 @@ using System;
 // usings mit eigenem Code
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.gui;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
@@ -30,7 +31,10 @@ namespace EVCMonoGame.src
         private Healthbar healthbar;
 
         private AnimatedSprite cronoSprite;
+        private AnimatedSprite cronoSprite2;
         private float cronoSpeed;
+
+        private CollisionManager collisionManager;
 
         public Game1()
         {
@@ -56,9 +60,10 @@ namespace EVCMonoGame.src
             spritePos = new Vector2(0, 0);
 
             healthbar = new Healthbar(346, 867, new Vector2(100, 100), new Vector2(250, 30));
+
+            cronoSpeed = 8;
             cronoSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
                 new Vector2(100, 100), 6.0f);
-            cronoSpeed = 8;
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
             cronoSprite.AddAnimation("IDLE", new Rectangle[]
@@ -85,8 +90,39 @@ namespace EVCMonoGame.src
                 new Rectangle(126, 100, 19, 31), new Rectangle(151, 99, 14, 32), new Rectangle(174, 98, 13, 33),
                 new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
             }, 0.15f);
-
             cronoSprite.SetAnimation("IDLE");
+
+            cronoSprite2 = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
+                new Vector2(300, 100), 6.0f);
+
+            cronoSprite2.AddAnimation("IDLE", new Rectangle[]
+            {
+                new Rectangle(59, 14, 15, 34), new Rectangle(79, 14, 15, 34), new Rectangle(99, 14, 15, 34)
+            }, 0.8f);
+            cronoSprite2.AddAnimation("WALK_UP", new Rectangle[]
+            {
+                new Rectangle(130, 59, 17, 32), new Rectangle(152, 60, 17, 31), new Rectangle(174, 57, 15, 34),
+                new Rectangle(193, 57, 15, 34), new Rectangle(213, 60, 17, 31), new Rectangle(235, 59, 17, 32),
+            }, 0.15f);
+            cronoSprite2.AddAnimation("WALK_LEFT", new Rectangle[]
+            {
+                new Rectangle(34, 683, 14, 33), new Rectangle(56, 684, 13, 32), new Rectangle(75, 685, 21, 31),
+                new Rectangle(103, 683, 13, 33), new Rectangle(125, 684, 14, 32), new Rectangle(145, 685, 20, 32)
+            }, 0.15f);
+            cronoSprite2.AddAnimation("WALK_DOWN", new Rectangle[]
+            {
+                new Rectangle(130, 15, 15, 33), new Rectangle(150, 17, 16, 31), new Rectangle(171, 14, 17, 34),
+                new Rectangle(193, 15, 15, 33), new Rectangle(213, 17, 16, 31),
+            }, 0.15f);
+            cronoSprite2.AddAnimation("WALK_RIGHT", new Rectangle[]
+            {
+                new Rectangle(126, 100, 19, 31), new Rectangle(151, 99, 14, 32), new Rectangle(174, 98, 13, 33),
+                new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
+            }, 0.15f);
+            cronoSprite2.SetAnimation("IDLE");
+
+            collisionManager = new CollisionManager(cronoSprite, cronoSprite2);
+            collisionManager.DrawBounds = true;
 
             base.Initialize();
         }
@@ -102,6 +138,7 @@ namespace EVCMonoGame.src
             text = Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             sprite = Content.Load<Texture2D>("rsrc/spritesheets/1_magicspell_spritesheet");
             cronoSprite.LoadContent(Content);
+            cronoSprite2.LoadContent(Content);
             healthbar.LoadContent(Content);
             healthbar.Position = cronoSprite.Position - new Vector2(0, healthbar.Size.Y);
         }
@@ -181,6 +218,9 @@ namespace EVCMonoGame.src
             else if (InputManager.IsKeyPressed(Keys.D)) { healthbar.CurrentHp += 1; }
 
             cronoSprite.Update(gameTime);
+            cronoSprite2.Update(gameTime);
+
+            collisionManager.Update(gameTime);
 
             if (InputManager.OnKeyPressed(Keys.Escape)) { base.Exit(); }
             InputManager.UpdatePreviousInputStates();
@@ -202,6 +242,8 @@ namespace EVCMonoGame.src
             // spriteBatch.Draw(sprite, spritePos, Color.White);
             healthbar.Draw(spriteBatch);
             cronoSprite.Draw(spriteBatch);
+            cronoSprite2.Draw(spriteBatch);
+            collisionManager.Draw(spriteBatch);
 
             spriteBatch.End();
 
