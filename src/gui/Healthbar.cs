@@ -84,7 +84,7 @@ namespace EVCMonoGame.src.gui
                 barBounds.Width = (int)(slope * currentHp);
                 hpTextStr = currentHp.ToString() + "/" + maxHp.ToString();
 
-                if (currentHp <= maxHp / 4)
+                if (currentHp <= maxHp * 0.25)
                 {
                     barColor = Color.DarkRed;
                 }
