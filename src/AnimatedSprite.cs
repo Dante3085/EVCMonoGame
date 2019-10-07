@@ -39,10 +39,27 @@ namespace EVCMonoGame.src
         #endregion
         #region Properties
 
+        public Rectangle Bounds
+        {
+            get
+            {
+                Rectangle bounds = new Rectangle();
+                bounds.Location = position.ToPoint();
+                bounds.Size = animations[currentAnimation].frames[frameIndex].Size;
+                bounds.Width *= (int)scale;
+                bounds.Height *= (int)scale;
+
+                return bounds;
+            }
+        }
+
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set 
+            {
+                position = value; 
+            }
         }
 
         #endregion
