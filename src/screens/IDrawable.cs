@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src
 {
     public interface IDrawable
     {
-        void Draw(SpriteBatch spriteBatch);
+        void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         void LoadContent(ContentManager content);
         void UnloadContent();
     }

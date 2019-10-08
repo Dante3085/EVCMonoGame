@@ -31,7 +31,7 @@ namespace EVCMonoGame.src
             str = fps.ToString();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, str, position, color);
         }

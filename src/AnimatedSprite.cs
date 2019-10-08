@@ -88,7 +88,7 @@ namespace EVCMonoGame.src
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, SpriteEffects.None, 1);

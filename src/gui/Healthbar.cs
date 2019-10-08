@@ -124,7 +124,7 @@ namespace EVCMonoGame.src.gui
             CurrentHp = currentHp;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(hpTextFont, hpTextStr, hpTextBounds.Location.ToVector2(), Color.White);
             Primitives2D.FillRectangle(spriteBatch, barBounds, barColor);
