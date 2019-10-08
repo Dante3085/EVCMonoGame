@@ -147,7 +147,7 @@ namespace EVCMonoGame.src
             if (!animations.ContainsKey(name))
             {
                 throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
-                    "the given Animation.");
+                    " the given Animation.");
             }
             currentAnimation = name;
             elapsedSeconds = 0;

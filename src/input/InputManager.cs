@@ -21,17 +21,10 @@ namespace EVCMonoGame.src.input
         /// <summary>
         /// Always call before all you'r input operations(First instruction in Update()).
         /// </summary>
-        public static void UpdateCurrentInputStates()
-        {
-            currentKeyboardState = Keyboard.GetState();
-        }
-
-        /// <summary>
-        /// Always call after all you'r input operations(Last instruction before base.Update() in Update()).
-        /// </summary>
-        public static void UpdatePreviousInputStates()
+        public static void UpdateInputStates()
         {
             previousKeyboardState = currentKeyboardState;
+            currentKeyboardState = Keyboard.GetState();
         }
 
         /// <summary>
