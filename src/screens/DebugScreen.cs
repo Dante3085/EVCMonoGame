@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+using EVCMonoGame.src.input;
+using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src.screens
 {
     class DebugScreen : GameScreen
     {
         private AnimatedSprite cronoSprite;
+        private Healthbar healthbar;
+        private SpriteFont randomText;
 
         public DebugScreen(ScreenManager screenManager)
             : base(screenManager)
@@ -46,39 +52,49 @@ namespace EVCMonoGame.src.screens
             }, 0.15f);
             cronoSprite.SetAnimation("WALK_RIGHT");
 
+            healthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(200, 30));
+
             updateables.AddRange(new IUpdateable[] 
             { 
-                cronoSprite 
+                cronoSprite,
             });
 
             drawables.AddRange(new IDrawable[] 
             { 
-                cronoSprite 
+                cronoSprite,
+                healthbar
             });
         }
 
         public override void LoadContent(ContentManager content)
         {
-
+            randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
             base.LoadContent(content);
         }
 
-        public override void UnloadContent()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Update(GameTime gameTime)
         {
-
+            if (InputManager.OnKeyPressed(Keys.Left))
+            {
+                cronoSprite.SetAnimation("WALK_LEFT");
+            }
+            else if (InputManager.OnKeyPressed(Keys.Right))
+            {
+                cronoSprite.SetAnimation("WALK_RIGHT");
+            }
 
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+            spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
+                new Vector2(100, 100), Color.DarkRed);
+
+            spriteBatch.End();
 
             base.Draw(gameTime, spriteBatch);
         }

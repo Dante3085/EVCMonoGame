@@ -47,9 +47,6 @@ namespace EVCMonoGame.src
         {
             IsMouseVisible = true;
 
-            screenManager = new ScreenManager();
-            screenManager.AddScreen(new DebugScreen());
-
             base.Initialize();
         }
 
@@ -62,7 +59,8 @@ namespace EVCMonoGame.src
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            screenManager.LoadContent(Content, GraphicsDevice);
+            screenManager = new ScreenManager(spriteBatch, Content);
+            screenManager.LoadContent();
         }
 
         /// <summary>
@@ -98,12 +96,7 @@ namespace EVCMonoGame.src
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // SamplerState.PointClamp sorgt dafür, dass Sprites nicht verschwommen sind nach Skalierung.
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            screenManager.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
+            screenManager.Draw(gameTime);
 
             base.Draw(gameTime);
         }

@@ -22,6 +22,10 @@ namespace EVCMonoGame.src.screens
             this.screenManager = screenManager;
         }
 
+        /// <summary>
+        /// Loads content for all IDrawables of this GameScreen.
+        /// </summary>
+        /// <param name="content"></param>
         public virtual void LoadContent(ContentManager content)
         {
             foreach (IDrawable d in drawables)
@@ -30,6 +34,10 @@ namespace EVCMonoGame.src.screens
             }
         }
 
+        /// <summary>
+        /// Updates all IUpdateables of this GameScreen.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
             foreach(IUpdateable u in updateables)
@@ -38,12 +46,21 @@ namespace EVCMonoGame.src.screens
             }
         }
 
+        /// <summary>
+        /// Draws all IDrawables of this GameScreen.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
             foreach (IDrawable d in drawables)
             {
                 d.Draw(gameTime, spriteBatch);
             }
+
+            spriteBatch.End();
         }
     }
 }
