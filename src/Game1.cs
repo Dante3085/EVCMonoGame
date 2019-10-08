@@ -10,7 +10,6 @@ using System;
 // usings mit eigenem Code
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.gui;
-using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
@@ -33,8 +32,6 @@ namespace EVCMonoGame.src
         private AnimatedSprite cronoSprite;
         private AnimatedSprite cronoSprite2;
         private float cronoSpeed;
-
-        private CollisionManager collisionManager;
 
         public Game1()
         {
@@ -120,9 +117,6 @@ namespace EVCMonoGame.src
                 new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
             }, 0.15f);
             cronoSprite2.SetAnimation("IDLE");
-
-            collisionManager = new CollisionManager(cronoSprite, cronoSprite2);
-            collisionManager.DrawBounds = true;
 
             base.Initialize();
         }
@@ -220,8 +214,6 @@ namespace EVCMonoGame.src
             cronoSprite.Update(gameTime);
             cronoSprite2.Update(gameTime);
 
-            collisionManager.Update(gameTime);
-
             if (InputManager.OnKeyPressed(Keys.Escape)) { base.Exit(); }
             InputManager.UpdatePreviousInputStates();
             base.Update(gameTime);
@@ -243,7 +235,6 @@ namespace EVCMonoGame.src
             healthbar.Draw(spriteBatch);
             cronoSprite.Draw(spriteBatch);
             cronoSprite2.Draw(spriteBatch);
-            collisionManager.Draw(spriteBatch);
 
             spriteBatch.End();
 
