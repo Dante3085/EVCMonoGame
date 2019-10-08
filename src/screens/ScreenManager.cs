@@ -10,26 +10,34 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.screens
 {
-    class ScreenManager
+    public enum TransitionType
     {
-        private List<GameScreen> gameScreens;
-        private List<GameScreen> gameScreensToUpdate;
-        private List<GameScreen> gameScreensToDraw;
+        blackScreen
+    }
+
+    public class ScreenManager
+    {
+        private List<GameScreen> screens = new List<GameScreen>();
+        GameScreen currentScreen;
+        private List<GameScreen> screensToDraw = new List<GameScreen>();
 
         private SpriteBatch spriteBatch;
+        private ContentManager content;
 
-        public ScreenManager()
+        public ScreenManager(SpriteBatch spriteBatch, ContentManager content)
         {
-            gameScreens = new List<GameScreen>();
-            gameScreensToUpdate = new List<GameScreen>();
-            gameScreensToDraw = new List<GameScreen>();
+            this.spriteBatch = spriteBatch;
+            this.content = content;
+
+            screens.Add(new DebugScreen(this));
+
+
+            currentScreen = screens.First();
         }
 
-        public void LoadContent(ContentManager content, GraphicsDevice graphicsDevice)
+        public void LoadContent()
         {
-            spriteBatch = new SpriteBatch(graphicsDevice);
-
-            foreach(GameScreen g in gameScreens)
+            foreach (GameScreen g in screens)
             {
                 g.LoadContent(content);
             }
@@ -37,33 +45,37 @@ namespace EVCMonoGame.src.screens
 
         public void UnloadContent()
         {
-            foreach(GameScreen g in gameScreens)
-            {
-                g.UnloadContent();
-            }
+            content.Unload();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (GameScreen g in gameScreensToUpdate)
-            {
-                g.Update(gameTime);
-            }
+            currentScreen.Update(gameTime);
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime)
         {
-            foreach (GameScreen g in gameScreensToDraw)
-            {
-                g.Draw(gameTime, spriteBatch);
-            }
+            currentScreen.Draw(gameTime, spriteBatch);
         }
 
-        public void AddScreen(GameScreen gameScreen)
+        public void TransitionToScreen(GameScreen from, GameScreen to, TransitionType transitionType)
         {
-            gameScreens.Add(gameScreen);
-            gameScreensToUpdate.Add(gameScreen);
-            gameScreensToDraw.Add(gameScreen);
+            switch(transitionType)
+            {
+                default:
+                    break;
+            }
+            currentScreen = to;
+        }
+
+        public void TransitionToScreen(GameScreen to, TransitionType transitionType)
+        {
+            switch (transitionType)
+            {
+                default:
+                    break;
+            }
+            currentScreen = to;
         }
     }
 }

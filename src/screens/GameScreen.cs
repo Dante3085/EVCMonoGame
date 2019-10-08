@@ -13,13 +13,13 @@ namespace EVCMonoGame.src.screens
 {
     public abstract class GameScreen
     {
-        protected List<IUpdateable> updateables;
-        protected List<IDrawable> drawables;
+        protected List<IUpdateable> updateables = new List<IUpdateable>();
+        protected List<IDrawable> drawables = new List<IDrawable>();
+        private ScreenManager screenManager;
 
-        public GameScreen()
+        public GameScreen(ScreenManager screenManager)
         {
-            updateables = new List<IUpdateable>();
-            drawables = new List<IDrawable>();
+            this.screenManager = screenManager;
         }
 
         public virtual void LoadContent(ContentManager content)
@@ -30,11 +30,9 @@ namespace EVCMonoGame.src.screens
             }
         }
 
-        public abstract void UnloadContent();
-
         public virtual void Update(GameTime gameTime)
         {
-            foreach (IUpdateable u in updateables)
+            foreach(IUpdateable u in updateables)
             {
                 u.Update(gameTime);
             }

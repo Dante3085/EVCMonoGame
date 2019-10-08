@@ -81,12 +81,12 @@ namespace EVCMonoGame.src
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            InputManager.UpdateCurrentInputStates();
+            InputManager.UpdateInputStates();
 
             screenManager.Update(gameTime);
 
             if (InputManager.OnKeyPressed(Keys.Escape)) { base.Exit(); }
-            InputManager.UpdatePreviousInputStates();
+
             base.Update(gameTime);
         }
 

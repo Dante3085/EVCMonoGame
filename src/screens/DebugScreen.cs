@@ -13,7 +13,8 @@ namespace EVCMonoGame.src.screens
     {
         private AnimatedSprite cronoSprite;
 
-        public DebugScreen()
+        public DebugScreen(ScreenManager screenManager)
+            : base(screenManager)
         {
             cronoSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
                 new Vector2(100, 100), 6.0f);
