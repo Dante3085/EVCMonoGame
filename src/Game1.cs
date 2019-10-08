@@ -232,9 +232,9 @@ namespace EVCMonoGame.src
 
             spriteBatch.DrawString(text, textString, Vector2.Zero, Color.White);
             // spriteBatch.Draw(sprite, spritePos, Color.White);
-            healthbar.Draw(spriteBatch);
-            cronoSprite.Draw(spriteBatch);
-            cronoSprite2.Draw(spriteBatch);
+            healthbar.Draw(gameTime, spriteBatch);
+            cronoSprite.Draw(gameTime, spriteBatch);
+            cronoSprite2.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 
