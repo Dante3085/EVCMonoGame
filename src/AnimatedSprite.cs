@@ -101,11 +101,6 @@ namespace EVCMonoGame.src
             spritesheet = content.Load<Texture2D>(spritesheetName);
         }
 
-        public void UnloadContent()
-        {
-            // TODO
-        }
-
         public void AddAnimation(String name, Rectangle[] frames, float frameDelay)
         {
             animations[name] = new Animation(frames, frameDelay);

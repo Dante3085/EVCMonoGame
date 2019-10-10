@@ -42,10 +42,5 @@ namespace EVCMonoGame.src
         {
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
-
-        public void UnloadContent()
-        {
-            // TODO: Was könnte hier hinkommen ?
-        }
     }
 }

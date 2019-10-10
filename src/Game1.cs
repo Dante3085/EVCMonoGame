@@ -68,7 +68,6 @@ namespace EVCMonoGame.src
         /// </summary>
         protected override void UnloadContent()
         {
-            screenManager.UnloadContent();
         }
 
         /// <summary>

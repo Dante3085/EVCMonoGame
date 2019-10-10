@@ -14,6 +14,5 @@ namespace EVCMonoGame.src
     {
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         void LoadContent(ContentManager content);
-        void UnloadContent();
     }
 }
