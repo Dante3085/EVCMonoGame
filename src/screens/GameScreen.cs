@@ -13,9 +13,9 @@ namespace EVCMonoGame.src.screens
 {
     public abstract class GameScreen
     {
-        protected List<IUpdateable> updateables = new List<IUpdateable>();
+        protected List<Updateable> updateables = new List<Updateable>();
         protected List<IDrawable> drawables = new List<IDrawable>();
-        private ScreenManager screenManager;
+        protected ScreenManager screenManager;
 
         public GameScreen(ScreenManager screenManager)
         {
@@ -40,7 +40,7 @@ namespace EVCMonoGame.src.screens
         /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
-            foreach(IUpdateable u in updateables)
+            foreach(Updateable u in updateables)
             {
                 u.Update(gameTime);
             }

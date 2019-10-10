@@ -19,11 +19,13 @@ namespace EVCMonoGame.src.screens
         private Healthbar healthbar;
         private SpriteFont randomText;
 
-        public DebugScreen(ScreenManager screenManager)
+        private Random random;
+
+        public DebugScreen(ScreenManager screenManager, Vector2 position)
             : base(screenManager)
         {
             cronoSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
-                new Vector2(100, 100), 6.0f);
+                position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
             cronoSprite.AddAnimation("IDLE", new Rectangle[]
@@ -54,7 +56,7 @@ namespace EVCMonoGame.src.screens
 
             healthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(200, 30));
 
-            updateables.AddRange(new IUpdateable[] 
+            updateables.AddRange(new Updateable[] 
             { 
                 cronoSprite,
             });
@@ -64,6 +66,8 @@ namespace EVCMonoGame.src.screens
                 cronoSprite,
                 healthbar
             });
+
+            random = new Random();
         }
 
         public override void LoadContent(ContentManager content)
@@ -82,6 +86,11 @@ namespace EVCMonoGame.src.screens
             else if (InputManager.OnKeyPressed(Keys.Right))
             {
                 cronoSprite.SetAnimation("WALK_RIGHT");
+            }
+            else if (InputManager.OnKeyPressed(Keys.Space))
+            {
+                screenManager.ScreenTransition(new DebugScreen(screenManager, 
+                    new Vector2(random.Next(0, 1000), random.Next(0, 1000))));
             }
 
             base.Update(gameTime);

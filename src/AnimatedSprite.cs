@@ -8,9 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using EVCMonoGame.src.screens;
+
 namespace EVCMonoGame.src
 {
-    class AnimatedSprite : IUpdateable, IDrawable
+    class AnimatedSprite : Updateable, IDrawable
     {
         struct Animation
         {
@@ -76,7 +78,7 @@ namespace EVCMonoGame.src
             this.scale = scale;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             elapsedSeconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

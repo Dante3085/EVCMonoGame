@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.screens;
 
 namespace EVCMonoGame.src
 {
-    public class Player : IUpdateable, IDrawable
+    public class Player : Updateable, IDrawable
     {
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
@@ -68,7 +69,7 @@ namespace EVCMonoGame.src
             
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // TODO: playerSprite steuern(Animationen ändern und bewegen)
 

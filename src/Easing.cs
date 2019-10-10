@@ -8,6 +8,8 @@ namespace EVCMonoGame.src
 {
     public static class Easing
     {
+        public delegate float EasingFunction(float t, float b, float c, float d);
+
         /// <summary>
         /// </summary>
         /// <param name="t">elapsedTime (same unit as duration)</param>

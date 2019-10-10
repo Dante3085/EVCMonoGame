@@ -10,33 +10,39 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.screens
 {
-    public enum TransitionType
-    {
-        blackScreen
-    }
 
     public class ScreenManager
     {
         private List<GameScreen> screens = new List<GameScreen>();
         GameScreen currentScreen;
-        private List<GameScreen> screensToDraw = new List<GameScreen>();
 
         private SpriteBatch spriteBatch;
         private ContentManager content;
+        private GraphicsDevice graphicsDevice;
 
-        public ScreenManager(SpriteBatch spriteBatch, ContentManager content)
+        private Texture2D blankTexture;
+        private Easer easer;
+        private bool transitioning;
+        private bool reverseTransitionFinished;
+
+        public ScreenManager(SpriteBatch spriteBatch, ContentManager content, GraphicsDevice graphicsDevice)
         {
             this.spriteBatch = spriteBatch;
             this.content = content;
+            this.graphicsDevice = graphicsDevice;
 
-            screens.Add(new DebugScreen(this));
-
-
+            screens.Add(new DebugScreen(this, Vector2.Zero));
             currentScreen = screens.First();
+
+            easer = new Easer(0, 255, 1000, Easing.LinearEaseIn);
+            transitioning = false;
+            reverseTransitionFinished = false;
         }
 
         public void LoadContent()
         {
+            blankTexture = content.Load<Texture2D>("rsrc/backgrounds/blank");
+
             foreach (GameScreen g in screens)
             {
                 g.LoadContent(content);
@@ -51,31 +57,59 @@ namespace EVCMonoGame.src.screens
         public void Update(GameTime gameTime)
         {
             currentScreen.Update(gameTime);
+            if (transitioning) { UpdateTransition(gameTime); }
         }
 
         public void Draw(GameTime gameTime)
         {
             currentScreen.Draw(gameTime, spriteBatch);
+            if (transitioning) { DrawTransition(); }
         }
 
-        public void TransitionToScreen(GameScreen from, GameScreen to, TransitionType transitionType)
+        public void ScreenTransition(GameScreen to)
         {
-            switch(transitionType)
+            if (screens.Contains(to))
             {
-                default:
-                    break;
+                screens.Remove(to);
             }
-            currentScreen = to;
+            screens.Add(to);
+            to.LoadContent(content);
+
+            transitioning = true;
+            easer.start();
         }
 
-        public void TransitionToScreen(GameScreen to, TransitionType transitionType)
+        private void UpdateTransition(GameTime gameTime)
         {
-            switch (transitionType)
+            easer.Update(gameTime);
+            if (easer.IsFinished)
             {
-                default:
-                    break;
+                if (reverseTransitionFinished)
+                {
+                    reverseTransitionFinished = false;
+                    transitioning = false;
+                    easer.reverse();
+                }
+                else
+                {
+                    currentScreen = screens.Last();
+                    easer.reverse();
+                    easer.start();
+                    reverseTransitionFinished = true;
+                }
             }
-            currentScreen = to;
+
+        }
+
+        private void DrawTransition()
+        {
+            spriteBatch.Begin();
+
+            // Achtung: Easer haben immer float Werte. Bei float denkt der Color Konstruktor allerdings
+            // er bekommt einen Wert von 0.0 bis 1.0, also nach int casten.
+            spriteBatch.Draw(blankTexture, graphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
+
+            spriteBatch.End();
         }
     }
 }

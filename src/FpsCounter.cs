@@ -7,9 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using EVCMonoGame.src.screens;
+
 namespace EVCMonoGame.src
 {
-    class FpsCounter : IUpdateable, IDrawable
+    class FpsCounter : Updateable, IDrawable
     {
         private float fps;
         private SpriteFont font;
@@ -25,7 +27,7 @@ namespace EVCMonoGame.src
             this.color = color;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
             str = fps.ToString();
