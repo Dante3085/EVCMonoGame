@@ -71,6 +71,57 @@ namespace EVCMonoGame.src.input
             return previousKeyboardState.IsKeyDown(key);
         }
 
+        /// <summary>
+        /// Returns true if OnKeyPressed() is true for any of the given keys, otherwise false.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool OnAnyKeyPressed(params Keys[] keys)
+        {
+            foreach (Keys k in keys)
+            {
+                if (OnKeyPressed(k))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if OnKeyReleased() is true for any of the given keys, otherwise false.
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static bool OnAnyKeyReleased(params Keys[] keys)
+        {
+            foreach (Keys k in keys)
+            {
+                if (OnKeyReleased(k))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if IsKeyPressed() is true for any of the given keys, otherwise false.
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static bool IsAnyKeyPressed(params Keys[] keys)
+        {
+            foreach (Keys k in keys)
+            {
+                if (IsKeyPressed(k))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //public static bool OnKeyCombinationPressed(params Keys[] keys)
         //{
         //    String keyCombination = "";
