@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.input;
@@ -17,6 +18,17 @@ namespace EVCMonoGame.src
     {
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
+        private float playerSpeed;
+
+        public AnimatedSprite Sprite
+        {
+            get { return playerSprite; }
+        }
+
+        public Healthbar Healthbar
+        {
+            get { return playerHealthbar; }
+        }
 
         public Player()
         {
@@ -48,9 +60,10 @@ namespace EVCMonoGame.src
                 new Rectangle(126, 100, 19, 31), new Rectangle(151, 99, 14, 32), new Rectangle(174, 98, 13, 33),
                 new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
             }, 0.15f);
-            playerSprite.SetAnimation("WALK_RIGHT");
+            playerSprite.SetAnimation("IDLE");
 
             playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(200, 30));
+            playerSpeed = 8;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -61,17 +74,55 @@ namespace EVCMonoGame.src
 
         public void LoadContent(ContentManager content)
         {
+            playerSprite.LoadContent(content);
             playerHealthbar.LoadContent(content);
         }
 
         public void UnloadContent()
         {
-            
+
         }
 
         public override void Update(GameTime gameTime)
         {
             // TODO: playerSprite steuern(Animationen ändern und bewegen)
+
+            int[] anzahl = { 0, 0 };
+
+            Vector2 currentPosition = playerSprite.Position;
+            
+            if (InputManager.IsKeyPressed(Keys.Up))
+            {
+                ++anzahl[0];
+                playerSprite.SetAnimation("WALK_UP");
+                playerSprite.Position += new Vector2(0, -playerSpeed);
+            }
+            if (InputManager.IsKeyPressed(Keys.Down))
+            {
+                ++anzahl[0];
+                playerSprite.SetAnimation("WALK_DOWN");
+                playerSprite.Position += new Vector2(0, playerSpeed);
+            }
+            if (InputManager.IsKeyPressed(Keys.Right))
+            {
+                ++anzahl[1];
+                playerSprite.SetAnimation("WALK_RIGHT");
+                playerSprite.Position += new Vector2(playerSpeed, 0);
+            }
+            if (InputManager.IsKeyPressed(Keys.Left))
+            {
+                ++anzahl[1];
+                playerSprite.SetAnimation("WALK_LEFT");
+                playerSprite.Position += new Vector2(-playerSpeed, 0);
+            }
+            if ((anzahl[0] > 1) || (anzahl[1] > 1) || ((anzahl[0] == 0) && (anzahl[1] == 0)))
+            {
+                playerSprite.Position = currentPosition;
+                playerSprite.SetAnimation("IDLE");
+            }
+
+            playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
+
 
             playerSprite.Update(gameTime);
         }
