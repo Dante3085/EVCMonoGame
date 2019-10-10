@@ -13,24 +13,24 @@ using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src.screens
 {
-    class DebugScreen : GameScreen
+    public class DebugScreen2 : GameScreen
     {
         private Player player;
         private SpriteFont randomText;
         private Texture2D background;
 
-        public DebugScreen(ScreenManager screenManager)
+        public DebugScreen2(ScreenManager screenManager)
             : base(screenManager)
         {
-            player = new Player(screenManager.GetViewportCenter());
+            player = new Player(Vector2.Zero);
 
-            updateables.AddRange(new Updateable[] 
-            { 
+            updateables.AddRange(new Updateable[]
+            {
                 player,
             });
 
-            drawables.AddRange(new IDrawable[] 
-            { 
+            drawables.AddRange(new IDrawable[]
+            {
                 player,
             });
         }
@@ -39,7 +39,7 @@ namespace EVCMonoGame.src.screens
         {
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
-            background = content.Load<Texture2D>("rsrc/backgrounds/cyberpunk-street");
+            background = content.Load<Texture2D>("rsrc/backgrounds/background");
 
             base.LoadContent(content);
         }
@@ -48,7 +48,7 @@ namespace EVCMonoGame.src.screens
         {
             if (InputManager.OnKeyPressed(Keys.Space))
             {
-                screenManager.ScreenTransition(EGameScreen.DEBUG_2);
+                screenManager.ScreenTransition(EGameScreen.DEBUG);
             }
 
             base.Update(gameTime);

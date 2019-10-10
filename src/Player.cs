@@ -30,10 +30,9 @@ namespace EVCMonoGame.src
             get { return playerHealthbar; }
         }
 
-        public Player()
+        public Player(Vector2 position)
         {
-            playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground",
-                new Vector2(100, 100), 6.0f);
+            playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
             playerSprite.AddAnimation("IDLE", new Rectangle[]
@@ -76,11 +75,6 @@ namespace EVCMonoGame.src
         {
             playerSprite.LoadContent(content);
             playerHealthbar.LoadContent(content);
-        }
-
-        public void UnloadContent()
-        {
-
         }
 
         public override void Update(GameTime gameTime)

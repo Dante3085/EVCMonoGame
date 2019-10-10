@@ -47,6 +47,12 @@ namespace EVCMonoGame.src
             }
         }
 
+        public Easing.EasingFunction EasingFunction
+        {
+            get { return easingFunction; }
+            set { easingFunction = value; }
+        }
+
         public Easer(float from, float to, int durationInMillis, Easing.EasingFunction easingFunction)
         {
             elapsedMillis = 0;

@@ -11,6 +11,7 @@ using EVCMonoGame.src.screens;
 
 namespace EVCMonoGame.src.screens
 {
+
     public abstract class GameScreen
     {
         protected List<Updateable> updateables = new List<Updateable>();
@@ -47,7 +48,7 @@ namespace EVCMonoGame.src.screens
         }
 
         /// <summary>
-        /// Draws all IDrawables of this GameScreen.
+        /// Draws all IDrawables of this GameScreen. 
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="spriteBatch"></param>

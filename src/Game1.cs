@@ -58,7 +58,7 @@ namespace EVCMonoGame.src
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            screenManager = new ScreenManager(spriteBatch, Content, GraphicsDevice);
+            screenManager = new ScreenManager(this, spriteBatch, Content, GraphicsDevice);
             screenManager.LoadContent();
         }
 
