@@ -12,7 +12,7 @@ using EVCMonoGame.src.screens;
 
 namespace EVCMonoGame.src
 {
-    class AnimatedSprite : Updateable, IDrawable
+    public class AnimatedSprite : Updateable, IDrawable
     {
         struct Animation
         {
@@ -146,6 +146,12 @@ namespace EVCMonoGame.src
 
         public void SetAnimation(String name)
         {
+            // Do nothing if the given Animation is already set.
+            if (currentAnimation == name)
+            {
+                return;
+            }
+
             if (!animations.ContainsKey(name))
             {
                 throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
