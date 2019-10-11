@@ -7,9 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using EVCMonoGame.src.scenes;
+
 namespace EVCMonoGame.src
 {
-    class FpsCounter : IUpdateable, IDrawable
+    class FpsCounter : Updateable, scenes.IDrawable
     {
         private float fps;
         private SpriteFont font;
@@ -25,13 +27,13 @@ namespace EVCMonoGame.src
             this.color = color;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
             str = fps.ToString();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(font, str, position, color);
         }
@@ -39,11 +41,6 @@ namespace EVCMonoGame.src
         public void LoadContent(ContentManager content)
         {
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
-        }
-
-        public void UnloadContent()
-        {
-            // TODO: Was könnte hier hinkommen ?
         }
     }
 }

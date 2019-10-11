@@ -8,9 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using EVCMonoGame.src.scenes;
+
 namespace EVCMonoGame.src
 {
-    class AnimatedSprite : IUpdateable, IDrawable
+    public class AnimatedSprite : Updateable, scenes.IDrawable
     {
         struct Animation
         {
@@ -76,7 +78,7 @@ namespace EVCMonoGame.src
             this.scale = scale;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             elapsedSeconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -88,7 +90,7 @@ namespace EVCMonoGame.src
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, SpriteEffects.None, 1);
@@ -97,11 +99,6 @@ namespace EVCMonoGame.src
         public void LoadContent(ContentManager content)
         {
             spritesheet = content.Load<Texture2D>(spritesheetName);
-        }
-
-        public void UnloadContent()
-        {
-            // TODO
         }
 
         public void AddAnimation(String name, Rectangle[] frames, float frameDelay)
@@ -144,10 +141,16 @@ namespace EVCMonoGame.src
 
         public void SetAnimation(String name)
         {
+            // Do nothing if the given Animation is already set.
+            if (currentAnimation == name)
+            {
+                return;
+            }
+
             if (!animations.ContainsKey(name))
             {
                 throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
-                    "the given Animation.");
+                    " the given Animation.");
             }
             currentAnimation = name;
             elapsedSeconds = 0;
