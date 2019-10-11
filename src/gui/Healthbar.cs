@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 using C3.MonoGame;
 
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src.gui
 {
-    public class Healthbar : IDrawable
+    public class Healthbar : scenes.IDrawable
     {
         #region Fields
 

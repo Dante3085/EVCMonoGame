@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-using EVCMonoGame.src.screens;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src
 {
-    class FpsCounter : Updateable, IDrawable
+    class FpsCounter : Updateable, scenes.IDrawable
     {
         private float fps;
         private SpriteFont font;

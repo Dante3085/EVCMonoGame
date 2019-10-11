@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-using EVCMonoGame.src.screens;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src
 {

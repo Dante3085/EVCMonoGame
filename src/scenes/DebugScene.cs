@@ -11,18 +11,18 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.gui;
 
-namespace EVCMonoGame.src.screens
+namespace EVCMonoGame.src.scenes
 {
-    class DebugScreen : GameScreen
+    class DebugScene : Scene
     {
         private Player player;
         private SpriteFont randomText;
         private Texture2D background;
 
-        public DebugScreen(ScreenManager screenManager)
-            : base(screenManager)
+        public DebugScene(SceneManager sceneManager)
+            : base(sceneManager)
         {
-            player = new Player(screenManager.GetViewportCenter());
+            player = new Player(sceneManager.GetViewportCenter());
 
             updateables.AddRange(new Updateable[] 
             { 
@@ -48,7 +48,7 @@ namespace EVCMonoGame.src.screens
         {
             if (InputManager.OnKeyPressed(Keys.Space))
             {
-                screenManager.ScreenTransition(EGameScreen.DEBUG_2);
+                sceneManager.SceneTransition(EScene.DEBUG_2);
             }
 
             base.Update(gameTime);
@@ -58,7 +58,7 @@ namespace EVCMonoGame.src.screens
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            spriteBatch.Draw(background, screenManager.GraphicsDevice.Viewport.Bounds, Color.White);
+            spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);
 

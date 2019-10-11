@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src.screens
+namespace EVCMonoGame.src.scenes
 {
     public abstract class Updateable
     {

@@ -10,11 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.input;
-using EVCMonoGame.src.screens;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src
 {
-    public class Player : Updateable, IDrawable
+    public class Player : Updateable, scenes.IDrawable
     {
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;

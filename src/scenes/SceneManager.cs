@@ -1,16 +1,14 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src.screens
+namespace EVCMonoGame.src.scenes
 {
-    public enum EGameScreen
+    public enum EScene
     {
         MAIN_MENU,
         OPTIONS,
@@ -18,44 +16,43 @@ namespace EVCMonoGame.src.screens
         DEBUG_2,
     }
 
-    public class ScreenManager
+    public class SceneManager
     {
-        private Dictionary<EGameScreen, GameScreen> gameScreens;
-        private GameScreen currentScreen;
+        private Game game;
+        private SpriteBatch spriteBatch;
+        private Dictionary<EScene, Scene> scenes;
+        private Scene currentScene;
 
-        private GameScreen nextScreen;
-        private GameScreen previousScreen;
-        private Texture2D screenTransitionTexture;
+        // SceneTransition stuff
+        private Scene nextScene;
+        private Scene previousScene;
+        private Texture2D sceneTransitionTexture;
         private Easer easer;
         private bool transitioning;
         private bool reverseTransitionFinished;
 
-        private Game game;
-        private SpriteBatch spriteBatch;
-        private ContentManager content;
-        private GraphicsDevice graphicsDevice;
-
+        // Global Updateables/Drawables (They don't belong to a specific Scene)
         private FpsCounter fpsCounter;
 
+        // Alles was nicht an einzelnen Stellen(Methoden) übergeben werden kann,
+        // weil nicht klar ist wo es benötigt wird, wird über Properties bereitgestellt.
+        // Der Rest wird wie gesagt einfach bei Methodenaufrufen übergeben.
         public GraphicsDevice GraphicsDevice
         {
-            get { return graphicsDevice; }
+            get { return game.GraphicsDevice; }
         }
 
-        public ScreenManager(Game game, SpriteBatch spriteBatch, ContentManager content, GraphicsDevice graphicsDevice)
+        public SceneManager(Game game)
         {
             this.game = game;
-            this.spriteBatch = spriteBatch;
-            this.content = content;
-            this.graphicsDevice = graphicsDevice;
+            spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
-            gameScreens = new Dictionary<EGameScreen, GameScreen>();
-            gameScreens[EGameScreen.MAIN_MENU] = new MainMenuScreen(this);
-            gameScreens[EGameScreen.DEBUG] = new DebugScreen(this);
-            gameScreens[EGameScreen.DEBUG_2] = new DebugScreen2(this);
-            currentScreen = previousScreen = gameScreens[EGameScreen.MAIN_MENU];
+            scenes = new Dictionary<EScene, Scene>();
+            scenes[EScene.DEBUG] = new DebugScene(this);
+            scenes[EScene.DEBUG_2] = new DebugScreen2(this);
+            currentScene = previousScene = scenes[EScene.DEBUG];
 
-            nextScreen = null;
+            nextScene = null;
             easer = new Easer(0, 255, 1000, Easing.SineEaseIn);
             transitioning = false;
             reverseTransitionFinished = false;
@@ -65,19 +62,19 @@ namespace EVCMonoGame.src.screens
 
         public void LoadContent()
         {
-            screenTransitionTexture = content.Load<Texture2D>("rsrc/backgrounds/blank");
-            fpsCounter.LoadContent(content);
+            sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
+            fpsCounter.LoadContent(game.Content);
 
-            foreach (GameScreen g in gameScreens.Values)
+            foreach (Scene s in scenes.Values)
             {
-                g.LoadContent(content);
+                s.LoadContent(game.Content);
             }
         }
 
         public void Update(GameTime gameTime)
         {
             // GameScreen Updating
-            currentScreen.Update(gameTime);
+            currentScene.Update(gameTime);
 
             // Global Updating
             if (transitioning) { UpdateTransition(gameTime); }
@@ -87,7 +84,7 @@ namespace EVCMonoGame.src.screens
         public void Draw(GameTime gameTime)
         {
             // GameScreen Drawing
-            currentScreen.Draw(gameTime, spriteBatch);
+            currentScene.Draw(gameTime, spriteBatch);
 
             // Global Drawing
             spriteBatch.Begin();
@@ -98,21 +95,21 @@ namespace EVCMonoGame.src.screens
             spriteBatch.End();
         }
 
-        public void ScreenTransition(EGameScreen to)
+        public void SceneTransition(EScene to)
         {
-            if (!gameScreens.ContainsKey(to))
+            if (!scenes.ContainsKey(to))
             {
                 throw new ArgumentException(to + " is not known to the ScreenManager.");
             }
 
-            nextScreen = gameScreens[to];
+            nextScene = scenes[to];
             transitioning = true;
             easer.start();
         }
 
         public void TransitionToPreviousScreen()
         {
-            nextScreen = previousScreen;
+            nextScene = previousScene;
             transitioning = true;
             easer.start();
         }
@@ -130,8 +127,8 @@ namespace EVCMonoGame.src.screens
                 }
                 else
                 {
-                    previousScreen = currentScreen;
-                    currentScreen = nextScreen;
+                    previousScene = currentScene;
+                    currentScene = nextScene;
                     easer.reverse();
                     easer.start();
                     reverseTransitionFinished = true;
@@ -144,14 +141,15 @@ namespace EVCMonoGame.src.screens
         {
             // Achtung: Easer haben immer float Werte. Bei float denkt der Color Konstruktor allerdings
             // er bekommt einen Wert von 0.0 bis 1.0, also nach int casten.
-            spriteBatch.Draw(screenTransitionTexture, graphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
+            spriteBatch.Draw(sceneTransitionTexture, 
+                game.GraphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
         }
 
         public Vector2 GetViewportCenter()
         {
             Vector2 viewportCenter = Vector2.Zero;
-            viewportCenter.X += graphicsDevice.Viewport.Width * 0.5f;
-            viewportCenter.Y += graphicsDevice.Viewport.Height * 0.5f;
+            viewportCenter.X += game.GraphicsDevice.Viewport.Width * 0.5f;
+            viewportCenter.Y += game.GraphicsDevice.Viewport.Height * 0.5f;
             return viewportCenter;
         }
 

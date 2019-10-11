@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src
+namespace EVCMonoGame.src.scenes
 {
     public interface IDrawable
     {

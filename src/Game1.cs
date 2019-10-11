@@ -8,9 +8,7 @@ using C3.MonoGame;
 using System;
 
 // usings mit eigenem Code
-using EVCMonoGame.src.input;
-using EVCMonoGame.src.gui;
-using EVCMonoGame.src.screens;
+using EVCMonoGame.src.states;
 
 // TODO: Castlevania CurseOfDarkness Menü musik
 
@@ -22,81 +20,59 @@ namespace EVCMonoGame.src
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        private StateManager stateManager;
 
-        private ScreenManager screenManager;
+        // By preloading any assets used by UI rendering, we avoid framerate glitches
+        // when they suddenly need to be loaded in the middle of a menu transition.
+        private static readonly string[] preloadAssets =
+        {
+            "rsrc/backgrounds/gradient",
+        };
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
 
-            // Fenstergröße auf 1920 x 1080
+            graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
 
-            Content.RootDirectory = "Content";
+            // Create the screen manager component.
+            stateManager = new StateManager(this);
+
+            Components.Add(stateManager);
+
+            // Activate the first screens.
+            stateManager.AddState(new BackgroundState(), null);
+            stateManager.AddState(new MainMenuState(), null);
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        protected override void Initialize()
-        {
-            IsMouseVisible = true;
-            base.Initialize();
-        }
-
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            screenManager = new ScreenManager(this, spriteBatch, Content, GraphicsDevice);
-            screenManager.LoadContent();
+            foreach (string asset in preloadAssets)
+            {
+                Content.Load<object>(asset);
+            }
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-        }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            InputManager.UpdateInputStates();
-
-            screenManager.Update(gameTime);
-
-            if (InputManager.OnKeyPressed(Keys.Escape)) { base.Exit(); }
-
-            base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.Black);
 
-            screenManager.Draw(gameTime);
-
+            // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
+        }
+    }
+
+    internal static class Program
+    {
+        private static void Main()
+        {
+            using (Game1 game = new Game1())
+            {
+                game.Run();
+            }
         }
     }
 }

@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using EVCMonoGame.src.screens;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src
 {
-    public class AnimatedSprite : Updateable, IDrawable
+    public class AnimatedSprite : Updateable, scenes.IDrawable
     {
         struct Animation
         {
