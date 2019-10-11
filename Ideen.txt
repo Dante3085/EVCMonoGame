@@ -1,2 +1,4 @@
 1. Overlay Klasse die zwei Screens nimmt gleichzeitig Updated und Übereinander legt.
 2. Castlevania "CurseOfDarkness" Menü-Musik
+3. Spriteanimation aufgrund von Bewegungs-/Richtungsvektor auswählen.
+4. Dash: Bei initialem Tastendruck für festgelegte Zeit schnellere Bewegungsgeschwindigkeit in Richtung des Richtungsvektors. MotionBlur
