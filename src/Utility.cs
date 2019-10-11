@@ -24,9 +24,9 @@ namespace EvcMonogame.src
 
         public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angelInDegree){
             Vector2 rotatedVector = new Vector2(0,0);
-            float r = Math.Sqrt((originalVector.X^2)+(originalVector.Y^2));
-            float phi = Math.Atan2(originalVector.Y, originalVector.X);
-            float rotationScale = Math.PI*(1/(180/angelInDegree));
+            float r = (float)Math.Sqrt(Math.Pow(originalVector.X,2)+Math.Pow(originalVector.Y,2));
+            float phi = (float)Math.Atan2(originalVector.Y, originalVector.X);
+            float rotationScale = (float)Math.PI*(1/(180/angelInDegree));
             rotatedVector.X = (float)(r * Math.Cos(phi+rotationScale));
             rotatedVector.Y = (float)(r * Math.Sin(phi+rotationScale));
             return rotatedVector;
