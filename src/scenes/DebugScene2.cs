@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.scenes
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(Vector2.Zero);
+            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 
             updateables.AddRange(new Updateable[]
             {

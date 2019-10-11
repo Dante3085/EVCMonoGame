@@ -9,10 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
-    public class AnimatedSprite : Updateable, scenes.IDrawable
+    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable
     {
         struct Animation
         {
@@ -36,6 +37,7 @@ namespace EVCMonoGame.src
         private float elapsedSeconds;
 
         private Vector2 position;
+        private Vector2 previousPosition;
         private float scale;
 
         #endregion
@@ -60,8 +62,14 @@ namespace EVCMonoGame.src
             get { return position; }
             set 
             {
+                previousPosition = position;
                 position = value; 
             }
+        }
+
+        public Vector2 PreviousPosition
+        {
+            get { return previousPosition; }
         }
 
         #endregion
@@ -75,6 +83,7 @@ namespace EVCMonoGame.src
             elapsedSeconds = 0;
 
             this.position = position;
+            previousPosition = position;
             this.scale = scale;
         }
 

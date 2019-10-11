@@ -9,29 +9,50 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
-using EVCMonoGame.src.gui;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.scenes
 {
     class DebugScene : Scene
     {
         private Player player;
+        private Player player2;
+        private Player player3;
         private SpriteFont randomText;
         private Texture2D background;
+
+        private CollisionManager collisionManager;
 
         public DebugScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(sceneManager.GetViewportCenter());
+            player = new Player(sceneManager.GetViewportCenter(), 
+                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+
+            player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
+            player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
+
+            collisionManager = new CollisionManager();
+            collisionManager.AddCollidables(new GeometryCollidable[]
+            {
+                player.Sprite,
+                player2.Sprite,
+                player3.Sprite,
+            });
 
             updateables.AddRange(new Updateable[] 
             { 
                 player,
+                player2,
+                player3,
+                collisionManager,
             });
 
             drawables.AddRange(new IDrawable[] 
             { 
                 player,
+                player2,
+                player3,
             });
         }
 

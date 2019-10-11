@@ -53,7 +53,7 @@ namespace EVCMonoGame.src.scenes
             currentScene = previousScene = scenes[EScene.DEBUG];
 
             nextScene = null;
-            easer = new Easer(0, 255, 1000, Easing.SineEaseIn);
+            easer = new Easer(0, 255, 500, Easing.SineEaseIn);
             transitioning = false;
             reverseTransitionFinished = false;
 

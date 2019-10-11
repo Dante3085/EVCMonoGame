@@ -30,7 +30,9 @@ namespace EVCMonoGame.src
             get { return playerHealthbar; }
         }
 
-        public Player(Vector2 position)
+        private Keys[] controls;
+
+        public Player(Vector2 position, Keys[] controls)
         {
             playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
@@ -61,8 +63,14 @@ namespace EVCMonoGame.src
             }, 0.15f);
             playerSprite.SetAnimation("IDLE");
 
-            playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(200, 30));
+            playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(100, 10));
             playerSpeed = 8;
+
+            if (controls.Length != 4)
+            {
+                throw new ArgumentException("Nur 4 Bewegungstasten");
+            }
+            this.controls = controls;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -84,26 +92,26 @@ namespace EVCMonoGame.src
             int[] anzahl = { 0, 0 };
 
             Vector2 currentPosition = playerSprite.Position;
-            
-            if (InputManager.IsKeyPressed(Keys.Up))
+
+            if (InputManager.IsKeyPressed(controls[0]))
             {
                 ++anzahl[0];
                 playerSprite.SetAnimation("WALK_UP");
                 playerSprite.Position += new Vector2(0, -playerSpeed);
             }
-            if (InputManager.IsKeyPressed(Keys.Down))
+            if (InputManager.IsKeyPressed(controls[1]))
             {
                 ++anzahl[0];
                 playerSprite.SetAnimation("WALK_DOWN");
                 playerSprite.Position += new Vector2(0, playerSpeed);
             }
-            if (InputManager.IsKeyPressed(Keys.Right))
+            if (InputManager.IsKeyPressed(controls[2]))
             {
                 ++anzahl[1];
                 playerSprite.SetAnimation("WALK_RIGHT");
                 playerSprite.Position += new Vector2(playerSpeed, 0);
             }
-            if (InputManager.IsKeyPressed(Keys.Left))
+            if (InputManager.IsKeyPressed(controls[3]))
             {
                 ++anzahl[1];
                 playerSprite.SetAnimation("WALK_LEFT");
