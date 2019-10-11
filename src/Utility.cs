@@ -22,14 +22,23 @@ namespace EvcMonogame.src
             return scaledVector;
         }
 
-        public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angelInDegree){
-            Vector2 rotatedVector = new Vector2(0,0);
-            float r = (float)Math.Sqrt(Math.Pow(originalVector.X,2)+Math.Pow(originalVector.Y,2));
+        public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angelInDegree)
+        {
+            Vector2 rotatedVector = new Vector2(0, 0);
+            float r = (float)Math.Sqrt(Math.Pow(originalVector.X, 2) + Math.Pow(originalVector.Y, 2));
             float phi = (float)Math.Atan2(originalVector.Y, originalVector.X);
-            float rotationScale = (float)Math.PI*(1/(180/angelInDegree));
-            rotatedVector.X = (float)(r * Math.Cos(phi+rotationScale));
-            rotatedVector.Y = (float)(r * Math.Sin(phi+rotationScale));
+            float rotationScale = (float)Math.PI * (1 / (180 / angelInDegree));
+            rotatedVector.X = (float)(r * Math.Cos(phi + rotationScale));
+            rotatedVector.Y = (float)(r * Math.Sin(phi + rotationScale));
             return rotatedVector;
         }
+
+        public static float getAngelOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
+        {   
+            float phi = (float)(180*(1/(Math.PI/Math.Atan2(originalVector.Y, originalVector.X))));
+            return 0;
+        }
+
+
     }
 }
