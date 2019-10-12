@@ -20,6 +20,7 @@ namespace EVCMonoGame.src.scenes
         private Player player3;
         private SpriteFont randomText;
         private Texture2D background;
+        private GeometryBox geometryBox;
 
         private CollisionManager collisionManager;
 
@@ -31,13 +32,15 @@ namespace EVCMonoGame.src.scenes
 
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
             player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
+            geometryBox = new GeometryBox(new Rectangle(500, 400, 50, 1000));
 
             collisionManager = new CollisionManager();
-            collisionManager.AddCollidables(new GeometryCollidable[]
+            collisionManager.AddCollidables(new Collidable[]
             {
                 player.Sprite,
                 player2.Sprite,
                 player3.Sprite,
+                geometryBox,
             });
 
             updateables.AddRange(new Updateable[] 
@@ -53,6 +56,7 @@ namespace EVCMonoGame.src.scenes
                 player,
                 player2,
                 player3,
+                collisionManager,
             });
         }
 

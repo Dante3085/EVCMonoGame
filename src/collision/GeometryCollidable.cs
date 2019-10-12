@@ -9,7 +9,6 @@ namespace EVCMonoGame.src.collision
 {
     public interface GeometryCollidable : Collidable
     {
-        Rectangle Bounds { get; }
         Vector2 Position { get; set; }
         Vector2 PreviousPosition { get; }
     }

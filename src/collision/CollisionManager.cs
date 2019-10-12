@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using C3.MonoGame;
 
 using EVCMonoGame.src.scenes;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.collision
 {
-    public class CollisionManager : Updateable
+    public class CollisionManager : Updateable, scenes.IDrawable
     {
+        private List<Collidable> collidables;
         private List<GeometryCollidable> geometryCollidables;
 
-        public bool DrawBoundingBoxes { get; set; }
+        public bool DrawBoundingBoxes { get; set; } = true;
 
         public CollisionManager()
         {
+            collidables = new List<Collidable>();
             geometryCollidables = new List<GeometryCollidable>();
         }
 
@@ -25,12 +30,32 @@ namespace EVCMonoGame.src.collision
             CheckGeometryCollisions();
         }
 
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (!DrawBoundingBoxes)
+                return;
+
+            foreach (Collidable c in collidables)
+            {
+                Primitives2D.DrawRectangle(spriteBatch, c.Bounds, Color.BlanchedAlmond);
+            }
+        }
+
+        public void LoadContent(ContentManager content)
+        {
+            
+        }
+
         public void AddCollidables(params Collidable[] collidables)
         {
             foreach (Collidable c in collidables)
             {
+                this.collidables.Add(c);
+
                 if (c is GeometryCollidable)
+                {
                     geometryCollidables.Add((GeometryCollidable)c);
+                }
             }
         }
 

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
+using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -77,6 +80,7 @@ namespace EVCMonoGame.src.scenes
             currentScene.Update(gameTime);
 
             // Global Updating
+            // if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
             if (transitioning) { UpdateTransition(gameTime); }
             fpsCounter.Update(gameTime);
         }

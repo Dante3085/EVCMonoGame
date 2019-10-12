@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
-using EVCMonoGame.src.gui;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -18,19 +18,31 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private SpriteFont randomText;
         private Texture2D background;
+        private CollisionManager collisionManager;
+        private GeometryBox geometryBox;
 
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+            geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
+
+            collisionManager = new CollisionManager();
+            collisionManager.AddCollidables(new Collidable[]
+            {
+                geometryBox,
+                player.Sprite,
+            });
 
             updateables.AddRange(new Updateable[]
             {
                 player,
+                collisionManager,
             });
 
             drawables.AddRange(new IDrawable[]
             {
+                collisionManager,
                 player,
             });
         }
