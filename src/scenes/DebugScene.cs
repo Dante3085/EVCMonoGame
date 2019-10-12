@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.scenes
         private SpriteFont randomText;
         private Texture2D background;
         private GeometryBox geometryBox;
+        private Tilemap tilemap;
 
         private CollisionManager collisionManager;
 
@@ -32,7 +33,8 @@ namespace EVCMonoGame.src.scenes
 
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
             player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
-            geometryBox = new GeometryBox(new Rectangle(500, 400, 50, 1000));
+            geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
+            tilemap = new Tilemap("tilemaps/Level1.txt", Vector2.Zero);
 
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
@@ -53,6 +55,7 @@ namespace EVCMonoGame.src.scenes
 
             drawables.AddRange(new IDrawable[] 
             { 
+                tilemap,
                 player,
                 player2,
                 player3,
@@ -83,7 +86,7 @@ namespace EVCMonoGame.src.scenes
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
+            // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);
 

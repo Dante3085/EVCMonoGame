@@ -50,17 +50,17 @@ namespace EVCMonoGame.src.scenes
             this.game = game;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
-            scenes = new Dictionary<EScene, Scene>();
-            scenes[EScene.DEBUG] = new DebugScene(this);
-            scenes[EScene.DEBUG_2] = new DebugScreen2(this);
-            currentScene = previousScene = scenes[EScene.DEBUG];
-
             nextScene = null;
             easer = new Easer(0, 255, 500, Easing.SineEaseIn);
             transitioning = false;
             reverseTransitionFinished = false;
 
             fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
+
+            scenes = new Dictionary<EScene, Scene>();
+            scenes[EScene.DEBUG] = new DebugScene(this);
+            scenes[EScene.DEBUG_2] = new DebugScreen2(this);
+            currentScene = previousScene = scenes[EScene.DEBUG];
         }
 
         public void LoadContent()

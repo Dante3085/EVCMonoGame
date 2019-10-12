@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace EvcMonogame.src
+namespace EVCMonoGame.src
 {
     public static class Utility
     {
