@@ -18,9 +18,9 @@ namespace EVCMonoGame.src
         struct Animation
         {
             public Rectangle[] frames;
-            public float frameDelay;
+            public int frameDelay;
 
-            public Animation(Rectangle[] frames, float frameDelay)
+            public Animation(Rectangle[] frames, int frameDelay)
             {
                 this.frames = frames;
                 this.frameDelay = frameDelay;
@@ -34,7 +34,7 @@ namespace EVCMonoGame.src
         private Dictionary<String, Animation> animations;
         private String currentAnimation;
         private int frameIndex;
-        private float elapsedSeconds;
+        private int elapsedMillis;
 
         private Vector2 position;
         private Vector2 previousPosition;
@@ -80,7 +80,19 @@ namespace EVCMonoGame.src
             animations = new Dictionary<string, Animation>();
             currentAnimation = "NONE";
             frameIndex = 0;
-            elapsedSeconds = 0;
+            elapsedMillis = 0;
+
+            this.position = position;
+            previousPosition = position;
+            this.scale = scale;
+        }
+
+        public AnimatedSprite(Vector2 position, float scale = 1.0f)
+        {
+            animations = new Dictionary<string, Animation>();
+            currentAnimation = "NONE";
+            frameIndex = 0;
+            elapsedMillis = 0;
 
             this.position = position;
             previousPosition = position;
@@ -89,12 +101,12 @@ namespace EVCMonoGame.src
 
         public override void Update(GameTime gameTime)
         {
-            elapsedSeconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             Animation animation = animations[currentAnimation];
-            if (elapsedSeconds >= animation.frameDelay)
+            if (elapsedMillis >= animation.frameDelay)
             {
-                elapsedSeconds = 0;
+                elapsedMillis = 0;
                 frameIndex = (frameIndex + 1) == animation.frames.Length ? 0 : ++frameIndex;
             }
         }
@@ -110,7 +122,7 @@ namespace EVCMonoGame.src
             spritesheet = content.Load<Texture2D>(spritesheetName);
         }
 
-        public void AddAnimation(String name, Rectangle[] frames, float frameDelay)
+        public void AddAnimation(String name, Rectangle[] frames, int frameDelay)
         {
             animations[name] = new Animation(frames, frameDelay);
             currentAnimation = name;
@@ -127,7 +139,7 @@ namespace EVCMonoGame.src
         /// <param name="firstFramePosition">x=column, y=row</param>
         /// <param name="numFrames"></param>
         /// <param name="frameDelay"></param>
-        public void AddAnimation(String name, int frameWidth, int frameHeight, int xColumn, int yRow, int numFrames, float frameDelay)
+        public void AddAnimation(String name, int frameWidth, int frameHeight, int xColumn, int yRow, int numFrames, int frameDelay)
         {
             Rectangle[] frames = new Rectangle[numFrames];
 
@@ -162,8 +174,95 @@ namespace EVCMonoGame.src
                     " the given Animation.");
             }
             currentAnimation = name;
-            elapsedSeconds = 0;
+            elapsedMillis = 0;
             frameIndex = 0;
+        }
+
+        public void LoadFromFile(String configFilePath)
+        {
+            System.IO.StreamReader file = new System.IO.StreamReader(configFilePath);
+
+            string line;
+            while((line = file.ReadLine()) != null)
+            {
+                // Include char '=' to avoid confusion with other keywords that have
+                // this keyword as a substring.
+                if (line.Contains("SPRITESHEET="))
+                {
+                    spritesheetName = line.Substring(12, line.Length - 12);
+                }
+                else if (line.Contains("ANIMATION="))
+                {
+                    line = Utility.ReplaceWhitespace(line, "");
+
+                    String animName = "";
+                    String frameDelayMillis = "";
+                    List<Rectangle> frames = new List<Rectangle>();
+
+                    bool readAnimName = false;
+                    bool readFrameDelay = false;
+                    bool readFrame = false;
+
+                    for (int i = 0; i < line.Length; ++i)
+                    {
+                        // Check for start of Animation name.
+                        if (line[i] == '=') 
+                        { 
+                            readAnimName = true;
+                            continue;
+                        }
+
+                        if (readAnimName)
+                        {
+                            // Check if Animation name has been completely read.
+                            if (line[i] == ',')
+                            {
+                                readAnimName = false;
+                                readFrameDelay = true;
+                                continue;
+                            }
+                            animName += line[i];
+                        }
+                        else if (readFrameDelay)
+                        {
+                            // Check if Frame Delay has been completely read.
+                            if (line[i] == ',')
+                            {
+                                readFrameDelay = false;
+                                readFrame = true;
+                                continue;
+                            }
+                            frameDelayMillis += line[i];
+                        }
+                        else if (readFrame)
+                        {
+                            int indexClosingBracket = line.IndexOf(')', i);
+
+                            String frameString = line.Substring(i, indexClosingBracket - (i - 1));
+                            frames.Add(ReadFrame(frameString));
+                            i = indexClosingBracket + 1;
+
+                        }
+                    }
+                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis));
+                }
+            }
+        }
+
+        private Rectangle ReadFrame(String str)
+        {
+            Rectangle frame = new Rectangle();
+
+            int indexFirstComma = str.IndexOf(',');
+            int indexSecondComma = str.IndexOf(',', indexFirstComma + 1);
+            int indexThirdComma = str.IndexOf(',', indexSecondComma + 1);
+
+            frame.X      = int.Parse(str.Substring(1, indexFirstComma - 1));
+            frame.Y      = int.Parse(str.Substring(indexFirstComma  + 1,      (indexSecondComma - 1)  - indexFirstComma));
+            frame.Width  = int.Parse(str.Substring(indexSecondComma + 1,      (indexThirdComma  - 1)  - indexSecondComma));
+            frame.Height = int.Parse(str.Substring(indexThirdComma  + 1, str.Length - (indexThirdComma + 2)));
+
+            return frame;
         }
     }
 }

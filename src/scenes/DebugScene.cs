@@ -34,7 +34,7 @@ namespace EVCMonoGame.src.scenes
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
             player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
             geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
-            tilemap = new Tilemap("tilemaps/Level1.txt", Vector2.Zero);
+            tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
@@ -42,7 +42,7 @@ namespace EVCMonoGame.src.scenes
                 player.Sprite,
                 player2.Sprite,
                 player3.Sprite,
-                geometryBox,
+                // geometryBox,
             });
 
             updateables.AddRange(new Updateable[] 
@@ -59,7 +59,7 @@ namespace EVCMonoGame.src.scenes
                 player,
                 player2,
                 player3,
-                collisionManager,
+                // collisionManager,
             });
         }
 
@@ -67,7 +67,7 @@ namespace EVCMonoGame.src.scenes
         {
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
-            background = content.Load<Texture2D>("rsrc/backgrounds/cyberpunk-street");
+            background = content.Load<Texture2D>("rsrc/backgrounds/map1");
 
             base.LoadContent(content);
         }
