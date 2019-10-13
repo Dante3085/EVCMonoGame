@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,21 @@ namespace EVCMonoGame.src
 {
     public static class Utility
     {
+        // RegularExpression for ReplaceWhitespace()
+        private static readonly Regex sWhitespace = new Regex(@"\s+");
+
+        /// <summary>
+        /// Returns a new string which is equal to input except that all occurences of whitespace
+        /// are replaced with replacement.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="replacement"></param>
+        /// <returns></returns>
+        public static string ReplaceWhitespace(string input, string replacement)
+        {
+            return sWhitespace.Replace(input, replacement);
+        }
+
         public static Vector2 scaleVectorTo(Vector2 originalVector, float toVectorLength)
         {
             Vector2 scaledVector = new Vector2(0, 0);

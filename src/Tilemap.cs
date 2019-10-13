@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using EVCMonoGame.src.scenes;
 using Microsoft.Xna.Framework.Content;
 
 namespace EVCMonoGame.src
@@ -23,28 +21,25 @@ namespace EVCMonoGame.src
         private List<List<char>> tilemap;
         private Rectangle tileScreenBounds;
 
-        // RegularExpression for removing Whitespace from lines of Tilemap txt file.
-        private static readonly Regex sWhitespace = new Regex(@"\s+");
-
-        public Tilemap(String tilemapFile, Vector2 position)
+        public Tilemap(String configFilePath, Vector2 position)
         {
             this.position = position;
             charToTextureBounds = new Dictionary<char, Rectangle>();
             tilemap = new List<List<char>>();
             tileScreenBounds = new Rectangle();
 
-            readFromFile(tilemapFile);
+            LoadFromFile(configFilePath);
         }
 
-        private void readFromFile(String tilemapFile)
+        private void LoadFromFile(String configFilePath)
         {
+            System.IO.StreamReader file = new System.IO.StreamReader(configFilePath);
+
             string line;
-
-            // Read the file and display it line by line.  
-            System.IO.StreamReader file = new System.IO.StreamReader(tilemapFile);
-
             while ((line = file.ReadLine()) != null)
             {
+                // Include char '=' to avoid confusion with other keywords that have
+                // this keyword as a substring.
                 if (line.Contains("TILE_MAP_IMAGE="))
                 {
                     tilemapImagePath = line.Substring(15, line.Length - 15);
@@ -52,7 +47,7 @@ namespace EVCMonoGame.src
                 else if (line.Contains("TILE_SIZE="))
                 {
                     // Remove all Whitespace.
-                    line = ReplaceWhitespace(line, "");
+                    line = Utility.ReplaceWhitespace(line, "");
 
                     int indexComma = line.IndexOf(',');
 
@@ -65,7 +60,7 @@ namespace EVCMonoGame.src
                 else if (line.Contains("TILE="))
                 {
                     // Remove all Whitespace.
-                    line = ReplaceWhitespace(line, "");
+                    line = Utility.ReplaceWhitespace(line, "");
 
                     int indexFirstComma  = line.IndexOf(',');
                     int indexSecondComma = line.IndexOf(',', indexFirstComma + 1);
@@ -93,7 +88,7 @@ namespace EVCMonoGame.src
                         {
                             if (!charToTextureBounds.ContainsKey(c))
                             {
-                                throw new ArgumentException("In tilemap file '" + tilemapFile + "' char '" + c +
+                                throw new ArgumentException("In tilemap file '" + configFilePath + "' char '" + c +
                                                             "' was used in segment TILE_MAP_DEFINITION to place a Tile," +
                                                             " but it was not registered in a TILE segment.");
                             }
@@ -109,11 +104,6 @@ namespace EVCMonoGame.src
                 }
             }
             file.Close();
-        }
-        
-        public static string ReplaceWhitespace(string input, string replacement) 
-        { 
-            return sWhitespace.Replace(input, replacement); 
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
