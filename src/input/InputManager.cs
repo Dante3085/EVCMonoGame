@@ -1,8 +1,8 @@
 ﻿
-using Microsoft.Xna.Framework.Input;
-
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.input
 {
@@ -16,6 +16,9 @@ namespace EVCMonoGame.src.input
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;
 
+        private static GamePadState currentGamePadState;
+        private static GamePadState previousGamePadState;
+
         // private static Dictionary<int, bool> keyCombinations;
 
         /// <summary>
@@ -25,6 +28,9 @@ namespace EVCMonoGame.src.input
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
+
+            previousGamePadState = currentGamePadState;
+            currentGamePadState = GamePad.GetState(PlayerIndex.One);
         }
 
         /// <summary>
@@ -36,7 +42,8 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyPressed(Keys key)
         {
-            return !previousKeyboardState.IsKeyDown(key) && currentKeyboardState.IsKeyDown(key);
+            return !previousKeyboardState.IsKeyDown(key) && 
+                    currentKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -48,7 +55,8 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyReleased(Keys key)
         {
-            return previousKeyboardState.IsKeyDown(key) && !currentKeyboardState.IsKeyDown(key);
+            return previousKeyboardState.IsKeyDown(key) && 
+                  !currentKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -115,6 +123,52 @@ namespace EVCMonoGame.src.input
             foreach (Keys k in keys)
             {
                 if (IsKeyPressed(k))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool OnButtonPressed(Buttons button)
+        {
+            return !previousGamePadState.IsButtonDown(button) && 
+                    currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool OnButtonReleased(Buttons button)
+        {
+            return previousGamePadState.IsButtonDown(button) &&
+                  !currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool IsButtonPressed(Buttons button)
+        {
+            return currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool WasButtonPressed(Buttons button)
+        {
+            return previousGamePadState.IsButtonDown(button);
+        }
+
+        public static bool OnAnyButtonPressed(params Buttons[] buttons)
+        {
+            foreach (Buttons b in buttons)
+            {
+                if (OnButtonPressed(b))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsAnyButtonPressed(params Buttons[] buttons)
+        {
+            foreach (Buttons b in buttons)
+            {
+                if (IsButtonPressed(b))
                 {
                     return true;
                 }
