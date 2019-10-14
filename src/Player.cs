@@ -19,6 +19,7 @@ namespace EVCMonoGame.src
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
         private float playerSpeed;
+        private Boolean controlViaKeyboard = true; //if false then Gamepad controles Player 
 
         public AnimatedSprite Sprite
         {
@@ -95,7 +96,53 @@ namespace EVCMonoGame.src
             int[] anzahl = { 0, 0 };
 
             Vector2 currentPosition = playerSprite.Position;
+            Vector2 directionVector = new Vector2(0, 0);
+            Vector2 movementVector = new Vector2(0, 0);
+            switch (controlViaKeyboard)
+            {
+                case true:
+                    if (InputManager.IsKeyPressed(controls[0])) directionVector.Y -= 100; //up
+                    if (InputManager.IsKeyPressed(controls[2])) directionVector.X += 100; //right
+                    if (InputManager.IsKeyPressed(controls[1])) directionVector.Y += 100; //down
+                    if (InputManager.IsKeyPressed(controls[3])) directionVector.X -= 100; //left
+                    movementVector = Utility.scaleVectorTo(directionVector, playerSpeed);
+                    break;
+                case false:
+                    directionVector.X = GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X;
+                    directionVector.Y = (-1) * (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y);
+                    movementVector = directionVector * playerSpeed;
+                    break;
+            }
 
+            playerSprite.Position += movementVector;
+            float mvAngel = Utility.getAngelOfVectorInDegrees(movementVector);
+            if (((mvAngel >= 0) && (mvAngel <= 45)) || ((mvAngel > 315) && (mvAngel <= 360)))
+            {
+                playerSprite.SetAnimation("WALK_RIGHT");
+            }
+            if ((mvAngel > 45) && (mvAngel <= 135))
+            {
+                playerSprite.SetAnimation("WALK_UP");
+            }
+            if ((mvAngel > 135) && (mvAngel <= 225))
+            {
+                playerSprite.SetAnimation("WALK_LEFT");
+            }
+            if ((mvAngel > 225) && (mvAngel <= 315))
+            {
+                playerSprite.SetAnimation("WALK_DOWN");
+            }
+            if ((movementVector.X == 0) && (movementVector.Y == 0))
+            {
+                playerSprite.SetAnimation("IDLE");
+            }
+            /*if (InputManager.IsKeyPressed(controls[0])) directionVector.Y -= 100; //up
+            if (InputManager.IsKeyPressed(controls[2])) directionVector.X += 100; //right
+            if (InputManager.IsKeyPressed(controls[1])) directionVector.Y += 100; //down
+            if (InputManager.IsKeyPressed(controls[3])) directionVector.X -= 100; //left
+            Vector2 movementVector = Utility.scaleVectorTo(directionVector, playerSpeed);*/
+
+            /*
             if (InputManager.IsKeyPressed(controls[0]))
             {
                 ++anzahl[0];
@@ -125,6 +172,7 @@ namespace EVCMonoGame.src
                 playerSprite.Position = currentPosition;
                 playerSprite.SetAnimation("IDLE");
             }
+            */
 
             playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
 
