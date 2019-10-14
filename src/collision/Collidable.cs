@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src
+
+namespace EVCMonoGame.src.collision
 {
-    public interface IUpdateable
+    public interface Collidable
     {
-        void Update(GameTime gameTime);
+        Rectangle Bounds { get; }
     }
 }
