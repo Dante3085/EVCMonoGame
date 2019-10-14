@@ -17,13 +17,30 @@ namespace EVCMonoGame.src
     {
         struct Animation
         {
-            public Rectangle[] frames;
-            public int frameDelay;
+            // public Rectangle[] frames;
+            // public int frameDelay;
+            // public bool mirrored;
 
-            public Animation(Rectangle[] frames, int frameDelay)
+            public Rectangle[] Frames
             {
-                this.frames = frames;
-                this.frameDelay = frameDelay;
+                get; set;
+            }
+
+            public int FrameDelay
+            {
+                get; set;
+            }
+
+            public bool Mirrored
+            {
+                get; set;
+            }
+
+            public Animation(Rectangle[] frames, int frameDelay, bool mirrored = false)
+            {
+                Frames = frames;
+                FrameDelay = frameDelay;
+                Mirrored = mirrored;
             }
         }
 
@@ -40,6 +57,8 @@ namespace EVCMonoGame.src
         private Vector2 previousPosition;
         private float scale;
 
+        private SpriteFont debugFont;
+
         #endregion
         #region Properties
 
@@ -49,7 +68,7 @@ namespace EVCMonoGame.src
             {
                 Rectangle bounds = new Rectangle();
                 bounds.Location = position.ToPoint();
-                bounds.Size = animations[currentAnimation].frames[frameIndex].Size;
+                bounds.Size = animations[currentAnimation].Frames[frameIndex].Size;
                 bounds.Width *= (int)scale;
                 bounds.Height *= (int)scale;
 
@@ -104,27 +123,33 @@ namespace EVCMonoGame.src
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             Animation animation = animations[currentAnimation];
-            if (elapsedMillis >= animation.frameDelay)
+            if (elapsedMillis >= animation.FrameDelay)
             {
                 elapsedMillis = 0;
-                frameIndex = (frameIndex + 1) == animation.frames.Length ? 0 : ++frameIndex;
+                frameIndex = (frameIndex + 1) == animation.Frames.Length ? 0 : ++frameIndex;
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
-                0, Vector2.Zero, scale, SpriteEffects.None, 1);
+            Animation currentAnim = animations[currentAnimation];
+
+            spriteBatch.Draw(spritesheet, position, currentAnim.Frames[frameIndex], Color.White,
+                0, Vector2.Zero, scale, currentAnim.Mirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
+
+            // spriteBatch.DrawString(debugFont, "frame: " + frameIndex, position, Color.White);
+            spriteBatch.DrawString(debugFont, "elapsed: " + elapsedMillis, position, Color.White);
         }
 
         public void LoadContent(ContentManager content)
         {
             spritesheet = content.Load<Texture2D>(spritesheetName);
+            debugFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
 
-        public void AddAnimation(String name, Rectangle[] frames, int frameDelay)
+        public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false)
         {
-            animations[name] = new Animation(frames, frameDelay);
+            animations[name] = new Animation(frames, frameDelay, mirrored);
             currentAnimation = name;
         }
 
@@ -160,7 +185,7 @@ namespace EVCMonoGame.src
             AddAnimation(name, frames, frameDelay);
         }
 
-        public void SetAnimation(String name)
+        public void SetAnimation(String name, bool mirrored = false)
         {
             // Do nothing if the given Animation is already set.
             if (currentAnimation == name)
@@ -174,6 +199,9 @@ namespace EVCMonoGame.src
                     " the given Animation.");
             }
             currentAnimation = name;
+            Animation currentAnim = animations[currentAnimation];
+            currentAnim.Mirrored = mirrored;
+            animations[currentAnimation] = currentAnim;
             elapsedMillis = 0;
             frameIndex = 0;
         }
@@ -247,6 +275,7 @@ namespace EVCMonoGame.src
                     AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis));
                 }
             }
+            file.Close();
         }
 
         private Rectangle ReadFrame(String str)
