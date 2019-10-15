@@ -1,0 +1,15 @@
+TILE_MAP_IMAGE=rsrc/tilesets/tileset-sliced
+TILE_SIZE=128,128
+TILE=a,32,288,32,32
+TILE=b,80,288,48,32
+TILE=c,144,288,32,32
+TILE=d,16,336,48,64
+TILE=e,80,336,48,64
+TILE_MAP_DEFINITION
+abbbbbbbbbbbc
+deeeeeeeeeee
+d
+deeeeeeeee
+daaaaaaaaaaaaaaaaaaaaa
+a
+a
