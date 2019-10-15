@@ -22,6 +22,7 @@ namespace EVCMonoGame.src.scenes
         private Texture2D background;
         private GeometryBox geometryBox;
         private Tilemap tilemap;
+        private DebugTexts debugTexts;
 
         private CollisionManager collisionManager;
 
@@ -35,6 +36,10 @@ namespace EVCMonoGame.src.scenes
             player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
             geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
+            debugTexts = new DebugTexts(new Vector2(100, 100));
+
+            debugTexts.Entries.Add("PlayerPos: ");
+            debugTexts.Entries.Add("PlayerBounds: ");
 
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
@@ -59,6 +64,7 @@ namespace EVCMonoGame.src.scenes
                 player,
                 player2,
                 player3,
+                debugTexts,
                 // collisionManager,
             });
         }
@@ -78,6 +84,9 @@ namespace EVCMonoGame.src.scenes
             {
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
+
+            debugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
+            debugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
 
             base.Update(gameTime);
         }
