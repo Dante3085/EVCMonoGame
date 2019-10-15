@@ -176,6 +176,26 @@ namespace EVCMonoGame.src.input
             return false;
         }
 
+        public static GamePadThumbSticks CurrentThumbSticks()
+        {
+            return currentGamePadState.ThumbSticks;
+        }
+
+        public static GamePadThumbSticks PreviousThumbSticks()
+        {
+            return previousGamePadState.ThumbSticks;
+        }
+
+        public static GamePadTriggers CurrentTriggers()
+        {
+            return currentGamePadState.Triggers;
+        }
+
+        public static GamePadTriggers PreviousTriggers()
+        {
+            return previousGamePadState.Triggers;
+        }
+
         //public static bool OnKeyCombinationPressed(params Keys[] keys)
         //{
         //    String keyCombination = "";
