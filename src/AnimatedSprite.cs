@@ -34,11 +34,18 @@ namespace EVCMonoGame.src
                 get; set;
             }
 
-            public Animation(Rectangle[] frames, int frameDelay, bool mirrored = false)
+            public bool IsLooping
+            {
+                get; set;
+            }
+
+            public Animation(Rectangle[] frames, int frameDelay, bool mirrored = false, 
+                             bool isLooping = false)
             {
                 Frames = frames;
                 FrameDelay = frameDelay;
                 Mirrored = mirrored;
+                IsLooping = isLooping;
             }
         }
 
@@ -48,6 +55,7 @@ namespace EVCMonoGame.src
         private Texture2D spritesheet;
         private Dictionary<String, Animation> animations;
         private String currentAnimation;
+        private String previousAnimation;
         private int frameIndex;
         private int elapsedMillis;
 
@@ -84,6 +92,19 @@ namespace EVCMonoGame.src
             }
         }
 
+        /// <summary>
+        /// Returns true if the current non-looping Animation has finished(Is at it's last frame), otherwise false.
+        /// </summary>
+        public bool AnimationFinished
+        {
+            get
+            {
+                Animation currentAnim = animations[currentAnimation];
+                return (frameIndex == currentAnim.Frames.Length - 1)
+                     && !currentAnim.IsLooping;
+            }
+        }
+
         public Vector2 PreviousPosition
         {
             get { return previousPosition; }
@@ -92,6 +113,11 @@ namespace EVCMonoGame.src
         public String CurrentAnimation
         {
             get { return currentAnimation; }
+        }
+
+        public String PreviousAnimation
+        {
+            get { return previousAnimation; }
         }
 
         #endregion
@@ -129,7 +155,16 @@ namespace EVCMonoGame.src
             if (elapsedMillis >= animation.FrameDelay)
             {
                 elapsedMillis = 0;
-                frameIndex = (frameIndex + 1) == animation.Frames.Length ? 0 : ++frameIndex;
+
+                int frameCount = animation.Frames.Length;
+                if (!animation.IsLooping)
+                {
+                    frameIndex = (frameIndex + 1) == frameCount ? frameCount - 1 : ++frameIndex;
+                }
+                else
+                {
+                    frameIndex = (frameIndex + 1) == frameCount ? 0 : ++frameIndex;
+                }
             }
         }
 
@@ -149,13 +184,16 @@ namespace EVCMonoGame.src
             debugFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
 
-        public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false)
+        public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false, 
+                                 bool isLooping = false)
         {
             if (animations.ContainsKey(name))
             {
                 Console.WriteLine("Animation '" + name + "' has just been overriden by an Animation with the same name.");
             }
-            animations[name] = new Animation(frames, frameDelay, mirrored);
+            animations[name] = new Animation(frames, frameDelay, mirrored, isLooping);
+
+            previousAnimation = currentAnimation;
             currentAnimation = name;
         }
 
@@ -204,6 +242,7 @@ namespace EVCMonoGame.src
                 throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
                     " the given Animation.");
             }
+            previousAnimation = currentAnimation;
             currentAnimation = name;
             elapsedMillis = 0;
             frameIndex = 0;
@@ -228,12 +267,15 @@ namespace EVCMonoGame.src
 
                     String animName = "";
                     String frameDelayMillis = "";
-                    String mirrored = "";
+                    String isMirrored = "";
+                    String isLooping = "";
+
                     List<Rectangle> frames = new List<Rectangle>();
 
                     bool readAnimName = false;
                     bool readFrameDelay = false;
-                    bool readMirrored = false;
+                    bool readIsMirrored = false;
+                    bool readIsLooping = false;
                     bool readFrame = false;
 
                     for (int i = 0; i < line.Length; ++i)
@@ -262,20 +304,30 @@ namespace EVCMonoGame.src
                             if (line[i] == ',')
                             {
                                 readFrameDelay = false;
-                                readMirrored = true;
+                                readIsMirrored = true;
                                 continue;
                             }
                             frameDelayMillis += line[i];
                         }
-                        else if (readMirrored)
+                        else if (readIsMirrored)
                         {
                             if (line[i] == ',')
                             {
-                                readMirrored = false;
+                                readIsMirrored = false;
+                                readIsLooping = true;
+                                continue;
+                            }
+                            isMirrored += line[i];
+                        }
+                        else if (readIsLooping)
+                        {
+                            if (line[i] == ',')
+                            {
+                                readIsLooping = false;
                                 readFrame = true;
                                 continue;
                             }
-                            mirrored += line[i];
+                            isLooping += line[i];
                         }
                         else if (readFrame)
                         {
@@ -287,7 +339,8 @@ namespace EVCMonoGame.src
 
                         }
                     }
-                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis), bool.Parse(mirrored));
+                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis), bool.Parse(isMirrored),
+                                 bool.Parse(isLooping));
                 }
             }
             file.Close();
