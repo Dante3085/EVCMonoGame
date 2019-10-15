@@ -19,7 +19,7 @@ namespace EVCMonoGame.src
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
         private float playerSpeed;
-        private Boolean controlViaKeyboard = true; //if false then Gamepad controles Player 
+        private Boolean controlViaKeyboard = false; //if false then Gamepad controles Player 
 
         public AnimatedSprite Sprite
         {
@@ -65,7 +65,7 @@ namespace EVCMonoGame.src
 
             playerSprite = new AnimatedSprite(position, 6.0f);
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
-            playerSprite.SetAnimation("IDLE");
+            playerSprite.SetAnimation("IDLE_UP");
 
             playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(100, 10));
             playerSpeed = 8;
@@ -110,31 +110,79 @@ namespace EVCMonoGame.src
                 case false:
                     directionVector.X = GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X;
                     directionVector.Y = (-1) * (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y);
-                    movementVector = directionVector * playerSpeed;
+                    movementVector = directionVector * (playerSpeed * (1+InputManager.CurrentTriggers().Right));
                     break;
             }
 
             playerSprite.Position += movementVector;
-            float mvAngel = Utility.getAngelOfVectorInDegrees(movementVector);
-            if (((mvAngel >= 0) && (mvAngel <= 45)) || ((mvAngel > 315) && (mvAngel <= 360)))
-            {
-                playerSprite.SetAnimation("WALK_RIGHT");
-            }
-            if ((mvAngel > 45) && (mvAngel <= 135))
-            {
-                playerSprite.SetAnimation("WALK_UP");
-            }
-            if ((mvAngel > 135) && (mvAngel <= 225))
-            {
-                playerSprite.SetAnimation("WALK_LEFT");
-            }
-            if ((mvAngel > 225) && (mvAngel <= 315))
-            {
-                playerSprite.SetAnimation("WALK_DOWN");
-            }
+            float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
             if ((movementVector.X == 0) && (movementVector.Y == 0))
             {
-                playerSprite.SetAnimation("IDLE");
+                String previousAnimation = playerSprite.CurrentAnimation;
+                if (previousAnimation == "RUN_DOWN" || previousAnimation == "IDLE_DOWN")
+                {
+                    playerSprite.SetAnimation("IDLE_DOWN");
+                }
+                else if (previousAnimation == "RUN_UP" || previousAnimation == "IDLE_UP")
+                {
+                    playerSprite.SetAnimation("IDLE_UP");
+                }
+                else if (previousAnimation == "RUN_LEFT" || previousAnimation == "IDLE_LEFT")
+                {
+                    playerSprite.SetAnimation("IDLE_LEFT");
+                }
+                else if (previousAnimation == "RUN_RIGHT" || previousAnimation == "IDLE_RIGHT")
+                {
+                    playerSprite.SetAnimation("IDLE_RIGHT");
+                }
+                else
+                {
+                    playerSprite.SetAnimation("IDLE_UP");
+                }
+            }
+            else
+            {
+                if (mvAngle > (-22.5) && mvAngle <= (22.5))
+                {
+                    //right
+                    playerSprite.SetAnimation("RUN_RIGHT");
+                }
+                if (mvAngle > (22.5) && mvAngle <= (77.5))
+                {
+                    //up-right
+                    playerSprite.SetAnimation("RUN_RIGHT");
+                }
+                if (mvAngle > (77.5) && mvAngle <= (112.5))
+                {
+                    //up
+
+                    playerSprite.SetAnimation("RUN_UP");
+                }
+                if (mvAngle > (112.5) && mvAngle <= (157.5))
+                {
+                    //up-left
+                    playerSprite.SetAnimation("RUN_LEFT");
+                }
+                if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
+                {
+                    //left
+                    playerSprite.SetAnimation("RUN_LEFT");
+                }
+                if (mvAngle > (-157.5) && mvAngle <= (-112.5))
+                {
+                    //down-left
+                    playerSprite.SetAnimation("RUN_LEFT");
+                }
+                if (mvAngle > (-112.5) && mvAngle <= (-77.5))
+                {
+                    //down
+                    playerSprite.SetAnimation("RUN_DOWN");
+                }
+                if (mvAngle > (-77.5) && mvAngle <= (-22.5))
+                {
+                    //down-right
+                    playerSprite.SetAnimation("RUN_RIGHT");
+                }
             }
             /*if (InputManager.IsKeyPressed(controls[0])) directionVector.Y -= 100; //up
             if (InputManager.IsKeyPressed(controls[2])) directionVector.X += 100; //right

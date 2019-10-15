@@ -38,21 +38,22 @@ namespace EVCMonoGame.src
             return scaledVector;
         }
 
-        public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angelInDegree)
+        public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angleInDegree)
         {
             Vector2 rotatedVector = new Vector2(0, 0);
             float r = (float)Math.Sqrt(Math.Pow(originalVector.X, 2) + Math.Pow(originalVector.Y, 2));
             float phi = (float)Math.Atan2(originalVector.Y, originalVector.X);
-            float rotationScale = (float)Math.PI * (1 / (180 / angelInDegree));
+            float rotationScale = (float)Math.PI * (1 / (180 / angleInDegree));
             rotatedVector.X = (float)(r * Math.Cos(phi + rotationScale));
             rotatedVector.Y = (float)(r * Math.Sin(phi + rotationScale));
             return rotatedVector;
         }
 
-        public static float getAngelOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
+        public static float getAngleOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
         {   
-            float phi = (float)(180*(1/(Math.PI/Math.Atan2(originalVector.Y, originalVector.X))));
-            return 0;
+            float phi = (float)(180*(1/(Math.PI/Math.Atan2(-originalVector.Y, originalVector.X))));// -Y um berechnung in normales mathematisches Koordinatensystem umzusetzen
+            //Console.WriteLine(phi);
+            return phi;
         }
 
 
