@@ -17,12 +17,11 @@ namespace EVCMonoGame.src.scenes
     {
         private Player player;
         private Player player2;
-        private Player player3;
+        // private Player player3;
         private SpriteFont randomText;
         private Texture2D background;
         private GeometryBox geometryBox;
         private Tilemap tilemap;
-        private DebugTexts debugTexts;
 
         private CollisionManager collisionManager;
 
@@ -33,28 +32,30 @@ namespace EVCMonoGame.src.scenes
                 new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
-            player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
+            // player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
             geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
-            debugTexts = new DebugTexts(new Vector2(100, 100));
 
-            debugTexts.Entries.Add("PlayerPos: ");
-            debugTexts.Entries.Add("PlayerBounds: ");
+            sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
+            sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
+            sceneManager.GlobalDebugTexts.Entries.Add("elapsed:");
+            sceneManager.GlobalDebugTexts.Entries.Add("CurrentAnim:");
+            sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
             {
                 player.Sprite,
                 player2.Sprite,
-                player3.Sprite,
+                // player3.Sprite,
                 // geometryBox,
             });
 
             updateables.AddRange(new Updateable[] 
             { 
                 player,
-                player2,
-                player3,
+                // player2,
+                // player3,
                 collisionManager,
             });
 
@@ -63,9 +64,8 @@ namespace EVCMonoGame.src.scenes
                 tilemap,
                 player,
                 player2,
-                player3,
-                debugTexts,
-                // collisionManager,
+                // player3,
+                collisionManager,
             });
         }
 
@@ -85,8 +85,11 @@ namespace EVCMonoGame.src.scenes
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
 
-            debugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
-            debugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
+            sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
+            sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
+            sceneManager.GlobalDebugTexts.Entries[2] = "ElapsedMillis: " + player.Sprite.ElapsedMillis;
+            sceneManager.GlobalDebugTexts.Entries[3] = "CurrentAnim: " + player.Sprite.CurrentAnimation;
+            sceneManager.GlobalDebugTexts.Entries[3] = "FrameIndex: " + player.Sprite.FrameIndex;
 
             base.Update(gameTime);
         }

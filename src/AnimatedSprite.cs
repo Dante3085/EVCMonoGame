@@ -63,8 +63,6 @@ namespace EVCMonoGame.src
         private Vector2 previousPosition;
         private float scale;
 
-        private SpriteFont debugFont;
-
         #endregion
         #region Properties
 
@@ -74,9 +72,9 @@ namespace EVCMonoGame.src
             {
                 Rectangle bounds = new Rectangle();
                 bounds.Location = position.ToPoint();
-                bounds.Size = animations[currentAnimation].Frames[frameIndex].Size;
-                bounds.Width *= (int)scale;
-                bounds.Height *= (int)scale;
+                bounds.Size = animations["IDLE_DOWN"].Frames[0].Size;
+                bounds.Width *= (int)(scale);
+                bounds.Height *= (int)(scale);
 
                 return bounds;
             }
@@ -118,6 +116,16 @@ namespace EVCMonoGame.src
         public String PreviousAnimation
         {
             get { return previousAnimation; }
+        }
+
+        public int ElapsedMillis
+        {
+            get { return elapsedMillis; }
+        }
+
+        public int FrameIndex
+        {
+            get { return frameIndex; }
         }
 
         #endregion
@@ -174,14 +182,11 @@ namespace EVCMonoGame.src
 
             spriteBatch.Draw(spritesheet, position, currentAnim.Frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, currentAnim.Mirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
-
-            spriteBatch.DrawString(debugFont, "animation: " + currentAnimation, position, Color.White);
         }
 
         public void LoadContent(ContentManager content)
         {
             spritesheet = content.Load<Texture2D>(spritesheetName);
-            debugFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
 
         public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false, 

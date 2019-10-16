@@ -43,7 +43,7 @@ namespace EVCMonoGame.src.input
             currentKeyboardState = Keyboard.GetState();
 
             previousGamePadState = currentGamePadState;
-            currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
 
             if (inputByKeyboard)
             {

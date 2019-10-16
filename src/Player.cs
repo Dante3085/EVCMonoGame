@@ -19,8 +19,8 @@ namespace EVCMonoGame.src
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
         private float playerSpeed;
-        private bool controlViaKeyboard; //if false then Gamepad controles Player
         private bool isAttacking;
+        private float runThreshold;
 
         public AnimatedSprite Sprite
         {
@@ -36,10 +36,10 @@ namespace EVCMonoGame.src
 
         public Player(Vector2 position, Keys[] controls)
         {
-            controlViaKeyboard = false;
             isAttacking = false;
+            runThreshold = 0.65f;
 
-            playerSprite = new AnimatedSprite(position, 6.0f);
+            playerSprite = new AnimatedSprite(position, 5.0f);
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
             playerSprite.SetAnimation("IDLE_UP");
 
@@ -70,7 +70,7 @@ namespace EVCMonoGame.src
         {
             if (!isAttacking)
             {
-                UpdateMovement();
+                // UpdateMovement();
             }
             UpdateAttacks();
 
@@ -82,22 +82,44 @@ namespace EVCMonoGame.src
 
         public void UpdateAttacks()
         {
-            if (InputManager.OnButtonPressed(Buttons.X)
-                || InputManager.OnKeyPressed(Keys.A))
-            {
-                isAttacking = true;
+            //if (InputManager.OnButtonPressed(Buttons.X)
+            //    || InputManager.OnKeyPressed(Keys.A))
+            //{
+            //    isAttacking = true;
 
-                //if (playerSprite.CurrentAnimation == "IDLE_DOWN")
-                //{
-                //    playerSprite.SetAnimation("ATTACK_DOWN");
-                //}
-                playerSprite.SetAnimation("ATTACK_DOWN");
+            //    //if (playerSprite.CurrentAnimation == "IDLE_DOWN")
+            //    //{
+            //    //    playerSprite.SetAnimation("ATTACK_DOWN");
+            //    //}
+            //    playerSprite.SetAnimation("ATTACK_DOWN");
+            //}
+
+            //if (playerSprite.AnimationFinished)
+            //{
+            //    isAttacking = false;
+            //    return;
+            //}
+
+            String currentAnim = playerSprite.CurrentAnimation;
+            if (playerSprite.AnimationFinished && currentAnim.Contains("ATTACK"))
+            {
+                if (playerSprite.CurrentAnimation == "ATTACK_STD_COMBO_0")
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_1");
+                }
+                else if (playerSprite.CurrentAnimation == "ATTACK_STD_COMBO_1")
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_2");
+                }
+                else
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_0");
+                }
             }
 
-            if (playerSprite.AnimationFinished)
+            if (InputManager.OnButtonPressed(Buttons.X))
             {
-                isAttacking = false;
-                return;
+                playerSprite.SetAnimation("ATTACK_STD_COMBO_0");
             }
         }
 
@@ -106,7 +128,7 @@ namespace EVCMonoGame.src
             Vector2 currentPosition = playerSprite.Position;
             Vector2 directionVector = new Vector2(0, 0);
             Vector2 movementVector = new Vector2(0, 0);
-            switch (controlViaKeyboard)
+            switch (InputManager.InputByKeyboard)
             {
                 case true:
                     if (InputManager.IsKeyPressed(controls[0])) directionVector.Y -= 100; //up
@@ -124,16 +146,38 @@ namespace EVCMonoGame.src
 
             playerSprite.Position += movementVector;
             float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
+            float directionVectorLength = directionVector.Length();
             if (movementVector == Vector2.Zero)
             {
                 String currentAnimation = playerSprite.CurrentAnimation;
-                if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
+
+                if (currentAnimation == "WALK_DOWN_LEFT" || currentAnimation == "RUN_DOWN_LEFT"
+                    || currentAnimation == "IDLE_DOWN_LEFT")
+                {
+                    playerSprite.SetAnimation("IDLE_DOWN_LEFT");
+                }
+                else if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
                 {
                     playerSprite.SetAnimation("IDLE_DOWN");
+                }
+                else if (currentAnimation == "WALK_DOWN_RIGHT" || currentAnimation == "RUN_DOWN_RIGHT"
+                    || currentAnimation == "IDLE_DOWN_RIGHT")
+                {
+                    playerSprite.SetAnimation("IDLE_DOWN_RIGHT");
+                }
+                else if (currentAnimation == "WALK_UP_LEFT" || currentAnimation == "RUN_UP_LEFT"
+                    || currentAnimation == "IDLE_UP_LEFT")
+                {
+                    playerSprite.SetAnimation("IDLE_UP_LEFT");
                 }
                 else if (currentAnimation == "RUN_UP" || currentAnimation == "IDLE_UP")
                 {
                     playerSprite.SetAnimation("IDLE_UP");
+                }
+                else if (currentAnimation == "WALK_UP_RIGHT" || currentAnimation == "RUN_UP_RIGHT"
+                    || currentAnimation == "IDLE_UP_RIGHT")
+                {
+                    playerSprite.SetAnimation("IDLE_UP_RIGHT");
                 }
                 else if (currentAnimation == "RUN_LEFT" || currentAnimation == "IDLE_LEFT")
                 {
@@ -157,8 +201,14 @@ namespace EVCMonoGame.src
                 }
                 if (mvAngle > (22.5) && mvAngle <= (77.5))
                 {
-                    //up-right
-                    playerSprite.SetAnimation("RUN_RIGHT");
+                    if (directionVectorLength <= runThreshold)
+                    {
+                        playerSprite.SetAnimation("WALK_UP_RIGHT");
+                    }
+                    else
+                    {
+                        playerSprite.SetAnimation("RUN_UP_RIGHT");
+                    }
                 }
                 if (mvAngle > (77.5) && mvAngle <= (112.5))
                 {
@@ -168,8 +218,16 @@ namespace EVCMonoGame.src
                 }
                 if (mvAngle > (112.5) && mvAngle <= (157.5))
                 {
-                    //up-left
-                    playerSprite.SetAnimation("RUN_LEFT");
+                    if (directionVectorLength <= runThreshold)
+                    {
+                        playerSprite.SetAnimation("WALK_UP_LEFT");
+                    }
+                    else
+                    {
+                        //up-left
+                        playerSprite.SetAnimation("RUN_UP_LEFT");
+                        // playerSprite.SetAnimation("WALK_UP_LEFT");
+                    }
                 }
                 if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
                 {
@@ -178,8 +236,14 @@ namespace EVCMonoGame.src
                 }
                 if (mvAngle > (-157.5) && mvAngle <= (-112.5))
                 {
-                    //down-left
-                    playerSprite.SetAnimation("RUN_LEFT");
+                    if (directionVectorLength <= runThreshold)
+                    {
+                        playerSprite.SetAnimation("WALK_DOWN_LEFT");
+                    }
+                    else
+                    {
+                        playerSprite.SetAnimation("RUN_DOWN_LEFT");
+                    }
                 }
                 if (mvAngle > (-112.5) && mvAngle <= (-77.5))
                 {
@@ -188,8 +252,14 @@ namespace EVCMonoGame.src
                 }
                 if (mvAngle > (-77.5) && mvAngle <= (-22.5))
                 {
-                    //down-right
-                    playerSprite.SetAnimation("RUN_RIGHT");
+                    if (directionVectorLength <= runThreshold)
+                    {
+                        playerSprite.SetAnimation("WALK_DOWN_RIGHT");
+                    }
+                    else
+                    {
+                        playerSprite.SetAnimation("RUN_DOWN_RIGHT");
+                    }
                 }
             }
         }
