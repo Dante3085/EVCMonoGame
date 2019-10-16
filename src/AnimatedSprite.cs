@@ -17,13 +17,35 @@ namespace EVCMonoGame.src
     {
         struct Animation
         {
-            public Rectangle[] frames;
-            public int frameDelay;
+            // TODO: Offsets für frames, weil sonst Verschiebung der Figur/Ankerpunkt.
 
-            public Animation(Rectangle[] frames, int frameDelay)
+            public Rectangle[] Frames
             {
-                this.frames = frames;
-                this.frameDelay = frameDelay;
+                get; set;
+            }
+
+            public int FrameDelay
+            {
+                get; set;
+            }
+
+            public bool Mirrored
+            {
+                get; set;
+            }
+
+            public bool IsLooping
+            {
+                get; set;
+            }
+
+            public Animation(Rectangle[] frames, int frameDelay, bool mirrored = false, 
+                             bool isLooping = false)
+            {
+                Frames = frames;
+                FrameDelay = frameDelay;
+                Mirrored = mirrored;
+                IsLooping = isLooping;
             }
         }
 
@@ -33,6 +55,7 @@ namespace EVCMonoGame.src
         private Texture2D spritesheet;
         private Dictionary<String, Animation> animations;
         private String currentAnimation;
+        private String previousAnimation;
         private int frameIndex;
         private int elapsedMillis;
 
@@ -49,9 +72,9 @@ namespace EVCMonoGame.src
             {
                 Rectangle bounds = new Rectangle();
                 bounds.Location = position.ToPoint();
-                bounds.Size = animations[currentAnimation].frames[frameIndex].Size;
-                bounds.Width *= (int)scale;
-                bounds.Height *= (int)scale;
+                bounds.Size = animations["IDLE_DOWN"].Frames[0].Size;
+                bounds.Width *= (int)(scale);
+                bounds.Height *= (int)(scale);
 
                 return bounds;
             }
@@ -67,9 +90,42 @@ namespace EVCMonoGame.src
             }
         }
 
+        /// <summary>
+        /// Returns true if the current non-looping Animation has finished(Is at it's last frame), otherwise false.
+        /// </summary>
+        public bool AnimationFinished
+        {
+            get
+            {
+                Animation currentAnim = animations[currentAnimation];
+                return (frameIndex == currentAnim.Frames.Length - 1)
+                     && !currentAnim.IsLooping;
+            }
+        }
+
         public Vector2 PreviousPosition
         {
             get { return previousPosition; }
+        }
+
+        public String CurrentAnimation
+        {
+            get { return currentAnimation; }
+        }
+
+        public String PreviousAnimation
+        {
+            get { return previousAnimation; }
+        }
+
+        public int ElapsedMillis
+        {
+            get { return elapsedMillis; }
+        }
+
+        public int FrameIndex
+        {
+            get { return frameIndex; }
         }
 
         #endregion
@@ -104,17 +160,28 @@ namespace EVCMonoGame.src
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             Animation animation = animations[currentAnimation];
-            if (elapsedMillis >= animation.frameDelay)
+            if (elapsedMillis >= animation.FrameDelay)
             {
                 elapsedMillis = 0;
-                frameIndex = (frameIndex + 1) == animation.frames.Length ? 0 : ++frameIndex;
+
+                int frameCount = animation.Frames.Length;
+                if (!animation.IsLooping)
+                {
+                    frameIndex = (frameIndex + 1) == frameCount ? frameCount - 1 : ++frameIndex;
+                }
+                else
+                {
+                    frameIndex = (frameIndex + 1) == frameCount ? 0 : ++frameIndex;
+                }
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spritesheet, position, animations[currentAnimation].frames[frameIndex], Color.White,
-                0, Vector2.Zero, scale, SpriteEffects.None, 1);
+            Animation currentAnim = animations[currentAnimation];
+
+            spriteBatch.Draw(spritesheet, position, currentAnim.Frames[frameIndex], Color.White,
+                0, Vector2.Zero, scale, currentAnim.Mirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
         }
 
         public void LoadContent(ContentManager content)
@@ -122,9 +189,16 @@ namespace EVCMonoGame.src
             spritesheet = content.Load<Texture2D>(spritesheetName);
         }
 
-        public void AddAnimation(String name, Rectangle[] frames, int frameDelay)
+        public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false, 
+                                 bool isLooping = false)
         {
-            animations[name] = new Animation(frames, frameDelay);
+            if (animations.ContainsKey(name))
+            {
+                Console.WriteLine("Animation '" + name + "' has just been overriden by an Animation with the same name.");
+            }
+            animations[name] = new Animation(frames, frameDelay, mirrored, isLooping);
+
+            previousAnimation = currentAnimation;
             currentAnimation = name;
         }
 
@@ -173,6 +247,7 @@ namespace EVCMonoGame.src
                 throw new ArgumentException("@SetAnimation(" + name + "): This AnimatedSprite does not know" +
                     " the given Animation.");
             }
+            previousAnimation = currentAnimation;
             currentAnimation = name;
             elapsedMillis = 0;
             frameIndex = 0;
@@ -197,10 +272,15 @@ namespace EVCMonoGame.src
 
                     String animName = "";
                     String frameDelayMillis = "";
+                    String isMirrored = "";
+                    String isLooping = "";
+
                     List<Rectangle> frames = new List<Rectangle>();
 
                     bool readAnimName = false;
                     bool readFrameDelay = false;
+                    bool readIsMirrored = false;
+                    bool readIsLooping = false;
                     bool readFrame = false;
 
                     for (int i = 0; i < line.Length; ++i)
@@ -229,10 +309,30 @@ namespace EVCMonoGame.src
                             if (line[i] == ',')
                             {
                                 readFrameDelay = false;
-                                readFrame = true;
+                                readIsMirrored = true;
                                 continue;
                             }
                             frameDelayMillis += line[i];
+                        }
+                        else if (readIsMirrored)
+                        {
+                            if (line[i] == ',')
+                            {
+                                readIsMirrored = false;
+                                readIsLooping = true;
+                                continue;
+                            }
+                            isMirrored += line[i];
+                        }
+                        else if (readIsLooping)
+                        {
+                            if (line[i] == ',')
+                            {
+                                readIsLooping = false;
+                                readFrame = true;
+                                continue;
+                            }
+                            isLooping += line[i];
                         }
                         else if (readFrame)
                         {
@@ -244,9 +344,11 @@ namespace EVCMonoGame.src
 
                         }
                     }
-                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis));
+                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis), bool.Parse(isMirrored),
+                                 bool.Parse(isLooping));
                 }
             }
+            file.Close();
         }
 
         private Rectangle ReadFrame(String str)

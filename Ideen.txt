@@ -4,4 +4,6 @@
 4. Dash: Bei initialem Tastendruck für festgelegte Zeit schnellere Bewegungsgeschwindigkeit in Richtung des Richtungsvektors. MotionBlur
 5. DrawOrder, wenn man sich hinter Sachen bewegen können soll(IUpdateable, IDrawable, DrawableGameComponent von MonoGame machen das glaub ich schon. Selber schwierig.)
 6. Utility Text Drawing: Schnelle beliebigen Text in Fenster anzeigen.
-https://www.youtube.com/watch?v=CoZJdil0_HI
+7. Resolution Anpassung.
+8. Globale DebugTexts Instanz in SceenManager.
+9. https://www.youtube.com/watch?v=CoZJdil0_HI

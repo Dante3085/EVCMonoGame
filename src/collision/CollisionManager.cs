@@ -85,6 +85,15 @@ namespace EVCMonoGame.src.collision
             Vector2 g1Shift = g1.Position - g1.PreviousPosition;
             Vector2 g2Shift = g2.Position - g2.PreviousPosition;
 
+            //if (g1Shift != Vector2.Zero)
+            //{
+            //    g1.Position = g1.PreviousPosition;
+            //}
+            //else if (g2Shift != Vector2.Zero)
+            //{
+            //    g2.Position = g2.PreviousPosition;
+            //}
+
             if (g1Shift != Vector2.Zero)
             {
                 Vector2 g1BackShift = Vector2.Zero;
@@ -97,7 +106,7 @@ namespace EVCMonoGame.src.collision
                     g1BackShift.X = g2.Bounds.Left - g1.Bounds.Right;
                 }
 
-                if (g1Shift.Y < 0)
+                else if (g1Shift.Y < 0)
                 {
                     g1BackShift.Y = g2.Bounds.Bottom - g1.Bounds.Top;
                 }
@@ -120,7 +129,7 @@ namespace EVCMonoGame.src.collision
                     g2BackShift.X = g1.Bounds.Left - g2.Bounds.Right;
                 }
 
-                if (g2Shift.Y < 0)
+                else if (g2Shift.Y < 0)
                 {
                     g2BackShift.Y = g1.Bounds.Bottom - g2.Bounds.Top;
                 }

@@ -36,6 +36,8 @@ namespace EVCMonoGame.src.scenes
 
         // Global Updateables/Drawables (They don't belong to a specific Scene)
         private FpsCounter fpsCounter;
+        private SpriteFont globalFont;
+        private DebugTexts debugTexts;
 
         // Alles was nicht an einzelnen Stellen(Methoden) übergeben werden kann,
         // weil nicht klar ist wo es benötigt wird, wird über Properties bereitgestellt.
@@ -43,6 +45,16 @@ namespace EVCMonoGame.src.scenes
         public GraphicsDevice GraphicsDevice
         {
             get { return game.GraphicsDevice; }
+        }
+
+        public SpriteFont GlobalFont
+        {
+            get { return globalFont; }
+        }
+
+        public DebugTexts GlobalDebugTexts
+        {
+            get { return debugTexts; }
         }
 
         public SceneManager(Game game)
@@ -56,6 +68,7 @@ namespace EVCMonoGame.src.scenes
             reverseTransitionFinished = false;
 
             fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
+            debugTexts = new DebugTexts(new Vector2(100, 100));
 
             scenes = new Dictionary<EScene, Scene>();
             scenes[EScene.DEBUG] = new DebugScene(this);
@@ -67,6 +80,8 @@ namespace EVCMonoGame.src.scenes
         {
             sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
             fpsCounter.LoadContent(game.Content);
+            globalFont = game.Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+            debugTexts.LoadContent(game.Content);
 
             foreach (Scene s in scenes.Values)
             {
@@ -95,6 +110,7 @@ namespace EVCMonoGame.src.scenes
 
             if (transitioning) { DrawTransition(); }
             fpsCounter.Draw(gameTime, spriteBatch);
+            debugTexts.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
         }

@@ -1,8 +1,8 @@
 ﻿
-using Microsoft.Xna.Framework.Input;
-
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.input
 {
@@ -16,6 +16,22 @@ namespace EVCMonoGame.src.input
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;
 
+        private static GamePadState currentGamePadState;
+        private static GamePadState previousGamePadState;
+
+        private static Buttons[] buttonsEnum = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+        private static bool inputByKeyboard = true;
+
+        /// <summary>
+        /// Returns true if the most recent input was given by the Keyboard(Any Key has been pressed).
+        /// Returns false if the most recent input was given by the GamePad.
+        /// </summary>
+        public static bool InputByKeyboard
+        {
+            get { return inputByKeyboard; }
+        }
+
         // private static Dictionary<int, bool> keyCombinations;
 
         /// <summary>
@@ -25,6 +41,26 @@ namespace EVCMonoGame.src.input
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
+
+            previousGamePadState = currentGamePadState;
+            currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+
+            if (inputByKeyboard)
+            {
+                if (OnAnyButtonPressed(buttonsEnum))
+                {
+                    Console.WriteLine("InputByKeyboard false");
+                    inputByKeyboard = false;
+                }
+            }
+            else
+            {
+                if (currentKeyboardState.GetPressedKeys().Length > 0)
+                {
+                    Console.WriteLine("InputByKeyboard true");
+                    inputByKeyboard = true;
+                }
+            }
         }
 
         /// <summary>
@@ -36,7 +72,8 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyPressed(Keys key)
         {
-            return !previousKeyboardState.IsKeyDown(key) && currentKeyboardState.IsKeyDown(key);
+            return !previousKeyboardState.IsKeyDown(key) && 
+                    currentKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -48,7 +85,8 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyReleased(Keys key)
         {
-            return previousKeyboardState.IsKeyDown(key) && !currentKeyboardState.IsKeyDown(key);
+            return previousKeyboardState.IsKeyDown(key) && 
+                  !currentKeyboardState.IsKeyDown(key);
         }
 
         /// <summary>
@@ -120,6 +158,72 @@ namespace EVCMonoGame.src.input
                 }
             }
             return false;
+        }
+
+        public static bool OnButtonPressed(Buttons button)
+        {
+            return !previousGamePadState.IsButtonDown(button) && 
+                    currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool OnButtonReleased(Buttons button)
+        {
+            return previousGamePadState.IsButtonDown(button) &&
+                  !currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool IsButtonPressed(Buttons button)
+        {
+            return currentGamePadState.IsButtonDown(button);
+        }
+
+        public static bool WasButtonPressed(Buttons button)
+        {
+            return previousGamePadState.IsButtonDown(button);
+        }
+
+        public static bool OnAnyButtonPressed(params Buttons[] buttons)
+        {
+            foreach (Buttons b in buttons)
+            {
+                if (OnButtonPressed(b))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsAnyButtonPressed(params Buttons[] buttons)
+        {
+            foreach (Buttons b in buttons)
+            {
+                if (IsButtonPressed(b))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static GamePadThumbSticks CurrentThumbSticks()
+        {
+            return currentGamePadState.ThumbSticks;
+        }
+
+        public static GamePadThumbSticks PreviousThumbSticks()
+        {
+            return previousGamePadState.ThumbSticks;
+        }
+
+        public static GamePadTriggers CurrentTriggers()
+        {
+            return currentGamePadState.Triggers;
+        }
+
+        public static GamePadTriggers PreviousTriggers()
+        {
+            return previousGamePadState.Triggers;
         }
 
         //public static bool OnKeyCombinationPressed(params Keys[] keys)
