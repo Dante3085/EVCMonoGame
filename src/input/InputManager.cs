@@ -19,6 +19,19 @@ namespace EVCMonoGame.src.input
         private static GamePadState currentGamePadState;
         private static GamePadState previousGamePadState;
 
+        private static Buttons[] buttonsEnum = (Buttons[])Enum.GetValues(typeof(Buttons));
+
+        private static bool inputByKeyboard = true;
+
+        /// <summary>
+        /// Returns true if the most recent input was given by the Keyboard(Any Key has been pressed).
+        /// Returns false if the most recent input was given by the GamePad.
+        /// </summary>
+        public static bool InputByKeyboard
+        {
+            get { return inputByKeyboard; }
+        }
+
         // private static Dictionary<int, bool> keyCombinations;
 
         /// <summary>
@@ -30,7 +43,24 @@ namespace EVCMonoGame.src.input
             currentKeyboardState = Keyboard.GetState();
 
             previousGamePadState = currentGamePadState;
-            currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+
+            if (inputByKeyboard)
+            {
+                if (OnAnyButtonPressed(buttonsEnum))
+                {
+                    Console.WriteLine("InputByKeyboard false");
+                    inputByKeyboard = false;
+                }
+            }
+            else
+            {
+                if (currentKeyboardState.GetPressedKeys().Length > 0)
+                {
+                    Console.WriteLine("InputByKeyboard true");
+                    inputByKeyboard = true;
+                }
+            }
         }
 
         /// <summary>

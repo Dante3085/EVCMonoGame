@@ -9,9 +9,20 @@
 *.csproj*
 *AssemblyInfo*
 app.manifest
-rsrc/
-Content/
 Icon.ico
+
+#ignore Content/Assets except associated configFiles.
+Content/**/*.mgcb
+Content/**/*.png
+Content/**/*.gif
+Content/**/*.mp3
+Content/**/*.mp4
+Content/**/*.wav
+Content/**/*.ogg
+Content/**/*.ttf
+Content/**/*.flac
+Content/**/*.spritefont
+Content/**/*darkCastle*
 
 # User-specific files
 *.suo

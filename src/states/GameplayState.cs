@@ -41,7 +41,7 @@ namespace EVCMonoGame.src.states
             if (content == null)
                 content = new ContentManager(StateManager.Game.Services, "Content");
 
-            // Aus irgendeinem Grund ist der stateManager im Konstruktor von Gameplaystate noch null.
+            // Aus irgendeinem Grund ist der StateManager im Konstruktor von Gameplaystate noch null.
             // Hier aber nicht mehr.
             sceneManager = new SceneManager(StateManager.Game);
             sceneManager.LoadContent();
@@ -108,7 +108,8 @@ namespace EVCMonoGame.src.states
             if (input == null)
                 throw new ArgumentNullException("input");
 
-            if (InputManager.OnKeyPressed(Keys.Escape))
+            if (InputManager.OnKeyPressed(Keys.Escape)
+                || InputManager.OnButtonPressed(Buttons.Start))
             {
                 StateManager.AddState(new PauseMenuState(), ControllingPlayer);
             }

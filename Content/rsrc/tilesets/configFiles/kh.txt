@@ -1,0 +1,5 @@
+TILE_MAP_IMAGE=rsrc/tilesets/khcom_backgrounds
+TILE_SIZE=1920,1080
+TILE=a,6,1427,416,368
+TILE_MAP_DEFINITION
+a
