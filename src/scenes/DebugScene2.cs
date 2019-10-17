@@ -45,6 +45,9 @@ namespace EVCMonoGame.src.scenes
                 collisionManager,
                 player,
             });
+
+            cameraPositionX -= player.Sprite.Position.X;
+            cameraPositionY -= player.Sprite.Position.Y;
         }
 
         public override void LoadContent(ContentManager content)
