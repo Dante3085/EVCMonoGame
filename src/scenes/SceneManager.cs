@@ -35,7 +35,6 @@ namespace EVCMonoGame.src.scenes
         private bool reverseTransitionFinished;
 
         // Global Updateables/Drawables (They don't belong to a specific Scene)
-        private FpsCounter fpsCounter;
         private SpriteFont globalFont;
         private DebugTexts debugTexts;
 
@@ -67,7 +66,6 @@ namespace EVCMonoGame.src.scenes
             transitioning = false;
             reverseTransitionFinished = false;
 
-            fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
             debugTexts = new DebugTexts(new Vector2(100, 100));
 
             scenes = new Dictionary<EScene, Scene>();
@@ -79,7 +77,6 @@ namespace EVCMonoGame.src.scenes
         public void LoadContent()
         {
             sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
-            fpsCounter.LoadContent(game.Content);
             globalFont = game.Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             debugTexts.LoadContent(game.Content);
 
@@ -97,7 +94,6 @@ namespace EVCMonoGame.src.scenes
             // Global Updating
             // if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
             if (transitioning) { UpdateTransition(gameTime); }
-            fpsCounter.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime)
@@ -109,7 +105,6 @@ namespace EVCMonoGame.src.scenes
             spriteBatch.Begin();
 
             if (transitioning) { DrawTransition(); }
-            fpsCounter.Draw(gameTime, spriteBatch);
             debugTexts.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();

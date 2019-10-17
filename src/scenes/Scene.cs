@@ -15,11 +15,14 @@ namespace EVCMonoGame.src.scenes
         protected List<IDrawable> drawables;
         protected SceneManager sceneManager;
 
-        public Scene(SceneManager screenManager)
+        private Camera camera;
+        public Scene(SceneManager sceneManager)
         {
-            this.sceneManager = screenManager;
+            this.sceneManager = sceneManager;
             updateables = new List<Updateable>();
             drawables = new List<IDrawable>();
+
+            camera = new Camera(sceneManager.GraphicsDevice.Viewport);
         }
 
         public virtual void LoadContent(ContentManager contentManager)
@@ -32,6 +35,8 @@ namespace EVCMonoGame.src.scenes
 
         public virtual void Update(GameTime gameTime)
         {
+            camera.UpdateCamera(sceneManager.GraphicsDevice.Viewport);
+
             foreach (Updateable u in updateables)
             {
                 u.Update(gameTime);
