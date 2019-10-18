@@ -445,12 +445,14 @@ namespace EVCMonoGame.src
             // Multiple frameOffsets separated by commas.
             if (line.Contains("),"))
             {
+                int frameCounter = 0;
                 for (int i = 0; i < line.Length; ++i)
                 {
                     int indexClosingBracket = line.IndexOf(')', i);
-                    frameOffsets.Add(i, ReadFrameOffset(line.Substring(i, indexClosingBracket - (i - 1))));
+                    frameOffsets.Add(frameCounter++, ReadFrameOffset(line.Substring(i, indexClosingBracket - (i - 1))));
                     i = indexClosingBracket + 1;
                 }
+
             }
 
             // Only one frameOffset.
