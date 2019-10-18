@@ -14,14 +14,13 @@ using EVCMonoGame.src.collision;
 namespace EVCMonoGame.src
 {
     // TODO: Optimize LoadFromFile() and HelperMethods. ~20ms is a bit long
+    // TODO: Implement frameOffsets.
 
     public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable
     {
         #region AnimationStruct
         class  Animation
         {
-            // TODO: Offsets für frames, weil sonst Verschiebung der Figur/Ankerpunkt.
-
             public Rectangle[] Frames
             {
                 get; set;
@@ -166,7 +165,7 @@ namespace EVCMonoGame.src
         }
         #endregion
 
-        #region Updateable
+        #region UpdateableMethods
         public override void Update(GameTime gameTime)
         {
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -188,12 +187,12 @@ namespace EVCMonoGame.src
             }
         }
         #endregion
-        #region IDrawable
+        #region IDrawableMethods
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Animation currentAnim = animations[currentAnimation];
 
-            spriteBatch.Draw(spritesheet, position, currentAnim.Frames[frameIndex], Color.White,
+            spriteBatch.Draw(spritesheet, position + currentAnim.FrameOffsets[frameIndex], currentAnim.Frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, currentAnim.IsMirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
         }
 
@@ -202,7 +201,7 @@ namespace EVCMonoGame.src
             spritesheet = content.Load<Texture2D>(spritesheetName);
         }
         #endregion
-        #region AnimatedSprite
+        #region AnimatedSpriteMethods
         public void AddAnimation(String name, Rectangle[] frames, Dictionary<int, int> frameDelays, 
                                  Dictionary<int, Vector2> frameOffsets, bool isMirrored, bool isLooped)
         {
@@ -390,12 +389,11 @@ namespace EVCMonoGame.src
             // Only one frameDelay.
             else
             {
-                int frameDelay;
 
                 // One frameDelay for all frames.
                 if (line.EndsWith("@all"))
                 {
-                    frameDelay = int.Parse(line.Substring(0, line.IndexOf("@all")));
+                    int frameDelay = int.Parse(line.Substring(0, line.IndexOf("@all")));
 
                     for (int i = 0; i < numFrames; ++i)
                     {
@@ -429,6 +427,32 @@ namespace EVCMonoGame.src
                     int indexClosingBracket = line.IndexOf(')', i);
                     frameOffsets.Add(i, ReadFrameOffset(line.Substring(i, indexClosingBracket - (i - 1))));
                     i = indexClosingBracket + 1;
+                }
+            }
+
+            // Only one frameOffset.
+            else
+            {
+
+                // One frameOffset for all frames.
+                if (line.EndsWith("@all"))
+                {
+                    Vector2 frameOffset = ReadFrameOffset(line.Substring(0, line.IndexOf("@all")));
+
+                    for (int i = 0; i < numFrames; ++i)
+                    {
+                        frameOffsets.Add(i, frameOffset);
+                    }
+                }
+
+                // One frameOffset for one frame.
+                else
+                {
+                    if (numFrames > 1)
+                    {
+                        throw new ArgumentException("numFrames = " + numFrames + " != numFrameOffsets = " + 1);
+                    }
+                    frameOffsets.Add(0, ReadFrameOffset(line));
                 }
             }
 
