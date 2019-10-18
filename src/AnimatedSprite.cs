@@ -46,6 +46,19 @@ namespace EVCMonoGame.src
                 get; set;
             }
 
+            private bool isFinished;
+            public bool IsFinished
+            {
+                get
+                {
+                    return IsLooped ? false : isFinished;
+                }
+                set
+                {
+                    isFinished = value;
+                }
+            }
+
             public Animation(Rectangle[] frames, Dictionary<int, int> frameDelays, Dictionary<int, Vector2> frameOffsets, 
                              bool isMirrored, bool isLooped)
             {
@@ -54,6 +67,8 @@ namespace EVCMonoGame.src
                 FrameOffsets = frameOffsets;
                 IsMirrored = isMirrored;
                 IsLooped = isLooped;
+
+                isFinished = false;
             }
         }
         #endregion
@@ -105,9 +120,7 @@ namespace EVCMonoGame.src
         {
             get
             {
-                Animation currentAnim = animations[currentAnimation];
-                return (frameIndex == currentAnim.Frames.Length - 1)
-                     && !currentAnim.IsLooped;
+                return animations[currentAnimation].IsFinished;
             }
         }
 
@@ -178,11 +191,18 @@ namespace EVCMonoGame.src
                 int frameCount = animation.Frames.Length;
                 if (!animation.IsLooped)
                 {
-                    frameIndex = (frameIndex + 1) == frameCount ? frameCount - 1 : ++frameIndex;
+                    if ((frameIndex + 1) == frameCount)
+                    {
+                        animation.IsFinished = true;
+                    }
+                    else
+                    {
+                        ++frameIndex;
+                    }
                 }
                 else
                 {
-                    frameIndex = (frameIndex + 1) == frameCount ? 0 : ++frameIndex;
+                    frameIndex = ++frameIndex % frameCount;
                 }
             }
         }
@@ -194,6 +214,8 @@ namespace EVCMonoGame.src
 
             spriteBatch.Draw(spritesheet, position + currentAnim.FrameOffsets[frameIndex], currentAnim.Frames[frameIndex], Color.White,
                 0, Vector2.Zero, scale, currentAnim.IsMirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
+
+            Console.WriteLine(currentAnim.FrameOffsets[frameIndex]);
         }
 
         public void LoadContent(ContentManager content)
@@ -262,6 +284,7 @@ namespace EVCMonoGame.src
             }
             previousAnimation = currentAnimation;
             currentAnimation = name;
+            animations[currentAnimation].IsFinished = false;
             elapsedMillis = 0;
             frameIndex = 0;
         }
