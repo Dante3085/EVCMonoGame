@@ -13,43 +13,83 @@ using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
+    // TODO: Optimize LoadFromFile() and HelperMethods. ~20ms is a bit long
+    // TODO: Implement frameOffsets.
+
     public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable
     {
-        struct Animation
+        class  Animation
         {
-            // TODO: Offsets für frames, weil sonst Verschiebung der Figur/Ankerpunkt.
-
             public Rectangle[] Frames
             {
                 get; set;
             }
 
-            public int FrameDelay
+            public Dictionary<int, Rectangle> HurtBounds
             {
                 get; set;
             }
 
-            public bool Mirrored
+            public Dictionary<int, Rectangle> AttackBounds
             {
                 get; set;
             }
 
-            public bool IsLooping
+            public Dictionary<int, int> FrameDelays
             {
                 get; set;
             }
 
-            public Animation(Rectangle[] frames, int frameDelay, bool mirrored = false, 
-                             bool isLooping = false)
+            public Dictionary<int, Vector2> FrameOffsets
+            {
+                get; set;
+            }
+
+            public bool IsMirrored
+            {
+                get; set;
+            }
+
+            public bool IsLooped
+            {
+                get; set;
+            }
+
+            private bool isFinished;
+            public bool IsFinished
+            {
+                get
+                {
+                    return IsLooped ? false : isFinished;
+                }
+                set
+                {
+                    isFinished = value;
+                }
+            }
+
+            public Animation
+            (
+                Rectangle[] frames, 
+                Dictionary<int, Rectangle> hurtBounds, 
+                Dictionary<int, Rectangle> attackBounds,
+                Dictionary<int, int> frameDelays, 
+                Dictionary<int, Vector2> frameOffsets, 
+                bool isMirrored, 
+                bool isLooped)
             {
                 Frames = frames;
-                FrameDelay = frameDelay;
-                Mirrored = mirrored;
-                IsLooping = isLooping;
+                HurtBounds = hurtBounds;
+                AttackBounds = attackBounds;
+                FrameDelays = frameDelays;
+                FrameOffsets = frameOffsets;
+                IsMirrored = isMirrored;
+                IsLooped = isLooped;
+
+                isFinished = false;
             }
         }
-
-        #region InternalVariables
+        #region Fields
 
         private String spritesheetName;
         private Texture2D spritesheet;
@@ -65,6 +105,31 @@ namespace EVCMonoGame.src
 
         #endregion
         #region Properties
+
+        public Rectangle CurrentHurtBounds
+        {
+            get
+            {
+                Rectangle currentHurtBounds = animations[currentAnimation].HurtBounds[frameIndex];
+                currentHurtBounds.Location += position.ToPoint();
+                currentHurtBounds.Size *= new Point((int)scale, (int)scale);
+
+                return currentHurtBounds;
+            }
+        }
+
+        public Rectangle CurrentAttackBounds
+        {
+            // TODO: Define AttackBox for each frame of Attack Animation
+            get
+            {
+                Rectangle currentAttackBounds = animations[currentAnimation].AttackBounds[frameIndex];
+                currentAttackBounds.Location += position.ToPoint();
+                currentAttackBounds.Size *= new Point((int)scale, (int)scale);
+
+                return currentAttackBounds;
+            }
+        }
 
         public Rectangle Bounds
         {
@@ -83,10 +148,10 @@ namespace EVCMonoGame.src
         public Vector2 Position
         {
             get { return position; }
-            set 
+            set
             {
                 previousPosition = position;
-                position = value; 
+                position = value;
             }
         }
 
@@ -97,9 +162,7 @@ namespace EVCMonoGame.src
         {
             get
             {
-                Animation currentAnim = animations[currentAnimation];
-                return (frameIndex == currentAnim.Frames.Length - 1)
-                     && !currentAnim.IsLooping;
+                return animations[currentAnimation].IsFinished;
             }
         }
 
@@ -130,6 +193,7 @@ namespace EVCMonoGame.src
 
         #endregion
 
+        #region Constructors
         public AnimatedSprite(String spritesheetName, Vector2 position, float scale = 1.0f)
         {
             this.spritesheetName = spritesheetName;
@@ -154,49 +218,68 @@ namespace EVCMonoGame.src
             previousPosition = position;
             this.scale = scale;
         }
+        #endregion
 
+        #region Updateable
         public override void Update(GameTime gameTime)
         {
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             Animation animation = animations[currentAnimation];
-            if (elapsedMillis >= animation.FrameDelay)
+            if (elapsedMillis >= animation.FrameDelays[frameIndex])
             {
                 elapsedMillis = 0;
 
                 int frameCount = animation.Frames.Length;
-                if (!animation.IsLooping)
+                if (!animation.IsLooped)
                 {
-                    frameIndex = (frameIndex + 1) == frameCount ? frameCount - 1 : ++frameIndex;
+                    if ((frameIndex + 1) == frameCount)
+                    {
+                        animation.IsFinished = true;
+                    }
+                    else
+                    {
+                        ++frameIndex;
+                    }
                 }
                 else
                 {
-                    frameIndex = (frameIndex + 1) == frameCount ? 0 : ++frameIndex;
+                    frameIndex = ++frameIndex % frameCount;
                 }
             }
         }
-
+        #endregion
+        #region IDrawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Animation currentAnim = animations[currentAnimation];
 
-            spriteBatch.Draw(spritesheet, position, currentAnim.Frames[frameIndex], Color.White,
-                0, Vector2.Zero, scale, currentAnim.Mirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
+            spriteBatch.Draw(spritesheet, position + currentAnim.FrameOffsets[frameIndex], currentAnim.Frames[frameIndex], Color.White,
+                0, Vector2.Zero, scale, currentAnim.IsMirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
         }
 
         public void LoadContent(ContentManager content)
         {
             spritesheet = content.Load<Texture2D>(spritesheetName);
         }
-
-        public void AddAnimation(String name, Rectangle[] frames, int frameDelay, bool mirrored = false, 
-                                 bool isLooping = false)
+        #endregion
+        #region AnimatedSprite
+        public void AddAnimation
+        (
+            String name, Rectangle[] frames,
+            Dictionary<int, Rectangle> hurtBounds,
+            Dictionary<int, Rectangle> attackBounds,
+            Dictionary<int, int> frameDelays,
+            Dictionary<int, Vector2> frameOffsets,
+            bool isMirrored,
+            bool isLooped
+        )
         {
             if (animations.ContainsKey(name))
             {
                 Console.WriteLine("Animation '" + name + "' has just been overriden by an Animation with the same name.");
             }
-            animations[name] = new Animation(frames, frameDelay, mirrored, isLooping);
+            animations[name] = new Animation(frames, hurtBounds, attackBounds, frameDelays, frameOffsets, isMirrored, isLooped);
 
             previousAnimation = currentAnimation;
             currentAnimation = name;
@@ -213,26 +296,26 @@ namespace EVCMonoGame.src
         /// <param name="firstFramePosition">x=column, y=row</param>
         /// <param name="numFrames"></param>
         /// <param name="frameDelay"></param>
-        public void AddAnimation(String name, int frameWidth, int frameHeight, int xColumn, int yRow, int numFrames, int frameDelay)
-        {
-            Rectangle[] frames = new Rectangle[numFrames];
+        //public void AddAnimation(String name, int frameWidth, int frameHeight, int xColumn, int yRow, int numFrames, int frameDelay)
+        //{
+        //    Rectangle[] frames = new Rectangle[numFrames];
 
-            int spritesheetWidht = spritesheet.Width;
-            int frame = 0;
+        //    int spritesheetWidht = spritesheet.Width;
+        //    int frame = 0;
 
-            // frame++ wird zu früh inkrementiert.
-            while(frame < numFrames)
-            {
-                if (xColumn * frameWidth == spritesheetWidht)
-                {
-                    ++yRow;
-                    xColumn = 0;
-                }
-                frames[frame++] = new Rectangle(xColumn++ * frameWidth, yRow * frameHeight, frameWidth, frameHeight);
-            }
+        //    // frame++ wird zu früh inkrementiert.
+        //    while (frame < numFrames)
+        //    {
+        //        if (xColumn * frameWidth == spritesheetWidht)
+        //        {
+        //            ++yRow;
+        //            xColumn = 0;
+        //        }
+        //        frames[frame++] = new Rectangle(xColumn++ * frameWidth, yRow * frameHeight, frameWidth, frameHeight);
+        //    }
 
-            AddAnimation(name, frames, frameDelay);
-        }
+        //    AddAnimation(name, frames, frameDelay);
+        //}
 
         public void SetAnimation(String name)
         {
@@ -249,6 +332,7 @@ namespace EVCMonoGame.src
             }
             previousAnimation = currentAnimation;
             currentAnimation = name;
+            animations[currentAnimation].IsFinished = false;
             elapsedMillis = 0;
             frameIndex = 0;
         }
@@ -257,114 +341,328 @@ namespace EVCMonoGame.src
         {
             System.IO.StreamReader file = new System.IO.StreamReader(configFilePath);
 
+            // Prepare Variables for all the things that will be read.
+            String name;
+            List<Rectangle> frames = new List<Rectangle>();
+            Dictionary<int, Rectangle> hurtBounds = new Dictionary<int, Rectangle>();
+            Dictionary<int, Rectangle> attackBounds = new Dictionary<int, Rectangle>();
+            Dictionary<int, int> frameDelays = new Dictionary<int, int>();
+            Dictionary<int, Vector2> frameOffsets = new Dictionary<int, Vector2>();
+            bool isMirrored;
+            bool isLooped;
+
             string line;
-            while((line = file.ReadLine()) != null)
+            while ((line = file.ReadLine()) != null)
             {
-                // Include char '=' to avoid confusion with other keywords that have
-                // this keyword as a substring.
-                if (line.Contains("SPRITESHEET="))
+                // Find section
+                if (line.StartsWith("[") && line.EndsWith("]"))
                 {
-                    spritesheetName = line.Substring(12, line.Length - 12);
-                }
-                else if (line.Contains("ANIMATION="))
-                {
-                    line = Utility.ReplaceWhitespace(line, "");
-
-                    String animName = "";
-                    String frameDelayMillis = "";
-                    String isMirrored = "";
-                    String isLooping = "";
-
-                    List<Rectangle> frames = new List<Rectangle>();
-
-                    bool readAnimName = false;
-                    bool readFrameDelay = false;
-                    bool readIsMirrored = false;
-                    bool readIsLooping = false;
-                    bool readFrame = false;
-
-                    for (int i = 0; i < line.Length; ++i)
+                    // Determine specific section
+                    if (line.Contains("ANIMATION"))
                     {
-                        // Check for start of Animation name.
-                        if (line[i] == '=') 
-                        { 
-                            readAnimName = true;
-                            continue;
+                        // Process Name
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        name = line.Remove(0, 5);
+
+                        // Process Frames
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 7); // Remove 'FRAMES='
+                        frames = ReadFrames(line);
+
+                        // Process HurtBounds.
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 12); // Remove 'HURT_BOUNDS='
+                        hurtBounds = ReadHurtBounds(line, frames);
+
+                        if (hurtBounds.Count != frames.Count)
+                        {
+                            throw new ArgumentException("Animation: " + name + ", numFrames = " + frames.Count + 
+                                                        " != numHurtBounds = " + hurtBounds.Count);
                         }
 
-                        if (readAnimName)
-                        {
-                            // Check if Animation name has been completely read.
-                            if (line[i] == ',')
-                            {
-                                readAnimName = false;
-                                readFrameDelay = true;
-                                continue;
-                            }
-                            animName += line[i];
-                        }
-                        else if (readFrameDelay)
-                        {
-                            // Check if Frame Delay has been completely read.
-                            if (line[i] == ',')
-                            {
-                                readFrameDelay = false;
-                                readIsMirrored = true;
-                                continue;
-                            }
-                            frameDelayMillis += line[i];
-                        }
-                        else if (readIsMirrored)
-                        {
-                            if (line[i] == ',')
-                            {
-                                readIsMirrored = false;
-                                readIsLooping = true;
-                                continue;
-                            }
-                            isMirrored += line[i];
-                        }
-                        else if (readIsLooping)
-                        {
-                            if (line[i] == ',')
-                            {
-                                readIsLooping = false;
-                                readFrame = true;
-                                continue;
-                            }
-                            isLooping += line[i];
-                        }
-                        else if (readFrame)
-                        {
-                            int indexClosingBracket = line.IndexOf(')', i);
+                        // Process AttackBounds.
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 14); // Remove 'ATTACK_BOUNDS='
+                        attackBounds = ReadAttackBounds(line, frames.Count);
 
-                            String frameString = line.Substring(i, indexClosingBracket - (i - 1));
-                            frames.Add(ReadFrame(frameString));
-                            i = indexClosingBracket + 1;
-
+                        if (attackBounds.Count != frames.Count)
+                        {
+                            throw new ArgumentException("Animation: " + name + ", numFrames = " + frames.Count +
+                                                        " != numAttackBounds = " + attackBounds.Count);
                         }
+
+                        // Process FrameDelays
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 13); // Remove 'FRAME_DELAYS='
+                        frameDelays = ReadFrameDelays(line, frames.Count);
+
+                        if (frameDelays.Count != frames.Count)
+                        {
+                            throw new ArgumentException("Animation: " + name + ", numFrames = " + frames.Count + 
+                                                        " != numFrameDelays = " + frameDelays.Count);
+                        }
+
+                        // Process FrameOffsets
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 14);
+                        frameOffsets = ReadFrameOffsets(line, frames.Count);
+
+                        if (frameOffsets.Count != frames.Count)
+                        {
+                            throw new ArgumentException("Animation: " + name + ", numFrames = " + frames.Count + 
+                                                        " != numFrameOffsets = " + frameOffsets.Count);
+                        }
+
+                        // Process IsMirrored
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 12);
+                        isMirrored = bool.Parse(line);
+
+                        // Process IsLooped
+                        line = Utility.ReplaceWhitespace(file.ReadLine(), "");
+                        line = line.Remove(0, 10);
+                        isLooped = bool.Parse(line);
+
+                        AddAnimation(name, frames.ToArray(), hurtBounds, attackBounds, frameDelays, frameOffsets, isMirrored, isLooped);
                     }
-                    AddAnimation(animName, frames.ToArray(), int.Parse(frameDelayMillis), bool.Parse(isMirrored),
-                                 bool.Parse(isLooping));
+                }
+
+                // Process Spritesheet
+                else if (line.Contains("SPRITESHEET"))
+                {
+                    int equalsIndex = line.IndexOf('=');
+                    spritesheetName = line.Substring(equalsIndex + 1, (line.Length - 1) - equalsIndex);
                 }
             }
             file.Close();
         }
 
-        private Rectangle ReadFrame(String str)
+        #region LoadFromFileHelperMethods
+        private List<Rectangle> ReadFrames(String line)
         {
-            Rectangle frame = new Rectangle();
+            List<Rectangle> frames = new List<Rectangle>();
 
-            int indexFirstComma = str.IndexOf(',');
-            int indexSecondComma = str.IndexOf(',', indexFirstComma + 1);
-            int indexThirdComma = str.IndexOf(',', indexSecondComma + 1);
+            // Parse all the frames.
+            for (int i = 0; i < line.Length; ++i)
+            {
+                int indexClosingBracket = line.IndexOf(')', i);
+                frames.Add(StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                i = indexClosingBracket + 1;
+            }
 
-            frame.X      = int.Parse(str.Substring(1, indexFirstComma - 1));
-            frame.Y      = int.Parse(str.Substring(indexFirstComma  + 1,      (indexSecondComma - 1)  - indexFirstComma));
-            frame.Width  = int.Parse(str.Substring(indexSecondComma + 1,      (indexThirdComma  - 1)  - indexSecondComma));
-            frame.Height = int.Parse(str.Substring(indexThirdComma  + 1, str.Length - (indexThirdComma + 2)));
-
-            return frame;
+            return frames;
         }
+
+        // TODO: Similar to ReadFrameDelays()
+        private Dictionary<int, Rectangle> ReadHurtBounds(String line, List<Rectangle> frames)
+        {
+            Dictionary<int, Rectangle> hurtBounds = new Dictionary<int, Rectangle>();
+
+            // Multiple hurtBounds separated by commas.
+            if (line.Contains("),"))
+            {
+                int hurtBoundCounter = 0;
+                for (int i = 0; i < line.Length; ++i)
+                {
+                    int indexClosingBracket = line.IndexOf(')', i);
+                    hurtBounds.Add(hurtBoundCounter++, StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                    i = indexClosingBracket + 1;
+                }
+            }
+
+            // Only one hurtBound.
+            else
+            {
+                // Each frame gets hurtBound (0, 0, frame.width, frame.height).
+                if (line == "SAME_AS_FRAME")
+                {
+                    Rectangle hurtBound;
+                    for (int i = 0; i < frames.Count; ++i)
+                    {
+                        hurtBound = frames[i];
+                        hurtBound.X = 0;
+                        hurtBound.Y = 0;
+
+                        hurtBounds.Add(i, hurtBound);
+                    }
+                }
+
+                // One hurtBound for all frames
+                else if (line.EndsWith("@all"))
+                {
+                    Rectangle hurtBound = StringToRectangle(line.Substring(0, line.IndexOf("@all")));
+
+                    for (int i = 0; i < frames.Count; ++i)
+                    {
+                        hurtBounds.Add(i, hurtBound);
+                    }
+                }
+
+                // One hurtBound for one frame
+                else
+                {
+                    hurtBounds.Add(0, StringToRectangle(line));
+                }
+            }
+            return hurtBounds;
+        }
+
+        private Dictionary<int, Rectangle> ReadAttackBounds(String line, int numFrames)
+        {
+            Dictionary<int, Rectangle> attackBounds = new Dictionary<int, Rectangle>();
+
+            // Multiple attackBounds separated by commas.
+            if (line.Contains("),"))
+            {
+                int attackBoundCounter = 0;
+                for (int i = 0; i < line.Length; ++i)
+                {
+                    int indexClosingBracket = line.IndexOf(')', i);
+                    attackBounds.Add(attackBoundCounter++, StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                    i = indexClosingBracket + 1;
+                }
+            }
+
+            // Only one attackBound.
+            else
+            {
+                // One attackBound for all frames
+                if (line.EndsWith("@all"))
+                {
+                    Rectangle attackBound = StringToRectangle(line.Substring(0, line.IndexOf("@all")));
+
+                    for (int i = 0; i < numFrames; ++i)
+                    {
+                        attackBounds.Add(i, attackBound);
+                    }
+                }
+
+                // One attackBound for one frame
+                else
+                {
+                    attackBounds.Add(0, StringToRectangle(line));
+                }
+            }
+
+            return attackBounds;
+        }
+
+        private Dictionary<int, int> ReadFrameDelays(String line, int numFrames)
+        {
+            Dictionary<int, int> frameDelays = new Dictionary<int, int>();
+
+            // Multiple frameDelays separated with commas.
+            if (line.Contains(','))
+            {
+                String[] frameDelayStrings = line.Split(',');
+
+                for (int i = 0; i < frameDelayStrings.Length; ++i)
+                {
+                    frameDelays.Add(i, int.Parse(frameDelayStrings[i]));
+                }
+            }
+
+            // Only one frameDelay.
+            else
+            {
+
+                // One frameDelay for all frames.
+                if (line.EndsWith("@all"))
+                {
+                    int frameDelay = int.Parse(line.Substring(0, line.IndexOf("@all")));
+
+                    for (int i = 0; i < numFrames; ++i)
+                    {
+                        frameDelays.Add(i, frameDelay);
+                    }
+                }
+
+                // One frameDelay for one frame.
+                else
+                {
+                    frameDelays.Add(0, int.Parse(line));
+                }
+            }
+
+            return frameDelays;
+        }
+
+        private Dictionary<int, Vector2> ReadFrameOffsets(String line, int numFrames)
+        {
+            Dictionary<int, Vector2> frameOffsets = new Dictionary<int, Vector2>();
+
+            // Multiple frameOffsets separated by commas.
+            if (line.Contains("),"))
+            {
+                int frameCounter = 0;
+                for (int i = 0; i < line.Length; ++i)
+                {
+                    int indexClosingBracket = line.IndexOf(')', i);
+                    frameOffsets.Add(frameCounter++, ReadFrameOffset(line.Substring(i, indexClosingBracket - (i - 1))));
+                    i = indexClosingBracket + 1;
+                }
+
+            }
+
+            // Only one frameOffset.
+            else
+            {
+
+                // One frameOffset for all frames.
+                if (line.EndsWith("@all"))
+                {
+                    Vector2 frameOffset = ReadFrameOffset(line.Substring(0, line.IndexOf("@all")));
+
+                    for (int i = 0; i < numFrames; ++i)
+                    {
+                        frameOffsets.Add(i, frameOffset);
+                    }
+                }
+
+                // One frameOffset for one frame.
+                else
+                {
+                    frameOffsets.Add(0, ReadFrameOffset(line));
+                }
+            }
+
+            return frameOffsets;
+        }
+
+        private Vector2 ReadFrameOffset(String frameOffsetString)
+        {
+            int indexComma = frameOffsetString.IndexOf(',');
+
+            Vector2 frameOffset = Vector2.Zero;
+            frameOffset.X = int.Parse(frameOffsetString.Substring(1, indexComma - 1));
+            frameOffset.Y = int.Parse(frameOffsetString.Substring(indexComma + 1,
+                                      (frameOffsetString.Length - 2) - (indexComma)));
+
+            return frameOffset;
+        }
+
+        /// <summary>
+        /// Converts a String of format "(x, y, width, height)" to a Rectangle instance.
+        /// </summary>
+        /// <param name="recString"></param>
+        /// <returns></returns>
+        private Rectangle StringToRectangle(String recString)
+        {
+            Rectangle rectangle = new Rectangle();
+
+            int indexFirstComma = recString.IndexOf(',');
+            int indexSecondComma = recString.IndexOf(',', indexFirstComma + 1);
+            int indexThirdComma = recString.IndexOf(',', indexSecondComma + 1);
+
+            rectangle.X = int.Parse(recString.Substring(1, indexFirstComma - 1));
+            rectangle.Y = int.Parse(recString.Substring(indexFirstComma + 1, (indexSecondComma - 1) - indexFirstComma));
+            rectangle.Width = int.Parse(recString.Substring(indexSecondComma + 1, (indexThirdComma - 1) - indexSecondComma));
+            rectangle.Height = int.Parse(recString.Substring(indexThirdComma + 1, recString.Length - (indexThirdComma + 2)));
+
+            return rectangle;
+        }
+        #endregion
+
+        #endregion
     }
 }

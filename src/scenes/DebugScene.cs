@@ -17,10 +17,10 @@ namespace EVCMonoGame.src.scenes
     {
         private Player player;
         private Player player2;
-        // private Player player3;
         private SpriteFont randomText;
         private Texture2D background;
         private GeometryBox geometryBox;
+        private GeometryBox geometryBox2;
         private Tilemap tilemap;
 
         private CollisionManager collisionManager;
@@ -32,8 +32,10 @@ namespace EVCMonoGame.src.scenes
                 new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
-            // player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
-            geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
+            player2.DoesUpdateMovement = false;
+
+            geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
+            geometryBox2 = new GeometryBox(new Rectangle(1400, 480, 500, 25));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
@@ -45,17 +47,20 @@ namespace EVCMonoGame.src.scenes
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
             {
+                player,
+                player2,
+
                 player.Sprite,
                 player2.Sprite,
-                // player3.Sprite,
-                // geometryBox,
+
+                geometryBox,
+                geometryBox2,
             });
 
             updateables.AddRange(new Updateable[] 
             { 
                 player,
-                // player2,
-                // player3,
+                player2,
                 collisionManager,
             });
 
@@ -64,7 +69,6 @@ namespace EVCMonoGame.src.scenes
                 tilemap,
                 player,
                 player2,
-                // player3,
                 collisionManager,
             });
         }

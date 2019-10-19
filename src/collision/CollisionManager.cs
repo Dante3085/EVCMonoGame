@@ -12,50 +12,96 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.collision
 {
+    public enum Corner
+    {
+        LEFT_TOP = 1,
+        RIGHT_TOP,
+        RIGHT_BOTTOM,
+        LEFT_BOTTOM
+    }
+
     public class CollisionManager : Updateable, scenes.IDrawable
     {
+        #region Fields
         private List<Collidable> collidables;
         private List<GeometryCollidable> geometryCollidables;
+        private List<CombatCollidable> combatCollidables;
+        #endregion
 
-        public bool DrawBoundingBoxes { get; set; } = true;
-
+        #region Constructors
         public CollisionManager()
         {
             collidables = new List<Collidable>();
             geometryCollidables = new List<GeometryCollidable>();
+            combatCollidables = new List<CombatCollidable>();
         }
+        #endregion
 
-        public override void Update(GameTime gameTime)
-        {
-            CheckGeometryCollisions();
-        }
-
+        #region Drawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (!DrawBoundingBoxes)
-                return;
-
             foreach (Collidable c in collidables)
             {
-                Primitives2D.DrawRectangle(spriteBatch, c.Bounds, Color.BlanchedAlmond);
+                Color darkBlue = Color.DarkBlue;
+                darkBlue.A = 50;
+                Primitives2D.DrawRectangle(spriteBatch, c.Bounds, darkBlue, 2);
+            }
+
+            foreach (CombatCollidable c in combatCollidables)
+            {
+                Color darkGreen = Color.DarkGreen;
+                darkGreen.A = 50;
+                Primitives2D.FillRectangle(spriteBatch, c.HurtBounds, darkGreen);
+
+                Color darkRed = Color.DarkRed;
+                darkRed.A = 50;
+                Primitives2D.FillRectangle(spriteBatch, c.AttackBounds, darkRed);
             }
         }
 
         public void LoadContent(ContentManager content)
         {
-            
+
+        }
+        #endregion
+        #region Updateable
+        public override void Update(GameTime gameTime)
+        {
+            CheckGeometryCollisions();
+            CheckCombatCollisions();
         }
 
-        public void AddCollidables(params Collidable[] collidables)
+        #region UpdateableHelper
+        private void CheckCombatCollisions()
         {
-            foreach (Collidable c in collidables)
+            foreach (CombatCollidable c1 in combatCollidables)
             {
-                this.collidables.Add(c);
-
-                if (c is GeometryCollidable)
+                foreach (CombatCollidable c2 in combatCollidables)
                 {
-                    geometryCollidables.Add((GeometryCollidable)c);
+                    if (c1 == c2)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (c1.HasActiveAttackBounds)
+                        {
+                            if (c1.AttackBounds.Intersects(c2.HurtBounds))
+                            {
+                                ResolveCombatCollision(c1, c2);
+                            }
+                        }
+                    }
                 }
+            }
+        }
+
+        private void ResolveCombatCollision(CombatCollidable attacker, CombatCollidable victim)
+        {
+            victim.ReceiveDamage(attacker.CurrentDamage);
+            if (!victim.IsAlive)
+            {
+                Console.WriteLine("Jemand ist im Kampf gestorben.");
             }
         }
 
@@ -84,62 +130,62 @@ namespace EVCMonoGame.src.collision
         {
             Vector2 g1Shift = g1.Position - g1.PreviousPosition;
             Vector2 g2Shift = g2.Position - g2.PreviousPosition;
-
-            //if (g1Shift != Vector2.Zero)
-            //{
-            //    g1.Position = g1.PreviousPosition;
-            //}
-            //else if (g2Shift != Vector2.Zero)
-            //{
-            //    g2.Position = g2.PreviousPosition;
-            //}
+            Vector2 g1CollisionPosition = new Vector2(g1.Position.X,g1.Position.Y);
+            Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
 
             if (g1Shift != Vector2.Zero)
             {
-                Vector2 g1BackShift = Vector2.Zero;
-                if (g1Shift.X < 0)
+                float length = 0.5f;
+                Vector2 backShift = g1Shift * (-1);
+                while (g1.Bounds.Intersects(g2.Bounds))
                 {
-                    g1BackShift.X = g2.Bounds.Right - g1.Bounds.Left;
+                    backShift = Utility.scaleVectorTo(backShift, length);
+                    g1.Position = g1CollisionPosition + backShift;
+                    length += 0.5f;
                 }
-                else if (g1Shift.X > 0)
-                {
-                    g1BackShift.X = g2.Bounds.Left - g1.Bounds.Right;
-                }
-
-                else if (g1Shift.Y < 0)
-                {
-                    g1BackShift.Y = g2.Bounds.Bottom - g1.Bounds.Top;
-                }
-                else if (g1Shift.Y > 0)
-                {
-                    g1BackShift.Y = g2.Bounds.Top - g1.Bounds.Bottom;
-                }
-
-                g1.Position += g1BackShift;
+                g1.Position += new Vector2((g1CollisionPosition - g1.Position).X, 0);
+                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
+                g1.Position += new Vector2(0, (g1CollisionPosition - g1.Position).Y);
+                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
+                
             }
             else if (g2Shift != Vector2.Zero)
-            {
-                Vector2 g2BackShift = Vector2.Zero;
-                if (g2Shift.X < 0)
+            {   
+                float length = 0.5f;
+                Vector2 backShift = g2Shift * (-1);
+                while (g1.Bounds.Intersects(g2.Bounds))
                 {
-                    g2BackShift.X = g1.Bounds.Right - g2.Bounds.Left;
+                    backShift = Utility.scaleVectorTo(backShift, length);
+                    g2.Position = g2CollisionPosition + backShift;
+                    length += 0.5f;
                 }
-                else if (g2Shift.X > 0)
-                {
-                    g2BackShift.X = g1.Bounds.Left - g2.Bounds.Right;
-                }
-
-                else if (g2Shift.Y < 0)
-                {
-                    g2BackShift.Y = g1.Bounds.Bottom - g2.Bounds.Top;
-                }
-                else if (g2Shift.Y > 0)
-                {
-                    g2BackShift.Y = g1.Bounds.Top - g2.Bounds.Bottom;
-                }
-
-                g2.Position += g2BackShift;
+                g2.Position += new Vector2((g2CollisionPosition - g2.Position).X, 0);
+                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
+                g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
+                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
+                
             }
         }
+        #endregion
+        #endregion
+        #region CollisionManager
+        public void AddCollidables(params Collidable[] collidables)
+        {
+            foreach (Collidable c in collidables)
+            {
+                this.collidables.Add(c);
+
+                if (c is GeometryCollidable)
+                {
+                    geometryCollidables.Add((GeometryCollidable)c);
+                }
+
+                if (c is CombatCollidable)
+                {
+                    combatCollidables.Add((CombatCollidable)c);
+                }
+            }
+        }
+        #endregion
     }
 }

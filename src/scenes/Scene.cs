@@ -15,11 +15,12 @@ namespace EVCMonoGame.src.scenes
         protected List<IDrawable> drawables;
         protected SceneManager sceneManager;
 
-        public Scene(SceneManager screenManager)
+        public Scene(SceneManager sceneManager)
         {
-            this.sceneManager = screenManager;
+            this.sceneManager = sceneManager;
             updateables = new List<Updateable>();
             drawables = new List<IDrawable>();
+
         }
 
         public virtual void LoadContent(ContentManager contentManager)
