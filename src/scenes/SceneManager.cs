@@ -67,6 +67,7 @@ namespace EVCMonoGame.src.scenes
             reverseTransitionFinished = false;
 
             debugTexts = new DebugTexts(new Vector2(100, 100));
+            debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
             scenes[EScene.DEBUG] = new DebugScene(this);
@@ -94,6 +95,7 @@ namespace EVCMonoGame.src.scenes
             // Global Updating
             // if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
             if (transitioning) { UpdateTransition(gameTime); }
+            debugTexts.Entries[0] = InputManager.CurrentMousePosition().ToString();
         }
 
         public void Draw(GameTime gameTime)

@@ -19,6 +19,9 @@ namespace EVCMonoGame.src.input
         private static GamePadState currentGamePadState;
         private static GamePadState previousGamePadState;
 
+        private static MouseState currentMouseState;
+        private static MouseState previousMouseState;
+
         private static Buttons[] buttonsEnum = (Buttons[])Enum.GetValues(typeof(Buttons));
 
         private static bool inputByKeyboard = true;
@@ -44,6 +47,9 @@ namespace EVCMonoGame.src.input
 
             previousGamePadState = currentGamePadState;
             currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+
+            previousMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
 
             if (inputByKeyboard)
             {
@@ -224,6 +230,16 @@ namespace EVCMonoGame.src.input
         public static GamePadTriggers PreviousTriggers()
         {
             return previousGamePadState.Triggers;
+        }
+
+        public static Vector2 CurrentMousePosition()
+        {
+            return currentMouseState.Position.ToVector2();
+        }
+
+        public static Vector2 PreviousMousePosition()
+        {
+            return previousMouseState.Position.ToVector2();
         }
 
         //public static bool OnKeyCombinationPressed(params Keys[] keys)

@@ -11,17 +11,40 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
-    public class Player : Updateable, scenes.IDrawable
+    public enum Orientation
     {
+        LEFT,
+        UP_LEFT,
+        UP,
+        UP_RIGHT,
+        RIGHT,
+        DOWN_RIGHT,
+        DOWN,
+        DOWN_LEFT
+    }
+
+    public class Player : Updateable, scenes.IDrawable, CombatCollidable
+    {
+        #region Fields
         private AnimatedSprite playerSprite;
         private Healthbar playerHealthbar;
         private float playerSpeed;
         private bool isAttacking;
         private float runThreshold;
 
+        private Keys[] controls;
+
+        private Vector2 movementVector;
+        private Vector2 previousMovementVector;
+
+        private Orientation orientation;
+
+        #endregion
+        #region Properties
         public AnimatedSprite Sprite
         {
             get { return playerSprite; }
@@ -32,8 +55,46 @@ namespace EVCMonoGame.src
             get { return playerHealthbar; }
         }
 
-        private Keys[] controls;
+        public Rectangle HurtBounds
+        {
+            get { return playerSprite.CurrentHurtBounds; }
+        }
 
+        public Rectangle AttackBounds
+        {
+            get { return playerSprite.CurrentAttackBounds; }
+        }
+
+        public bool HasActiveAttackBounds
+        {
+            get; private set;
+        }
+
+        public bool IsAlive
+        {
+            get { return playerHealthbar.CurrentHp > 0; }
+        }
+
+        public int CurrentDamage
+        {
+            get { return 10; }
+        }
+
+        public Rectangle Bounds
+        {
+            get { return playerSprite.Bounds; }
+        }
+
+        /// <summary>
+        /// ONLY FOR DEBUGGING PURPOSES. REMOVE LATER.
+        /// </summary>
+        public bool DoesUpdateMovement
+        {
+            get; set;
+        }
+        #endregion
+
+        #region Constructors
         public Player(Vector2 position, Keys[] controls)
         {
             isAttacking = false;
@@ -41,9 +102,11 @@ namespace EVCMonoGame.src
 
             playerSprite = new AnimatedSprite(position, 5.0f);
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
-            playerSprite.SetAnimation("IDLE_UP");
+            playerSprite.SetAnimation("IDLE_DOWN");
 
-            playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(100, 10));
+            orientation = Orientation.DOWN;
+
+            playerHealthbar = new Healthbar(9999, 9999, new Vector2(300, 100), new Vector2(100, 10));
             playerSpeed = 8;
 
             // Der Parameter controls ist nicht final. Nur, um mehrere Player Instanzen anders steuern zu können.
@@ -52,8 +115,13 @@ namespace EVCMonoGame.src
                 throw new ArgumentException("Nur 4 Bewegungstasten");
             }
             this.controls = controls;
-        }
 
+            movementVector = Vector2.Zero;
+            previousMovementVector = movementVector;
+            DoesUpdateMovement = true;
+        }
+        #endregion
+        #region IDrawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             playerHealthbar.Draw(gameTime, spriteBatch);
@@ -65,13 +133,11 @@ namespace EVCMonoGame.src
             playerSprite.LoadContent(content);
             playerHealthbar.LoadContent(content);
         }
-
+        #endregion
+        #region Updateable
         public override void Update(GameTime gameTime)
         {
-            if (!isAttacking)
-            {
-                // UpdateMovement();
-            }
+            UpdateMovement();
             UpdateAttacks();
 
             playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
@@ -82,52 +148,60 @@ namespace EVCMonoGame.src
 
         public void UpdateAttacks()
         {
-            //if (InputManager.OnButtonPressed(Buttons.X)
-            //    || InputManager.OnKeyPressed(Keys.A))
-            //{
-            //    isAttacking = true;
 
-            //    //if (playerSprite.CurrentAnimation == "IDLE_DOWN")
-            //    //{
-            //    //    playerSprite.SetAnimation("ATTACK_DOWN");
-            //    //}
-            //    playerSprite.SetAnimation("ATTACK_DOWN");
-            //}
+            if (playerSprite.AnimationFinished) HasActiveAttackBounds = false;
 
-            //if (playerSprite.AnimationFinished)
-            //{
-            //    isAttacking = false;
-            //    return;
-            //}
-
-            String currentAnim = playerSprite.CurrentAnimation;
-            if (playerSprite.AnimationFinished && currentAnim.Contains("ATTACK"))
+            if (InputManager.OnButtonPressed(Buttons.X)
+                || InputManager.OnKeyPressed(Keys.A))
             {
-                if (playerSprite.CurrentAnimation == "ATTACK_STD_COMBO_0")
+                HasActiveAttackBounds = true;
+
+                if (orientation == Orientation.LEFT)
                 {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_1");
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_0");
                 }
-                else if (playerSprite.CurrentAnimation == "ATTACK_STD_COMBO_1")
+                else if (orientation == Orientation.RIGHT)
                 {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_2");
-                }
-                else
-                {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_0");
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_0");
                 }
             }
-
-            if (InputManager.OnButtonPressed(Buttons.X))
+            else if (InputManager.OnButtonPressed(Buttons.Y))
             {
-                playerSprite.SetAnimation("ATTACK_STD_COMBO_0");
+                HasActiveAttackBounds = true;
+
+                if (orientation == Orientation.LEFT)
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_1");
+                }
+                else if (orientation == Orientation.RIGHT)
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_1");
+                }
+            }
+            else if (InputManager.OnButtonPressed(Buttons.B))
+            {
+                HasActiveAttackBounds = true;
+
+                if (orientation == Orientation.LEFT)
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_2");
+                }
+                else if (orientation == Orientation.RIGHT)
+                {
+                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_2");
+                }
             }
         }
 
         public void UpdateMovement()
         {
+            if (!DoesUpdateMovement)
+                return;
+
             Vector2 currentPosition = playerSprite.Position;
             Vector2 directionVector = new Vector2(0, 0);
-            Vector2 movementVector = new Vector2(0, 0);
+            previousMovementVector = movementVector;
+
             switch (InputManager.InputByKeyboard)
             {
                 case true:
@@ -147,121 +221,143 @@ namespace EVCMonoGame.src
             playerSprite.Position += movementVector;
             float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
             float directionVectorLength = directionVector.Length();
-            if (movementVector == Vector2.Zero)
-            {
-                String currentAnimation = playerSprite.CurrentAnimation;
 
-                if (currentAnimation == "WALK_DOWN_LEFT" || currentAnimation == "RUN_DOWN_LEFT"
-                    || currentAnimation == "IDLE_DOWN_LEFT")
+            if (movementVector != previousMovementVector)
+            {
+                if (movementVector == Vector2.Zero)
                 {
-                    playerSprite.SetAnimation("IDLE_DOWN_LEFT");
-                }
-                else if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
-                {
-                    playerSprite.SetAnimation("IDLE_DOWN");
-                }
-                else if (currentAnimation == "WALK_DOWN_RIGHT" || currentAnimation == "RUN_DOWN_RIGHT"
-                    || currentAnimation == "IDLE_DOWN_RIGHT")
-                {
-                    playerSprite.SetAnimation("IDLE_DOWN_RIGHT");
-                }
-                else if (currentAnimation == "WALK_UP_LEFT" || currentAnimation == "RUN_UP_LEFT"
-                    || currentAnimation == "IDLE_UP_LEFT")
-                {
-                    playerSprite.SetAnimation("IDLE_UP_LEFT");
-                }
-                else if (currentAnimation == "RUN_UP" || currentAnimation == "IDLE_UP")
-                {
-                    playerSprite.SetAnimation("IDLE_UP");
-                }
-                else if (currentAnimation == "WALK_UP_RIGHT" || currentAnimation == "RUN_UP_RIGHT"
-                    || currentAnimation == "IDLE_UP_RIGHT")
-                {
-                    playerSprite.SetAnimation("IDLE_UP_RIGHT");
-                }
-                else if (currentAnimation == "RUN_LEFT" || currentAnimation == "IDLE_LEFT")
-                {
-                    playerSprite.SetAnimation("IDLE_LEFT");
-                }
-                else if (currentAnimation == "RUN_RIGHT" || currentAnimation == "IDLE_RIGHT")
-                {
-                    playerSprite.SetAnimation("IDLE_RIGHT");
+                    String currentAnimation = playerSprite.CurrentAnimation;
+
+                    if (currentAnimation == "WALK_DOWN_LEFT" || currentAnimation == "RUN_DOWN_LEFT"
+                        || currentAnimation == "IDLE_DOWN_LEFT")
+                    {
+                        playerSprite.SetAnimation("IDLE_DOWN_LEFT");
+                        orientation = Orientation.DOWN_LEFT;
+                    }
+                    else if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
+                    {
+                        playerSprite.SetAnimation("IDLE_DOWN");
+                        orientation = Orientation.DOWN;
+                    }
+                    else if (currentAnimation == "WALK_DOWN_RIGHT" || currentAnimation == "RUN_DOWN_RIGHT"
+                        || currentAnimation == "IDLE_DOWN_RIGHT")
+                    {
+                        playerSprite.SetAnimation("IDLE_DOWN_RIGHT");
+                        orientation = Orientation.DOWN_RIGHT;
+                    }
+                    else if (currentAnimation == "WALK_UP_LEFT" || currentAnimation == "RUN_UP_LEFT"
+                        || currentAnimation == "IDLE_UP_LEFT")
+                    {
+                        playerSprite.SetAnimation("IDLE_UP_LEFT");
+                        orientation = Orientation.UP_LEFT;
+                    }
+                    else if (currentAnimation == "RUN_UP" || currentAnimation == "IDLE_UP")
+                    {
+                        playerSprite.SetAnimation("IDLE_UP");
+                        orientation = Orientation.UP;
+                    }
+                    else if (currentAnimation == "WALK_UP_RIGHT" || currentAnimation == "RUN_UP_RIGHT"
+                        || currentAnimation == "IDLE_UP_RIGHT")
+                    {
+                        playerSprite.SetAnimation("IDLE_UP_RIGHT");
+                        orientation = Orientation.UP_RIGHT;
+                    }
+                    else if (currentAnimation == "RUN_LEFT" || currentAnimation == "IDLE_LEFT")
+                    {
+                        playerSprite.SetAnimation("IDLE_LEFT");
+                        orientation = Orientation.LEFT;
+                    }
+                    else if (currentAnimation == "RUN_RIGHT" || currentAnimation == "IDLE_RIGHT")
+                    {
+                        playerSprite.SetAnimation("IDLE_RIGHT");
+                        orientation = Orientation.RIGHT;
+                    }
+                    else
+                    {
+                        playerSprite.SetAnimation("IDLE_UP");
+                        orientation = Orientation.UP;
+                    }
                 }
                 else
                 {
-                    playerSprite.SetAnimation("IDLE_UP");
+                    if (mvAngle > (-22.5) && mvAngle <= (22.5))
+                    {
+                        playerSprite.SetAnimation("RUN_RIGHT");
+                        orientation = Orientation.RIGHT;
+                    }
+                    if (mvAngle > (22.5) && mvAngle <= (77.5))
+                    {
+                        if (directionVectorLength <= runThreshold)
+                        {
+                            playerSprite.SetAnimation("WALK_UP_RIGHT");
+                        }
+                        else
+                        {
+                            playerSprite.SetAnimation("RUN_UP_RIGHT");
+                        }
+                        orientation = Orientation.UP_RIGHT;
+                    }
+                    if (mvAngle > (77.5) && mvAngle <= (112.5))
+                    {
+                        playerSprite.SetAnimation("RUN_UP");
+                        orientation = Orientation.UP;
+                    }
+                    if (mvAngle > (112.5) && mvAngle <= (157.5))
+                    {
+                        if (directionVectorLength <= runThreshold)
+                        {
+                            playerSprite.SetAnimation("WALK_UP_LEFT");
+                        }
+                        else
+                        {
+                            playerSprite.SetAnimation("RUN_UP_LEFT");
+                        }
+                        orientation = Orientation.UP_LEFT;
+                    }
+                    if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
+                    {
+                        playerSprite.SetAnimation("RUN_LEFT");
+                        orientation = Orientation.LEFT;
+                    }
+                    if (mvAngle > (-157.5) && mvAngle <= (-112.5))
+                    {
+                        if (directionVectorLength <= runThreshold)
+                        {
+                            playerSprite.SetAnimation("WALK_DOWN_LEFT");
+                        }
+                        else
+                        {
+                            playerSprite.SetAnimation("RUN_DOWN_LEFT");
+                        }
+                        orientation = Orientation.DOWN_LEFT;
+                    }
+                    if (mvAngle > (-112.5) && mvAngle <= (-77.5))
+                    {
+                        playerSprite.SetAnimation("RUN_DOWN");
+                        orientation = Orientation.DOWN;
+                    }
+                    if (mvAngle > (-77.5) && mvAngle <= (-22.5))
+                    {
+                        if (directionVectorLength <= runThreshold)
+                        {
+                            playerSprite.SetAnimation("WALK_DOWN_RIGHT");
+                        }
+                        else
+                        {
+                            playerSprite.SetAnimation("RUN_DOWN_RIGHT");
+                        }
+                        orientation = Orientation.DOWN_RIGHT;
+                    }
                 }
             }
-            else
-            {
-                if (mvAngle > (-22.5) && mvAngle <= (22.5))
-                {
-                    //right
-                    playerSprite.SetAnimation("RUN_RIGHT");
-                }
-                if (mvAngle > (22.5) && mvAngle <= (77.5))
-                {
-                    if (directionVectorLength <= runThreshold)
-                    {
-                        playerSprite.SetAnimation("WALK_UP_RIGHT");
-                    }
-                    else
-                    {
-                        playerSprite.SetAnimation("RUN_UP_RIGHT");
-                    }
-                }
-                if (mvAngle > (77.5) && mvAngle <= (112.5))
-                {
-                    //up
+        }
 
-                    playerSprite.SetAnimation("RUN_UP");
-                }
-                if (mvAngle > (112.5) && mvAngle <= (157.5))
-                {
-                    if (directionVectorLength <= runThreshold)
-                    {
-                        playerSprite.SetAnimation("WALK_UP_LEFT");
-                    }
-                    else
-                    {
-                        //up-left
-                        playerSprite.SetAnimation("RUN_UP_LEFT");
-                        // playerSprite.SetAnimation("WALK_UP_LEFT");
-                    }
-                }
-                if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
-                {
-                    //left
-                    playerSprite.SetAnimation("RUN_LEFT");
-                }
-                if (mvAngle > (-157.5) && mvAngle <= (-112.5))
-                {
-                    if (directionVectorLength <= runThreshold)
-                    {
-                        playerSprite.SetAnimation("WALK_DOWN_LEFT");
-                    }
-                    else
-                    {
-                        playerSprite.SetAnimation("RUN_DOWN_LEFT");
-                    }
-                }
-                if (mvAngle > (-112.5) && mvAngle <= (-77.5))
-                {
-                    //down
-                    playerSprite.SetAnimation("RUN_DOWN");
-                }
-                if (mvAngle > (-77.5) && mvAngle <= (-22.5))
-                {
-                    if (directionVectorLength <= runThreshold)
-                    {
-                        playerSprite.SetAnimation("WALK_DOWN_RIGHT");
-                    }
-                    else
-                    {
-                        playerSprite.SetAnimation("RUN_DOWN_RIGHT");
-                    }
-                }
-            }
+        #endregion
+
+        public void ReceiveDamage(int amount)
+        {
+            playerHealthbar.CurrentHp -= amount;
+            // Update Character Hp as well.
         }
     }
 }
