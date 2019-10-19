@@ -39,9 +39,9 @@ namespace EVCMonoGame.src.scenes
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
             {
-                player.Sprite,
-                player2.Sprite,
-                player3.Sprite,
+                player,
+                player2,
+                player3,
                 // geometryBox,
             });
 

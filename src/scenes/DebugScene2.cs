@@ -20,19 +20,31 @@ namespace EVCMonoGame.src.scenes
         private Texture2D background;
         private CollisionManager collisionManager;
         private GeometryBox geometryBox;
+		private GeometryBox geometryBox2;
+		private GeometryBox geometryBox3;
+		private GeometryBox geometryBox4;
+		private GeometryBox geometryBox5;
 
-        public DebugScreen2(SceneManager sceneManager)
+		public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-            geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
+            geometryBox = new GeometryBox(new Rectangle(300, 300, 200, 200));
+			geometryBox2 = new GeometryBox(new Rectangle(500, 299, 200, 200));
+			geometryBox3 = new GeometryBox(new Rectangle(100, 100, 200, 200));
+			geometryBox4 = new GeometryBox(new Rectangle(300, 100, 100, 100));
+			geometryBox5 = new GeometryBox(new Rectangle(100, 300, 110, 100));
 
-            collisionManager = new CollisionManager();
+			collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
-            {
-                geometryBox,
-                player.Sprite,
-            });
+			{
+				player,
+				geometryBox,
+				geometryBox2,
+				geometryBox3,
+				geometryBox4,
+				geometryBox5
+			});
 
             updateables.AddRange(new Updateable[]
             {
@@ -70,9 +82,8 @@ namespace EVCMonoGame.src.scenes
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
-            spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
-                new Vector2(100, 100), Color.DarkRed);
+            //spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
+            //spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.", new Vector2(100, 100), Color.DarkRed);
 
             spriteBatch.End();
 

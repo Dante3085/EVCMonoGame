@@ -73,13 +73,6 @@ namespace EVCMonoGame.src.states
                 }
             }
 
-            TouchState = TouchPanel.GetState();
-
-            Gestures.Clear();
-            while (TouchPanel.IsGestureAvailable)
-            {
-                Gestures.Add(TouchPanel.ReadGesture());
-            }
         }
 
         /// <summary>

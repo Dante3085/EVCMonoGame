@@ -30,6 +30,8 @@ namespace EVCMonoGame.src.states
 
         private SceneManager sceneManager;
 
+		private bool isDebug = true;
+
         public GameplayState()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
@@ -89,9 +91,7 @@ namespace EVCMonoGame.src.states
                 enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
 
                 // Apply a stabilizing force to stop the enemy moving off the state.
-                Vector2 targetPosition = new Vector2(
-                    StateManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
-                    200);
+                Vector2 targetPosition = new Vector2( StateManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 200);
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
 
@@ -110,7 +110,9 @@ namespace EVCMonoGame.src.states
 
             if (InputManager.OnKeyPressed(Keys.Escape))
             {
-                StateManager.AddState(new PauseMenuState(), ControllingPlayer);
+				if(isDebug)
+					StateManager.Game.Exit();
+				StateManager.AddState(new PauseMenuState(), ControllingPlayer);
             }
         }
 
@@ -127,10 +129,9 @@ namespace EVCMonoGame.src.states
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "// TODO", enemyPosition + Vector2.One, Color.Green);
+            //spriteBatch.DrawString(gameFont, "// TODO", enemyPosition + Vector2.One, Color.Green);
 
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
+            //spriteBatch.DrawString(gameFont, "Insert Gameplay Here", enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
 

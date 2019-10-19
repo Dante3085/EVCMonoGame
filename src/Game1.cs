@@ -43,12 +43,15 @@ namespace EVCMonoGame.src
 
             Components.Add(stateManager);
 
-            // Activate the first screens.
-            stateManager.AddState(new BackgroundState(), null);
-            stateManager.AddState(new MainMenuState(), null);
-        }
+			// Activate the first screens.
+			//stateManager.AddState(new BackgroundState(), null);
+			//stateManager.AddState(new MainMenuState(), null);
 
-        protected override void LoadContent()
+			// Debug
+			LoadingState.Load(stateManager, true, PlayerIndex.One, new GameplayState());
+		}
+
+		protected override void LoadContent()
         {
             foreach (string asset in preloadAssets)
             {

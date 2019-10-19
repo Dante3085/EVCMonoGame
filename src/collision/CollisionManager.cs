@@ -38,8 +38,12 @@ namespace EVCMonoGame.src.collision
             foreach (Collidable c in collidables)
             {
                 Primitives2D.DrawRectangle(spriteBatch, c.Bounds, Color.BlanchedAlmond);
-            }
-        }
+
+
+				Primitives2D.DrawCircle(spriteBatch, c.Bounds.Center.ToVector2(), 5f, 10, Color.Red);
+			}
+
+		}
 
         public void LoadContent(ContentManager content)
         {
@@ -73,8 +77,9 @@ namespace EVCMonoGame.src.collision
                     {
                         if (g1.Bounds.Intersects(g2.Bounds))
                         {
-                            ResolveGeometryCollision(g1, g2);
-                        }
+							
+							ResolveGeometryCollision(g1, g2);
+						}
                     }
                 }
             }
@@ -85,51 +90,70 @@ namespace EVCMonoGame.src.collision
             Vector2 g1Shift = g1.Position - g1.PreviousPosition;
             Vector2 g2Shift = g2.Position - g2.PreviousPosition;
 
-            if (g1Shift != Vector2.Zero)
+
+			if (g1Shift != Vector2.Zero)
             {
                 Vector2 g1BackShift = Vector2.Zero;
-                if (g1Shift.X < 0)
-                {
-                    g1BackShift.X = g2.Bounds.Right - g1.Bounds.Left;
-                }
-                else if (g1Shift.X > 0)
-                {
-                    g1BackShift.X = g2.Bounds.Left - g1.Bounds.Right;
-                }
+				
+				if (g1Shift.X < 0)
+				{
+					if (g2.Bounds.Right > g1.Bounds.Left)
+						if (g2.Bounds.Top < g1.PreviousPosition.Y + g1.Bounds.Height && g2.Bounds.Bottom > g1.PreviousPosition.Y)
+							g1BackShift.X = g2.Bounds.Right - g1.Bounds.Left;
+				}
+				else if (g1Shift.X > 0)
+				{
+					if (g2.Bounds.Left < g1.Bounds.Right)
+						if (g2.Bounds.Top < g1.PreviousPosition.Y + g1.Bounds.Height && g2.Bounds.Bottom > g1.PreviousPosition.Y)
+							g1BackShift.X = g2.Bounds.Left - g1.Bounds.Right;
+				}
 
-                if (g1Shift.Y < 0)
-                {
-                    g1BackShift.Y = g2.Bounds.Bottom - g1.Bounds.Top;
-                }
-                else if (g1Shift.Y > 0)
-                {
-                    g1BackShift.Y = g2.Bounds.Top - g1.Bounds.Bottom;
-                }
+				if (g1Shift.Y < 0)
+				{
+					if (g2.Bounds.Bottom > g1.Bounds.Top)
+						if (g2.Bounds.Left < g1.PreviousPosition.X + g1.Bounds.Width && g1.PreviousPosition.X < g2.Bounds.Right)
+							g1BackShift.Y = g2.Bounds.Bottom - g1.Bounds.Top;
+				}
+				else if (g1Shift.Y > 0)
+				{
+					if (g2.Bounds.Top < g1.Bounds.Bottom)
+						if (g2.Bounds.Left < g1.PreviousPosition.X + g1.Bounds.Width && g1.PreviousPosition.X < g2.Bounds.Right)
+							g1BackShift.Y = g2.Bounds.Top - g1.Bounds.Bottom;
+				}
 
-                g1.Position += g1BackShift;
+				g1.Position += g1BackShift;
             }
             else if (g2Shift != Vector2.Zero)
             {
                 Vector2 g2BackShift = Vector2.Zero;
-                if (g2Shift.X < 0)
-                {
-                    g2BackShift.X = g1.Bounds.Right - g2.Bounds.Left;
-                }
-                else if (g2Shift.X > 0)
-                {
-                    g2BackShift.X = g1.Bounds.Left - g2.Bounds.Right;
-                }
 
-                if (g2Shift.Y < 0)
-                {
-                    g2BackShift.Y = g1.Bounds.Bottom - g2.Bounds.Top;
-                }
-                else if (g2Shift.Y > 0)
-                {
-                    g2BackShift.Y = g1.Bounds.Top - g2.Bounds.Bottom;
-                }
+				if (g2Shift.X < 0)
+				{
+					if (g1.Bounds.Right > g2.Bounds.Left)
+						if (g1.Bounds.Top < g2.PreviousPosition.Y + g2.Bounds.Height && g1.Bounds.Bottom > g2.PreviousPosition.Y)
+							g2BackShift.X = g1.Bounds.Right - g2.Bounds.Left;
+				}
+				else if (g2Shift.X > 0)
+				{
+					if (g1.Bounds.Left < g2.Bounds.Right)
+						if (g1.Bounds.Top < g2.PreviousPosition.Y + g2.Bounds.Height && g1.Bounds.Bottom > g2.PreviousPosition.Y)
+							g2BackShift.X = g1.Bounds.Left - g2.Bounds.Right;
+				}
 
-                g2.Position += g2BackShift;
+				if (g2Shift.Y < 0)
+				{
+					if (g1.Bounds.Bottom > g2.Bounds.Top)
+						if (g1.Bounds.Left < g2.PreviousPosition.X + g2.Bounds.Width && g2.PreviousPosition.X < g1.Bounds.Right)
+							g2BackShift.Y = g1.Bounds.Bottom - g2.Bounds.Top;
+				}
+				else if (g2Shift.Y > 0)
+				{
+					if (g1.Bounds.Top < g2.Bounds.Bottom)
+						if (g1.Bounds.Left < g2.PreviousPosition.X + g2.Bounds.Width && g2.PreviousPosition.X < g1.Bounds.Right)
+							g2BackShift.Y = g1.Bounds.Top - g2.Bounds.Bottom;
+				}
+
+				g2.Position += g2BackShift;
             }
         }
     }
