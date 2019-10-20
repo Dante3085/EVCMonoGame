@@ -1,7 +1,5 @@
 
-SPRITESHEET=rsrc/spritesheets/khcom_sora_transparent
-
-// HURT_BOUNDS = SAME_AS_FRAME
+SPRITESHEET = rsrc/spritesheets/khcom_sora_transparent
 
 [ANIMATION]
 NAME          = IDLE_DOWN

@@ -1,0 +1,12 @@
+
+SPRITESHEET = path/to/spritesheet/in/pipeline/tool
+
+[ANIMATION]
+NAME          = Animation_Name
+FRAMES        = (x, y, width, height), (x, y, width, height)
+HURT_BOUNDS   = SAME_AS_FRAME oder (x, y, width, height)@all oder (x, y, width, heigt), (x, y, width, height) // Position relativ zu Spriteposition. SAME_AS_FRAME nimmt Größe des jeweiligen Frames mit Positionskoordinaten auf 0. (x, y, width, height)@all nimmt die angegebene hurtBound und verbindet sie mit jedem Frame.
+ATTACK_BOUNDS = (x, y, width, height)@all oder (x, y, width, height), (x, y, width, height) // (x, y, width, height)@all nimmt die angegebene AttackBound und verbindet sie mit jedem Frame.
+FRAME_DELAYS  = milliseconds, milliseconds oder milliseconds@all // milliseconds@all nimmt angegebenen frameDelay und verbindet ihn mit jedem Frame.
+FRAME_OFFSETS = (x, y), (x, y) oder (x, y)@all // (x, y)@all nimmt angegebenes frameOffset und verbindet es mit jedem Frame.
+IS_MIRRORED   = true oder false
+IS_LOOPED     = true oder false

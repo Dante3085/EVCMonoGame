@@ -430,8 +430,8 @@ namespace EVCMonoGame.src
                 // Process Spritesheet
                 else if (line.Contains("SPRITESHEET"))
                 {
-                    int equalsIndex = line.IndexOf('=');
-                    spritesheetName = line.Substring(equalsIndex + 1, (line.Length - 1) - equalsIndex);
+                    line = Utility.ReplaceWhitespace(line, "");
+                    spritesheetName = line.Substring(12);
                 }
             }
             file.Close();
