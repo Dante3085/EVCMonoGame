@@ -22,6 +22,9 @@ namespace EVCMonoGame.src
         private GraphicsDeviceManager graphics;
         private StateManager stateManager;
 
+        private SpriteBatch spriteBatch;
+        private FpsCounter fpsCounter;
+
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
         private static readonly string[] preloadAssets =
@@ -37,6 +40,7 @@ namespace EVCMonoGame.src
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            graphics.IsFullScreen = false;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);
@@ -46,22 +50,38 @@ namespace EVCMonoGame.src
             // Activate the first screens.
             stateManager.AddState(new BackgroundState(), null);
             stateManager.AddState(new MainMenuState(), null);
+
+            fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
         }
 
         protected override void LoadContent()
         {
+            fpsCounter.LoadContent(Content);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
             foreach (string asset in preloadAssets)
             {
                 Content.Load<object>(asset);
             }
         }
 
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
+            fpsCounter.Update(gameTime);
+
             // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
+
+            spriteBatch.Begin();
+            fpsCounter.Draw(gameTime, spriteBatch);
+            spriteBatch.End();
         }
     }
 
