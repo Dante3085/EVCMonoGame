@@ -39,6 +39,7 @@ namespace EVCMonoGame.src.collision
         #region Drawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            // Draw Collision information of all GeometryCollidables.
             foreach (GeometryCollidable g in geometryCollidables)
             {
                 Color darkBlue = Color.DarkBlue;
@@ -46,6 +47,7 @@ namespace EVCMonoGame.src.collision
                 Primitives2D.DrawRectangle(spriteBatch, g.Bounds, darkBlue, 3);
             }
 
+            // Draw Collision information of all CombatCollidables.
             foreach (CombatCollidable c in combatCollidables)
             {
                 Color darkGreen = Color.DarkGreen;
