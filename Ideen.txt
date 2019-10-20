@@ -6,3 +6,4 @@
 6. Utility Text Drawing: Schnelle beliebigen Text in Fenster anzeigen.
 7. Resolution Anpassung.
 8. Globale DebugTexts Instanz in SceenManager.
+9. https://www.youtube.com/watch?v=CoZJdil0_HI
