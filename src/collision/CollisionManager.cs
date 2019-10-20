@@ -23,28 +23,27 @@ namespace EVCMonoGame.src.collision
     public class CollisionManager : Updateable, scenes.IDrawable
     {
         #region Fields
-        private List<Collidable> collidables;
-        private List<GeometryCollidable> geometryCollidables;
-        private List<CombatCollidable> combatCollidables;
+        private HashSet<GeometryCollidable> geometryCollidables;
+        private HashSet<CombatCollidable> combatCollidables;
+
         #endregion
 
         #region Constructors
         public CollisionManager()
         {
-            collidables = new List<Collidable>();
-            geometryCollidables = new List<GeometryCollidable>();
-            combatCollidables = new List<CombatCollidable>();
+            geometryCollidables = new HashSet<GeometryCollidable>();
+            combatCollidables = new HashSet<CombatCollidable>();
         }
         #endregion
 
         #region Drawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Collidable c in collidables)
+            foreach (GeometryCollidable g in geometryCollidables)
             {
                 Color darkBlue = Color.DarkBlue;
                 darkBlue.A = 50;
-                Primitives2D.DrawRectangle(spriteBatch, c.Bounds, darkBlue, 2);
+                Primitives2D.DrawRectangle(spriteBatch, g.Bounds, darkBlue, 3);
             }
 
             foreach (CombatCollidable c in combatCollidables)
@@ -169,23 +168,37 @@ namespace EVCMonoGame.src.collision
         #endregion
         #endregion
         #region CollisionManager
-        public void AddCollidables(params Collidable[] collidables)
+
+        public void AddGeometryCollidables(params GeometryCollidable[] geometryCollidables)
         {
-            foreach (Collidable c in collidables)
+            foreach (GeometryCollidable g in geometryCollidables)
             {
-                this.collidables.Add(c);
-
-                if (c is GeometryCollidable)
+                if (this.geometryCollidables.Contains(g))
                 {
-                    geometryCollidables.Add((GeometryCollidable)c);
+                    throw new ArgumentException("g is already in geometryCollidables.");
                 }
-
-                if (c is CombatCollidable)
+                else
                 {
-                    combatCollidables.Add((CombatCollidable)c);
+                    this.geometryCollidables.Add(g);
                 }
             }
         }
+
+        public void AddCombatCollidables(params CombatCollidable[] combatCollidables)
+        {
+            foreach (CombatCollidable c in combatCollidables)
+            {
+                if (this.combatCollidables.Contains(c))
+                {
+                    throw new ArgumentException("c is already in combatCollidables.");
+                }
+                else
+                {
+                    this.combatCollidables.Add(c);
+                }
+            }
+        }
+
         #endregion
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.collision
 {
-    public interface CombatCollidable : Collidable
+    public interface CombatCollidable
     {
         /// <summary>
         /// Area on or around a CombatCollidable that can be hit by AttackBounds to cause a
