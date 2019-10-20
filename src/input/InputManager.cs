@@ -13,8 +13,10 @@ namespace EVCMonoGame.src.input
 
     public static class InputManager
     {
+        #region StaticFields
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;
+        // private static List<Keys> keyboardInputBuffer;
 
         private static GamePadState currentGamePadState;
         private static GamePadState previousGamePadState;
@@ -26,6 +28,9 @@ namespace EVCMonoGame.src.input
 
         private static bool inputByKeyboard = true;
 
+        // private static Dictionary<int, bool> keyCombinations;
+        #endregion
+        #region StaticProperties
         /// <summary>
         /// Returns true if the most recent input was given by the Keyboard(Any Key has been pressed).
         /// Returns false if the most recent input was given by the GamePad.
@@ -34,9 +39,8 @@ namespace EVCMonoGame.src.input
         {
             get { return inputByKeyboard; }
         }
-
-        // private static Dictionary<int, bool> keyCombinations;
-
+        #endregion
+        #region StaticMethods
         /// <summary>
         /// Always call before all you'r input operations(First instruction in Update()).
         /// </summary>
@@ -69,6 +73,8 @@ namespace EVCMonoGame.src.input
             }
         }
 
+        #region Keyboard
+        #region Keys
         /// <summary>
         /// Returns true on the initial press of the given key.
         /// <para>Returns true if the given key was up in the previous Update() call,
@@ -166,6 +172,50 @@ namespace EVCMonoGame.src.input
             return false;
         }
 
+        public static bool AreAllKeysPressed(params Keys[] keys)
+        {
+            foreach (Keys k in keys)
+            {
+                if (!IsKeyPressed(k))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        #endregion
+        //public static bool OnKeyCombinationPressed(params Keys[] keys)
+        //{
+        //    String keyCombination = "";
+
+        //    if (!keyCombinations.ContainsKey(keys.GetHashCode()))
+        //    {
+        //        keyCombinations.Add(keys.GetHashCode(), )
+        //    }
+
+        //    //foreach (Keys k in keys)
+        //    //{
+        //    //    if (previousKeyboardState.IsKeyDown(k) ||
+        //    //        !currentKeyboardState.IsKeyDown(k))
+        //    //    {
+        //    //        return false;
+        //    //    }
+        //    //}
+        //    //return true;
+
+        //    foreach (Keys k in keys)
+        //    {
+        //        if (!currentKeyboardState.IsKeyDown(k))
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+        #endregion
+        #region GamePad
+        #region Buttons
         public static bool OnButtonPressed(Buttons button)
         {
             return !previousGamePadState.IsButtonDown(button) && 
@@ -212,6 +262,20 @@ namespace EVCMonoGame.src.input
             return false;
         }
 
+        public static bool AreAllButtonsPressed(params Buttons[] buttons)
+        {
+            foreach (Buttons b in buttons)
+            {
+                if (!IsButtonPressed(b))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        #endregion
+
         public static GamePadThumbSticks CurrentThumbSticks()
         {
             return currentGamePadState.ThumbSticks;
@@ -231,7 +295,8 @@ namespace EVCMonoGame.src.input
         {
             return previousGamePadState.Triggers;
         }
-
+        #endregion
+        #region Mouse
         public static Vector2 CurrentMousePosition()
         {
             return currentMouseState.Position.ToVector2();
@@ -241,35 +306,8 @@ namespace EVCMonoGame.src.input
         {
             return previousMouseState.Position.ToVector2();
         }
-
-        //public static bool OnKeyCombinationPressed(params Keys[] keys)
-        //{
-        //    String keyCombination = "";
-
-        //    if (!keyCombinations.ContainsKey(keys.GetHashCode()))
-        //    {
-        //        keyCombinations.Add(keys.GetHashCode(), )
-        //    }
-
-        //    //foreach (Keys k in keys)
-        //    //{
-        //    //    if (previousKeyboardState.IsKeyDown(k) ||
-        //    //        !currentKeyboardState.IsKeyDown(k))
-        //    //    {
-        //    //        return false;
-        //    //    }
-        //    //}
-        //    //return true;
-
-        //    foreach (Keys k in keys)
-        //    {
-        //        if (!currentKeyboardState.IsKeyDown(k))
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return true;
-        //}
+        #endregion
+        #endregion
     }
 
     //public class KeyCombination
