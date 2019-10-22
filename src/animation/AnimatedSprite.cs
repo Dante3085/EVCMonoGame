@@ -460,8 +460,17 @@ namespace EVCMonoGame.src.animation
         {
             Dictionary<int, Rectangle> hurtBounds = new Dictionary<int, Rectangle>();
 
+            // No HurtBounds is interpreted as every frame having a basically non-existing hurtBound(no size and at orign).
+            if (line == "NONE")
+            {
+                for (int i = 0; i < frames.Count; ++i)
+                {
+                    hurtBounds.Add(i, new Rectangle(0, 0, 0, 0));
+                }
+            }
+
             // Multiple hurtBounds separated by commas.
-            if (line.Contains("),"))
+            else if (line.Contains("),"))
             {
                 int hurtBoundCounter = 0;
                 for (int i = 0; i < line.Length; ++i)
@@ -513,8 +522,17 @@ namespace EVCMonoGame.src.animation
         {
             Dictionary<int, Rectangle> attackBounds = new Dictionary<int, Rectangle>();
 
+            // No Attackbounds is interpreted as every frame having a basically non-existing AttackBound(no size and at orign).
+            if (line == "NONE")
+            {
+                for (int i = 0; i < numFrames; ++i)
+                {
+                    attackBounds.Add(i, new Rectangle(0, 0, 0, 0));
+                }
+            }
+
             // Multiple attackBounds separated by commas.
-            if (line.Contains("),"))
+            else if (line.Contains("),"))
             {
                 int attackBoundCounter = 0;
                 for (int i = 0; i < line.Length; ++i)
