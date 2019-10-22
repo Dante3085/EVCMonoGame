@@ -10,6 +10,6 @@ namespace EVCMonoGame.src.collision
 {
     public interface Collidable
     {
-        Rectangle Bounds { get; }
+       Rectangle Bounds { get; set;  }
     }
 }

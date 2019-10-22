@@ -20,46 +20,54 @@ namespace EVCMonoGame.src.scenes
         private Texture2D background;
         private CollisionManager collisionManager;
         private GeometryBox geometryBox;
-		private GeometryBox geometryBox2;
-		private GeometryBox geometryBox3;
-		private GeometryBox geometryBox4;
-		private GeometryBox geometryBox5;
 
 		public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-            geometryBox = new GeometryBox(new Rectangle(300, 300, 200, 200));
-			geometryBox2 = new GeometryBox(new Rectangle(500, 299, 200, 200));
-			geometryBox3 = new GeometryBox(new Rectangle(100, 100, 200, 200));
-			geometryBox4 = new GeometryBox(new Rectangle(300, 100, 100, 100));
-			geometryBox5 = new GeometryBox(new Rectangle(100, 300, 110, 100));
+            player = new Player(new Rectangle(750, 300, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			Enemy dummyEnemy = new DummyEnemy(new Rectangle(800, 100, 100, 100));
+			geometryBox = new GeometryBox(new Rectangle(300, 300, 200, 200));
+
+			//spawnCharacter(player, new Rectangle(750, 300, 100, 100));
+
+
 
 			collisionManager = new CollisionManager();
-            collisionManager.AddCollidables(new Collidable[]
+			collisionManager.AddCollidables(new Collidable[]
 			{
+				dummyEnemy,
 				player,
 				geometryBox,
-				geometryBox2,
-				geometryBox3,
-				geometryBox4,
-				geometryBox5
+				new GeometryBox(new Rectangle(500, 299, 200, 200)),
+				new GeometryBox(new Rectangle(100, 100, 200, 200)),
+				new GeometryBox(new Rectangle(300, 100, 100, 100)),
+				new GeometryBox(new Rectangle(100, 300, 110, 100)),
 			});
 
             updateables.AddRange(new Updateable[]
             {
                 player,
-                collisionManager,
-            });
+				dummyEnemy,
+				collisionManager,
+			});
 
             drawables.AddRange(new IDrawable[]
             {
                 collisionManager,
                 player,
-            });
+				dummyEnemy,
+			});
+
+
         }
 
-        public override void LoadContent(ContentManager content)
+		public void spawnCharacter(Character character, Rectangle bounds)
+		{
+			character.Position = new Vector2(bounds.X, bounds.Y);
+			character.Bounds = bounds;
+		}
+
+		public override void LoadContent(ContentManager content)
         {
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 

@@ -9,7 +9,9 @@ namespace EVCMonoGame.src.collision
 {
     public interface GeometryCollidable : Collidable
     {
+
         Vector2 Position { get; set; }
         Vector2 PreviousPosition { get; }
+		void OnGeometryCollision(GeometryCollidable collider);
     }
 }

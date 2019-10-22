@@ -28,20 +28,18 @@ namespace EVCMonoGame.src.scenes
         public DebugScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(sceneManager.GetViewportCenter(), 
-                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-
-            player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
-            player3 = new Player(new Vector2(300, 700), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
+            player = new Player(new Rectangle(700, 300, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+            player2 = new Player(new Rectangle(700, 300, 100, 100), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
+            player3 = new Player(new Rectangle(700, 300, 100, 100), new Keys[] { Keys.I, Keys.K, Keys.L, Keys.J });
             geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
             collisionManager = new CollisionManager();
             collisionManager.AddCollidables(new Collidable[]
             {
-                player,
-                player2,
-                player3,
+                //player,
+                //player2,
+                //player3,
                 // geometryBox,
             });
 

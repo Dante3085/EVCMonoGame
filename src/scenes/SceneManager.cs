@@ -58,8 +58,8 @@ namespace EVCMonoGame.src.scenes
             fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
 
             scenes = new Dictionary<EScene, Scene>();
-            scenes[EScene.DEBUG] = new DebugScene(this);
-            scenes[EScene.DEBUG_2] = new DebugScreen2(this);
+			//scenes[EScene.DEBUG_2] = new DebugScene(this);
+            scenes[EScene.DEBUG] = new DebugScreen2(this);
             currentScene = previousScene = scenes[EScene.DEBUG];
         }
 

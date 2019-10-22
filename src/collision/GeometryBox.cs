@@ -22,8 +22,9 @@ namespace EVCMonoGame.src.collision
         }
 
         public Rectangle Bounds
-        {
-            get { return bounds; }
+		{
+			get { return bounds; }
+			set { }
         }
 
         public Vector2 Position
@@ -50,5 +51,10 @@ namespace EVCMonoGame.src.collision
         {
             // Nothing to load
         }
-    }
+
+		public void OnGeometryCollision(GeometryCollidable collider)
+		{
+			//Console.WriteLine("got collide");
+		}
+	}
 }

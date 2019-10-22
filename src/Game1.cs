@@ -36,7 +36,7 @@ namespace EVCMonoGame.src
 
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 780;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);

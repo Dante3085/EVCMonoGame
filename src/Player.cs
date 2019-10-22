@@ -13,16 +13,15 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.collision;
 using C3.MonoGame;
+using EVCMonoGame.src.events;
 
 namespace EVCMonoGame.src
 {
-    public class Player : Updateable, scenes.IDrawable, GeometryCollidable
+    public class Player : Character
     {
+
         private AnimatedSprite playerSprite;
-        private Healthbar playerHealthbar;
         private float playerSpeed;
-		private Vector2 playerPosition;
-		private Vector2 playerPreviousPosition;
 		private Vector2 playerDirection;
 
 
@@ -31,41 +30,15 @@ namespace EVCMonoGame.src
             get { return playerSprite; }
         }
 
-        public Healthbar Healthbar
-        {
-            get { return playerHealthbar; }
-        }
 
-		public Vector2 Position
-		{
-			get { return playerPosition; }
-			set
-			{
-				playerPosition = value;
-			}
-		}
-	
-		public Vector2 PreviousPosition
-		{
-			get { return playerPreviousPosition; }
-		}
 
-		public Rectangle Bounds
-		{
-			get
-			{
-				Rectangle bounds = new Rectangle();
-				bounds.Location = playerPosition.ToPoint();
-				bounds.Size = new Point(100);
-
-				return bounds;
-			}
-		}
+		
 
 		private Keys[] controls;
 
-        public Player(Vector2 position, Keys[] controls)
+        public Player(Rectangle bounds, Keys[] controls)
         {
+			Bounds = bounds;
             //playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
@@ -94,11 +67,10 @@ namespace EVCMonoGame.src
             //    new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
             //}, 0.15f);
 
-            playerSprite = new AnimatedSprite(position, 6.0f);
+            playerSprite = new AnimatedSprite(bounds.Location.ToVector2(), 6.0f);
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
             playerSprite.SetAnimation("IDLE");
-
-            playerHealthbar = new Healthbar(2345, 1234, new Vector2(300, 100), new Vector2(100, 10));
+			
             playerSpeed = 8;
 
             if (controls.Length != 4)
@@ -108,76 +80,101 @@ namespace EVCMonoGame.src
             this.controls = controls;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            playerHealthbar.Draw(gameTime, spriteBatch);
+			base.Draw(gameTime, spriteBatch);
 			//playerSprite.Draw(gameTime, spriteBatch);
+
+			//Debug
 			playerDirection.Normalize();
 			Primitives2D.DrawLine(spriteBatch, Bounds.Center.ToVector2(), Bounds.Center.ToVector2() + playerDirection*50, Color.Black);
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            playerSprite.LoadContent(content);
-            playerHealthbar.LoadContent(content);
+        public override void LoadContent(ContentManager content)
+		{
+			base.LoadContent(content);
+			playerSprite.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
         {
-            // TODO: playerSprite steuern(Animationen ändern und bewegen)
+			// TODO: playerSprite steuern(Animationen ändern und bewegen)
+			base.Update(gameTime);
 
-            int[] anzahl = { 0, 0 };
+			processInput();
 
-            Vector2 currentPosition = playerSprite.Position;
+            playerSprite.Update(gameTime);
+        }
+
+		public void processInput()
+		{
+			int[] anzahl = { 0, 0 };
+
+			Vector2 currentPosition = playerSprite.Position;
 
 			playerDirection = Vector2.Zero;
 
 			if (InputManager.IsAnyKeyPressed(controls))
 			{
 
-				playerPreviousPosition = playerPosition;
+				PreviousPosition = Position;
 
 				if (InputManager.IsKeyPressed(controls[0]))
 				{
 					++anzahl[0];
 					playerSprite.SetAnimation("WALK_UP");
-					Position += new Vector2(0, -playerSpeed);
 					playerDirection += new Vector2(0, -1);
 				}
 				if (InputManager.IsKeyPressed(controls[1]))
 				{
 					++anzahl[0];
 					playerSprite.SetAnimation("WALK_DOWN");
-					Position += new Vector2(0, playerSpeed);
 					playerDirection += new Vector2(0, 1);
 				}
 				if (InputManager.IsKeyPressed(controls[2]))
 				{
 					++anzahl[1];
 					playerSprite.SetAnimation("WALK_RIGHT");
-					Position += new Vector2(playerSpeed, 0);
 					playerDirection += new Vector2(1, 0);
 				}
 				if (InputManager.IsKeyPressed(controls[3]))
 				{
 					++anzahl[1];
 					playerSprite.SetAnimation("WALK_LEFT");
-					Position += new Vector2(-playerSpeed, 0);
 					playerDirection += new Vector2(-1, 0);
 				}
+
+				// Richtungsvektor Normalizieren
+				if (playerDirection != Vector2.Zero)
+					playerDirection.Normalize();
+
+				//Snap to Grid
+				Position +=  playerDirection * playerSpeed;
+
+				// Funktion fixt unsere Position
+				if (CollisionManager.isCollisionOnPosition(this,true, true))
+				{
+					// Play Bump Animation
+				}
+				
+				
+
 				if ((anzahl[0] > 1) || (anzahl[1] > 1) || ((anzahl[0] == 0) && (anzahl[1] == 0)))
 				{
 					playerSprite.Position = currentPosition;
 					playerSprite.SetAnimation("IDLE");
 				}
+
+				// Update Healthbar etc. was sich auf die neue Position bezieht
+				OnMove();
 			}
 
+		}
 
-
-			playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
-
-
-            playerSprite.Update(gameTime);
-        }
-    }
+		public override void OnGeometryCollision(GeometryCollidable collider)
+		{
+			base.OnGeometryCollision(collider);
+			//Console.WriteLine("Player Collison Feedback");
+		}
+	}
 }
