@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.collision;
 
-namespace EVCMonoGame.src
+namespace EVCMonoGame.src.animation
 {
     // TODO: Optimize LoadFromFile() and HelperMethods. ~20ms is a bit long
     // TODO: Implement frameOffsets.
@@ -228,8 +228,10 @@ namespace EVCMonoGame.src
             Animation animation = animations[currentAnimation];
             if (elapsedMillis >= animation.FrameDelays[frameIndex])
             {
+                // Reset elapsed time
                 elapsedMillis = 0;
 
+                // Increase frameIndex depending on if the Animation is looped or not
                 int frameCount = animation.Frames.Length;
                 if (!animation.IsLooped)
                 {
