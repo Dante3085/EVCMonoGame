@@ -12,11 +12,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EVCMonoGame.src
 {
-	class DummyEnemy : Enemy
+	public class DummyEnemy : Enemy
 	{
 		public DummyEnemy(Rectangle bounds)
 		{
-			Bounds = bounds;
+			GeoHitbox = bounds;
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -46,7 +46,7 @@ namespace EVCMonoGame.src
 			{
 				Vector2 playerDirection = new Vector2();
 
-				PreviousPosition = Position;
+				PreviousWorldPosition = WorldPosition;
 
 				if (InputManager.IsKeyPressed(Keys.W))
 				{
@@ -71,9 +71,9 @@ namespace EVCMonoGame.src
 					playerDirection.Normalize();
 
 				//Snap to Grid
-				Position += playerDirection * 7;
+				WorldPosition += playerDirection * 7;
 
-				if (CollisionManager.isCollisionOnPosition(this, true, true))
+				if (CollisionManager.IsCollisionOnPosition(this, true, true))
 				{
 					//Position = PreviousPosition;
 				}

@@ -14,6 +14,7 @@ using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.collision;
 using C3.MonoGame;
 using EVCMonoGame.src.events;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src
 {
@@ -38,7 +39,7 @@ namespace EVCMonoGame.src
 
         public Player(Rectangle bounds, Keys[] controls)
         {
-			Bounds = bounds;
+			GeoHitbox = bounds;
             //playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
@@ -87,7 +88,7 @@ namespace EVCMonoGame.src
 
 			//Debug
 			playerDirection.Normalize();
-			Primitives2D.DrawLine(spriteBatch, Bounds.Center.ToVector2(), Bounds.Center.ToVector2() + playerDirection*50, Color.Black);
+			Primitives2D.DrawLine(spriteBatch, GeoHitbox.Center.ToVector2(), GeoHitbox.Center.ToVector2() + playerDirection*50, Color.Black);
         }
 
         public override void LoadContent(ContentManager content)
@@ -117,7 +118,7 @@ namespace EVCMonoGame.src
 			if (InputManager.IsAnyKeyPressed(controls))
 			{
 
-				PreviousPosition = Position;
+				PreviousWorldPosition = WorldPosition;
 
 				if (InputManager.IsKeyPressed(controls[0]))
 				{
@@ -149,12 +150,23 @@ namespace EVCMonoGame.src
 					playerDirection.Normalize();
 
 				//Snap to Grid
-				Position +=  playerDirection * playerSpeed;
+				WorldPosition +=  playerDirection * playerSpeed;
 
 				// Funktion fixt unsere Position
-				if (CollisionManager.isCollisionOnPosition(this,true, true))
+				if (CollisionManager.IsCollisionOnPosition(this,true, true))
 				{
-					// Play Bump Animation
+					List<Collidable> intersects = CollisionManager.GetCollidablesOnCollision(this);
+					foreach (Collidable item in intersects)
+					{
+						Console.WriteLine(item);
+						if (item is Item)
+						{
+							if (item is PickUpItem)
+							{
+								((PickUpItem)item).PickUp(this);
+							} 
+						}
+					}
 				}
 				
 				

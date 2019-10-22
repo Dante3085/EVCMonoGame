@@ -34,8 +34,8 @@ namespace EVCMonoGame.src.scenes
             geometryBox = new GeometryBox(new Rectangle(500, 0, 50, 1000));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
-            collisionManager = new CollisionManager();
-            collisionManager.AddCollidables(new Collidable[]
+			CollisionManager collisionManager = new CollisionManager();
+            CollisionManager.AddCollidables(new Collidable[]
             {
                 //player,
                 //player2,

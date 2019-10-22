@@ -9,7 +9,10 @@ using Microsoft.Xna.Framework;
 namespace EVCMonoGame.src.collision
 {
     public interface Collidable
-    {
-       Rectangle Bounds { get; set;  }
+	{
+		Vector2 WorldPosition { get; set; }
+		Vector2 PreviousWorldPosition { get; }
+
+		Rectangle GeoHitbox { get; set;  }
     }
 }

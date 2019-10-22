@@ -16,37 +16,37 @@ namespace EVCMonoGame.src
 	public abstract class Character : Updateable, scenes.IDrawable, GeometryCollidable
 	{
 
-		public Vector2 position;
-		public Rectangle bounds;
+		public Vector2 worldPosition;
+		public Rectangle geoHitbox;
 		
 		public Healthbar Healthbar { get; set; }
 
 		// GeometryCollidable
-		public Vector2 Position {
+		public Vector2 WorldPosition {
 			set
 			{
-				position.X = (int)value.X;
-				position.Y = (int)value.Y;
-				bounds.X = (int) value.X;
-				bounds.Y = (int)value.Y;
+				worldPosition.X = (int)value.X;
+				worldPosition.Y = (int)value.Y;
+				geoHitbox.X = (int) value.X;
+				geoHitbox.Y = (int)value.Y;
 			}
 			get
 			{
-				return position;
+				return worldPosition;
 			}
 		}
 
-		public Vector2 PreviousPosition { get; set; }
+		public Vector2 PreviousWorldPosition { get; set; }
 		
-		public Rectangle Bounds {
+		public Rectangle GeoHitbox {
 			set
 			{
-				bounds = value;
-				position = value.Location.ToVector2();
+				geoHitbox = value;
+				worldPosition = value.Location.ToVector2();
 			}
 			get
 			{
-				return bounds;
+				return geoHitbox;
 			}
 		}
 
@@ -58,8 +58,8 @@ namespace EVCMonoGame.src
 		}
 		public virtual void LoadContent(ContentManager content)
 		{
-			Console.WriteLine(Position);
-			Healthbar = new Healthbar(100, 100, Position - new Vector2(0, 35), new Vector2(100, 10));
+			Console.WriteLine(WorldPosition);
+			Healthbar = new Healthbar(100, 80, WorldPosition - new Vector2(0, 35), new Vector2(100, 10));
 			Healthbar.LoadContent(content);
 		}
 		
@@ -71,7 +71,7 @@ namespace EVCMonoGame.src
 
 		public virtual void OnMove()
 		{
-			Healthbar.Position = Position - new Vector2(0, Healthbar.Size.Y);
+			Healthbar.Position = WorldPosition - new Vector2(0, Healthbar.Size.Y);
 		}
 
 		// Events

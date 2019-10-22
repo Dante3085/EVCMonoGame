@@ -21,13 +21,13 @@ namespace EVCMonoGame.src.collision
             previousPosition = bounds.Location.ToVector2();
         }
 
-        public Rectangle Bounds
+        public Rectangle GeoHitbox
 		{
 			get { return bounds; }
 			set { }
         }
 
-        public Vector2 Position
+        public Vector2 WorldPosition
         {
             get { return bounds.Location.ToVector2(); }
             set 
@@ -37,7 +37,7 @@ namespace EVCMonoGame.src.collision
             }
         }
 
-        public Vector2 PreviousPosition
+        public Vector2 PreviousWorldPosition
         {
             get { return previousPosition; }
         }

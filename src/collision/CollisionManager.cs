@@ -40,10 +40,10 @@ namespace EVCMonoGame.src.collision
 
             foreach (Collidable c in collidables)
             {
-                Primitives2D.DrawRectangle(spriteBatch, c.Bounds, Color.BlanchedAlmond);
+                Primitives2D.DrawRectangle(spriteBatch, c.GeoHitbox, Color.BlanchedAlmond);
 
 
-				Primitives2D.DrawCircle(spriteBatch, c.Bounds.Center.ToVector2(), 5f, 10, Color.Red);
+				Primitives2D.DrawCircle(spriteBatch, c.GeoHitbox.Center.ToVector2(), 5f, 10, Color.Red);
 			}
 
 		}
@@ -53,7 +53,7 @@ namespace EVCMonoGame.src.collision
             
         }
 
-        public void AddCollidables(params Collidable[] collidables)
+        public static void AddCollidables(params Collidable[] collidables)
         {
             foreach (Collidable c in collidables)
             {
@@ -66,7 +66,7 @@ namespace EVCMonoGame.src.collision
             }
         }
 
-		public void removeCollidable(Collidable item)
+		public static void removeCollidable(Collidable item)
 		{
 			
 			if (item is GeometryCollidable)
@@ -91,7 +91,7 @@ namespace EVCMonoGame.src.collision
                     }
                     else
                     {
-                        if (g1.Bounds.Intersects(g2.Bounds))
+                        if (g1.GeoHitbox.Intersects(g2.GeoHitbox))
                         {
 							
 							//ResolveGeometryCollision(g1, g2);
@@ -105,21 +105,21 @@ namespace EVCMonoGame.src.collision
 
 
 
-		public static bool isCollisionOnPosition(GeometryCollidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+		public static bool IsCollisionOnPosition(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
 		{
 
 
-			foreach (GeometryCollidable g2 in geometryCollidables)
+			foreach (Collidable g2 in collidables)
 			{
 				if (g1 != g2)
 				{
-					if (g1.Bounds.Intersects(g2.Bounds))
+					if (g1.GeoHitbox.Intersects(g2.GeoHitbox))
 					{
-						if (fixMyCollision)
+						if (fixMyCollision && g1 is GeometryCollidable && g2 is GeometryCollidable)
 						{
 
 							// Zurück gelegte Distanz aka auch Richtung
-							Vector2 direction = g1.Position - g1.PreviousPosition;
+							Vector2 direction = g1.WorldPosition - g1.PreviousWorldPosition;
 
 							// Only Integers
 							direction.X = (int)Math.Round(direction.X);
@@ -129,7 +129,7 @@ namespace EVCMonoGame.src.collision
 
 
 							// Interpoliere Bewegung soweit raus, bis keine Collision mehr entsteht (Diagonale Achsenkollision)
-							while (isCollisionOnPosition(g1, false, false))
+							while (IsCollisionOnPosition(g1, false, false))
 							{
 								// Math.Sign(0) == 0
 								tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
@@ -138,11 +138,11 @@ namespace EVCMonoGame.src.collision
 								if (tempDirection == Vector2.Zero)
 									break;
 
-								g1.Bounds = new Rectangle((g1.PreviousPosition + tempDirection).ToPoint(), g1.Bounds.Size);
+								g1.GeoHitbox = new Rectangle((g1.PreviousWorldPosition + tempDirection).ToPoint(), g1.GeoHitbox.Size);
 							}
 
 							// Fixed Position
-							Vector2 bumpedPosition = g1.Position = g1.PreviousPosition + tempDirection;
+							Vector2 bumpedPosition = g1.WorldPosition = g1.PreviousWorldPosition + tempDirection;
 							tempDirection = direction;
 
 							//Slide entlang der Wand und überprüfe auf erneuter Collision
@@ -153,12 +153,12 @@ namespace EVCMonoGame.src.collision
 								{
 
 									tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
-									g1.Bounds = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.Bounds.Size);
+									g1.GeoHitbox = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.GeoHitbox.Size);
 
-									if (!isCollisionOnPosition(g1, false, false))
+									if (!IsCollisionOnPosition(g1, false, false))
 									{
-										g1.Position = bumpedPosition + new Vector2(tempDirection.X, 0);
-										bumpedPosition = g1.Position;
+										g1.WorldPosition = bumpedPosition + new Vector2(tempDirection.X, 0);
+										bumpedPosition = g1.WorldPosition;
 										tempDirection = direction;
 										break;
 									}
@@ -170,19 +170,19 @@ namespace EVCMonoGame.src.collision
 								{
 
 									tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
-									g1.Bounds = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.Bounds.Size);
+									g1.GeoHitbox = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.GeoHitbox.Size);
 
-									if (!isCollisionOnPosition(g1, false, false))
+									if (!IsCollisionOnPosition(g1, false, false))
 									{
-										g1.Position = bumpedPosition + new Vector2(0, tempDirection.Y);
-										bumpedPosition = g1.Position;
+										g1.WorldPosition = bumpedPosition + new Vector2(0, tempDirection.Y);
+										bumpedPosition = g1.WorldPosition;
 										break;
 									}
 
 								}
 							}
 						}
-
+						
 						return true;
 					}
 				}
@@ -193,10 +193,29 @@ namespace EVCMonoGame.src.collision
 			return false;
 		}
 
+		public static List<Collidable> GetCollidablesOnCollision(Collidable c1)
+		{
+			List<Collidable> intersectingCollidables = new List<Collidable>();
+
+			foreach (Collidable c2 in collidables)
+			{
+				if (c1 != c2)
+				{
+					if (c1.GeoHitbox.Intersects(c2.GeoHitbox))
+					{
+						intersectingCollidables.Add(c2);
+					}
+				}
+			}
+
+
+			return intersectingCollidables;
+		}
+
         private void ResolveGeometryCollision(GeometryCollidable g1, GeometryCollidable g2)
         {
-            Vector2 g1Shift = g1.Position - g1.PreviousPosition;
-            Vector2 g2Shift = g2.Position - g2.PreviousPosition;
+            Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
+            Vector2 g2Shift = g2.WorldPosition - g2.PreviousWorldPosition;
 
 
 			if (g1Shift != Vector2.Zero)
@@ -206,32 +225,32 @@ namespace EVCMonoGame.src.collision
 				
 				if (g1Shift.X < 0)
 				{
-					if (g2.Bounds.Right > g1.Bounds.Left)
-						if (g2.Bounds.Top < g1.PreviousPosition.Y + g1.Bounds.Height && g2.Bounds.Bottom > g1.PreviousPosition.Y)
-							g1BackShift.X = g2.Bounds.Right - g1.Bounds.Left;
+					if (g2.GeoHitbox.Right > g1.GeoHitbox.Left)
+						if (g2.GeoHitbox.Top < g1.PreviousWorldPosition.Y + g1.GeoHitbox.Height && g2.GeoHitbox.Bottom > g1.PreviousWorldPosition.Y)
+							g1BackShift.X = g2.GeoHitbox.Right - g1.GeoHitbox.Left;
 
 				}
 				else if (g1Shift.X > 0)
 				{
-					if (g2.Bounds.Left < g1.Bounds.Right)
-						if (g2.Bounds.Top < g1.PreviousPosition.Y + g1.Bounds.Height && g2.Bounds.Bottom > g1.PreviousPosition.Y)
-							g1BackShift.X = g2.Bounds.Left - g1.Bounds.Right;
+					if (g2.GeoHitbox.Left < g1.GeoHitbox.Right)
+						if (g2.GeoHitbox.Top < g1.PreviousWorldPosition.Y + g1.GeoHitbox.Height && g2.GeoHitbox.Bottom > g1.PreviousWorldPosition.Y)
+							g1BackShift.X = g2.GeoHitbox.Left - g1.GeoHitbox.Right;
 				}
 
 				if (g1Shift.Y < 0)
 				{
-					if (g2.Bounds.Bottom > g1.Bounds.Top)
-						if (g2.Bounds.Left < g1.PreviousPosition.X + g1.Bounds.Width && g1.PreviousPosition.X < g2.Bounds.Right)
-							g1BackShift.Y = g2.Bounds.Bottom - g1.Bounds.Top;
+					if (g2.GeoHitbox.Bottom > g1.GeoHitbox.Top)
+						if (g2.GeoHitbox.Left < g1.PreviousWorldPosition.X + g1.GeoHitbox.Width && g1.PreviousWorldPosition.X < g2.GeoHitbox.Right)
+							g1BackShift.Y = g2.GeoHitbox.Bottom - g1.GeoHitbox.Top;
 				}
 				else if (g1Shift.Y > 0)
 				{
-					if (g2.Bounds.Top < g1.Bounds.Bottom)
-						if (g2.Bounds.Left < g1.PreviousPosition.X + g1.Bounds.Width && g1.PreviousPosition.X < g2.Bounds.Right)
-							g1BackShift.Y = g2.Bounds.Top - g1.Bounds.Bottom;
+					if (g2.GeoHitbox.Top < g1.GeoHitbox.Bottom)
+						if (g2.GeoHitbox.Left < g1.PreviousWorldPosition.X + g1.GeoHitbox.Width && g1.PreviousWorldPosition.X < g2.GeoHitbox.Right)
+							g1BackShift.Y = g2.GeoHitbox.Top - g1.GeoHitbox.Bottom;
 				}
 
-				g1.Position += g1BackShift;
+				g1.WorldPosition += g1BackShift;
 
 			}
             else if (g2Shift != Vector2.Zero)
@@ -240,31 +259,31 @@ namespace EVCMonoGame.src.collision
 
 				if (g2Shift.X < 0)
 				{
-					if (g1.Bounds.Right > g2.Bounds.Left)
-						if (g1.Bounds.Top < g2.PreviousPosition.Y + g2.Bounds.Height && g1.Bounds.Bottom > g2.PreviousPosition.Y)
-							g2BackShift.X = g1.Bounds.Right - g2.Bounds.Left;
+					if (g1.GeoHitbox.Right > g2.GeoHitbox.Left)
+						if (g1.GeoHitbox.Top < g2.PreviousWorldPosition.Y + g2.GeoHitbox.Height && g1.GeoHitbox.Bottom > g2.PreviousWorldPosition.Y)
+							g2BackShift.X = g1.GeoHitbox.Right - g2.GeoHitbox.Left;
 				}
 				else if (g2Shift.X > 0)
 				{
-					if (g1.Bounds.Left < g2.Bounds.Right)
-						if (g1.Bounds.Top < g2.PreviousPosition.Y + g2.Bounds.Height && g1.Bounds.Bottom > g2.PreviousPosition.Y)
-							g2BackShift.X = g1.Bounds.Left - g2.Bounds.Right;
+					if (g1.GeoHitbox.Left < g2.GeoHitbox.Right)
+						if (g1.GeoHitbox.Top < g2.PreviousWorldPosition.Y + g2.GeoHitbox.Height && g1.GeoHitbox.Bottom > g2.PreviousWorldPosition.Y)
+							g2BackShift.X = g1.GeoHitbox.Left - g2.GeoHitbox.Right;
 				}
 
 				if (g2Shift.Y < 0)
 				{
-					if (g1.Bounds.Bottom > g2.Bounds.Top)
-						if (g1.Bounds.Left < g2.PreviousPosition.X + g2.Bounds.Width && g2.PreviousPosition.X < g1.Bounds.Right)
-							g2BackShift.Y = g1.Bounds.Bottom - g2.Bounds.Top;
+					if (g1.GeoHitbox.Bottom > g2.GeoHitbox.Top)
+						if (g1.GeoHitbox.Left < g2.PreviousWorldPosition.X + g2.GeoHitbox.Width && g2.PreviousWorldPosition.X < g1.GeoHitbox.Right)
+							g2BackShift.Y = g1.GeoHitbox.Bottom - g2.GeoHitbox.Top;
 				}
 				else if (g2Shift.Y > 0)
 				{
-					if (g1.Bounds.Top < g2.Bounds.Bottom)
-						if (g1.Bounds.Left < g2.PreviousPosition.X + g2.Bounds.Width && g2.PreviousPosition.X < g1.Bounds.Right)
-							g2BackShift.Y = g1.Bounds.Top - g2.Bounds.Bottom;
+					if (g1.GeoHitbox.Top < g2.GeoHitbox.Bottom)
+						if (g1.GeoHitbox.Left < g2.PreviousWorldPosition.X + g2.GeoHitbox.Width && g2.PreviousWorldPosition.X < g1.GeoHitbox.Right)
+							g2BackShift.Y = g1.GeoHitbox.Top - g2.GeoHitbox.Bottom;
 				}
 
-				g2.Position += g2BackShift;
+				g2.WorldPosition += g2BackShift;
             }
         }
 
@@ -274,7 +293,7 @@ namespace EVCMonoGame.src.collision
 			List<GeometryCollidable> collidableList = new List<GeometryCollidable>();
 			foreach (GeometryCollidable collidable in geometryCollidables)
 			{
-				if (collidable.Bounds.Intersects(new Rectangle(position.ToPoint(), collisionSize.ToPoint())))
+				if (collidable.GeoHitbox.Intersects(new Rectangle(position.ToPoint(), collisionSize.ToPoint())))
 					collidableList.Add(collidable);
 			}
 			return collidableList;

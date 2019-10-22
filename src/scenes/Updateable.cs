@@ -15,5 +15,7 @@ namespace EVCMonoGame.src.scenes
         } = true;
 
         public abstract void Update(GameTime gameTime);
+
+		//public abstract void destroy();
     }
 }

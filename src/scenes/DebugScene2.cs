@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -30,10 +31,16 @@ namespace EVCMonoGame.src.scenes
 
 			//spawnCharacter(player, new Rectangle(750, 300, 100, 100));
 
+			// Spawn Items
+			PickUpItem.Stats HealPotionStats = new PickUpItem.Stats();
+			HealPotionStats.heal = 10;
+
+			PickUpItem HealPotion = new PickUpItem(new Rectangle(700, 500, 50, 50), HealPotionStats);
+			
 
 
 			collisionManager = new CollisionManager();
-			collisionManager.AddCollidables(new Collidable[]
+			CollisionManager.AddCollidables(new Collidable[]
 			{
 				dummyEnemy,
 				player,
@@ -42,6 +49,7 @@ namespace EVCMonoGame.src.scenes
 				new GeometryBox(new Rectangle(100, 100, 200, 200)),
 				new GeometryBox(new Rectangle(300, 100, 100, 100)),
 				new GeometryBox(new Rectangle(100, 300, 110, 100)),
+				HealPotion,
 			});
 
             updateables.AddRange(new Updateable[]
@@ -49,6 +57,7 @@ namespace EVCMonoGame.src.scenes
                 player,
 				dummyEnemy,
 				collisionManager,
+				HealPotion,
 			});
 
             drawables.AddRange(new IDrawable[]
@@ -56,6 +65,7 @@ namespace EVCMonoGame.src.scenes
                 collisionManager,
                 player,
 				dummyEnemy,
+				HealPotion,
 			});
 
 
@@ -63,8 +73,8 @@ namespace EVCMonoGame.src.scenes
 
 		public void spawnCharacter(Character character, Rectangle bounds)
 		{
-			character.Position = new Vector2(bounds.X, bounds.Y);
-			character.Bounds = bounds;
+			character.WorldPosition = new Vector2(bounds.X, bounds.Y);
+			character.GeoHitbox = bounds;
 		}
 
 		public override void LoadContent(ContentManager content)
