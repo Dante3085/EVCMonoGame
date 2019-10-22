@@ -134,10 +134,11 @@ namespace EVCMonoGame.src.states
         {
             InputManager.UpdateInputStates();
 
-            //if (InputManager.OnKeyPressed(Keys.Escape))
-            //{
-            //    Game.Exit();
-            //}
+            if (InputManager.AreAllButtonsPressed(Buttons.Back, Buttons.Start)
+                || InputManager.AreAllKeysPressed(Keys.Escape, Keys.Delete))
+            {
+                Game.Exit();
+            }
 
             // Read the keyboard and gamepad.
             input.Update();
