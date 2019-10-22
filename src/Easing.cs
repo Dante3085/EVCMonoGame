@@ -10,6 +10,7 @@ namespace EVCMonoGame.src
     {
         public delegate float EasingFunction(float t, float b, float c, float d);
 
+        #region Back
         /// <summary>
         /// </summary>
         /// <param name="t">elapsedTime (same unit as duration)</param>
@@ -37,7 +38,8 @@ namespace EVCMonoGame.src
             float postFix = t -= 2;
             return c / 2 * ((postFix) * t * (((s *= (1.525f)) + 1) * t + s) + 2) + b;
         }
-
+        #endregion
+        #region Bounce
         public static float BounceEaseIn(float t, float b, float c, float d)
         {
             return c - BounceEaseOut(d - t, 0, c, d) + b;
@@ -70,7 +72,8 @@ namespace EVCMonoGame.src
             if (t < d / 2) return BounceEaseIn(t * 2, 0, c, d) * .5f + b;
             else return BounceEaseOut(t * 2 - d, 0, c, d) * .5f + c * .5f + b;
         }
-
+        #endregion
+        #region Circ
         public static float CircEaseIn(float t, float b, float c, float d)
         {
             return (float)(-c * (Math.Sqrt(1 - (t /= d) * t) - 1) + b);
@@ -85,7 +88,8 @@ namespace EVCMonoGame.src
             if ((t /= d / 2) < 1) return (float)(-c / 2 * (Math.Sqrt(1 - t * t) - 1) + b);
             return (float)(c / 2 * (Math.Sqrt(1 - t * (t -= 2)) + 1) + b);
         }
-
+        #endregion
+        #region Cubic
         public static float CubicEaseIn(float t, float b, float c, float d)
         {
             return c * (t /= d) * t * t + b;
@@ -100,7 +104,8 @@ namespace EVCMonoGame.src
             if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
             return c / 2 * ((t -= 2) * t * t + 2) + b;
         }
-
+        #endregion
+        #region Elastic
         public static float ElasticEaseIn(float t, float b, float c, float d)
         {
             if (t == 0) return b; if ((t /= d) == 1) return b + c;
@@ -136,7 +141,8 @@ namespace EVCMonoGame.src
             postFix = (float)(a * Math.Pow(2, -10 * (t -= 1))); // postIncrement is evil
             return (float)(postFix * Math.Sin((t * d - s) * (2 * Math.PI) / p) * .5f + c + b);
         }
-
+        #endregion
+        #region Expo
         public static float ExpoEaseIn(float t, float b, float c, float d)
         {
             return (float)((t == 0) ? b : c * Math.Pow(2, 10 * (t / d - 1)) + b);
@@ -154,7 +160,8 @@ namespace EVCMonoGame.src
             if ((t /= d / 2) < 1) return (float)(c / 2 * Math.Pow(2, 10 * (t - 1)) + b);
             return (float)(c / 2 * (-Math.Pow(2, -10 * --t) + 2) + b);
         }
-
+        #endregion
+        #region Linear
         public static float LinearEaseNone(float t, float b, float c, float d)
         {
             return c * t / d + b;
@@ -174,7 +181,8 @@ namespace EVCMonoGame.src
         {
             return c * t / d + b;
         }
-
+        #endregion
+        #region Quad
         public static float QuadEaseIn(float t, float b, float c, float d)
         {
             return c * (t /= d) * t + b;
@@ -197,7 +205,8 @@ namespace EVCMonoGame.src
             */
 
         }
-
+        #endregion
+        #region Quart
         public static float QuartEaseIn(float t, float b, float c, float d)
         {
             return c * (t /= d) * t * t * t + b;
@@ -212,7 +221,8 @@ namespace EVCMonoGame.src
             if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
             return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
         }
-
+        #endregion
+        #region Quint
         public static float QuintEaseIn(float t, float b, float c, float d)
         {
             return c * (t /= d) * t * t * t * t + b;
@@ -227,7 +237,8 @@ namespace EVCMonoGame.src
             if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
             return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
         }
-
+        #endregion
+        #region Sine
         public static float SineEaseIn(float t, float b, float c, float d)
         {
             return (float)(-c * Math.Cos(t / d * (Math.PI / 2)) + c + b);
@@ -241,5 +252,6 @@ namespace EVCMonoGame.src
         {
             return (float)(-c / 2 * (Math.Cos(Math.PI * t / d) - 1) + b);
         }
+        #endregion
     }
 }
