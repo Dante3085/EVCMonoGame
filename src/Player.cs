@@ -12,6 +12,7 @@ using EVCMonoGame.src.gui;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src
 {
@@ -31,6 +32,7 @@ namespace EVCMonoGame.src
     {
         #region Fields
         private AnimatedSprite playerSprite;
+        private AnimatedSprite playerPortrait;
         private Healthbar playerHealthbar;
         private float playerSpeed;
         private bool isAttacking;
@@ -41,7 +43,7 @@ namespace EVCMonoGame.src
         private Vector2 movementVector;
         private Vector2 previousMovementVector;
 
-        private Orientation orientation;
+        private Orientation playerOrientation;
 
         #endregion
         #region Properties
@@ -104,7 +106,11 @@ namespace EVCMonoGame.src
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
             playerSprite.SetAnimation("IDLE_DOWN");
 
-            orientation = Orientation.DOWN;
+            playerPortrait = new AnimatedSprite(Vector2.Zero, 4.0f);
+            playerPortrait.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora_portrait.txt");
+            playerPortrait.SetAnimation("TALKING_HAPPY_RIGHT");
+
+            playerOrientation = Orientation.DOWN;
 
             playerHealthbar = new Healthbar(9999, 9999, new Vector2(300, 100), new Vector2(100, 10));
             playerSpeed = 8;
@@ -126,12 +132,14 @@ namespace EVCMonoGame.src
         {
             playerHealthbar.Draw(gameTime, spriteBatch);
             playerSprite.Draw(gameTime, spriteBatch);
+            playerPortrait.Draw(gameTime, spriteBatch);
         }
 
         public void LoadContent(ContentManager content)
         {
             playerSprite.LoadContent(content);
             playerHealthbar.LoadContent(content);
+            playerPortrait.LoadContent(content);
         }
         #endregion
         #region Updateable
@@ -142,9 +150,10 @@ namespace EVCMonoGame.src
 
             playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
 
-
             playerSprite.Update(gameTime);
+            playerPortrait.Update(gameTime);
         }
+
 
         public void UpdateAttacks()
         {
@@ -156,11 +165,11 @@ namespace EVCMonoGame.src
             {
                 HasActiveAttackBounds = true;
 
-                if (orientation == Orientation.LEFT)
+                if (playerOrientation == Orientation.LEFT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_0");
                 }
-                else if (orientation == Orientation.RIGHT)
+                else if (playerOrientation == Orientation.RIGHT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_0");
                 }
@@ -169,11 +178,11 @@ namespace EVCMonoGame.src
             {
                 HasActiveAttackBounds = true;
 
-                if (orientation == Orientation.LEFT)
+                if (playerOrientation == Orientation.LEFT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_1");
                 }
-                else if (orientation == Orientation.RIGHT)
+                else if (playerOrientation == Orientation.RIGHT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_1");
                 }
@@ -182,13 +191,24 @@ namespace EVCMonoGame.src
             {
                 HasActiveAttackBounds = true;
 
-                if (orientation == Orientation.LEFT)
+                if (playerOrientation == Orientation.LEFT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_2");
                 }
-                else if (orientation == Orientation.RIGHT)
+                else if (playerOrientation == Orientation.RIGHT)
                 {
                     playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_2");
+                }
+            }
+            else if (InputManager.OnKeyPressed(Keys.Enter))
+            {
+                if (playerOrientation == Orientation.LEFT)
+                {
+                    playerSprite.SetAnimation("DODGE_LEFT");
+                }
+                else if (playerOrientation == Orientation.RIGHT)
+                {
+                    playerSprite.SetAnimation("DODGE_RIGHT");
                 }
             }
         }
@@ -232,50 +252,50 @@ namespace EVCMonoGame.src
                         || currentAnimation == "IDLE_DOWN_LEFT")
                     {
                         playerSprite.SetAnimation("IDLE_DOWN_LEFT");
-                        orientation = Orientation.DOWN_LEFT;
+                        playerOrientation = Orientation.DOWN_LEFT;
                     }
                     else if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
                     {
                         playerSprite.SetAnimation("IDLE_DOWN");
-                        orientation = Orientation.DOWN;
+                        playerOrientation = Orientation.DOWN;
                     }
                     else if (currentAnimation == "WALK_DOWN_RIGHT" || currentAnimation == "RUN_DOWN_RIGHT"
                         || currentAnimation == "IDLE_DOWN_RIGHT")
                     {
                         playerSprite.SetAnimation("IDLE_DOWN_RIGHT");
-                        orientation = Orientation.DOWN_RIGHT;
+                        playerOrientation = Orientation.DOWN_RIGHT;
                     }
                     else if (currentAnimation == "WALK_UP_LEFT" || currentAnimation == "RUN_UP_LEFT"
                         || currentAnimation == "IDLE_UP_LEFT")
                     {
                         playerSprite.SetAnimation("IDLE_UP_LEFT");
-                        orientation = Orientation.UP_LEFT;
+                        playerOrientation = Orientation.UP_LEFT;
                     }
                     else if (currentAnimation == "RUN_UP" || currentAnimation == "IDLE_UP")
                     {
                         playerSprite.SetAnimation("IDLE_UP");
-                        orientation = Orientation.UP;
+                        playerOrientation = Orientation.UP;
                     }
                     else if (currentAnimation == "WALK_UP_RIGHT" || currentAnimation == "RUN_UP_RIGHT"
                         || currentAnimation == "IDLE_UP_RIGHT")
                     {
                         playerSprite.SetAnimation("IDLE_UP_RIGHT");
-                        orientation = Orientation.UP_RIGHT;
+                        playerOrientation = Orientation.UP_RIGHT;
                     }
                     else if (currentAnimation == "RUN_LEFT" || currentAnimation == "IDLE_LEFT")
                     {
                         playerSprite.SetAnimation("IDLE_LEFT");
-                        orientation = Orientation.LEFT;
+                        playerOrientation = Orientation.LEFT;
                     }
                     else if (currentAnimation == "RUN_RIGHT" || currentAnimation == "IDLE_RIGHT")
                     {
                         playerSprite.SetAnimation("IDLE_RIGHT");
-                        orientation = Orientation.RIGHT;
+                        playerOrientation = Orientation.RIGHT;
                     }
                     else
                     {
                         playerSprite.SetAnimation("IDLE_UP");
-                        orientation = Orientation.UP;
+                        playerOrientation = Orientation.UP;
                     }
                 }
                 else
@@ -283,7 +303,7 @@ namespace EVCMonoGame.src
                     if (mvAngle > (-22.5) && mvAngle <= (22.5))
                     {
                         playerSprite.SetAnimation("RUN_RIGHT");
-                        orientation = Orientation.RIGHT;
+                        playerOrientation = Orientation.RIGHT;
                     }
                     if (mvAngle > (22.5) && mvAngle <= (77.5))
                     {
@@ -295,12 +315,12 @@ namespace EVCMonoGame.src
                         {
                             playerSprite.SetAnimation("RUN_UP_RIGHT");
                         }
-                        orientation = Orientation.UP_RIGHT;
+                        playerOrientation = Orientation.UP_RIGHT;
                     }
                     if (mvAngle > (77.5) && mvAngle <= (112.5))
                     {
                         playerSprite.SetAnimation("RUN_UP");
-                        orientation = Orientation.UP;
+                        playerOrientation = Orientation.UP;
                     }
                     if (mvAngle > (112.5) && mvAngle <= (157.5))
                     {
@@ -312,12 +332,12 @@ namespace EVCMonoGame.src
                         {
                             playerSprite.SetAnimation("RUN_UP_LEFT");
                         }
-                        orientation = Orientation.UP_LEFT;
+                        playerOrientation = Orientation.UP_LEFT;
                     }
                     if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
                     {
                         playerSprite.SetAnimation("RUN_LEFT");
-                        orientation = Orientation.LEFT;
+                        playerOrientation = Orientation.LEFT;
                     }
                     if (mvAngle > (-157.5) && mvAngle <= (-112.5))
                     {
@@ -329,12 +349,12 @@ namespace EVCMonoGame.src
                         {
                             playerSprite.SetAnimation("RUN_DOWN_LEFT");
                         }
-                        orientation = Orientation.DOWN_LEFT;
+                        playerOrientation = Orientation.DOWN_LEFT;
                     }
                     if (mvAngle > (-112.5) && mvAngle <= (-77.5))
                     {
                         playerSprite.SetAnimation("RUN_DOWN");
-                        orientation = Orientation.DOWN;
+                        playerOrientation = Orientation.DOWN;
                     }
                     if (mvAngle > (-77.5) && mvAngle <= (-22.5))
                     {
@@ -346,7 +366,7 @@ namespace EVCMonoGame.src
                         {
                             playerSprite.SetAnimation("RUN_DOWN_RIGHT");
                         }
-                        orientation = Orientation.DOWN_RIGHT;
+                        playerOrientation = Orientation.DOWN_RIGHT;
                     }
                 }
             }
