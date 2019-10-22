@@ -75,6 +75,18 @@ namespace EVCMonoGame.src.scenes
 
         public override void Update(GameTime gameTime)
         {
+            if (InputManager.OnKeyPressed(Keys.F1))
+            {
+                if (drawables.Contains(collisionManager))
+                {
+                    drawables.Remove(collisionManager);
+                }
+                else
+                {
+                    drawables.Add(collisionManager);
+                }
+            }
+
             if (InputManager.OnKeyPressed(Keys.Space))
             {
                 sceneManager.SceneTransition(EScene.DEBUG_2);
