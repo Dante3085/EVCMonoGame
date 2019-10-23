@@ -11,10 +11,12 @@ namespace EVCMonoGame.src.scenes
 {
     public abstract class Scene
     {
+        #region Fields
         protected List<Updateable> updateables;
         protected List<IDrawable> drawables;
         protected SceneManager sceneManager;
-
+        #endregion
+        #region Constructors
         public Scene(SceneManager sceneManager)
         {
             this.sceneManager = sceneManager;
@@ -22,15 +24,8 @@ namespace EVCMonoGame.src.scenes
             drawables = new List<IDrawable>();
 
         }
-
-        public virtual void LoadContent(ContentManager contentManager)
-        {
-            foreach (IDrawable d in drawables)
-            {
-                d.LoadContent(contentManager);
-            }
-        }
-
+        #endregion
+        #region Methods
         public virtual void Update(GameTime gameTime)
         {
             foreach (Updateable u in updateables)
@@ -48,5 +43,14 @@ namespace EVCMonoGame.src.scenes
             }
             spriteBatch.End();
         }
+
+        public virtual void LoadContent(ContentManager contentManager)
+        {
+            foreach (IDrawable d in drawables)
+            {
+                d.LoadContent(contentManager);
+            }
+        }
+        #endregion
     }
 }

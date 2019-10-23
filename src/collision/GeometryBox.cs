@@ -12,15 +12,11 @@ namespace EVCMonoGame.src.collision
 {
     public class GeometryBox : GeometryCollidable
     {
+        #region Fields
         private Rectangle bounds;
         private Vector2 previousPosition;
-
-        public GeometryBox(Rectangle bounds)
-        {
-            this.bounds = bounds;
-            previousPosition = bounds.Location.ToVector2();
-        }
-
+        #endregion
+        #region Properties
         public Rectangle Bounds
         {
             get { return bounds; }
@@ -29,7 +25,7 @@ namespace EVCMonoGame.src.collision
         public Vector2 Position
         {
             get { return bounds.Location.ToVector2(); }
-            set 
+            set
             {
                 previousPosition = bounds.Location.ToVector2();
                 bounds.Location = value.ToPoint();
@@ -40,15 +36,13 @@ namespace EVCMonoGame.src.collision
         {
             get { return previousPosition; }
         }
-
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        #endregion
+        #region Constructors
+        public GeometryBox(Rectangle bounds)
         {
-            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.AliceBlue);
+            this.bounds = bounds;
+            previousPosition = bounds.Location.ToVector2();
         }
-
-        public void LoadContent(ContentManager content)
-        {
-            // Nothing to load
-        }
+        #endregion
     }
 }

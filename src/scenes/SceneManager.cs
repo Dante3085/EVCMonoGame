@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.scenes
 
     public class SceneManager
     {
+        #region Fields
         private Game game;
         private SpriteBatch spriteBatch;
         private Dictionary<EScene, Scene> scenes;
@@ -37,7 +38,8 @@ namespace EVCMonoGame.src.scenes
         // Global Updateables/Drawables (They don't belong to a specific Scene)
         private SpriteFont globalFont;
         private DebugTexts debugTexts;
-
+        #endregion
+        #region Properties
         // Alles was nicht an einzelnen Stellen(Methoden) übergeben werden kann,
         // weil nicht klar ist wo es benötigt wird, wird über Properties bereitgestellt.
         // Der Rest wird wie gesagt einfach bei Methodenaufrufen übergeben.
@@ -55,7 +57,8 @@ namespace EVCMonoGame.src.scenes
         {
             get { return debugTexts; }
         }
-
+        #endregion
+        #region Constructors
         public SceneManager(Game game)
         {
             this.game = game;
@@ -74,7 +77,8 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.DEBUG_2] = new DebugScreen2(this);
             currentScene = previousScene = scenes[EScene.DEBUG];
         }
-
+        #endregion
+        #region Methods
         public void LoadContent()
         {
             sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
@@ -174,5 +178,6 @@ namespace EVCMonoGame.src.scenes
         {
             game.Exit();
         }
+        #endregion
     }
 }

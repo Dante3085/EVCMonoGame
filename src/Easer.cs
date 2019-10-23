@@ -11,6 +11,7 @@ namespace EVCMonoGame.src
 {
     public class Easer : Updateable
     {
+        #region Fields
         private int elapsedMillis;
         private float from;
         private float to;
@@ -18,7 +19,8 @@ namespace EVCMonoGame.src
         private Easing.EasingFunction easingFunction;
         private float currentValue;
         private bool isFinished;
-
+        #endregion
+        #region Properties
         public float CurrentValue
         {
             get { return currentValue; }
@@ -52,7 +54,9 @@ namespace EVCMonoGame.src
             get { return easingFunction; }
             set { easingFunction = value; }
         }
+        #endregion
 
+        #region Constructors
         public Easer(float from, float to, int durationInMillis, Easing.EasingFunction easingFunction)
         {
             elapsedMillis = 0;
@@ -64,7 +68,9 @@ namespace EVCMonoGame.src
             isFinished = false;
             DoUpdate = false;
         }
+        #endregion
 
+        #region Methods
         public override void Update(GameTime gameTime)
         {
             if (!DoUpdate || isFinished)
@@ -97,5 +103,6 @@ namespace EVCMonoGame.src
             from = to;
             to = temp;
         }
+        #endregion
     }
 }
