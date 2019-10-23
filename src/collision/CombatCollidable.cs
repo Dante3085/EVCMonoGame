@@ -33,5 +33,7 @@ namespace EVCMonoGame.src.collision
         int CurrentDamage { get; }
 
         void ReceiveDamage(int amount);
+
+        void OnCombatCollision();
     }
 }

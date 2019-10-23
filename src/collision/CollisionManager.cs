@@ -99,10 +99,11 @@ namespace EVCMonoGame.src.collision
 
         private void ResolveCombatCollision(CombatCollidable attacker, CombatCollidable victim)
         {
+            victim.OnCombatCollision();
             victim.ReceiveDamage(attacker.CurrentDamage);
             if (!victim.IsAlive)
             {
-                Console.WriteLine("Jemand ist im Kampf gestorben.");
+               
             }
         }
 
@@ -175,13 +176,20 @@ namespace EVCMonoGame.src.collision
         {
             foreach (GeometryCollidable g in geometryCollidables)
             {
-                if (this.geometryCollidables.Contains(g))
+                if (!this.geometryCollidables.Add(g))
                 {
-                    throw new ArgumentException("g is already in geometryCollidables.");
+                    throw new ArgumentException("The given GeometryCollidable is already known to this CollisionManger.");
                 }
-                else
+            }
+        }
+
+        public void RemoveGeometryCollidables(params GeometryCollidable[] geometryCollidables)
+        {
+            foreach (GeometryCollidable g in geometryCollidables)
+            {
+                if (!this.geometryCollidables.Remove(g))
                 {
-                    this.geometryCollidables.Add(g);
+                    throw new ArgumentException("The given GeometryCollidable is not known to this CollisionManager.");
                 }
             }
         }
@@ -190,13 +198,20 @@ namespace EVCMonoGame.src.collision
         {
             foreach (CombatCollidable c in combatCollidables)
             {
-                if (this.combatCollidables.Contains(c))
+                if (!this.combatCollidables.Add(c))
                 {
-                    throw new ArgumentException("c is already in combatCollidables.");
+                    throw new ArgumentException("The given CombatCollidable is already known to this CollisionManger.");
                 }
-                else
+            }
+        }
+        
+        public void RemoveCombatCollidables(params CombatCollidable[] combatCollidables)
+        {
+            foreach (CombatCollidable c in combatCollidables)
+            {
+                if (!this.combatCollidables.Remove(c))
                 {
-                    this.combatCollidables.Add(c);
+                    throw new ArgumentException("The given CombatCollidable is not known to this CollisionManager.");
                 }
             }
         }

@@ -45,6 +45,8 @@ namespace EVCMonoGame.src
 
         private Orientation playerOrientation;
 
+        private bool flinching;
+
         #endregion
         #region Properties
         public AnimatedSprite Sprite
@@ -79,7 +81,7 @@ namespace EVCMonoGame.src
 
         public int CurrentDamage
         {
-            get { return 10; }
+            get { return 50; }
         }
 
         public Rectangle Bounds
@@ -104,13 +106,12 @@ namespace EVCMonoGame.src
 
             playerSprite = new AnimatedSprite(position, 5.0f);
             playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
-            playerSprite.SetAnimation("IDLE_DOWN");
+            playerSprite.SetAnimation("IDLE_RIGHT");
+            playerOrientation = Orientation.RIGHT;
 
             playerPortrait = new AnimatedSprite(Vector2.Zero, 4.0f);
             playerPortrait.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora_portrait.txt");
             playerPortrait.SetAnimation("TALKING_HAPPY_RIGHT");
-
-            playerOrientation = Orientation.DOWN;
 
             playerHealthbar = new Healthbar(9999, 9999, new Vector2(300, 100), new Vector2(100, 10));
             playerSpeed = 8;
@@ -125,6 +126,7 @@ namespace EVCMonoGame.src
             movementVector = Vector2.Zero;
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
+            flinching = false;
         }
         #endregion
         #region IDrawable
@@ -145,8 +147,30 @@ namespace EVCMonoGame.src
         #region Updateable
         public override void Update(GameTime gameTime)
         {
-            UpdateMovement();
-            UpdateAttacks();
+            // flinch = zurückweichen
+            if (flinching)
+            {
+                if (playerSprite.AnimationFinished)
+                {
+                    flinching = false;
+                    switch(playerOrientation)
+                    {
+                        case Orientation.LEFT: playerSprite.SetAnimation("IDLE_LEFT"); break;
+                        case Orientation.UP_LEFT: playerSprite.SetAnimation("IDLE_UP_LEFT"); break;
+                        case Orientation.UP: playerSprite.SetAnimation("IDLE_UP"); break;
+                        case Orientation.UP_RIGHT: playerSprite.SetAnimation("IDLE_UP_RIGHT"); break;
+                        case Orientation.RIGHT: playerSprite.SetAnimation("IDLE_RIGHT"); break;
+                        case Orientation.DOWN_RIGHT: playerSprite.SetAnimation("IDLE_DOWN_RIGHT"); break;
+                        case Orientation.DOWN: playerSprite.SetAnimation("IDLE_DOWN"); break;
+                        case Orientation.DOWN_LEFT: playerSprite.SetAnimation("IDLE_DOWN_LEFT"); break;
+                    }
+                }
+            }
+            else
+            {
+                UpdateMovement();
+                UpdateAttacks();
+            }
 
             playerHealthbar.Position = playerSprite.Position - new Vector2(0, playerHealthbar.Size.Y);
 
@@ -373,11 +397,29 @@ namespace EVCMonoGame.src
         }
 
         #endregion
-
+        #region CombatCollidable
         public void ReceiveDamage(int amount)
         {
             playerHealthbar.CurrentHp -= amount;
             // Update Character Hp as well.
         }
+
+        public void OnCombatCollision()
+        {
+            switch(playerOrientation)
+            {
+                case Orientation.DOWN: playerSprite.SetAnimation("FLINCH_LEFT"); break;
+                case Orientation.DOWN_LEFT: playerSprite.SetAnimation("FLINCH_LEFT"); break;
+                case Orientation.LEFT: playerSprite.SetAnimation("FLINCH_LEFT"); break;
+                case Orientation.UP_LEFT: playerSprite.SetAnimation("FLINCH_LEFT"); break;
+                case Orientation.UP: playerSprite.SetAnimation("FLINCH_LEFT"); break;
+
+                case Orientation.UP_RIGHT: playerSprite.SetAnimation("FLINCH_RIGHT"); break;
+                case Orientation.RIGHT: playerSprite.SetAnimation("FLINCH_RIGHT"); break;
+                case Orientation.DOWN_RIGHT: playerSprite.SetAnimation("FLINCH_RIGHT"); break;
+            }
+            flinching = true;
+        }
+        #endregion
     }
 }

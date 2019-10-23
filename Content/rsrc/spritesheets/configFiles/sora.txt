@@ -300,3 +300,23 @@ FRAME_DELAYS  = 90@all
 FRAME_OFFSETS = (-100, 70), (-70, 60), (-15, 45), (-185, 30), (-30, 50), (-34, 75), (-70, 75)
 IS_MIRRORED   = true
 IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = FLINCH_LEFT
+FRAMES        = (535, 1550, 39, 35), (579, 1540, 45, 45), (633, 1548, 40, 37), (680, 1546, 44, 39), (729, 1553, 56, 32), (788, 1544, 45, 41), (838, 1537, 26, 48)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = FLINCH_RIGHT
+FRAMES        = (535, 1550, 39, 35), (579, 1540, 45, 45), (633, 1548, 40, 37), (680, 1546, 44, 39), (729, 1553, 56, 32), (788, 1544, 45, 41), (838, 1537, 26, 48)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 90@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = false
