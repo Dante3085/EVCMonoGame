@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_shadow_transparent
+
+[ANIMATION]
+NAME          = IDLE_LEFT
+FRAMES        = (2, 7, 31, 29), (37, 10, 32, 26), (72, 7, 31, 29), (109, 8, 35, 28), (147, 6, 37, 30), (189, 7, 39, 29), (233, 9, 33, 27), (268, 11, 34, 25), (304, 13, 39, 23)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 120@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true

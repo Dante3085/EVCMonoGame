@@ -137,7 +137,9 @@ namespace EVCMonoGame.src.animation
             {
                 Rectangle bounds = new Rectangle();
                 bounds.Location = position.ToPoint();
-                bounds.Size = animations["IDLE_DOWN"].Frames[0].Size;
+
+                // TODO: Nicht einfach Animationsnamen eintragen. Irgendwie generisch berechnen.
+                bounds.Size = animations["IDLE_LEFT"].Frames[0].Size;
                 bounds.Width *= (int)(scale);
                 bounds.Height *= (int)(scale);
 

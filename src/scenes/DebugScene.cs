@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.enemies;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -17,6 +18,9 @@ namespace EVCMonoGame.src.scenes
     {
         private Player player;
         private Player player2;
+
+        private Shadow shadow;
+
         private SpriteFont randomText;
         private Texture2D background;
         private GeometryBox geometryBox;
@@ -34,6 +38,8 @@ namespace EVCMonoGame.src.scenes
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
             player2.DoesUpdateMovement = false;
 
+            shadow = new Shadow(new Vector2(500, 600));
+
             geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
             geometryBox2 = new GeometryBox(new Rectangle(1400, 480, 500, 25));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
@@ -45,13 +51,16 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, geometryBox, geometryBox2);
-            collisionManager.AddCombatCollidables(player, player2);
+            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite, geometryBox, geometryBox2);
+            collisionManager.AddCombatCollidables(player, player2, shadow);
 
             updateables.AddRange(new Updateable[] 
             { 
                 player,
                 player2,
+
+                shadow,
+
                 collisionManager,
             });
 
@@ -60,6 +69,9 @@ namespace EVCMonoGame.src.scenes
                 tilemap,
                 player,
                 player2,
+
+                shadow,
+
                 collisionManager,
             });
         }
@@ -94,9 +106,9 @@ namespace EVCMonoGame.src.scenes
 
             sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
             sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
-            sceneManager.GlobalDebugTexts.Entries[2] = "ElapsedMillis: " + player.Sprite.ElapsedMillis;
-            sceneManager.GlobalDebugTexts.Entries[3] = "CurrentAnim: " + player.Sprite.CurrentAnimation;
-            sceneManager.GlobalDebugTexts.Entries[3] = "FrameIndex: " + player.Sprite.FrameIndex;
+            sceneManager.GlobalDebugTexts.Entries[2] = "P2 ElapsedMillis: " + player2.Sprite.ElapsedMillis;
+            sceneManager.GlobalDebugTexts.Entries[3] = "P2 CurrentAnim: " + player2.Sprite.CurrentAnimation;
+            sceneManager.GlobalDebugTexts.Entries[3] = "P2 FrameIndex: " + player2.Sprite.FrameIndex;
 
             base.Update(gameTime);
         }
