@@ -19,35 +19,41 @@ namespace EVCMonoGame.src
         private Vector2 position;
         Color color;
 
-        private int delay;
-        private int elapsed;
+        private int delayInMilliseconds;
+        private int elapsedMilliseconds;
         private List<float> fpsBuffer;
         private int indexCurrentFpsValue;
 
-        public FpsCounter(Vector2 position, Color color)
+        public int DelayInMilliseconds
+        {
+            get { return delayInMilliseconds; }
+            set { delayInMilliseconds = value; }
+        }
+
+        public FpsCounter(Vector2 position, Color color, int delayInMilliseconds = 500)
         {
             str = "";
             this.position = position;
             this.color = color;
 
-            delay = 500;
-            elapsed = 0;
+            this.delayInMilliseconds = delayInMilliseconds;
+            elapsedMilliseconds = 0;
             fpsBuffer = new List<float>();
             indexCurrentFpsValue = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
-            elapsed += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+            elapsedMilliseconds += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
             fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
             fpsBuffer.Add(fps);
 
             // Only display next fps value after a certain amount of time.
             // Otherwise humans can't follow it.
-            if (elapsed >= delay)
+            if (elapsedMilliseconds >= delayInMilliseconds)
             {
                 // Reset elapsed
-                elapsed = 0;
+                elapsedMilliseconds = 0;
 
                 // Put the current fps Value into the display string
                 str = fpsBuffer[indexCurrentFpsValue++ % fpsBuffer.Count].ToString();
