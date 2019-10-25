@@ -39,6 +39,25 @@ namespace EVCMonoGame.src.input
         {
             get { return inputByKeyboard; }
         }
+
+        public static bool HasLeftGamePadStickMoved
+        {
+            get { return currentGamePadState.ThumbSticks.Left.LengthSquared() > 0; }
+        }
+
+        public static bool HasRightGamePadStickMoved
+        {
+            get { return currentGamePadState.ThumbSticks.Right.LengthSquared() > 0; }
+        }
+
+        public static bool OnAnyGamePadFaceButtonPressed
+        {
+            get
+            {
+                return OnAnyButtonPressed(Buttons.X, Buttons.Y, Buttons.B, Buttons.A);
+            }
+        }
+
         #endregion
         #region StaticMethods
         /// <summary>
