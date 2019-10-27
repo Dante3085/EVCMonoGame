@@ -38,7 +38,7 @@ namespace EVCMonoGame.src
         private bool isAttacking;
         private float runThreshold;
 
-        private Keys[] controls;
+        private Keys[] keyboardControls;
 
         private Vector2 movementVector;
         private Vector2 previousMovementVector;
@@ -121,7 +121,7 @@ namespace EVCMonoGame.src
             {
                 throw new ArgumentException("Nur 4 Bewegungstasten");
             }
-            this.controls = controls;
+            this.keyboardControls = controls;
 
             movementVector = Vector2.Zero;
             previousMovementVector = movementVector;
@@ -239,35 +239,41 @@ namespace EVCMonoGame.src
 
         public void UpdateMovement()
         {
+            // TODO: Check for collision after moving.
+            // TODO: Tidy up this method.
+
             if (!DoesUpdateMovement)
                 return;
 
-            Vector2 currentPosition = playerSprite.Position;
-            Vector2 directionVector = new Vector2(0, 0);
+            Vector2 directionVector = Vector2.Zero;
             previousMovementVector = movementVector;
 
-            switch (InputManager.InputByKeyboard)
+            // Differentiate between Keyboard and GamePad controls.
+            if (InputManager.InputByKeyboard)
             {
-                case true:
-                    if (InputManager.IsKeyPressed(controls[0])) directionVector.Y -= 100; //up
-                    if (InputManager.IsKeyPressed(controls[2])) directionVector.X += 100; //right
-                    if (InputManager.IsKeyPressed(controls[1])) directionVector.Y += 100; //down
-                    if (InputManager.IsKeyPressed(controls[3])) directionVector.X -= 100; //left
-                    movementVector = Utility.scaleVectorTo(directionVector, playerSpeed);
-                    break;
-                case false:
-                    directionVector.X = InputManager.CurrentThumbSticks().Left.X;
-                    directionVector.Y = (-1) * (InputManager.CurrentThumbSticks().Left.Y);
-                    movementVector = directionVector * (playerSpeed * (1 + InputManager.CurrentTriggers().Right));
-                    break;
+                if (InputManager.IsKeyPressed(keyboardControls[0])) directionVector.Y -= 100; //up
+                if (InputManager.IsKeyPressed(keyboardControls[2])) directionVector.X += 100; //right
+                if (InputManager.IsKeyPressed(keyboardControls[1])) directionVector.Y += 100; //down
+                if (InputManager.IsKeyPressed(keyboardControls[3])) directionVector.X -= 100; //left
+
+                movementVector = Utility.scaleVectorTo(directionVector, playerSpeed);
+            }
+            else
+            {
+                GamePadThumbSticks currentThumbSticks = InputManager.CurrentThumbSticks();
+
+                directionVector.X = currentThumbSticks.Left.X;
+                directionVector.Y = currentThumbSticks.Left.Y * -1;
+
+                movementVector = directionVector * (playerSpeed * (1 + InputManager.CurrentTriggers().Right));
             }
 
             playerSprite.Position += movementVector;
-            float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
-            float directionVectorLength = directionVector.Length();
 
+            // Has a movement happened ?
             if (movementVector != previousMovementVector)
             {
+                // Has the moving stopped ?
                 if (movementVector == Vector2.Zero)
                 {
                     String currentAnimation = playerSprite.CurrentAnimation;
@@ -324,6 +330,9 @@ namespace EVCMonoGame.src
                 }
                 else
                 {
+                    float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
+                    float directionVectorLength = directionVector.Length();
+
                     if (mvAngle > (-22.5) && mvAngle <= (22.5))
                     {
                         playerSprite.SetAnimation("RUN_RIGHT");
@@ -394,6 +403,8 @@ namespace EVCMonoGame.src
                     }
                 }
             }
+
+            CollisionManager.IsCollisionOnPosition(playerSprite, true, true);
         }
 
         #endregion

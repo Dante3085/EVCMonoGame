@@ -20,6 +20,7 @@ namespace EVCMonoGame.src.collision
         public Rectangle Bounds
         {
             get { return bounds; }
+            set { bounds = value; }
         }
 
         public Vector2 Position

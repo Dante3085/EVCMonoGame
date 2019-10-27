@@ -23,7 +23,8 @@ namespace EVCMonoGame.src.collision
     public class CollisionManager : Updateable, scenes.IDrawable
     {
         #region Fields
-        private HashSet<GeometryCollidable> geometryCollidables;
+
+        private static HashSet<GeometryCollidable> geometryCollidables;
         private HashSet<CombatCollidable> combatCollidables;
 
         #endregion
@@ -172,22 +173,22 @@ namespace EVCMonoGame.src.collision
         #endregion
         #region CollisionManager
 
-        public void AddGeometryCollidables(params GeometryCollidable[] geometryCollidables)
+        public static void AddGeometryCollidables(params GeometryCollidable[] geometryCollidables)
         {
             foreach (GeometryCollidable g in geometryCollidables)
             {
-                if (!this.geometryCollidables.Add(g))
+                if (!CollisionManager.geometryCollidables.Add(g))
                 {
                     throw new ArgumentException("The given GeometryCollidable is already known to this CollisionManger.");
                 }
             }
         }
 
-        public void RemoveGeometryCollidables(params GeometryCollidable[] geometryCollidables)
+        public static void RemoveGeometryCollidables(params GeometryCollidable[] geometryCollidables)
         {
             foreach (GeometryCollidable g in geometryCollidables)
             {
-                if (!this.geometryCollidables.Remove(g))
+                if (!CollisionManager.geometryCollidables.Remove(g))
                 {
                     throw new ArgumentException("The given GeometryCollidable is not known to this CollisionManager.");
                 }
@@ -214,6 +215,89 @@ namespace EVCMonoGame.src.collision
                     throw new ArgumentException("The given CombatCollidable is not known to this CollisionManager.");
                 }
             }
+        }
+
+        public static bool IsCollisionOnPosition(GeometryCollidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+        {
+            foreach (GeometryCollidable g2 in geometryCollidables)
+            {
+                if (g1 != g2)
+                {
+                    if (g1.Bounds.Intersects(g2.Bounds))
+                    {
+                        if (fixMyCollision && g1 is GeometryCollidable && g2 is GeometryCollidable)
+                        {
+
+                            // Zurück gelegte Distanz aka auch Richtung
+                            Vector2 direction = g1.Position - g1.PreviousPosition;
+
+                            // Only Integers
+                            direction.X = (int)Math.Round(direction.X);
+                            direction.Y = (int)Math.Round(direction.Y);
+
+                            Vector2 tempDirection = direction;
+
+
+                            // Interpoliere Bewegung soweit raus, bis keine Collision mehr entsteht (Diagonale Achsenkollision)
+                            while (IsCollisionOnPosition(g1, false, false))
+                            {
+                                // Math.Sign(0) == 0
+                                tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
+                                tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
+
+                                if (tempDirection == Vector2.Zero)
+                                    break;
+
+                                // g1.Bounds = new Rectangle((g1.PreviousPosition + tempDirection).ToPoint(), g1.Bounds.Size);
+                                g1.Position = g1.PreviousPosition + tempDirection;
+                            }
+
+                            // Fixed Position
+                            Vector2 bumpedPosition = g1.Position = g1.PreviousPosition + tempDirection;
+                            tempDirection = direction;
+
+                            //Slide entlang der Wand und überprüfe auf erneuter Collision
+                            if (resolveCollisionWithSliding)
+                            {
+                                // Teste X Achse
+                                while (tempDirection.X != 0)
+                                {
+
+                                    tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
+                                    // g1.Bounds = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.Bounds.Size);
+                                    g1.Position = bumpedPosition + new Vector2(tempDirection.X, 0);
+
+                                    if (!IsCollisionOnPosition(g1, false, false))
+                                    {
+                                        g1.Position = bumpedPosition + new Vector2(tempDirection.X, 0);
+                                        bumpedPosition = g1.Position;
+                                        tempDirection = direction;
+                                        break;
+                                    }
+
+                                }
+
+                                // Teste Y Achse
+                                while (tempDirection.Y != 0)
+                                {
+                                    tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
+                                    // g1.Bounds = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.Bounds.Size);
+                                    g1.Position = bumpedPosition + new Vector2(0, tempDirection.Y);
+
+                                    if (!IsCollisionOnPosition(g1, false, false))
+                                    {
+                                        g1.Position = bumpedPosition + new Vector2(0, tempDirection.Y);
+                                        bumpedPosition = g1.Position;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         #endregion

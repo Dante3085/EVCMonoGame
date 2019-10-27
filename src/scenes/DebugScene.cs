@@ -23,8 +23,6 @@ namespace EVCMonoGame.src.scenes
 
         private SpriteFont randomText;
         private Texture2D background;
-        private GeometryBox geometryBox;
-        private GeometryBox geometryBox2;
         private Tilemap tilemap;
 
         private CollisionManager collisionManager;
@@ -40,8 +38,6 @@ namespace EVCMonoGame.src.scenes
 
             shadow = new Shadow(new Vector2(500, 600));
 
-            geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
-            geometryBox2 = new GeometryBox(new Rectangle(1400, 480, 500, 25));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
@@ -51,7 +47,7 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite, geometryBox, geometryBox2);
+            CollisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
             collisionManager.AddCombatCollidables(player, player2, shadow);
 
             updateables.AddRange(new Updateable[] 
@@ -72,7 +68,7 @@ namespace EVCMonoGame.src.scenes
 
                 shadow,
 
-                collisionManager,
+                collisionManager
             });
         }
 

@@ -28,7 +28,7 @@ namespace EVCMonoGame.src.scenes
             geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
+            CollisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
 
             updateables.AddRange(new Updateable[]
             {
