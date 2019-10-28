@@ -30,14 +30,16 @@ namespace EVCMonoGame.src.scenes
         public DebugScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(sceneManager.GetViewportCenter(), 
-                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+            player = new Player(new Vector2(400, 500), 
+                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
 
-            player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
+            player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A }, 8);
             player2.DoesUpdateMovement = false;
 
-            shadow = new Shadow(new Vector2(500, 600));
+            shadow = new Shadow(new Vector2(1000, 600));
 
+            geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
+            geometryBox2 = new GeometryBox(new Rectangle(1300, 480, 500, 25));
             tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
@@ -68,7 +70,7 @@ namespace EVCMonoGame.src.scenes
 
                 shadow,
 
-                collisionManager
+                // collisionManager,
             });
         }
 
@@ -102,9 +104,9 @@ namespace EVCMonoGame.src.scenes
 
             sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
             sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
-            sceneManager.GlobalDebugTexts.Entries[2] = "P2 ElapsedMillis: " + player2.Sprite.ElapsedMillis;
-            sceneManager.GlobalDebugTexts.Entries[3] = "P2 CurrentAnim: " + player2.Sprite.CurrentAnimation;
-            sceneManager.GlobalDebugTexts.Entries[3] = "P2 FrameIndex: " + player2.Sprite.FrameIndex;
+            sceneManager.GlobalDebugTexts.Entries[2] = "Shadow ElapsedMillis: " + shadow.Sprite.ElapsedMillis;
+            sceneManager.GlobalDebugTexts.Entries[3] = "Shadow CurrentAnim: " + shadow.Sprite.CurrentAnimation;
+            sceneManager.GlobalDebugTexts.Entries[3] = "Shadow FrameIndex: " + shadow.Sprite.FrameIndex;
 
             base.Update(gameTime);
         }
