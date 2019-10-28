@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace EVCMonoGame.src
 {
+    // TODO: Indexer
     public class DebugTexts : src.scenes.IDrawable
     {
         private Vector2 position;

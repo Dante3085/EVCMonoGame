@@ -38,6 +38,10 @@ namespace EVCMonoGame.src
             IsMouseVisible = true;
 
             graphics = new GraphicsDeviceManager(this);
+
+            //graphics.PreferredBackBufferWidth = 3240;
+            //graphics.PreferredBackBufferHeight = 2160;
+
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = false;
@@ -51,7 +55,7 @@ namespace EVCMonoGame.src
             stateManager.AddState(new BackgroundState(), null);
             stateManager.AddState(new MainMenuState(), null);
 
-            fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
+            fpsCounter = new FpsCounter(Vector2.Zero, Color.White, 500);
         }
 
         protected override void LoadContent()

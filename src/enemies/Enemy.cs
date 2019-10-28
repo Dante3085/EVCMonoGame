@@ -61,6 +61,11 @@ namespace EVCMonoGame.src.enemies
             }
         }
 
+        public CombatArgs CombatArgs
+        {
+            get { return new CombatArgs(); }
+        }
+
         #endregion
 
         #endregion
@@ -84,13 +89,13 @@ namespace EVCMonoGame.src.enemies
         #endregion
 
         #region IDrawable
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             enemySprite.Draw(gameTime, spriteBatch);
             enemyHealthbar.Draw(gameTime, spriteBatch);
         }
 
-        public void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content)
         {
             enemySprite.LoadContent(content);
             enemyHealthbar.LoadContent(content);
@@ -98,12 +103,12 @@ namespace EVCMonoGame.src.enemies
         #endregion
 
         #region CombatCollidable
-        public void OnCombatCollision()
+        public virtual void OnCombatCollision(CombatCollidable attacker)
         {
             // TODO: This is specific to Enemy Type
         }
 
-        public void ReceiveDamage(int amount)
+        public virtual void ReceiveDamage(int amount)
         {
             enemyHealthbar.CurrentHp -= amount;
         }
