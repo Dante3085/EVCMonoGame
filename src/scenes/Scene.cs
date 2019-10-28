@@ -34,23 +34,11 @@ namespace EVCMonoGame.src.scenes
             {
                 u.Update(gameTime);
             }
-            if (InputManager.IsKeyPressed(Keys.OemPlus)) Zoom += 0.1f;
-            if (InputManager.IsKeyPressed(Keys.OemMinus)) Zoom -= 0.1f;
-            if (InputManager.IsKeyPressed(Keys.Q)) cameraPositionX += 2f; //Kameraschwenk links
-            if (InputManager.IsKeyPressed(Keys.E)) cameraPositionX -= 2f; //Kameraschwenk rechts
-            if (InputManager.IsKeyPressed(Keys.R)) cameraPositionY += 2f; //Kameraschwenk oben
-            if (InputManager.IsKeyPressed(Keys.F)) cameraPositionY -= 2f; //Kameraschwenk unten
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
-            Matrix transformMatrix = new Matrix(new Vector4(Zoom,            0,               0,    0), 
-                                  new Vector4(0,               Zoom,            0,    0), 
-                                  new Vector4(0,               0,               1,    0), 
-                                  new Vector4(cameraPositionX, cameraPositionY, 0,    1));
-
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: transformMatrix);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             foreach (IDrawable d in drawables)
             {
                 d.Draw(gameTime, spriteBatch);

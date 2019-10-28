@@ -133,11 +133,7 @@ namespace EVCMonoGame.src.collision
         {
             Vector2 g1Shift = g1.Position - g1.PreviousPosition;
             Vector2 g2Shift = g2.Position - g2.PreviousPosition;
-<<<<<<< HEAD
             Vector2 g1CollisionPosition = new Vector2(g1.Position.X, g1.Position.Y);
-=======
-            Vector2 g1CollisionPosition = new Vector2(g1.Position.X,g1.Position.Y);
->>>>>>> origin/manuel
             Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
 
             if (g1Shift != Vector2.Zero)
@@ -170,8 +166,6 @@ namespace EVCMonoGame.src.collision
                 if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
                 g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
                 if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
-<<<<<<< HEAD
-
             }
         }
         #endregion
@@ -219,9 +213,6 @@ namespace EVCMonoGame.src.collision
                 {
                     throw new ArgumentException("The given CombatCollidable is not known to this CollisionManager.");
                 }
-=======
-                
->>>>>>> origin/manuel
             }
         }
 
