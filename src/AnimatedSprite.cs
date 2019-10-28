@@ -13,7 +13,7 @@ using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
-    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable
+    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable, ITranslatable
     {
         struct Animation
         {
