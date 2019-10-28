@@ -24,11 +24,11 @@ namespace EVCMonoGame.src.scenes
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
             geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
-            CollisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
+            collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
 
             updateables.AddRange(new Updateable[]
             {

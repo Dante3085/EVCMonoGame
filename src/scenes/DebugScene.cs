@@ -21,6 +21,8 @@ namespace EVCMonoGame.src.scenes
 
         private Shadow shadow;
 
+        private GeometryBox geometryBox;
+        private GeometryBox geometryBox2;
         private SpriteFont randomText;
         private Texture2D background;
         private Tilemap tilemap;
@@ -49,7 +51,7 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
-            CollisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
+            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
             collisionManager.AddCombatCollidables(player, player2, shadow);
 
             updateables.AddRange(new Updateable[] 

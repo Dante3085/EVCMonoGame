@@ -99,7 +99,7 @@ namespace EVCMonoGame.src
         #endregion
 
         #region Constructors
-        public Player(Vector2 position, Keys[] controls)
+        public Player(Vector2 position, Keys[] controls, float playerSpeed)
         {
             isAttacking = false;
             runThreshold = 0.65f;
@@ -114,7 +114,7 @@ namespace EVCMonoGame.src
             playerPortrait.SetAnimation("TALKING_HAPPY_RIGHT");
 
             playerHealthbar = new Healthbar(9999, 9999, new Vector2(300, 100), new Vector2(100, 10));
-            playerSpeed = 8;
+            this.playerSpeed = playerSpeed;
 
             // Der Parameter controls ist nicht final. Nur, um mehrere Player Instanzen anders steuern zu können.
             if (controls.Length != 4)
@@ -266,6 +266,7 @@ namespace EVCMonoGame.src
                 directionVector.Y = currentThumbSticks.Left.Y * -1;
 
                 movementVector = directionVector * (playerSpeed * (1 + InputManager.CurrentTriggers().Right));
+                Console.WriteLine(movementVector);
             }
 
             playerSprite.Position += movementVector;
@@ -403,8 +404,6 @@ namespace EVCMonoGame.src
                     }
                 }
             }
-
-            CollisionManager.IsCollisionOnPosition(playerSprite, true, true);
         }
 
         #endregion
@@ -415,7 +414,7 @@ namespace EVCMonoGame.src
             // Update Character Hp as well.
         }
 
-        public void OnCombatCollision()
+        public void OnCombatCollision(CombatCollidable attacker)
         {
             switch(playerOrientation)
             {

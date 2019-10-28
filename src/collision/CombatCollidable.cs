@@ -34,6 +34,6 @@ namespace EVCMonoGame.src.collision
 
         void ReceiveDamage(int amount);
 
-        void OnCombatCollision();
+        void OnCombatCollision(CombatCollidable attacker);
     }
 }
