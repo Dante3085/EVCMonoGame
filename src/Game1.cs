@@ -26,7 +26,7 @@ namespace EVCMonoGame.src
         // when they suddenly need to be loaded in the middle of a menu transition.
         private static readonly string[] preloadAssets =
         {
-            "rsrc/backgrounds/gradient",
+            //"rsrc/backgrounds/gradient",
         };
 
         public Game1()

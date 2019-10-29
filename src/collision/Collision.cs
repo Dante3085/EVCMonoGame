@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.collision
 {
-    public interface Collidable
+    public interface Collision
 	{
 		Vector2 WorldPosition { get; set; }
 		Vector2 PreviousWorldPosition { get; }
 
-		Rectangle GeoHitbox { get; set;  }
+		Rectangle CollisionBox { get; set;  }
     }
 }

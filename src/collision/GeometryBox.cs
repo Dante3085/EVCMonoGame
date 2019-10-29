@@ -21,7 +21,7 @@ namespace EVCMonoGame.src.collision
             previousPosition = bounds.Location.ToVector2();
         }
 
-        public Rectangle GeoHitbox
+        public Rectangle CollisionBox
 		{
 			get { return bounds; }
 			set { }

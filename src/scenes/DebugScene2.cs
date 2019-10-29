@@ -14,18 +14,23 @@ using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes
 {
-    public class DebugScreen2 : Scene
-    {
-        private Player player;
-        private SpriteFont randomText;
-        private Texture2D background;
-        private CollisionManager collisionManager;
-        private GeometryBox geometryBox;
+	public class DebugScreen2 : Scene
+	{
+		private Player player;
+		private SpriteFont randomText;
+		private Texture2D background;
+		private GeometryBox geometryBox;
 
 		public DebugScreen2(SceneManager sceneManager)
-            : base(sceneManager)
-        {
-            player = new Player(new Rectangle(750, 300, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			: base(sceneManager)
+		{
+		}
+
+		public override void LevelStartsEvent()
+		{
+			base.LevelStartsEvent();
+
+			player = new Player(new Rectangle(750, 300, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left});
 			Enemy dummyEnemy = new DummyEnemy(new Rectangle(800, 100, 100, 100));
 			geometryBox = new GeometryBox(new Rectangle(300, 300, 200, 200));
 
@@ -36,52 +41,48 @@ namespace EVCMonoGame.src.scenes
 			HealPotionStats.heal = 10;
 
 			PickUpItem HealPotion = new PickUpItem(new Rectangle(700, 500, 50, 50), HealPotionStats);
-			
 
 
-			collisionManager = new CollisionManager();
-			CollisionManager.AddCollidables(new Collidable[]
+			CollisionManager.AddCollidables(new Collision[]
 			{
 				dummyEnemy,
 				player,
+				HealPotion,
 				geometryBox,
 				new GeometryBox(new Rectangle(500, 299, 200, 200)),
 				new GeometryBox(new Rectangle(100, 100, 200, 200)),
 				new GeometryBox(new Rectangle(300, 100, 100, 100)),
 				new GeometryBox(new Rectangle(100, 300, 110, 100)),
-				HealPotion,
 			});
 
-            updateables.AddRange(new Updateable[]
-            {
-                player,
-				dummyEnemy,
-				collisionManager,
-				HealPotion,
-			});
-
-            drawables.AddRange(new IDrawable[]
-            {
-                collisionManager,
-                player,
+			updateables.AddRange(new Updateable[]
+			{
+				player,
 				dummyEnemy,
 				HealPotion,
 			});
 
-
-        }
+			drawables.AddRange(new IDrawable[]
+			{
+				player,
+				dummyEnemy,
+				HealPotion,
+			});
+		}
+		
+		
 
 		public void spawnCharacter(Character character, Rectangle bounds)
 		{
 			character.WorldPosition = new Vector2(bounds.X, bounds.Y);
-			character.GeoHitbox = bounds;
+			character.CollisionBox = bounds;
 		}
 
 		public override void LoadContent(ContentManager content)
         {
-            randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+            //randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
-            background = content.Load<Texture2D>("rsrc/backgrounds/background");
+            //background = content.Load<Texture2D>("rsrc/backgrounds/background");
 
             base.LoadContent(content);
         }

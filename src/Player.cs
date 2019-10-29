@@ -24,6 +24,7 @@ namespace EVCMonoGame.src
         private AnimatedSprite playerSprite;
         private float playerSpeed;
 		private Vector2 playerDirection;
+		private ItemFinder itemFinder;
 
 
 		public AnimatedSprite Sprite
@@ -39,7 +40,9 @@ namespace EVCMonoGame.src
 
         public Player(Rectangle bounds, Keys[] controls)
         {
-			GeoHitbox = bounds;
+			CollisionBox = bounds;
+			itemFinder = new ItemFinder(this);
+
             //playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
@@ -68,9 +71,9 @@ namespace EVCMonoGame.src
             //    new Rectangle(194, 100, 21, 31), new Rectangle(221, 99, 13, 32), new Rectangle(242, 98, 14, 33),
             //}, 0.15f);
 
-            playerSprite = new AnimatedSprite(bounds.Location.ToVector2(), 6.0f);
-            playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
-            playerSprite.SetAnimation("IDLE");
+            //playerSprite = new AnimatedSprite(bounds.Location.ToVector2(), 6.0f);
+            //playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
+            //playerSprite.SetAnimation("IDLE");
 			
             playerSpeed = 8;
 
@@ -88,13 +91,13 @@ namespace EVCMonoGame.src
 
 			//Debug
 			playerDirection.Normalize();
-			Primitives2D.DrawLine(spriteBatch, GeoHitbox.Center.ToVector2(), GeoHitbox.Center.ToVector2() + playerDirection*50, Color.Black);
+			Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + playerDirection*50, Color.Black);
         }
 
         public override void LoadContent(ContentManager content)
 		{
 			base.LoadContent(content);
-			playerSprite.LoadContent(content);
+			//playerSprite.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)
@@ -104,14 +107,14 @@ namespace EVCMonoGame.src
 
 			processInput();
 
-            playerSprite.Update(gameTime);
+            //playerSprite.Update(gameTime);
         }
 
 		public void processInput()
 		{
 			int[] anzahl = { 0, 0 };
 
-			Vector2 currentPosition = playerSprite.Position;
+			//Vector2 currentPosition = playerSprite.Position;
 
 			playerDirection = Vector2.Zero;
 
@@ -123,25 +126,25 @@ namespace EVCMonoGame.src
 				if (InputManager.IsKeyPressed(controls[0]))
 				{
 					++anzahl[0];
-					playerSprite.SetAnimation("WALK_UP");
+					//playerSprite.SetAnimation("WALK_UP");
 					playerDirection += new Vector2(0, -1);
 				}
 				if (InputManager.IsKeyPressed(controls[1]))
 				{
 					++anzahl[0];
-					playerSprite.SetAnimation("WALK_DOWN");
+					//playerSprite.SetAnimation("WALK_DOWN");
 					playerDirection += new Vector2(0, 1);
 				}
 				if (InputManager.IsKeyPressed(controls[2]))
 				{
 					++anzahl[1];
-					playerSprite.SetAnimation("WALK_RIGHT");
+					//playerSprite.SetAnimation("WALK_RIGHT");
 					playerDirection += new Vector2(1, 0);
 				}
 				if (InputManager.IsKeyPressed(controls[3]))
 				{
 					++anzahl[1];
-					playerSprite.SetAnimation("WALK_LEFT");
+					//playerSprite.SetAnimation("WALK_LEFT");
 					playerDirection += new Vector2(-1, 0);
 				}
 
@@ -153,10 +156,11 @@ namespace EVCMonoGame.src
 				WorldPosition +=  playerDirection * playerSpeed;
 
 				// Funktion fixt unsere Position
-				if (CollisionManager.IsCollisionOnPosition(this,true, true))
+				if (CollisionManager.IsCollisionAfterMove(this, true, true))
 				{
-					List<Collidable> intersects = CollisionManager.GetCollidablesOnCollision(this);
-					foreach (Collidable item in intersects)
+
+					List<Collision> intersects = CollisionManager.GetCollidablesOnCollision(this);
+					foreach (Collision item in intersects)
 					{
 						Console.WriteLine(item);
 						if (item is Item)
@@ -173,8 +177,8 @@ namespace EVCMonoGame.src
 
 				if ((anzahl[0] > 1) || (anzahl[1] > 1) || ((anzahl[0] == 0) && (anzahl[1] == 0)))
 				{
-					playerSprite.Position = currentPosition;
-					playerSprite.SetAnimation("IDLE");
+					//playerSprite.Position = currentPosition;
+					//playerSprite.SetAnimation("IDLE");
 				}
 
 				// Update Healthbar etc. was sich auf die neue Position bezieht

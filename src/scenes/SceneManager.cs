@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.collision;
 
 using EVCMonoGame.src.input;
 
@@ -58,9 +59,10 @@ namespace EVCMonoGame.src.scenes
             fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
 
             scenes = new Dictionary<EScene, Scene>();
-			//scenes[EScene.DEBUG_2] = new DebugScene(this);
+			scenes[EScene.DEBUG_2] = new DebugScene(this);
             scenes[EScene.DEBUG] = new DebugScreen2(this);
-            currentScene = previousScene = scenes[EScene.DEBUG];
+			currentScene = previousScene = scenes[EScene.DEBUG];
+			SceneTransition(EScene.DEBUG); // Debug
         }
 
         public void LoadContent()
@@ -96,6 +98,8 @@ namespace EVCMonoGame.src.scenes
             if (transitioning) { DrawTransition(); }
             fpsCounter.Draw(gameTime, spriteBatch);
 
+			CollisionManager.Draw(gameTime, spriteBatch);
+
             spriteBatch.End();
         }
 
@@ -106,10 +110,17 @@ namespace EVCMonoGame.src.scenes
                 throw new ArgumentException(to + " is not known to the ScreenManager.");
             }
 
-            nextScene = scenes[to];
-            transitioning = true;
+			CollisionManager.CleanCollisonManager();
+			nextScene = scenes[to];
+			previousScene.LevelEndsEvent();
+			nextScene.LevelStartsEvent();
+			nextScene.LoadContent(game.Content); // Content Laden
+			transitioning = true;
             easer.start();
-        }
+
+
+
+		}
 
         public void TransitionToPreviousScreen()
         {

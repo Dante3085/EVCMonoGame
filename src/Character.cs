@@ -13,7 +13,7 @@ using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src
 {
-	public abstract class Character : Updateable, scenes.IDrawable, GeometryCollidable
+	public class Character : Updateable, scenes.IDrawable, GeometryCollidable
 	{
 
 		public Vector2 worldPosition;
@@ -21,6 +21,7 @@ namespace EVCMonoGame.src
 		
 		public Healthbar Healthbar { get; set; }
 
+	
 		// GeometryCollidable
 		public Vector2 WorldPosition {
 			set
@@ -38,7 +39,7 @@ namespace EVCMonoGame.src
 
 		public Vector2 PreviousWorldPosition { get; set; }
 		
-		public Rectangle GeoHitbox {
+		public Rectangle CollisionBox {
 			set
 			{
 				geoHitbox = value;
@@ -58,8 +59,8 @@ namespace EVCMonoGame.src
 		}
 		public virtual void LoadContent(ContentManager content)
 		{
-			Console.WriteLine(WorldPosition);
 			Healthbar = new Healthbar(100, 80, WorldPosition - new Vector2(0, 35), new Vector2(100, 10));
+			Console.WriteLine(WorldPosition);
 			Healthbar.LoadContent(content);
 		}
 		

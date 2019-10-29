@@ -47,5 +47,16 @@ namespace EVCMonoGame.src.scenes
             }
             spriteBatch.End();
         }
-    }
+
+		public virtual void LevelStartsEvent()
+		{
+
+		}
+
+		public virtual void LevelEndsEvent()
+		{
+			updateables.Clear();
+			drawables.Clear();
+		}
+	}
 }

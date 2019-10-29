@@ -13,107 +13,83 @@ using EVCMonoGame.src.events;
 
 namespace EVCMonoGame.src.collision
 {
-    public class CollisionManager : Updateable, scenes.IDrawable
+    public static class CollisionManager
     {
-        private static List<Collidable> collidables;
-        private static List<GeometryCollidable> geometryCollidables;
+        private static List<Collision> collidableChannel = new List<Collision>();
+        private static List<GeometryCollidable> geometryCollidableChannel = new List<GeometryCollidable>();
 
 		
 
-		public bool DrawBoundingBoxes { get; set; } = true;
+		public static bool DrawBoundingBoxes { get; set; } = true;
+		
+		
 
-        public CollisionManager()
-        {
-            collidables = new List<Collidable>();
-            geometryCollidables = new List<GeometryCollidable>();
-		}
-
-        public override void Update(GameTime gameTime)
-        {
-            CheckGeometryCollisions();
-        }
-
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (!DrawBoundingBoxes)
                 return;
 
-            foreach (Collidable c in collidables)
+            foreach (Collision c in collidableChannel)
             {
-                Primitives2D.DrawRectangle(spriteBatch, c.GeoHitbox, Color.BlanchedAlmond);
+                Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
 
 
-				Primitives2D.DrawCircle(spriteBatch, c.GeoHitbox.Center.ToVector2(), 5f, 10, Color.Red);
+				Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red);
 			}
 
 		}
-
-        public void LoadContent(ContentManager content)
+		
+        public static void AddCollidables(params Collision[] collidables)
         {
-            
-        }
-
-        public static void AddCollidables(params Collidable[] collidables)
-        {
-            foreach (Collidable c in collidables)
+            foreach (Collision c in collidables)
             {
-                CollisionManager.collidables.Add(c);
+                CollisionManager.collidableChannel.Add(c);
 
                 if (c is GeometryCollidable)
                 {
-                    geometryCollidables.Add((GeometryCollidable)c);
+                    geometryCollidableChannel.Add((GeometryCollidable)c);
                 }
             }
         }
 
-		public static void removeCollidable(Collidable item)
+		public static void removeCollidable(Collision c)
 		{
-			
-			if (item is GeometryCollidable)
+			CollisionManager.collidableChannel.Remove(c);
+
+			if (c is GeometryCollidable)
 			{
-				geometryCollidables.Remove((GeometryCollidable)item);
-			}
-			else
-			{
-				collidables.Remove(item);
+				geometryCollidableChannel.Remove((GeometryCollidable)c);
 			}
 		}
 
-        private void CheckGeometryCollisions()
-        {
-            foreach (GeometryCollidable g1 in geometryCollidables)
-            {
-                foreach (GeometryCollidable g2 in geometryCollidables)
-                {
-                    if (g1 == g2)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (g1.GeoHitbox.Intersects(g2.GeoHitbox))
-                        {
-							
-							//ResolveGeometryCollision(g1, g2);
-							//g1.OnGeometryCollision(g2);
-							//g2.OnGeometryCollision(g1);
-						}
-                    }
-                }
-            }
-        }
-
-
-
-		public static bool IsCollisionOnPosition(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+		public static void CleanCollisonManager()
 		{
+			collidableChannel.Clear();
+			geometryCollidableChannel.Clear();
+		}
 
-
-			foreach (Collidable g2 in collidables)
+		public static bool IsGeoCollision(Collision g1)
+		{
+			foreach (GeometryCollidable g2 in geometryCollidableChannel)
 			{
 				if (g1 != g2)
 				{
-					if (g1.GeoHitbox.Intersects(g2.GeoHitbox))
+					if (g1.CollisionBox.Intersects(g2.CollisionBox))
+						return true;
+				}
+			}
+
+			return false;
+		}
+
+		public static bool IsCollisionAfterMove(Collision g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+		{
+
+			foreach (Collision g2 in collidableChannel)
+			{
+				if (g1 != g2)
+				{
+					if (g1.CollisionBox.Intersects(g2.CollisionBox))
 					{
 						if (fixMyCollision && g1 is GeometryCollidable && g2 is GeometryCollidable)
 						{
@@ -129,7 +105,7 @@ namespace EVCMonoGame.src.collision
 
 
 							// Interpoliere Bewegung soweit raus, bis keine Collision mehr entsteht (Diagonale Achsenkollision)
-							while (IsCollisionOnPosition(g1, false, false))
+							while (IsGeoCollision(g1))
 							{
 								// Math.Sign(0) == 0
 								tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
@@ -138,7 +114,7 @@ namespace EVCMonoGame.src.collision
 								if (tempDirection == Vector2.Zero)
 									break;
 
-								g1.GeoHitbox = new Rectangle((g1.PreviousWorldPosition + tempDirection).ToPoint(), g1.GeoHitbox.Size);
+								g1.CollisionBox = new Rectangle((g1.PreviousWorldPosition + tempDirection).ToPoint(), g1.CollisionBox.Size);
 							}
 
 							// Fixed Position
@@ -153,9 +129,9 @@ namespace EVCMonoGame.src.collision
 								{
 
 									tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
-									g1.GeoHitbox = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.GeoHitbox.Size);
+									g1.CollisionBox = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.CollisionBox.Size);
 
-									if (!IsCollisionOnPosition(g1, false, false))
+									if (!IsGeoCollision(g1))
 									{
 										g1.WorldPosition = bumpedPosition + new Vector2(tempDirection.X, 0);
 										bumpedPosition = g1.WorldPosition;
@@ -170,9 +146,9 @@ namespace EVCMonoGame.src.collision
 								{
 
 									tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
-									g1.GeoHitbox = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.GeoHitbox.Size);
+									g1.CollisionBox = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.CollisionBox.Size);
 
-									if (!IsCollisionOnPosition(g1, false, false))
+									if (!IsGeoCollision(g1))
 									{
 										g1.WorldPosition = bumpedPosition + new Vector2(0, tempDirection.Y);
 										bumpedPosition = g1.WorldPosition;
@@ -193,15 +169,15 @@ namespace EVCMonoGame.src.collision
 			return false;
 		}
 
-		public static List<Collidable> GetCollidablesOnCollision(Collidable c1)
+		public static List<Collision> GetCollidablesOnCollision(Collision c1)
 		{
-			List<Collidable> intersectingCollidables = new List<Collidable>();
+			List<Collision> intersectingCollidables = new List<Collision>();
 
-			foreach (Collidable c2 in collidables)
+			foreach (Collision c2 in collidableChannel)
 			{
 				if (c1 != c2)
 				{
-					if (c1.GeoHitbox.Intersects(c2.GeoHitbox))
+					if (c1.CollisionBox.Intersects(c2.CollisionBox))
 					{
 						intersectingCollidables.Add(c2);
 					}
@@ -212,88 +188,14 @@ namespace EVCMonoGame.src.collision
 			return intersectingCollidables;
 		}
 
-        private void ResolveGeometryCollision(GeometryCollidable g1, GeometryCollidable g2)
-        {
-            Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
-            Vector2 g2Shift = g2.WorldPosition - g2.PreviousWorldPosition;
-
-
-			if (g1Shift != Vector2.Zero)
-            {
-                Vector2 g1BackShift = Vector2.Zero;
-
-				
-				if (g1Shift.X < 0)
-				{
-					if (g2.GeoHitbox.Right > g1.GeoHitbox.Left)
-						if (g2.GeoHitbox.Top < g1.PreviousWorldPosition.Y + g1.GeoHitbox.Height && g2.GeoHitbox.Bottom > g1.PreviousWorldPosition.Y)
-							g1BackShift.X = g2.GeoHitbox.Right - g1.GeoHitbox.Left;
-
-				}
-				else if (g1Shift.X > 0)
-				{
-					if (g2.GeoHitbox.Left < g1.GeoHitbox.Right)
-						if (g2.GeoHitbox.Top < g1.PreviousWorldPosition.Y + g1.GeoHitbox.Height && g2.GeoHitbox.Bottom > g1.PreviousWorldPosition.Y)
-							g1BackShift.X = g2.GeoHitbox.Left - g1.GeoHitbox.Right;
-				}
-
-				if (g1Shift.Y < 0)
-				{
-					if (g2.GeoHitbox.Bottom > g1.GeoHitbox.Top)
-						if (g2.GeoHitbox.Left < g1.PreviousWorldPosition.X + g1.GeoHitbox.Width && g1.PreviousWorldPosition.X < g2.GeoHitbox.Right)
-							g1BackShift.Y = g2.GeoHitbox.Bottom - g1.GeoHitbox.Top;
-				}
-				else if (g1Shift.Y > 0)
-				{
-					if (g2.GeoHitbox.Top < g1.GeoHitbox.Bottom)
-						if (g2.GeoHitbox.Left < g1.PreviousWorldPosition.X + g1.GeoHitbox.Width && g1.PreviousWorldPosition.X < g2.GeoHitbox.Right)
-							g1BackShift.Y = g2.GeoHitbox.Top - g1.GeoHitbox.Bottom;
-				}
-
-				g1.WorldPosition += g1BackShift;
-
-			}
-            else if (g2Shift != Vector2.Zero)
-            {
-                Vector2 g2BackShift = Vector2.Zero;
-
-				if (g2Shift.X < 0)
-				{
-					if (g1.GeoHitbox.Right > g2.GeoHitbox.Left)
-						if (g1.GeoHitbox.Top < g2.PreviousWorldPosition.Y + g2.GeoHitbox.Height && g1.GeoHitbox.Bottom > g2.PreviousWorldPosition.Y)
-							g2BackShift.X = g1.GeoHitbox.Right - g2.GeoHitbox.Left;
-				}
-				else if (g2Shift.X > 0)
-				{
-					if (g1.GeoHitbox.Left < g2.GeoHitbox.Right)
-						if (g1.GeoHitbox.Top < g2.PreviousWorldPosition.Y + g2.GeoHitbox.Height && g1.GeoHitbox.Bottom > g2.PreviousWorldPosition.Y)
-							g2BackShift.X = g1.GeoHitbox.Left - g2.GeoHitbox.Right;
-				}
-
-				if (g2Shift.Y < 0)
-				{
-					if (g1.GeoHitbox.Bottom > g2.GeoHitbox.Top)
-						if (g1.GeoHitbox.Left < g2.PreviousWorldPosition.X + g2.GeoHitbox.Width && g2.PreviousWorldPosition.X < g1.GeoHitbox.Right)
-							g2BackShift.Y = g1.GeoHitbox.Bottom - g2.GeoHitbox.Top;
-				}
-				else if (g2Shift.Y > 0)
-				{
-					if (g1.GeoHitbox.Top < g2.GeoHitbox.Bottom)
-						if (g1.GeoHitbox.Left < g2.PreviousWorldPosition.X + g2.GeoHitbox.Width && g2.PreviousWorldPosition.X < g1.GeoHitbox.Right)
-							g2BackShift.Y = g1.GeoHitbox.Top - g2.GeoHitbox.Bottom;
-				}
-
-				g2.WorldPosition += g2BackShift;
-            }
-        }
 
 		public static List<GeometryCollidable> GetAllCollidableInRange(Vector2 position, Vector2 collisionSize)
 		{
 			
 			List<GeometryCollidable> collidableList = new List<GeometryCollidable>();
-			foreach (GeometryCollidable collidable in geometryCollidables)
+			foreach (GeometryCollidable collidable in geometryCollidableChannel)
 			{
-				if (collidable.GeoHitbox.Intersects(new Rectangle(position.ToPoint(), collisionSize.ToPoint())))
+				if (collidable.CollisionBox.Intersects(new Rectangle(position.ToPoint(), collisionSize.ToPoint())))
 					collidableList.Add(collidable);
 			}
 			return collidableList;

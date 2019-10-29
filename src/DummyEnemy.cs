@@ -16,7 +16,7 @@ namespace EVCMonoGame.src
 	{
 		public DummyEnemy(Rectangle bounds)
 		{
-			GeoHitbox = bounds;
+			CollisionBox = bounds;
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -73,7 +73,7 @@ namespace EVCMonoGame.src
 				//Snap to Grid
 				WorldPosition += playerDirection * 7;
 
-				if (CollisionManager.IsCollisionOnPosition(this, true, true))
+				if (CollisionManager.IsCollisionAfterMove(this, true, true))
 				{
 					//Position = PreviousPosition;
 				}

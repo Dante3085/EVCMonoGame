@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Item : Updateable, scenes.IDrawable, Collidable
+	public class Item : Updateable, scenes.IDrawable, Collision
 	{
 		public Vector2 worldPosition;
 		public Rectangle geoHitbox;
@@ -35,7 +35,7 @@ namespace EVCMonoGame.src.Items
 
 		public Vector2 PreviousWorldPosition { get; set; }
 
-		public Rectangle GeoHitbox
+		public Rectangle CollisionBox
 		{
 			set
 			{
@@ -50,7 +50,7 @@ namespace EVCMonoGame.src.Items
 
 		public Item(Rectangle bounds)
 		{
-			GeoHitbox = bounds;
+			CollisionBox = bounds;
 		}
 
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
