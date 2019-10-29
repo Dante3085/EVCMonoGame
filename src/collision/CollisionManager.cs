@@ -15,8 +15,8 @@ namespace EVCMonoGame.src.collision
 {
     public static class CollisionManager
     {
-        private static List<Collision> collidableChannel = new List<Collision>();
-        private static List<GeometryCollidable> geometryCollidableChannel = new List<GeometryCollidable>();
+        private static List<Collision> allCollisionsChannel = new List<Collision>();
+        private static List<GeometryCollision> geometryCollisionChannel = new List<GeometryCollision>();
 
 		
 
@@ -29,7 +29,7 @@ namespace EVCMonoGame.src.collision
             if (!DrawBoundingBoxes)
                 return;
 
-            foreach (Collision c in collidableChannel)
+            foreach (Collision c in allCollisionsChannel)
             {
                 Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
 
@@ -43,34 +43,34 @@ namespace EVCMonoGame.src.collision
         {
             foreach (Collision c in collidables)
             {
-                CollisionManager.collidableChannel.Add(c);
+                CollisionManager.allCollisionsChannel.Add(c);
 
-                if (c is GeometryCollidable)
+                if (c is GeometryCollision)
                 {
-                    geometryCollidableChannel.Add((GeometryCollidable)c);
+                    geometryCollisionChannel.Add((GeometryCollision)c);
                 }
             }
         }
 
 		public static void removeCollidable(Collision c)
 		{
-			CollisionManager.collidableChannel.Remove(c);
+			CollisionManager.allCollisionsChannel.Remove(c);
 
-			if (c is GeometryCollidable)
+			if (c is GeometryCollision)
 			{
-				geometryCollidableChannel.Remove((GeometryCollidable)c);
+				geometryCollisionChannel.Remove((GeometryCollision)c);
 			}
 		}
 
 		public static void CleanCollisonManager()
 		{
-			collidableChannel.Clear();
-			geometryCollidableChannel.Clear();
+			allCollisionsChannel.Clear();
+			geometryCollisionChannel.Clear();
 		}
 
 		public static bool IsGeoCollision(Collision g1)
 		{
-			foreach (GeometryCollidable g2 in geometryCollidableChannel)
+			foreach (GeometryCollision g2 in geometryCollisionChannel)
 			{
 				if (g1 != g2)
 				{
@@ -85,13 +85,13 @@ namespace EVCMonoGame.src.collision
 		public static bool IsCollisionAfterMove(Collision g1, bool fixMyCollision, bool resolveCollisionWithSliding)
 		{
 
-			foreach (Collision g2 in collidableChannel)
+			foreach (Collision g2 in allCollisionsChannel)
 			{
 				if (g1 != g2)
 				{
 					if (g1.CollisionBox.Intersects(g2.CollisionBox))
 					{
-						if (fixMyCollision && g1 is GeometryCollidable && g2 is GeometryCollidable)
+						if (fixMyCollision && g1 is GeometryCollision && g2 is GeometryCollision)
 						{
 
 							// Zurück gelegte Distanz aka auch Richtung
@@ -173,7 +173,7 @@ namespace EVCMonoGame.src.collision
 		{
 			List<Collision> intersectingCollidables = new List<Collision>();
 
-			foreach (Collision c2 in collidableChannel)
+			foreach (Collision c2 in allCollisionsChannel)
 			{
 				if (c1 != c2)
 				{
@@ -189,11 +189,11 @@ namespace EVCMonoGame.src.collision
 		}
 
 
-		public static List<GeometryCollidable> GetAllCollidableInRange(Vector2 position, Vector2 collisionSize)
+		public static List<GeometryCollision> GetAllCollidableInRange(Vector2 position, Vector2 collisionSize)
 		{
 			
-			List<GeometryCollidable> collidableList = new List<GeometryCollidable>();
-			foreach (GeometryCollidable collidable in geometryCollidableChannel)
+			List<GeometryCollision> collidableList = new List<GeometryCollision>();
+			foreach (GeometryCollision collidable in geometryCollisionChannel)
 			{
 				if (collidable.CollisionBox.Intersects(new Rectangle(position.ToPoint(), collisionSize.ToPoint())))
 					collidableList.Add(collidable);

@@ -12,9 +12,12 @@ namespace EVCMonoGame.src.Items
 	public class ItemFinder : Updateable
 	{
 		private Player owner;
+		private Inventory playerInventory;
+
 		public ItemFinder(Player owner)
 		{
 			this.owner = owner;
+			playerInventory = owner.PlayerInventory;
 		}
 
 		public override void Update(GameTime gameTime)

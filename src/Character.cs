@@ -13,7 +13,7 @@ using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src
 {
-	public class Character : Updateable, scenes.IDrawable, GeometryCollidable
+	public class Character : Updateable, scenes.IDrawable, GeometryCollision
 	{
 
 		public Vector2 worldPosition;
@@ -76,7 +76,7 @@ namespace EVCMonoGame.src
 		}
 
 		// Events
-		public virtual void OnGeometryCollision(GeometryCollidable collider)
+		public virtual void OnGeometryCollision(GeometryCollision collider)
 		{
 			OnMove();
 		}

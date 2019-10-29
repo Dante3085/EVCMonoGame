@@ -55,7 +55,6 @@ namespace EVCMonoGame.src.Items
 
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-			//Primitives2D.DrawRectangle(spriteBatch, GeoHitbox, Color.Green);
 
 		}
 

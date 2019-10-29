@@ -7,8 +7,8 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.collision
 {
-    public interface GeometryCollidable : Collision
+    public interface GeometryCollision : Collision
     {
-		void OnGeometryCollision(GeometryCollidable collider);
+		void OnGeometryCollision(GeometryCollision collider);
     }
 }

@@ -25,12 +25,19 @@ namespace EVCMonoGame.src
         private float playerSpeed;
 		private Vector2 playerDirection;
 		private ItemFinder itemFinder;
+		private Inventory inventory;
 
 
 		public AnimatedSprite Sprite
         {
             get { return playerSprite; }
         }
+
+		public Inventory PlayerInventory
+		{
+			get { return inventory; }
+			set { inventory = value; }
+		}
 
 
 
@@ -41,6 +48,7 @@ namespace EVCMonoGame.src
         public Player(Rectangle bounds, Keys[] controls)
         {
 			CollisionBox = bounds;
+			inventory = new Inventory(this);
 			itemFinder = new ItemFinder(this);
 
             //playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
@@ -88,6 +96,7 @@ namespace EVCMonoGame.src
         {
 			base.Draw(gameTime, spriteBatch);
 			//playerSprite.Draw(gameTime, spriteBatch);
+			PlayerInventory.Draw(gameTime, spriteBatch);
 
 			//Debug
 			playerDirection.Normalize();
@@ -105,18 +114,30 @@ namespace EVCMonoGame.src
 			// TODO: playerSprite steuern(Animationen ändern und bewegen)
 			base.Update(gameTime);
 
-			processInput();
+			processInput(gameTime);
 
             //playerSprite.Update(gameTime);
         }
 
-		public void processInput()
+		public void processInput(GameTime gameTime)
 		{
 			int[] anzahl = { 0, 0 };
 
 			//Vector2 currentPosition = playerSprite.Position;
 
 			playerDirection = Vector2.Zero;
+
+			// Debug and dirty codeplacement
+			if (InputManager.IsKeyPressed(Keys.K))
+			{
+				PlayerInventory.NavigateItemsLeft(gameTime);
+			}
+			if (InputManager.IsKeyPressed(Keys.L))
+			{
+
+			}
+		
+
 
 			if (InputManager.IsAnyKeyPressed(controls))
 			{
@@ -187,7 +208,7 @@ namespace EVCMonoGame.src
 
 		}
 
-		public override void OnGeometryCollision(GeometryCollidable collider)
+		public override void OnGeometryCollision(GeometryCollision collider)
 		{
 			base.OnGeometryCollision(collider);
 			//Console.WriteLine("Player Collison Feedback");

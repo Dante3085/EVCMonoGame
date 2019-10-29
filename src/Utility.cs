@@ -26,7 +26,17 @@ namespace EVCMonoGame.src
             return sWhitespace.Replace(input, replacement);
         }
 
-        public static Vector2 scaleVectorTo(Vector2 originalVector, float toVectorLength)
+		public static int mod(int a, int n)
+		{
+			int result = a % n;
+			if ((result < 0 && n > 0) || (result > 0 && n < 0))
+			{
+				result += n;
+			}
+			return result;
+		}
+
+		public static Vector2 scaleVectorTo(Vector2 originalVector, float toVectorLength)
         {
             Vector2 scaledVector = new Vector2(0, 0);
             if (!(originalVector.X == 0 && originalVector.Y == 0))
