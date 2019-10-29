@@ -128,13 +128,13 @@ namespace EVCMonoGame.src
 			playerDirection = Vector2.Zero;
 
 			// Debug and dirty codeplacement
-			if (InputManager.IsKeyPressed(Keys.K))
+			if (InputManager.IsKeyPressed(Keys.Left))
 			{
-				PlayerInventory.NavigateItemsLeft(gameTime);
+				PlayerInventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			}
-			if (InputManager.IsKeyPressed(Keys.L))
+			if (InputManager.IsKeyPressed(Keys.Right))
 			{
-
+				PlayerInventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
 			}
 		
 

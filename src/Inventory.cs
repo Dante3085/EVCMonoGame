@@ -22,8 +22,17 @@ namespace EVCMonoGame.src
 		private Player owner;
 
 		// Inventory Allgemeine Settings
-		private double inputTimeThreshold = 140; //in milliseconds
+		private int inputTimeThreshold = 160; //in milliseconds
 		private double lastInputTime;
+
+		public enum Direction
+		{
+			UP = -1,
+			DOWN = 1,
+			LEFT = -1,
+			RIGHT = 1,
+		}
+
 		// Items Inventory
 		private List<Item> items;
 		private Item activeItem;
@@ -35,6 +44,15 @@ namespace EVCMonoGame.src
 		// GUI
 		private Vector2 inventoryPosition;
 		private Vector2 itemSize;
+		private int itemSpacing = 0;
+		// Animation
+		private bool isAnimating;
+		private int animationDuration = 160; //in miliseconds
+		private double animationElapsedTime = 0;
+		private Vector2 animPrevPos;
+		private Vector2 animGoalPos;
+		private Easer animEaser;
+
 
 		public Inventory(Player owner)
 		{
@@ -51,13 +69,13 @@ namespace EVCMonoGame.src
 
 		public void starterInventory()
 		{
-			
+
 			activeItem = new Item(new Rectangle(0, 0, 0, 0));
 			items.Add(activeItem);
 			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
 			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
 			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
-			
+
 		}
 
 		public void addItem(Item item)
@@ -85,17 +103,52 @@ namespace EVCMonoGame.src
 			// Basic Values für Schleifenverarbeitung
 			int posActiveItem = 0;
 			int anzItems = items.Count();
-			int itemPadding = 5;
 
-			
+
 			if (activeItem != null) {
 				posActiveItem = items.IndexOf(activeItem);
 			}
 
-			for (int i = posActiveItem; i < anzItems; i++)
+			if (isAnimating)
 			{
-				Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(i * itemSize.X + i * itemPadding, 0), itemSize, Color.White);
-				Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(posActiveItem * itemSize.X + posActiveItem * itemPadding, 0), itemSize, Color.Red);
+				animationElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+				isAnimating = animationElapsedTime > animationDuration ? false : true;
+			}
+
+			//for (int i = posActiveItem; i < anzItems; i++)
+			//{
+
+			//	//items.ElementAt<Item>(i).getThumbnail();
+			//	Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2((i - posActiveItem) * itemSize.X + (i - posActiveItem) * itemPadding, 0), itemSize, Color.White);
+			//	Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(posActiveItem * itemSize.X + posActiveItem * itemPadding, 0), itemSize, Color.Red);
+			//}
+
+			//for (int i = 0; i < posActiveItem; i++)
+			//{
+			//	//items.ElementAt<Item>(i + posActiveItem).getThumbnail();
+			//	Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2((i + anzItems - posActiveItem) * itemSize.X + (i + anzItems - posActiveItem) * itemPadding, 0), itemSize, Color.Green);
+
+			//	Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(posActiveItem * itemSize.X + posActiveItem * itemPadding, 0), itemSize, Color.Red);
+			//}
+
+			// Debug For
+			for (int i = 0; i < anzItems; i++)
+			{
+
+				//items.ElementAt<Item>(i).getThumbnail();
+				Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(i * itemSize.X + i * itemSpacing, 0), itemSize, Color.White);
+
+				if (isAnimating)
+				{
+					animEaser.Update(gameTime);
+					Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(animEaser.CurrentValue, 0), itemSize, Color.Orange);
+				}
+				else
+				{
+					Primitives2D.DrawRectangle(spriteBatch, inventoryPosition + new Vector2(posActiveItem * itemSize.X + posActiveItem * itemSpacing, 0), itemSize, Color.Orange);
+				}
+				
 			}
 		}
 
@@ -104,18 +157,38 @@ namespace EVCMonoGame.src
 		}
 
 
-		public Item NavigateItemsLeft(GameTime gameTime)
+		public Item NavigateItems(GameTime gameTime, Direction direction)
 		{
 
 			if (isGUIBusy(gameTime))
 				return activeItem;
 
+			StartAnimation(direction);
+
 			int currentPos = items.IndexOf(activeItem);
-			currentPos = Utility.mod(--currentPos,items.Count());
+			currentPos = Utility.mod(currentPos + (int)direction, items.Count());
 			activeItem = items.ElementAt<Item>(currentPos);
 
 
 			return activeItem;
+		}
+
+		public void StartAnimation(Direction direction)
+		{
+			//Todo enum verarbeitung
+			if (!isAnimating)
+			{
+				int posActiveItem = items.IndexOf(activeItem);
+				animPrevPos = new Vector2(posActiveItem * itemSize.X + posActiveItem * itemSpacing, 0);
+				int posAfterNavigation = Utility.mod(posActiveItem + (int)direction, items.Count());
+				animGoalPos = new Vector2(posAfterNavigation * itemSize.X + posAfterNavigation * itemSpacing, 0);
+				isAnimating = true;
+				animationElapsedTime = 0.0d;
+
+				// Easer
+				animEaser = new Easer(animPrevPos.X, animGoalPos.X, animationDuration, Easing.LinearEaseIn);
+				animEaser.start();
+			}
 		}
 
 		public bool isGUIBusy(GameTime gameTime)
