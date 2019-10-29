@@ -51,7 +51,8 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
+            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite, geometryBox,
+                                                    geometryBox2);
             collisionManager.AddCombatCollidables(player, player2, shadow);
 
             updateables.AddRange(new Updateable[] 

@@ -184,56 +184,62 @@ namespace EVCMonoGame.src
 
             if (playerSprite.AnimationFinished) HasActiveAttackBounds = false;
 
+            String nextAttackAnimation = "UNKNOWN";
+
             if (InputManager.OnButtonPressed(Buttons.X)
                 || InputManager.OnKeyPressed(Keys.A))
             {
                 HasActiveAttackBounds = true;
 
-                if (playerOrientation == Orientation.LEFT)
+                switch(playerOrientation)
                 {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_0");
+                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
+                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0"; break;
+                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
+                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
-                else if (playerOrientation == Orientation.RIGHT)
-                {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_0");
-                }
+
+                playerSprite.SetAnimation(nextAttackAnimation);
             }
             else if (InputManager.OnButtonPressed(Buttons.Y))
             {
                 HasActiveAttackBounds = true;
 
-                if (playerOrientation == Orientation.LEFT)
+                switch (playerOrientation)
                 {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_1");
+                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
+                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_1"; break;
+                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
+                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
-                else if (playerOrientation == Orientation.RIGHT)
-                {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_1");
-                }
+
+                playerSprite.SetAnimation(nextAttackAnimation);
             }
             else if (InputManager.OnButtonPressed(Buttons.B))
             {
                 HasActiveAttackBounds = true;
 
-                if (playerOrientation == Orientation.LEFT)
+                switch (playerOrientation)
                 {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_LEFT_2");
+                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
+                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2"; break;
+                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
+                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
-                else if (playerOrientation == Orientation.RIGHT)
-                {
-                    playerSprite.SetAnimation("ATTACK_STD_COMBO_RIGHT_2");
-                }
-            }
-            else if (InputManager.OnKeyPressed(Keys.Enter))
-            {
-                if (playerOrientation == Orientation.LEFT)
-                {
-                    playerSprite.SetAnimation("DODGE_LEFT");
-                }
-                else if (playerOrientation == Orientation.RIGHT)
-                {
-                    playerSprite.SetAnimation("DODGE_RIGHT");
-                }
+
+                playerSprite.SetAnimation(nextAttackAnimation);
             }
         }
 

@@ -236,9 +236,59 @@ NAME          = ATTACK_DOWN
 FRAMES        = (4, 651, 27, 55), (36, 632, 28, 74), (71, 669, 29, 37), (109, 658, 30, 48)
 HURT_BOUNDS   = SAME_AS_FRAME
 ATTACK_BOUNDS = (0, 0, 0, 0)@all
-FRAME_DELAYS  = 100@all
+FRAME_DELAYS  = 90@all
+FRAME_OFFSETS = (0, -10), (0, -60), (0, 150),(0, 175),
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = ATTACK_DOWN_LEFT
+FRAMES        = (3, 726, 28, 52), (36, 709, 34, 69), (76, 743, 56, 35), (139, 740, 55, 38)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = (0, 0, 0, 0)@all
+FRAME_DELAYS  = 500@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = ATTACK_DOWN_RIGHT
+FRAMES        = (3, 726, 28, 52), (36, 709, 34, 69), (76, 743, 56, 35), (139, 740, 55, 38)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = (0, 0, 0, 0)@all
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = ATTACK_UP
+FRAMES        = (1, 803, 27, 54), (39, 781, 28, 76), (76, 798, 30, 59), (112, 816, 31, 41)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = (0, 0, 0, 0)@all
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = ATTACK_UP_LEFT
+FRAMES        = (2, 881, 25, 55), (31, 860, 30, 76), (63, 882, 44, 54), (113, 896, 39, 40)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = (0, 0, 0, 0)@all
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = ATTACK_UP_RIGHT
+FRAMES        = (2, 881, 25, 55), (31, 860, 30, 76), (63, 882, 44, 54), (113, 896, 39, 40)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = (0, 0, 0, 0)@all
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
 IS_LOOPED     = false
 
 [ANIMATION]
@@ -314,7 +364,7 @@ IS_LOOPED     = false
 [ANIMATION]
 NAME          = FLINCH_RIGHT
 FRAMES        = (535, 1550, 39, 35), (579, 1540, 45, 45), (633, 1548, 40, 37), (680, 1546, 44, 39), (729, 1553, 56, 32), (788, 1544, 45, 41), (838, 1537, 26, 48)
-HURT_BOUNDS   = SAME_AS_FRAME
+HURT_BOUNDS   = NONE
 ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 90@all
 FRAME_OFFSETS = (-15, 90), (-40, 35), (-20, 70), (-30, 100), (-70, 90), (-40, 50), (0, 0)
