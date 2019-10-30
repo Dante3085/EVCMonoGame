@@ -84,13 +84,15 @@ namespace EVCMonoGame.src.collision
 
 		public static bool IsCollisionAfterMove(Collision g1, bool fixMyCollision, bool resolveCollisionWithSliding)
 		{
-
+            bool isCollision = false;
 			foreach (Collision g2 in allCollisionsChannel)
 			{
 				if (g1 != g2)
 				{
 					if (g1.CollisionBox.Intersects(g2.CollisionBox))
 					{
+                        isCollision = true;
+
 						if (fixMyCollision && g1 is GeometryCollision && g2 is GeometryCollision)
 						{
 
@@ -158,15 +160,13 @@ namespace EVCMonoGame.src.collision
 								}
 							}
 						}
-						
-						return true;
 					}
 				}
 
 
 			}
 
-			return false;
+			return isCollision;
 		}
 
 		public static List<Collision> GetCollidablesOnCollision(Collision c1)
