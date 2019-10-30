@@ -16,7 +16,7 @@ namespace EVCMonoGame.src.animation
     // TODO: Optimize LoadFromFile() and HelperMethods. ~20ms is a bit long
     // TODO: Implement frameOffsets.
 
-    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable
+    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable, ITranslatable
     {
         class  Animation
         {

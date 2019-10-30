@@ -25,6 +25,7 @@ namespace EVCMonoGame.src.scenes
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
+            this.camera = new Camera(sceneManager, /*new ITranslatablePosition(50,50)*/player.Sprite, Screenpoint.RIGHT, new Vector2(-(player.Sprite.Bounds.Width+30),0));
             geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
@@ -64,7 +65,7 @@ namespace EVCMonoGame.src.scenes
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.getTransformationMatrix());
 
             spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
