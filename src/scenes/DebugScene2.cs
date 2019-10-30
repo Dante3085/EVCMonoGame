@@ -21,6 +21,8 @@ namespace EVCMonoGame.src.scenes
         private CollisionManager collisionManager;
         private GeometryBox geometryBox;
 
+        private Tilemap beachTilemap;
+
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -30,6 +32,8 @@ namespace EVCMonoGame.src.scenes
             collisionManager = new CollisionManager();
             collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
 
+            beachTilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh_beach.txt", Vector2.Zero);
+
             updateables.AddRange(new Updateable[]
             {
                 player,
@@ -38,6 +42,7 @@ namespace EVCMonoGame.src.scenes
 
             drawables.AddRange(new IDrawable[]
             {
+                beachTilemap,
                 collisionManager,
                 player,
             });
@@ -66,7 +71,7 @@ namespace EVCMonoGame.src.scenes
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-            spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
+            // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);
 
