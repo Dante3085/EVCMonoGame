@@ -17,6 +17,7 @@ namespace EVCMonoGame.src.scenes
         protected List<Updateable> updateables;
         protected List<IDrawable> drawables;
         protected SceneManager sceneManager;
+        protected Camera camera;
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)
@@ -24,6 +25,7 @@ namespace EVCMonoGame.src.scenes
             this.sceneManager = sceneManager;
             updateables = new List<Updateable>();
             drawables = new List<IDrawable>();
+            this.camera = new Camera(sceneManager, new ITranslatablePosition(0, 0), Screenpoint.UP_LEFT_EDGE);
 
         }
         #endregion
@@ -34,11 +36,12 @@ namespace EVCMonoGame.src.scenes
             {
                 u.Update(gameTime);
             }
+            camera.Update(gameTime);
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.getTransformationMatrix());
             foreach (IDrawable d in drawables)
             {
                 d.Draw(gameTime, spriteBatch);
