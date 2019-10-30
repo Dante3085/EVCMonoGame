@@ -86,31 +86,31 @@ namespace EVCMonoGame.src.scenes
             switch (focusPoint)
             {
                 case Screenpoint.UP_LEFT_EDGE:
-                    cameraPosition = (-1) * focusObject.Position;
+                    cameraPosition = (-zoom) * focusObject.Position;
                     break;
                 case Screenpoint.UP_RIGHT_EDGE:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width, 0);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(viewport.Width, 0);
                     break;
                 case Screenpoint.DOWN_RIGHT_EDGE:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width, viewport.Height);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(viewport.Width, viewport.Height);
                     break;
                 case Screenpoint.DOWN_LEFT_EDGE:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(0, viewport.Height);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(0, viewport.Height);
                     break;
                 case Screenpoint.UP:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width * 0.5f, 0);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(viewport.Width * 0.5f, 0);
                     break;
                 case Screenpoint.RIGHT:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width, viewport.Height * 0.5f);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(viewport.Width, viewport.Height * 0.5f);
                     break;
                 case Screenpoint.DOWN:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height);
                     break;
                 case Screenpoint.LEFT:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(0, viewport.Height * 0.5f);
+                    cameraPosition = (-zoom) * focusObject.Position + new Vector2(0, viewport.Height * 0.5f);
                     break;
                 case Screenpoint.CENTER:
-                    cameraPosition = (-1) * focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
+                    cameraPosition = ((-zoom) * focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f));
                     break;
             }
             cameraPosition += offset;

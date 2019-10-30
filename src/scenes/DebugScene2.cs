@@ -27,7 +27,8 @@ namespace EVCMonoGame.src.scenes
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
-            this.camera = new Camera(sceneManager, /*new ITranslatablePosition(50,50)*/player.Sprite, Screenpoint.RIGHT, new Vector2(-(player.Sprite.Bounds.Width+30),0));
+            this.camera = new Camera(sceneManager, player.Sprite, Screenpoint.CENTER, new Vector2(-player.Sprite.Bounds.Width*0.5f, -player.Sprite.Bounds.Height * 0.5f));
+            this.camera.setZoom(1.2f);
             geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
