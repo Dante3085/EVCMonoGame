@@ -97,6 +97,7 @@ namespace EVCMonoGame.src
 			base.Draw(gameTime, spriteBatch);
 			//playerSprite.Draw(gameTime, spriteBatch);
 			PlayerInventory.Draw(gameTime, spriteBatch);
+            itemFinder.Draw(gameTime, spriteBatch);
 
 			//Debug
 			playerDirection.Normalize();
@@ -115,6 +116,7 @@ namespace EVCMonoGame.src
 			base.Update(gameTime);
 
 			processInput(gameTime);
+            itemFinder.Update(gameTime);
 
             //playerSprite.Update(gameTime);
         }
@@ -179,24 +181,23 @@ namespace EVCMonoGame.src
 				// Funktion fixt unsere Position
 				if (CollisionManager.IsCollisionAfterMove(this, true, true))
 				{
+                    List<Collision> intersects = CollisionManager.GetCollidablesOnCollision(this);
+                    foreach (Collision item in intersects)
+                    {
+                        Console.WriteLine(item);
+                        if (item is Item)
+                        {
+                            if (item is PickUpItem)
+                            {
+                                ((PickUpItem)item).PickUp(this);
+                            }
+                        }
+                    }
+                }
 
-					List<Collision> intersects = CollisionManager.GetCollidablesOnCollision(this);
-					foreach (Collision item in intersects)
-					{
-						Console.WriteLine(item);
-						if (item is Item)
-						{
-							if (item is PickUpItem)
-							{
-								((PickUpItem)item).PickUp(this);
-							} 
-						}
-					}
-				}
-				
-				
 
-				if ((anzahl[0] > 1) || (anzahl[1] > 1) || ((anzahl[0] == 0) && (anzahl[1] == 0)))
+
+                if ((anzahl[0] > 1) || (anzahl[1] > 1) || ((anzahl[0] == 0) && (anzahl[1] == 0)))
 				{
 					//playerSprite.Position = currentPosition;
 					//playerSprite.SetAnimation("IDLE");
