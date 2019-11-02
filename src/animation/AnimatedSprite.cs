@@ -450,7 +450,7 @@ namespace EVCMonoGame.src.animation
             for (int i = 0; i < line.Length; ++i)
             {
                 int indexClosingBracket = line.IndexOf(')', i);
-                frames.Add(StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                frames.Add(Utility.StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
                 i = indexClosingBracket + 1;
             }
 
@@ -478,7 +478,7 @@ namespace EVCMonoGame.src.animation
                 for (int i = 0; i < line.Length; ++i)
                 {
                     int indexClosingBracket = line.IndexOf(')', i);
-                    hurtBounds.Add(hurtBoundCounter++, StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                    hurtBounds.Add(hurtBoundCounter++, Utility.StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
                     i = indexClosingBracket + 1;
                 }
             }
@@ -503,7 +503,7 @@ namespace EVCMonoGame.src.animation
                 // One hurtBound for all frames
                 else if (line.EndsWith("@all"))
                 {
-                    Rectangle hurtBound = StringToRectangle(line.Substring(0, line.IndexOf("@all")));
+                    Rectangle hurtBound = Utility.StringToRectangle(line.Substring(0, line.IndexOf("@all")));
 
                     for (int i = 0; i < frames.Count; ++i)
                     {
@@ -514,7 +514,7 @@ namespace EVCMonoGame.src.animation
                 // One hurtBound for one frame
                 else
                 {
-                    hurtBounds.Add(0, StringToRectangle(line));
+                    hurtBounds.Add(0, Utility.StringToRectangle(line));
                 }
             }
             return hurtBounds;
@@ -540,7 +540,7 @@ namespace EVCMonoGame.src.animation
                 for (int i = 0; i < line.Length; ++i)
                 {
                     int indexClosingBracket = line.IndexOf(')', i);
-                    attackBounds.Add(attackBoundCounter++, StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
+                    attackBounds.Add(attackBoundCounter++, Utility.StringToRectangle(line.Substring(i, indexClosingBracket - (i - 1))));
                     i = indexClosingBracket + 1;
                 }
             }
@@ -551,7 +551,7 @@ namespace EVCMonoGame.src.animation
                 // One attackBound for all frames
                 if (line.EndsWith("@all"))
                 {
-                    Rectangle attackBound = StringToRectangle(line.Substring(0, line.IndexOf("@all")));
+                    Rectangle attackBound = Utility.StringToRectangle(line.Substring(0, line.IndexOf("@all")));
 
                     for (int i = 0; i < numFrames; ++i)
                     {
@@ -562,7 +562,7 @@ namespace EVCMonoGame.src.animation
                 // One attackBound for one frame
                 else
                 {
-                    attackBounds.Add(0, StringToRectangle(line));
+                    attackBounds.Add(0, Utility.StringToRectangle(line));
                 }
             }
 
@@ -620,7 +620,7 @@ namespace EVCMonoGame.src.animation
                 for (int i = 0; i < line.Length; ++i)
                 {
                     int indexClosingBracket = line.IndexOf(')', i);
-                    frameOffsets.Add(frameCounter++, ReadFrameOffset(line.Substring(i, indexClosingBracket - (i - 1))));
+                    frameOffsets.Add(frameCounter++, Utility.StringToVector2(line.Substring(i, indexClosingBracket - (i - 1))));
                     i = indexClosingBracket + 1;
                 }
 
@@ -633,7 +633,7 @@ namespace EVCMonoGame.src.animation
                 // One frameOffset for all frames.
                 if (line.EndsWith("@all"))
                 {
-                    Vector2 frameOffset = ReadFrameOffset(line.Substring(0, line.IndexOf("@all")));
+                    Vector2 frameOffset = Utility.StringToVector2(line.Substring(0, line.IndexOf("@all")));
 
                     for (int i = 0; i < numFrames; ++i)
                     {
@@ -644,44 +644,11 @@ namespace EVCMonoGame.src.animation
                 // One frameOffset for one frame.
                 else
                 {
-                    frameOffsets.Add(0, ReadFrameOffset(line));
+                    frameOffsets.Add(0, Utility.StringToVector2(line));
                 }
             }
 
             return frameOffsets;
-        }
-
-        private Vector2 ReadFrameOffset(String frameOffsetString)
-        {
-            int indexComma = frameOffsetString.IndexOf(',');
-
-            Vector2 frameOffset = Vector2.Zero;
-            frameOffset.X = int.Parse(frameOffsetString.Substring(1, indexComma - 1));
-            frameOffset.Y = int.Parse(frameOffsetString.Substring(indexComma + 1,
-                                      (frameOffsetString.Length - 2) - (indexComma)));
-
-            return frameOffset;
-        }
-
-        /// <summary>
-        /// Converts a String of format "(x, y, width, height)" to a Rectangle instance.
-        /// </summary>
-        /// <param name="recString"></param>
-        /// <returns></returns>
-        private Rectangle StringToRectangle(String recString)
-        {
-            Rectangle rectangle = new Rectangle();
-
-            int indexFirstComma = recString.IndexOf(',');
-            int indexSecondComma = recString.IndexOf(',', indexFirstComma + 1);
-            int indexThirdComma = recString.IndexOf(',', indexSecondComma + 1);
-
-            rectangle.X = int.Parse(recString.Substring(1, indexFirstComma - 1));
-            rectangle.Y = int.Parse(recString.Substring(indexFirstComma + 1, (indexSecondComma - 1) - indexFirstComma));
-            rectangle.Width = int.Parse(recString.Substring(indexSecondComma + 1, (indexThirdComma - 1) - indexSecondComma));
-            rectangle.Height = int.Parse(recString.Substring(indexThirdComma + 1, recString.Length - (indexThirdComma + 2)));
-
-            return rectangle;
         }
         #endregion
 

@@ -56,6 +56,42 @@ namespace EVCMonoGame.src
             return phi;
         }
 
+        /// <summary>
+        /// Converts a String of format "(x, y)" to a Vector2 instance.
+        /// </summary>
+        /// <param name="vecString"></param>
+        /// <returns></returns>
+        public static Vector2 StringToVector2(String vecString)
+        {
+            int indexComma = vecString.IndexOf(',');
 
+            Vector2 frameOffset = Vector2.Zero;
+            frameOffset.X = int.Parse(vecString.Substring(1, indexComma - 1));
+            frameOffset.Y = int.Parse(vecString.Substring(indexComma + 1,
+                                      (vecString.Length - 2) - (indexComma)));
+
+            return frameOffset;
+        }
+
+        /// <summary>
+        /// Converts a String of format "(x, y, width, height)" to a Rectangle instance.
+        /// </summary>
+        /// <param name="recString"></param>
+        /// <returns></returns>
+        public static Rectangle StringToRectangle(String recString)
+        {
+            Rectangle rectangle = new Rectangle();
+
+            int indexFirstComma = recString.IndexOf(',');
+            int indexSecondComma = recString.IndexOf(',', indexFirstComma + 1);
+            int indexThirdComma = recString.IndexOf(',', indexSecondComma + 1);
+
+            rectangle.X = int.Parse(recString.Substring(1, indexFirstComma - 1));
+            rectangle.Y = int.Parse(recString.Substring(indexFirstComma + 1, (indexSecondComma - 1) - indexFirstComma));
+            rectangle.Width = int.Parse(recString.Substring(indexSecondComma + 1, (indexThirdComma - 1) - indexSecondComma));
+            rectangle.Height = int.Parse(recString.Substring(indexThirdComma + 1, recString.Length - (indexThirdComma + 2)));
+
+            return rectangle;
+        }
     }
 }
