@@ -9,6 +9,7 @@ using System;
 
 // usings mit eigenem Code
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.input;
 
 // TODO: Castlevania CurseOfDarkness Menü musik
 
@@ -23,7 +24,9 @@ namespace EVCMonoGame.src
         private StateManager stateManager;
 
         private SpriteBatch spriteBatch;
+
         private FpsCounter fpsCounter;
+        private bool drawFpsCounter;
 
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
@@ -55,7 +58,8 @@ namespace EVCMonoGame.src
             stateManager.AddState(new BackgroundState(), null);
             stateManager.AddState(new MainMenuState(), null);
 
-            fpsCounter = new FpsCounter(Vector2.Zero, Color.White, 500);
+            fpsCounter = new FpsCounter(Vector2.Zero, Color.DarkRed, 500);
+            drawFpsCounter = false;
         }
 
         protected override void LoadContent()
@@ -72,19 +76,27 @@ namespace EVCMonoGame.src
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (InputManager.OnKeyPressed(Keys.F2))
+            {
+                drawFpsCounter = drawFpsCounter ? false : true;
+            }
         }
 
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
+            // FpsCounter needs to be updatet in Draw() to measure the draw performance.
             fpsCounter.Update(gameTime);
 
             // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
 
             spriteBatch.Begin();
-            fpsCounter.Draw(gameTime, spriteBatch);
+
+            if (drawFpsCounter) { fpsCounter.Draw(gameTime, spriteBatch); }
+
             spriteBatch.End();
         }
     }
