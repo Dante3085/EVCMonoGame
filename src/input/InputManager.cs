@@ -58,6 +58,14 @@ namespace EVCMonoGame.src.input
             }
         }
 
+        public static bool HasMouseMoved
+        {
+            get
+            {
+                return currentMouseState.Position != previousMouseState.Position;
+            }
+        }
+
         #endregion
         #region StaticMethods
         /// <summary>
@@ -78,7 +86,6 @@ namespace EVCMonoGame.src.input
             {
                 if (OnAnyButtonPressed(buttonsEnum))
                 {
-                    Console.WriteLine("InputByKeyboard false");
                     inputByKeyboard = false;
                 }
             }
@@ -86,7 +93,6 @@ namespace EVCMonoGame.src.input
             {
                 if (currentKeyboardState.GetPressedKeys().Length > 0)
                 {
-                    Console.WriteLine("InputByKeyboard true");
                     inputByKeyboard = true;
                 }
             }
