@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Microsoft.Xna.Framework.Content;
 
-namespace EVCMonoGame.src
+namespace EVCMonoGame.src.tilemap
 {
     public class Tilemap : scenes.IDrawable
     {
