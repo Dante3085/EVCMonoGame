@@ -41,7 +41,7 @@ namespace EVCMonoGame.src.scenes
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.getTransformationMatrix());
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
             foreach (IDrawable d in drawables)
             {
                 d.Draw(gameTime, spriteBatch);

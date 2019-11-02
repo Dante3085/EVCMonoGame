@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.tilemap;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -27,14 +28,15 @@ namespace EVCMonoGame.src.scenes
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
-            this.camera = new Camera(sceneManager, player.Sprite, Screenpoint.CENTER, new Vector2(-player.Sprite.Bounds.Width*0.5f, -player.Sprite.Bounds.Height * 0.5f));
-            this.camera.setZoom(1.2f);
             geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
             collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
 
             beachTilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh_beach.txt", Vector2.Zero);
+
+            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
+            camera.SetZoom(0.5f);
 
             updateables.AddRange(new Updateable[]
             {
@@ -71,7 +73,7 @@ namespace EVCMonoGame.src.scenes
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.getTransformationMatrix());
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
             // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",

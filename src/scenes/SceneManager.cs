@@ -65,7 +65,7 @@ namespace EVCMonoGame.src.scenes
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             nextScene = null;
-            easer = new Easer(0, 255, 500, Easing.SineEaseIn);
+            easer = new Easer(new Vector2(0, -1), new Vector2(255, -1), 500, Easing.SineEaseIn);
             transitioning = false;
             reverseTransitionFinished = false;
 
@@ -125,14 +125,14 @@ namespace EVCMonoGame.src.scenes
 
             nextScene = scenes[to];
             transitioning = true;
-            easer.start();
+            easer.Start();
         }
 
         public void TransitionToPreviousScreen()
         {
             nextScene = previousScene;
             transitioning = true;
-            easer.start();
+            easer.Start();
         }
 
         private void UpdateTransition(GameTime gameTime)
@@ -144,14 +144,14 @@ namespace EVCMonoGame.src.scenes
                 {
                     reverseTransitionFinished = false;
                     transitioning = false;
-                    easer.reverse();
+                    easer.Reverse();
                 }
                 else
                 {
                     previousScene = currentScene;
                     currentScene = nextScene;
-                    easer.reverse();
-                    easer.start();
+                    easer.Reverse();
+                    easer.Start();
                     reverseTransitionFinished = true;
                 }
             }
@@ -163,7 +163,7 @@ namespace EVCMonoGame.src.scenes
             // Achtung: Easer haben immer float Werte. Bei float denkt der Color Konstruktor allerdings
             // er bekommt einen Wert von 0.0 bis 1.0, also nach int casten.
             spriteBatch.Draw(sceneTransitionTexture, 
-                game.GraphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
+                game.GraphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue.X));
         }
 
         public Vector2 GetViewportCenter()

@@ -11,11 +11,12 @@ using EVCMonoGame.src.input;
 
 using EVCMonoGame.src;
 using EVCMonoGame.src.gui;
-using EVCMonoGame.src.input;
 using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src.scenes
 {
+    // TODO: Kamerafahrt.
+
     public enum Screenpoint
     {
         UP_LEFT_EDGE,
@@ -28,32 +29,43 @@ namespace EVCMonoGame.src.scenes
         LEFT,
         CENTER
     }
-    public class Camera : scenes.Updateable
+    public class Camera : Updateable
     {
-        protected Vector2 cameraPosition;
-        protected float zoom = 1;
-        protected SceneManager sceneManager;
-        protected ITranslatable focusObject;
-        protected Screenpoint focusPoint = Screenpoint.CENTER;
-        protected Vector2 offset = Vector2.Zero;
+        private Vector2 cameraPosition;
+        private float zoom = 1;
+        private SceneManager sceneManager;
+        private ITranslatable focusObject;
+        private bool followsFocusObject = false;
+        private Screenpoint focusPoint = Screenpoint.CENTER;
+        private Vector2 offset = Vector2.Zero;
 
-        public Camera(SceneManager manager, ITranslatable focusObject)
+        private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
+
+        public Vector2 CameraPosition
+        {
+            get { return cameraPosition; }
+        }
+
+        public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint focusPoint = Screenpoint.CENTER)
         {
             sceneManager = manager;
             this.focusObject = focusObject;
+            this.focusPoint = focusPoint;
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
             cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
+            SetCameraToFocusObject(focusObject);
+        }
 
-        }
-        public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint screenpoint)
-        {
-            sceneManager = manager;
-            this.focusObject = focusObject;
-            this.focusPoint = screenpoint;
-            Viewport viewport = sceneManager.GraphicsDevice.Viewport;
-            cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
-            setCameraToFocusObject(focusObject);
-        }
+        //public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint focusPoint)
+        //{
+        //    sceneManager = manager;
+        //    this.focusObject = focusObject;
+        //    this.focusPoint = focusPoint;
+        //    Viewport viewport = sceneManager.GraphicsDevice.Viewport;
+        //    cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
+        //    setCameraToFocusObject(focusObject);
+        //}
+        
         public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint screenpoint, Vector2 offset)
         {
             this.offset = offset;
@@ -62,24 +74,34 @@ namespace EVCMonoGame.src.scenes
             this.focusPoint = screenpoint;
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
             cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
-            setCameraToFocusObject(focusObject);
+            SetCameraToFocusObject(focusObject);
         }
-        public Camera(SceneManager manager, Vector2 position) : this(manager, new ITranslatablePosition(position)) { }
-        public Camera(SceneManager manager, Vector2 position, Screenpoint screenpoint) : this(manager, new ITranslatablePosition(position), screenpoint) { }
-        public void setOffset(Vector2 offset)
+
+        public Camera(SceneManager manager, Vector2 position) 
+            : this(manager, new ITranslatablePosition(position)) { }
+
+        public Camera(SceneManager manager, Vector2 position, Screenpoint screenpoint) 
+            : this(manager, new ITranslatablePosition(position), screenpoint) { }
+
+        public void SetOffset(Vector2 offset)
         {
             this.offset = offset;
         }
-        public void setCameraToPosition(Vector2 position)
+
+        public void SetCameraToPosition(Vector2 position)
         {
-            setCameraToFocusObject(new ITranslatablePosition(position));
+            SetCameraToFocusObject(new ITranslatablePosition(position));
         }
-        public void setCameraToFocusObject(ITranslatable focusObject, Screenpoint screenpoint)
+
+        public void SetCameraToFocusObject(ITranslatable focusObject, Screenpoint screenpoint)
         {
+            followsFocusObject = true;
+
             this.focusPoint = screenpoint;
-            setCameraToFocusObject(focusObject);
+            SetCameraToFocusObject(focusObject);
         }
-        public void setCameraToFocusObject(ITranslatable focusObject)
+
+        public void SetCameraToFocusObject(ITranslatable focusObject)
         {
             this.focusObject = focusObject;
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
@@ -115,22 +137,30 @@ namespace EVCMonoGame.src.scenes
             }
             cameraPosition += offset;
         }
-        public void setCameraToPosition(Vector2 position, Screenpoint point)
+
+        public void SetCameraToPosition(Vector2 position, Screenpoint point)
         {
             this.focusPoint = point;
-            setCameraToPosition(position);
+            SetCameraToPosition(position);
         }
-        public void setZoom(float zoom)
+
+        public void SetZoom(float zoom)
         {
             this.zoom = zoom;
         }
-        public void moveCamera(Vector2 direction, float distance, float time)
-        {
-            return;
-        }
-        public Vector2 getCameraPoint(Screenpoint point)
-        {
 
+        public void MoveCamera(Vector2 from, Vector2 to, int durationInMillis)
+        {
+            followsFocusObject = false;
+
+            moveEaser.From = from;
+            moveEaser.To = to;
+            moveEaser.DurationInMillis = durationInMillis;
+            moveEaser.Start();
+        }
+
+        public Vector2 GetCameraPoint(Screenpoint point)
+        {
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
             switch (focusPoint)
             {
@@ -156,7 +186,8 @@ namespace EVCMonoGame.src.scenes
                     return Vector2.Zero;
             }
         }
-        public Matrix getTransformationMatrix()
+
+        public Matrix GetTransformationMatrix()
         {
             return new Matrix(
                      new Vector4(zoom, 0, 0, 0),
@@ -164,10 +195,21 @@ namespace EVCMonoGame.src.scenes
                      new Vector4(0, 0, 1, 0),
                      new Vector4(cameraPosition.X, cameraPosition.Y, 0, 1));
         }
+
         public override void Update(GameTime gameTime)
         {
-            Console.WriteLine(focusObject.Position);
-            setCameraToFocusObject(focusObject);
+            if (followsFocusObject)
+            {
+                SetCameraToFocusObject(focusObject);
+            }
+            else
+            {
+                if (!moveEaser.IsFinished)
+                {
+                    moveEaser.Update(gameTime);
+                    SetCameraToPosition(moveEaser.CurrentValue, Screenpoint.CENTER);
+                }
+            }
         }
     }
 }

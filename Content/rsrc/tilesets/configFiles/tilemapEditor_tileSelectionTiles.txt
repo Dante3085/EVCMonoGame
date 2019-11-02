@@ -1,0 +1,77 @@
+TILESET=rsrc/tilesets/overworld_tileset_grass
+
+// TODO: Tiles von einem Tileset automatisiert einlesen, indem gesagt wird
+// lese über das gesamte Tileset beispielsweise 16 x 16 Tiles ein.
+// Problem dabei ist, wie man die einzelnen Tiles dann benennt.
+
+[TILE]
+NAME   = Grass_0
+BOUNDS = (0, 0, 16, 16)
+
+[TILE]
+NAME   = Grass_1
+BOUNDS = (16, 0, 16, 16)
+
+[TILE]
+NAME   = Grass_2
+BOUNDS = (32, 0, 16, 16)
+
+[TILE]
+NAME   = Grass_3
+BOUNDS = (32, 0, 16, 16)
+
+[TILE]
+NAME   = Grass_Flower_0
+BOUNDS = (16, 48, 16, 16)
+
+[TILE]
+NAME   = Water_0
+BOUNDS = (0, 64, 16, 16)
+
+[TILE]
+NAME   = House_1
+BOUNDS = (16, 256, 16, 16)
+
+[TILE]
+NAME   = Woods_Top_Left
+BOUNDS = (144, 64, 16, 16)
+
+[TILE]
+NAME   = Woods_Top_Middle
+BOUNDS = (160, 64, 16, 16)
+
+[TILE]
+NAME   = Woods_Top_Right
+BOUNDS = (176, 64, 16, 16)
+
+[TILE]
+NAME   = Woods_Middle_Left
+BOUNDS = (144, 80, 16, 16)
+
+[TILE]
+NAME   = Woods_Middle
+BOUNDS = (160, 80, 16, 16)
+
+[TILE]
+NAME   = Woods_Middle_Right
+BOUNDS = (176, 80, 16, 16)
+
+[TILE]
+NAME   = Woods_Bottom_Left
+BOUNDS = (144, 96, 16, 16)
+
+[TILE]
+NAME   = Woods_Bottom_Middle
+BOUNDS = (160, 96, 16, 16)
+
+[TILE]
+NAME   = Woods_Bottom_Right
+BOUNDS = (176, 96, 16, 16)
+
+[TILE]
+NAME   = Woods_Four_Pics
+BOUNDS = (144, 112, 32, 32)
+
+[TILE]
+NAME   = Random_Big_Tile
+BOUNDS = (27, 172, 96, 100)

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.enemies;
+using EVCMonoGame.src.tilemap;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -42,7 +43,7 @@ namespace EVCMonoGame.src.scenes
 
             geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
             geometryBox2 = new GeometryBox(new Rectangle(1300, 480, 500, 25));
-            tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh.txt", Vector2.Zero);
+            tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh_castle.txt", Vector2.Zero);
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
             sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
@@ -54,6 +55,9 @@ namespace EVCMonoGame.src.scenes
             collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite, geometryBox,
                                                     geometryBox2);
             collisionManager.AddCombatCollidables(player, player2, shadow);
+
+            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
+            camera.SetZoom(1.25f);
 
             updateables.AddRange(new Updateable[] 
             { 
@@ -98,6 +102,11 @@ namespace EVCMonoGame.src.scenes
                 {
                     drawables.Add(collisionManager);
                 }
+            }
+
+            if (InputManager.OnKeyPressed(Keys.H))
+            {
+                camera.MoveCamera(camera.CameraPosition, camera.CameraPosition + new Vector2(50, 50), 1000);
             }
 
             if (InputManager.OnKeyPressed(Keys.Space))
