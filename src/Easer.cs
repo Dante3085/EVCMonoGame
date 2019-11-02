@@ -9,19 +9,24 @@ using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src
 {
+    // TODO: Implement Easer with Vector2 internally, so that Easing of 2D-Positions(i.e. 2 values 
+    // at the same time) is natural/easy to implement
+
     public class Easer : Updateable
     {
         #region Fields
         private int elapsedMillis;
-        private float from;
-        private float to;
         private int durationInMillis;
         private Easing.EasingFunction easingFunction;
-        private float currentValue;
         private bool isFinished;
+
+        private Vector2 from;
+        private Vector2 to;
+        private Vector2 currentValue;
+
         #endregion
         #region Properties
-        public float CurrentValue
+        public Vector2 CurrentValue
         {
             get { return currentValue; }
         }
@@ -31,7 +36,7 @@ namespace EVCMonoGame.src
             get { return isFinished; }
         }
 
-        public float From
+        public Vector2 From
         {
             get { return from; }
             set
@@ -40,7 +45,7 @@ namespace EVCMonoGame.src
             }
         }
 
-        public float To
+        public Vector2 To
         {
             get { return to; }
             set
@@ -54,10 +59,17 @@ namespace EVCMonoGame.src
             get { return easingFunction; }
             set { easingFunction = value; }
         }
+
+        public int DurationInMillis
+        {
+            get { return durationInMillis; }
+            set { durationInMillis = value; }
+        }
+
         #endregion
 
         #region Constructors
-        public Easer(float from, float to, int durationInMillis, Easing.EasingFunction easingFunction)
+        public Easer(Vector2 from, Vector2 to, int durationInMillis, Easing.EasingFunction easingFunction)
         {
             elapsedMillis = 0;
             this.from = from;
@@ -68,6 +80,7 @@ namespace EVCMonoGame.src
             isFinished = false;
             DoUpdate = false;
         }
+
         #endregion
 
         #region Methods
@@ -86,10 +99,11 @@ namespace EVCMonoGame.src
                 return;
             }
 
-            currentValue = easingFunction(elapsedMillis, from, to - from, durationInMillis);
+            currentValue.X = easingFunction(elapsedMillis, from.X, to.X - from.X, durationInMillis);
+            currentValue.Y = easingFunction(elapsedMillis, from.Y, to.Y - from.Y, durationInMillis);
         }
 
-        public void start()
+        public void Start()
         {
             elapsedMillis = 0;
             currentValue = from;
@@ -97,12 +111,18 @@ namespace EVCMonoGame.src
             DoUpdate = true;
         }
 
-        public void reverse()
+        public void Reverse()
         {
-            float temp = from;
+            Vector2 temp = from;
             from = to;
             to = temp;
         }
+
+        public void TogglePause()
+        {
+            DoUpdate = DoUpdate ? false : true;
+        }
+
         #endregion
     }
 }
