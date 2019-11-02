@@ -117,9 +117,8 @@ namespace EVCMonoGame.src.states
 
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
             StateManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
+                                               Color.Black, 0, 0);
 
             sceneManager.Draw(gameTime);
 
