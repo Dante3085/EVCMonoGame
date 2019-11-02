@@ -10,9 +10,10 @@ using C3.MonoGame;
 
 using EVCMonoGame.src.input;
 
-namespace EVCMonoGame.src.tilemap
+namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
     // TODO: Tile being a class instead of a struct could create problems. Struct value type might be smarter if we need to pass Tiles around.
+    // TODO: Solution for moving the TileSelection with Mouse being annoying: Lock/Unlock moving on leftMouseDoubleClick.
 
     public class TileSelection
     {
@@ -110,6 +111,7 @@ namespace EVCMonoGame.src.tilemap
                                 currentTileSelector = tile.bounds;
                                 selectorTile = tile;
 
+                                // break both loops if we found a Tile that the mouse currently hovers.
                                 breakOuterLoop = true;
                                 break;
                             }
@@ -138,15 +140,15 @@ namespace EVCMonoGame.src.tilemap
 
             // This is for moving the TileSelection with the Mouse.
             // It still can be annoying, so it's commented out for now.
-            //if (leftMouseDown)
-            //{
-            //    if (InputManager.OnLeftMouseButtonReleased())
-            //    {
-            //        leftMouseDown = false;
-            //    }
+            if (leftMouseDown)
+            {
+                if (InputManager.OnLeftMouseButtonReleased())
+                {
+                    leftMouseDown = false;
+                }
 
-            //    Position += currentMousePosition - InputManager.PreviousMousePosition();
-            //}
+                Position += currentMousePosition - InputManager.PreviousMousePosition();
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -166,7 +168,7 @@ namespace EVCMonoGame.src.tilemap
 
             // Draw other stuff.
             spriteBatch.DrawString(font, text, bounds.Location.ToVector2(), Color.White);
-            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Red, 1);
+            // Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Red, 1);
             Primitives2D.DrawRectangle(spriteBatch, currentTileSelector, Color.AliceBlue, 5);
             Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
 

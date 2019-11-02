@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.input;
 
-namespace EVCMonoGame.src.tilemap
+namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
     // (Moritz): Ich habe den TilemapEditor extra nicht von scenes.Updateable erben und scenes.IDrawable implementieren lassen,
     //           weil er im Hauptmenü durch den TilemapEditorState erreichbar sein soll. Die Klassen im states Ordner haben nichts

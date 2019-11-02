@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using EVCMonoGame.src.tilemap;
+using EVCMonoGame.src.tilemap.tilemapEditor;
 using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.states
