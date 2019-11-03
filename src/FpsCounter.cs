@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace EVCMonoGame.src
 {
+    // TODO: Fix issue that when enabling the FpsCounter with F2, the fps are shortly and wrongly very low.
+    //       I assume 
+
     public class FpsCounter
     {
         private SpriteFont font;
