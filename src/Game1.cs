@@ -58,8 +58,8 @@ namespace EVCMonoGame.src
             stateManager.AddState(new BackgroundState(), null);
             stateManager.AddState(new MainMenuState(), null);
 
-            fpsCounter = new FpsCounter(Vector2.Zero, Color.DarkRed, 500);
-            drawFpsCounter = false;
+            fpsCounter = new FpsCounter(Vector2.Zero);
+            drawFpsCounter = true;
         }
 
         protected override void LoadContent()
@@ -95,7 +95,10 @@ namespace EVCMonoGame.src
 
             spriteBatch.Begin();
 
-            if (drawFpsCounter) { fpsCounter.Draw(gameTime, spriteBatch); }
+            if (drawFpsCounter) 
+            {
+                fpsCounter.Draw(gameTime, spriteBatch);
+            }
 
             spriteBatch.End();
         }

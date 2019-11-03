@@ -7,68 +7,44 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-using EVCMonoGame.src.scenes;
-
 namespace EVCMonoGame.src
 {
-    class FpsCounter : Updateable, scenes.IDrawable
+    public class FpsCounter
     {
-        private float fps;
         private SpriteFont font;
         private String str;
         private Vector2 position;
-        Color color;
 
-        private int delayInMilliseconds;
-        private int elapsedMilliseconds;
-        private List<float> fpsBuffer;
-        private int indexCurrentFpsValue;
+        int frameRate = 0;
+        int frameCounter = 0;
+        TimeSpan elapsedTime = TimeSpan.Zero;
 
-        public int DelayInMilliseconds
+        public FpsCounter(Vector2 position)
         {
-            get { return delayInMilliseconds; }
-            set { delayInMilliseconds = value; }
-        }
-
-        public FpsCounter(Vector2 position, Color color, int delayInMilliseconds = 500)
-        {
-            str = "";
             this.position = position;
-            this.color = color;
-
-            this.delayInMilliseconds = delayInMilliseconds;
-            elapsedMilliseconds = 0;
-            fpsBuffer = new List<float>();
-            indexCurrentFpsValue = 0;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            elapsedMilliseconds += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
-            fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
-            fpsBuffer.Add(fps);
+            elapsedTime += gameTime.ElapsedGameTime;
 
-            // Only display next fps value after a certain amount of time.
-            // Otherwise humans can't follow it.
-            if (elapsedMilliseconds >= delayInMilliseconds)
+            // After 1 second passed put the amount of frames that happened
+            // into frameRate. That's basically our fps.
+            if (elapsedTime > TimeSpan.FromSeconds(1))
             {
-                // Reset elapsed
-                elapsedMilliseconds = 0;
-
-                // Put the current fps Value into the display string
-                str = fpsBuffer[indexCurrentFpsValue++ % fpsBuffer.Count].ToString();
-
-                // Remove all old fps values from the buffer
-                fpsBuffer.RemoveRange(0, indexCurrentFpsValue);
-
-                // Set the index for the next fps value to be displayed.
-                indexCurrentFpsValue = 0;
+                elapsedTime -= TimeSpan.FromSeconds(1);
+                frameRate = frameCounter;
+                frameCounter = 0;
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, str, position, color);
+            ++frameCounter;
+            str = String.Format("fps: {0}", frameRate);
+
+            spriteBatch.DrawString(font, str, new Vector2(33, 33), Color.DarkRed);
+            spriteBatch.DrawString(font, str, new Vector2(32, 32), Color.White);
         }
 
         public void LoadContent(ContentManager content)
