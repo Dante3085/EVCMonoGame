@@ -18,6 +18,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // TODO: Besides hoveredTile, create the notion of currentTile in DrawingArea(Red Marker).
     // TODO: Display relevant infomation of currentTile in DrawingArea.
     // TODO: Display number of Tiles in DrawingArea.
+    // TODO: Rectangle selection of many Tiles and move them around as a unit.
 
     // TODO: Make it possible to scale the currentTile of DrawingArea by placing Mouse at bottom right corner, 
     //       pressing LeftMouseButton and moving the Mouse around.
@@ -32,17 +33,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     public class DrawingArea
     {
         private Rectangle bounds;
-        private List<Tile> tiles = new List<Tile>();
-        private Vector2 currentMousePosition = Vector2.Zero;
+        private List<Tile> tiles                         = new List<Tile>();
+        private Vector2 currentMousePosition             = Vector2.Zero;
         private bool drawTileSelectionCurrentTileOnMouse = false;
-        private Rectangle destinationRectangle = Rectangle.Empty;
-
-        private Tile tileHoveredByMouse = null;
-        private Rectangle tileHoveredByMouseMarker = Rectangle.Empty;
-
+        private Rectangle destinationRectangle           = Rectangle.Empty;
+        private Tile tileHoveredByMouse                  = null;
+        private Rectangle tileHoveredByMouseMarker       = Rectangle.Empty;
         private TileSelection tileSelection;
 
-        private bool leftMouseDown = false;
+        private bool isAnyTileHoveredByMouse             = false;
+        private bool moveTileHoveredByMouse              = false;
 
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)
         {
@@ -54,13 +54,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             currentMousePosition = InputManager.CurrentMousePosition();
 
+            bool tileSelectionHasCurrentTile = tileSelection.CurrentTile != null;
+            bool tileSelectionIsHoveredByMouse = tileSelection.IsHoveredByMouse;
+
             if (bounds.Contains(currentMousePosition))
             {
                 // Check for drawing the currentTile of the TileSelection on the Mouse and
                 // placing the currentTile of TileSelection in the DrawingArea.
-                if (tileSelection.CurrentTile != null)
+                if (tileSelectionHasCurrentTile)
                 {
-                    if (!tileSelection.IsHoveredByMouse)
+                    if (!tileSelectionIsHoveredByMouse)
                     {
                         drawTileSelectionCurrentTileOnMouse = true;
 
@@ -80,46 +83,51 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         drawTileSelectionCurrentTileOnMouse = false;
                     }
                 }
+                // ---- Bis hier alles korrekt.
 
-                if (!tileSelection.IsHoveredByMouse && InputManager.HasMouseMoved)
+                if (!tileSelectionIsHoveredByMouse && InputManager.HasMouseMoved)
                 {
-                    // Check for Mouse-Hover on one of the already placed Tiles in the DrawingArea and
-                    // and detecting if the hovered Tile needs to be moved around.
-                    foreach (Tile tile in tiles)
+                    if (!moveTileHoveredByMouse)
                     {
-                        if (tile.screenBounds.Contains(currentMousePosition))
+                        // Check for Mouse-Hover on one of the already placed Tiles in the DrawingArea and
+                        // and detecting if the hovered Tile needs to be moved around.
+                        foreach (Tile tile in tiles)
                         {
-                            tileHoveredByMouse = tile;
+                            isAnyTileHoveredByMouse = false;
 
-                            if (InputManager.IsLeftMouseButtonDown())
+                            if (tile.screenBounds.Contains(currentMousePosition))
                             {
-                                leftMouseDown = true;
-
-                                // This is so that when moving the Tile around, the Marker doesn't obstruct our view.
-                                tileHoveredByMouseMarker = Rectangle.Empty;
-                            }
-                            else
-                            {
+                                isAnyTileHoveredByMouse = true;
                                 tileHoveredByMouseMarker = tile.screenBounds;
+                                tileHoveredByMouse = tile;
+
+                                break;
                             }
-
-                            break;
                         }
                     }
 
-                    // Continue moving around the hovered Tile until the LeftMouseButton is released.
-                    if (leftMouseDown)
+                    if (!isAnyTileHoveredByMouse)
                     {
-                        if (InputManager.OnLeftMouseButtonReleased())
-                        {
-                            leftMouseDown = false;
-                            tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
-                        }
-                        else
-                        {
-                            tileHoveredByMouse.screenBounds.Location += (currentMousePosition - InputManager.PreviousMousePosition()).ToPoint();
-                        }
+                        tileHoveredByMouseMarker = Rectangle.Empty;
                     }
+
+                    if (moveTileHoveredByMouse)
+                    {
+                        tileHoveredByMouse.screenBounds.Location +=
+                                (currentMousePosition - InputManager.PreviousMousePosition()).ToPoint();
+                    }
+                }
+
+                if (moveTileHoveredByMouse && InputManager.OnLeftMouseButtonReleased())
+                {
+                    moveTileHoveredByMouse = false;
+                    tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
+                }
+
+                if (isAnyTileHoveredByMouse && InputManager.OnLeftMouseButtonClicked())
+                {
+                    moveTileHoveredByMouse = true;
+                    tileHoveredByMouseMarker = Rectangle.Empty;
                 }
             }
             else
