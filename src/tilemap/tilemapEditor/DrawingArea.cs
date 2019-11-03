@@ -13,12 +13,12 @@ using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
-    // TODO: Fix moving Tiles around in DrawingArea.
     // TODO: Maybe make DrawingArea Mouse Tile hovering more performant by using Spacial-Partitioning(Grid, BSPTree).
     // TODO: Besides hoveredTile, create the notion of currentTile in DrawingArea(Red Marker).
     // TODO: Display relevant infomation of currentTile in DrawingArea.
     // TODO: Display number of Tiles in DrawingArea.
     // TODO: Rectangle selection of many Tiles and move them around as a unit.
+    // TODO: Make lining up Tiles when moving a Tile easy.
 
     // TODO: Make it possible to scale the currentTile of DrawingArea by placing Mouse at bottom right corner, 
     //       pressing LeftMouseButton and moving the Mouse around.
@@ -43,6 +43,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private bool isAnyTileHoveredByMouse             = false;
         private bool moveTileHoveredByMouse              = false;
+
+        private Vector2 mouseTravel                      = Vector2.Zero;
 
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)
         {
@@ -83,9 +85,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         drawTileSelectionCurrentTileOnMouse = false;
                     }
                 }
-                // ---- Bis hier alles korrekt.
 
-                if (!tileSelectionIsHoveredByMouse && InputManager.HasMouseMoved)
+                if (!tileSelectionIsHoveredByMouse && 
+                    !drawTileSelectionCurrentTileOnMouse &&
+                    InputManager.HasMouseMoved)
                 {
                     if (!moveTileHoveredByMouse)
                     {
@@ -113,8 +116,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
                     if (moveTileHoveredByMouse)
                     {
-                        tileHoveredByMouse.screenBounds.Location +=
-                                (currentMousePosition - InputManager.PreviousMousePosition()).ToPoint();
+                        mouseTravel = currentMousePosition - InputManager.PreviousMousePosition();
+
+                        //if (mouseTravel.Length() > 50)
+                        //{
+                        //    tileHoveredByMouse.screenBounds.Location += (mouseTravel).ToPoint();
+                        //    mouseTravel = Vector2.Zero;
+                        //}
+
+                        tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
                     }
                 }
 

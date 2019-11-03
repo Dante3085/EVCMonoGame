@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using C3.MonoGame;
+using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
 
@@ -45,7 +46,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private Rectangle tileHoveredByMouseMarker;
         private Rectangle currentTileMarker = Rectangle.Empty;
 
-        private bool leftMouseDown = false;
+        private bool moveTileSelection           = false;
+        private bool movementLocked              = false;
 
         #endregion
 
@@ -111,6 +113,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 IsHoveredByMouse = true;
 
+                if (InputManager.OnKeyPressed(Keys.L))
+                {
+                    movementLocked = movementLocked ? false : true;
+                    text = "Tile-Selection\nMovementLocked: " + movementLocked.ToString();
+                }
+
                 // Only check for which Tile is hovered by Mouse when
                 // the Mouse is inside the TileSelection's bounds and
                 // it has moved.
@@ -145,7 +153,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     currentTile = tileHoveredByMouse;
 
                     // This is for moving the TileSelection with the Mouse.
-                    leftMouseDown = true;
+                    moveTileSelection = movementLocked ? false : true;
                 }
 
                 // Check for the currentTile being discarded.
@@ -166,14 +174,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // still down.
             // We only stop moving the TileSelection if the 
             // LeftMouseButton is released again.
-            if (leftMouseDown)
+            if (!movementLocked && moveTileSelection)
             {
                 if (InputManager.OnLeftMouseButtonReleased())
                 {
-                    leftMouseDown = false;
+                    moveTileSelection = false;
                 }
-
-                Position += currentMousePosition - InputManager.PreviousMousePosition();
+                else
+                {
+                    Position += currentMousePosition - InputManager.PreviousMousePosition();
+                }
             }
         }
 
@@ -207,7 +217,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             tileSet = content.Load<Texture2D>(tileSetName);
 
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
-            text = "Tile-Selection";
+            text = "Tile-Selection\nMovementLocked: false";
             fontSize = font.MeasureString(text);
 
             // We call these things here because they are dependant on fontSize.
