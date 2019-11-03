@@ -21,10 +21,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // TODO: Create FileFormat that can store the information created in the TilemapEditor.
     //       This format also has to be readable by a Tilemap instance.
 
-    // TODO: Create SaveAs Button that opens a FileDialog on being pressed.
+    // TODO: Create a SaveAs Button that opens a FileDialog on being pressed.
     //       After choosing a name and location for the file that shall contain
     //       the current information of the TilemapEditor, the TilemapEditor creates
     //       that file in the previously mentioned FileFormat.
+
+    // TODO: Create a LoadTileSelection Button that loads a TileSet with pre-defined Tiles into
+    //       the TileSelection.
+
+    // TODO: Create a LoadTilemap Button that loads a Tilemap that was previously created with
+    //       TilemapEditor into the TilemapEditor to work on it further.
 
 
     public class Tile
