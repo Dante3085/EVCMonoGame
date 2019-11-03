@@ -93,5 +93,10 @@ namespace EVCMonoGame.src
 
             return rectangle;
         }
+
+        public static String RectangleToString(Rectangle rectangle)
+        {
+            return "(" + rectangle.X + ", " + rectangle.Y + ", " + rectangle.Width + ", " + rectangle.Height + ")";
+        }
     }
 }

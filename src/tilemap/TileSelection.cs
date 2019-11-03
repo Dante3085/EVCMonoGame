@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,39 +10,51 @@ using C3.MonoGame;
 
 using EVCMonoGame.src.input;
 
-namespace EVCMonoGame.src.tilemap.tilemapEditor
+namespace EVCMonoGame.src.tilemap
 {
-    // TODO: Make it impossible for the TileSelection to go outside of the screen.
-
-    // TODO: Solution for moving the TileSelection with Mouse being annoying: Lock/Unlock moving on leftMouseDoubleClick
-    //       or some other input, like pressing L. Show the Locked State with text.
-
-    // TODO: When moving the TileSelection around, disable the tileHoveredByMouseMarker so that 
-    //       that it doesn't flicker when the Mouse moves violently.
-
-    // TODO: Make it possible to be able to resize the TileSelection during runtime by scaling the bounds rectangle.
-    //       This would increase/decrease the number of Tiles on one row.
+    // TODO: Tile being a class instead of a struct could create problems. Struct value type might be smarter if we need to pass Tiles around.
 
     public class TileSelection
     {
+        class Tile
+        {
+            public String name;
+            public Rectangle textureBounds;
+            public Rectangle bounds;
+
+            public Tile(String name, Rectangle textureBounds, Rectangle bounds)
+            {
+                this.name = name;
+                this.textureBounds = textureBounds;
+                this.bounds = bounds;
+            }
+
+            public override string ToString()
+            {
+                return "TILE{" + name + ", (" + textureBounds.X + ", " + textureBounds.Y + ", " +
+                                              textureBounds.Width + ", " + textureBounds.Height + ")";
+            }
+        }
+
         #region Fields
 
         private Rectangle bounds;
         private Vector2 tileSize;
         private int numTilesPerRow;
-        private Texture2D tileSet       = null;
-        private String tileSetName      = String.Empty;
-        private List<List<Tile>> tiles  = new List<List<Tile>>();
-        private Tile currentTile        = null;
-        private Tile tileHoveredByMouse = null;                 
+        private Texture2D tileSet      = null;
+        private String tileSetName     = String.Empty;
+        private List<List<Tile>> tiles = new List<List<Tile>>();
+        private Tile currentTile       = null;
+        private Tile selectorTile      = null;                 // Reference to Tile that is selected by currentTileSelector.
         private Vector2 tileSpacing;
 
         private SpriteFont font;
         private Vector2 fontSize;
         private String text;
 
-        private Rectangle tileHoveredByMouseMarker;
-        private Rectangle currentTileMarker = Rectangle.Empty;
+        // TODO: currentTileSelector und currentTileMarker sind keine eindeutigen Begriffe.
+        private Rectangle currentTileSelector;                 // Shows which Tile can become the currentTile.
+        private Rectangle currentTileMarker = Rectangle.Empty; // Shows which Tile is the currentTile.
 
         private bool leftMouseDown = false;
 
@@ -65,31 +77,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             get { return bounds; }
         }
 
-        public Tile CurrentTile
-        {
-            get { return currentTile; }
-        }
-
-        public Texture2D TileSet
-        {
-            get { return tileSet; }
-        }
-
-        public bool IsHoveredByMouse
-        {
-            get; private set;
-        }
-
         #endregion
 
-        public TileSelection
-        (
-            Vector2 position, 
-            Vector2 tileSize, 
-            int numTilesPerRow, 
-            Vector2 tileSpacing, 
-            String tileSelectionFile
-        )
+        public TileSelection(Vector2 position, Vector2 tileSize, int numTilesPerRow, Vector2 tileSpacing, String tileSelectionFile)
         {
             this.tileSize = tileSize;
             this.numTilesPerRow = numTilesPerRow;
@@ -108,23 +98,18 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             bool breakOuterLoop = false;
             if (bounds.Contains(currentMousePosition))
             {
-                IsHoveredByMouse = true;
-
-                // Only check for which Tile is hovered by Mouse when
-                // the Mouse is inside the TileSelection's bounds and
-                // it has moved.
                 if (InputManager.HasMouseMoved)
                 {
+                    // Check which Tile is hovered by mouse
                     foreach (List<Tile> rows in tiles)
                     {
                         foreach (Tile tile in rows)
                         {
-                            if (tile.screenBounds.Contains(currentMousePosition))
+                            if (tile.bounds.Contains(currentMousePosition))
                             {
-                                tileHoveredByMouseMarker = tile.screenBounds;
-                                tileHoveredByMouse = tile;
+                                currentTileSelector = tile.bounds;
+                                selectorTile = tile;
 
-                                // Break both loops if we found a Tile that the mouse currently hovers.
                                 breakOuterLoop = true;
                                 break;
                             }
@@ -137,43 +122,31 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     }
                 }
 
-                // Check for tileHoveredByMouse becoming the currentTile.
                 if (InputManager.OnLeftMouseButtonClicked())
                 {
-                    currentTileMarker = tileHoveredByMouseMarker;
-                    currentTile = tileHoveredByMouse;
+                    currentTileMarker = currentTileSelector;
+                    currentTile = selectorTile;
 
-                    // This is for moving the TileSelection with the Mouse.
                     leftMouseDown = true;
                 }
-
-                // Check for the currentTile being discarded.
                 else if (InputManager.OnRightMouseButtonClicked())
                 {
                     currentTileMarker = Rectangle.Empty;
                     currentTile = null;
                 }
             }
-            else
-            {
-                IsHoveredByMouse = false;
-            }
 
-            // Check for moving the TileSelection around.
-            // We do this when the LeftMouseButton was once
-            // down inside the TileSelection's bounds and is 
-            // still down.
-            // We only stop moving the TileSelection if the 
-            // LeftMouseButton is released again.
-            if (leftMouseDown)
-            {
-                if (InputManager.OnLeftMouseButtonReleased())
-                {
-                    leftMouseDown = false;
-                }
+            // This is for moving the TileSelection with the Mouse.
+            // It still can be annoying, so it's commented out for now.
+            //if (leftMouseDown)
+            //{
+            //    if (InputManager.OnLeftMouseButtonReleased())
+            //    {
+            //        leftMouseDown = false;
+            //    }
 
-                Position += currentMousePosition - InputManager.PreviousMousePosition();
-            }
+            //    Position += currentMousePosition - InputManager.PreviousMousePosition();
+            //}
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -187,15 +160,14 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 foreach (Tile tile in rows)
                 {
-                    spriteBatch.Draw(tileSet, tile.screenBounds, tile.textureBounds, Color.White);
+                    spriteBatch.Draw(tileSet, tile.bounds, tile.textureBounds, Color.White);
                 }
             }
 
-            // Draw TileSelection String, TileSelection's bounds, tileHoveredByMouseMarker and currentTileMarker.
+            // Draw other stuff.
             spriteBatch.DrawString(font, text, bounds.Location.ToVector2(), Color.White);
-            Primitives2D.DrawRectangle(spriteBatch, 
-                new Rectangle(bounds.Location + new Point(0, (int)fontSize.Y), bounds.Size), Color.Green, 5);
-            Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
+            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Red, 1);
+            Primitives2D.DrawRectangle(spriteBatch, currentTileSelector, Color.AliceBlue, 5);
             Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
 
             spriteBatch.End();
@@ -211,9 +183,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // We call these things here because they are dependant on fontSize.
             UpdateBounds();
-            tileHoveredByMouse = tiles[0][0];
+            selectorTile = tiles[0][0];
             UpdateTileBounds();
-            tileHoveredByMouseMarker = tiles[0][0].screenBounds;
+            currentTileSelector = tiles[0][0].bounds;
         }
 
         private void ReadTilesFromFile(String file)
@@ -239,7 +211,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         tileName = line.Remove(0, 5); // Remove 'NAME='
 
                         line = Utility.ReplaceWhitespace(reader.ReadLine(), "");
-                        line = line.Remove(0, 15); // Remove 'TEXTURE_BOUNDS='
+                        line = line.Remove(0, 7); // Remove 'BOUNDS='
                         tileBounds = Utility.StringToRectangle(line);
 
                         if (numTilesInLastRow == numTilesPerRow)
@@ -264,14 +236,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             int widthFirstRow = (int)(tiles[0].Count * tileSize.X + (tiles[0].Count - 1) * tileSpacing.X);
 
-            // These commented width and height calculations include the Text displayed above all the Tiles.
-            // For now I have switched to a calculation that ignores the Text because I currently don't have
-            // a reason to include it.
-            // bounds.Width = fontSize.X > widthFirstRow ? (int)fontSize.X : widthFirstRow;
-            // bounds.Height = (int)(fontSize.Y + (tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y));
-
-            bounds.Width  = widthFirstRow;
-            bounds.Height = (int)(tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y); 
+            bounds.Width = fontSize.X > widthFirstRow ? (int)fontSize.X : widthFirstRow;
+            bounds.Height = (int)(fontSize.Y + (tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y));
         }
 
         private void UpdateTileBounds()
@@ -280,16 +246,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 for (int j = 0; j < tiles[i].Count; ++j)
                 {
-                    tiles[i][j].screenBounds = new Rectangle((bounds.Location.ToVector2() + new Vector2(j * tileSize.X + j * tileSpacing.X,
+                    tiles[i][j].bounds = new Rectangle((bounds.Location.ToVector2() + new Vector2(j * tileSize.X + j * tileSpacing.X,
                                                      i * tileSize.Y + i * tileSpacing.Y + fontSize.Y)).ToPoint(), tileSize.ToPoint());
                 }
             }
 
-            tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
+            currentTileSelector = selectorTile.bounds;
 
             if (currentTile != null)
             {
-                currentTileMarker = currentTile.screenBounds;
+                currentTileMarker = currentTile.bounds;
             }
         }
     }

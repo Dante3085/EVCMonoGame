@@ -70,7 +70,7 @@ namespace EVCMonoGame.src.states
         public override void LoadContent()
         {
             base.LoadContent();
-            tilemapEditor.LoadContent(StateManager.Game.Content);
+            tilemapEditor.LoadContent(StateManager.Game.Content, StateManager.GraphicsDevice.Viewport);
         }
     }
 }

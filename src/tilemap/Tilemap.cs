@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Content;
 
 namespace EVCMonoGame.src.tilemap
 {
+    // TODO: Maybe rethink Tilemap to work better with TilemapEditor.
+
     public class Tilemap : scenes.IDrawable
     {
         private Texture2D tilemapImage;
