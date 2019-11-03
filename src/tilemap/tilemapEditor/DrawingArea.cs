@@ -46,6 +46,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private Vector2 mouseTravel                      = Vector2.Zero;
 
+        private SpriteFont font;
+        private String currentTileInfo                   = String.Empty;
+
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)
         {
             this.bounds = bounds;
@@ -97,12 +100,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         foreach (Tile tile in tiles)
                         {
                             isAnyTileHoveredByMouse = false;
+                            tileHoveredByMouse = null;
 
                             if (tile.screenBounds.Contains(currentMousePosition))
                             {
                                 isAnyTileHoveredByMouse = true;
                                 tileHoveredByMouseMarker = tile.screenBounds;
                                 tileHoveredByMouse = tile;
+
+                                // Das ist nicht das currentTile. Nur zum Test.
+                                currentTileInfo = tileHoveredByMouse.ToString();
 
                                 break;
                             }
@@ -169,12 +176,18 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 tileSelection.CurrentTile.textureBounds, Color.White);
             }
 
+            // Draw currentTileInfo
+            if (tileHoveredByMouse != null)
+            {
+                spriteBatch.DrawString(font, currentTileInfo, new Vector2((bounds.X + bounds.Width) * 0.25f, bounds.Top) , Color.White);
+            }
+
             spriteBatch.End();
         }
 
         public void LoadContent(ContentManager content)
         {
-
+            font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
     }
 }
