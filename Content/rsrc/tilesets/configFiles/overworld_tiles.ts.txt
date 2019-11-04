@@ -1,81 +1,81 @@
-TILESET=rsrc/tilesets/overworld_tileset_grass
+TILESET = rsrc/tilesets/overworld_tileset_grass
 
 // TODO: Tiles von einem Tileset automatisiert einlesen, indem gesagt wird
 // lese über das gesamte Tileset beispielsweise 16 x 16 Tiles ein.
 // Problem dabei ist, wie man die einzelnen Tiles dann benennt.
 
 [TILE]
-NAME   = Grass_0
+NAME           = Grass_0
 TEXTURE_BOUNDS = (0, 0, 16, 16)
 
 [TILE]
-NAME   = Grass_1
+NAME           = Grass_1
 TEXTURE_BOUNDS = (16, 0, 16, 16)
 
 [TILE]
-NAME   = Grass_2
+NAME           = Grass_2
 TEXTURE_BOUNDS = (32, 0, 16, 16)
 
 [TILE]
-NAME   = Grass_3
+NAME           = Grass_3
 TEXTURE_BOUNDS = (32, 0, 16, 16)
 
 [TILE]
-NAME   = Grass_Flower_0
+NAME           = Grass_Flower_0
 TEXTURE_BOUNDS = (16, 48, 16, 16)
 
 [TILE]
-NAME   = Water_0
+NAME           = Water_0
 TEXTURE_BOUNDS = (0, 64, 16, 16)
 
 [TILE]
-NAME   = House_1
+NAME           = House_1
 TEXTURE_BOUNDS = (16, 256, 16, 16)
 
 [TILE]
-NAME   = Woods_Top_Left
+NAME           = Woods_Top_Left
 TEXTURE_BOUNDS = (144, 64, 16, 16)
 
 [TILE]
-NAME   = Woods_Top_Middle
+NAME           = Woods_Top_Middle
 TEXTURE_BOUNDS = (160, 64, 16, 16)
 
 [TILE]
-NAME   = Woods_Top_Right
+NAME           = Woods_Top_Right
 TEXTURE_BOUNDS = (176, 64, 16, 16)
 
 [TILE]
-NAME   = Woods_Middle_Left
+NAME           = Woods_Middle_Left
 TEXTURE_BOUNDS = (144, 80, 16, 16)
 
 [TILE]
-NAME   = Woods_Middle
+NAME           = Woods_Middle
 TEXTURE_BOUNDS = (160, 80, 16, 16)
 
 [TILE]
-NAME   = Woods_Middle_Right
+NAME           = Woods_Middle_Right
 TEXTURE_BOUNDS = (176, 80, 16, 16)
 
 [TILE]
-NAME   = Woods_Bottom_Left
+NAME           = Woods_Bottom_Left
 TEXTURE_BOUNDS = (144, 96, 16, 16)
 
 [TILE]
-NAME   = Woods_Bottom_Middle
+NAME           = Woods_Bottom_Middle
 TEXTURE_BOUNDS = (160, 96, 16, 16)
 
 [TILE]
-NAME   = Woods_Bottom_Right
+NAME           = Woods_Bottom_Right
 TEXTURE_BOUNDS = (176, 96, 16, 16)
 
 [TILE]
-NAME   = Woods_Four_Pics
+NAME           = Woods_Four_Pics
 TEXTURE_BOUNDS = (144, 112, 32, 32)
 
 [TILE]
-NAME   = Random_Big_Tile
+NAME           = Random_Big_Tile
 TEXTURE_BOUNDS = (27, 172, 96, 100)
 
 [TILE]
-NAME = RANDOM
+NAME           = RANDOM
 TEXTURE_BOUNDS = (13, 45, 200, 200)
