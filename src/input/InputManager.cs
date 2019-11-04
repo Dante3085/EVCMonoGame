@@ -371,7 +371,7 @@ namespace EVCMonoGame.src.input
             return currentMouseState.ScrollWheelValue;
         }
 
-        public static float PreviousMouseWheel()
+        public static float PreviousScrollWheel()
         {
             return previousMouseState.ScrollWheelValue;
         }
