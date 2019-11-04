@@ -152,10 +152,31 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 drawTileSelectionCurrentTileOnMouse = false;
             }
         }
-
+        private Matrix getZoom()
+        {
+            if (InputManager.CurrentScrollWheel() != InputManager.PreviousScrollWheel())
+            {
+                Console.WriteLine(InputManager.CurrentScrollWheel());
+            }
+            if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
+            {
+                zoom -= 0.01f + (0.04f * zoom);
+            }
+            else if (InputManager.CurrentScrollWheel() > InputManager.PreviousScrollWheel())
+            {
+                zoom += 0.01f+(0.1f*zoom);
+            }
+            Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
+            return new Matrix(
+                     new Vector4(zoom, 0, 0, 0),
+                     new Vector4(0, zoom, 0, 0),
+                     new Vector4(0, 0, 1, 0),
+                     new Vector4(point.X, point.Y, 0, 1));
+            //return Matrix.Identity;
+        }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: getZoom());
 
             Primitives2D.DrawRectangle(spriteBatch, bounds, Color.DarkRed);
 
