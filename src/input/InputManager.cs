@@ -366,6 +366,16 @@ namespace EVCMonoGame.src.input
             return currentMouseState.RightButton == ButtonState.Pressed;
         }
 
+        public static float CurrentScrollWheel()
+        {
+            return currentMouseState.ScrollWheelValue;
+        }
+
+        public static float PreviousScrollWheel()
+        {
+            return previousMouseState.ScrollWheelValue;
+        }
+
         #endregion
         #endregion
     }
