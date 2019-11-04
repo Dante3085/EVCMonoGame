@@ -12,6 +12,7 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src;
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.scenes
 {

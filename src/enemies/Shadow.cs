@@ -18,7 +18,7 @@ namespace EVCMonoGame.src.enemies
         public Shadow(Vector2 position)
             : base(position)
         {
-            enemySprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/shadow.txt");
+            enemySprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
             enemySprite.SetAnimation("IDLE_LEFT");
         }
 

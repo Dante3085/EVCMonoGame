@@ -10,11 +10,13 @@ using C3.MonoGame;
 using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
     // TODO: Make it impossible for the TileSelection to go outside of the screen.
     // TODO: Clear tileHoveredByMouseMarker if no Tile is marked(Like in DrawingArea).
+    // TODO: Fix bounds seem to be wrong. MouseHover moving does not work at bottom of TileSelection.
 
     // TODO: Solution for moving the TileSelection with Mouse being annoying: Lock/Unlock moving on leftMouseDoubleClick
     //       or some other input, like pressing L. Show the Locked State with text.
@@ -57,7 +59,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             get { return bounds.Location.ToVector2(); }
             set 
-            { 
+            {
                 bounds.Location = value.ToPoint();
                 UpdateTileBounds();
             }
@@ -99,7 +101,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             this.tileSpacing = tileSpacing;
 
             bounds = new Rectangle(position.ToPoint(), Point.Zero);
-            tiles.Add(new List<Tile>());
 
             ReadTilesFromFile(tileSelectionFile);
         }
@@ -113,7 +114,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 IsHoveredByMouse = true;
 
-                if (InputManager.OnKeyPressed(Keys.L))
+                if (InputManager.OnKeyPressed(Keys.M))
                 {
                     movementLocked = movementLocked ? false : true;
                     text = "Tile-Selection\nMovementLocked: " + movementLocked.ToString();
@@ -204,8 +205,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // Draw TileSelection String, TileSelection's bounds, tileHoveredByMouseMarker and currentTileMarker.
             spriteBatch.DrawString(font, text, bounds.Location.ToVector2(), Color.White);
-            Primitives2D.DrawRectangle(spriteBatch, 
-                new Rectangle(bounds.Location + new Point(0, (int)fontSize.Y), bounds.Size), Color.Green, 5);
+            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Green, 5);
             Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
             Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
 
@@ -222,6 +222,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // We call these things here because they are dependant on fontSize.
             UpdateBounds();
+
             tileHoveredByMouse = tiles[0][0];
             UpdateTileBounds();
             tileHoveredByMouseMarker = tiles[0][0].screenBounds;
@@ -229,60 +230,21 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void ReadTilesFromFile(String file)
         {
-            System.IO.StreamReader reader = new System.IO.StreamReader(file);
-            String line = String.Empty;
-
-            int numTilesInLastRow = 0;
-
-            // Variables for storing the information that will be read.
-            String tileName = String.Empty;
-            Rectangle tileBounds = Rectangle.Empty;
-
-            while ((line = reader.ReadLine()) != null)
-            {
-                // Find section
-                if (line.StartsWith("[") && line.EndsWith("]"))
-                {
-                    // Determine specific section
-                    if (line.Contains("TILE"))
-                    {
-                        line = Utility.ReplaceWhitespace(reader.ReadLine(), ""); // Remove Whitespace
-                        tileName = line.Remove(0, 5); // Remove 'NAME='
-
-                        line = Utility.ReplaceWhitespace(reader.ReadLine(), "");
-                        line = line.Remove(0, 15); // Remove 'TEXTURE_BOUNDS='
-                        tileBounds = Utility.StringToRectangle(line);
-
-                        if (numTilesInLastRow == numTilesPerRow)
-                        {
-                            tiles.Add(new List<Tile>());
-                            numTilesInLastRow = 0;
-                        }
-                        tiles[tiles.Count - 1].Add(new Tile(tileName, tileBounds, Rectangle.Empty));
-                        ++numTilesInLastRow;
-                    }
-                }
-                else if (line.Contains("TILESET"))
-                {
-                    line = Utility.ReplaceWhitespace(line, "");
-                    tileSetName = line.Substring(8); // Read everything after 'TILESET='
-                }
-            }
-            reader.Close();
+            TileSelectionData tileSelectionData = ConfigFileUtility.ReadTileSelectionFile(file, numTilesPerRow);
+            tiles = tileSelectionData.tiles;
+            tileSetName = tileSelectionData.tileSetName;
         }
 
         private void UpdateBounds()
         {
             int widthFirstRow = (int)(tiles[0].Count * tileSize.X + (tiles[0].Count - 1) * tileSpacing.X);
 
-            // These commented width and height calculations include the Text displayed above all the Tiles.
-            // For now I have switched to a calculation that ignores the Text because I currently don't have
-            // a reason to include it.
-            // bounds.Width = fontSize.X > widthFirstRow ? (int)fontSize.X : widthFirstRow;
-            // bounds.Height = (int)(fontSize.Y + (tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y));
+            bounds.Width = fontSize.X > widthFirstRow ? (int)fontSize.X : widthFirstRow;
+            bounds.Height = (int)(fontSize.Y + (tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y));
 
-            bounds.Width  = widthFirstRow;
-            bounds.Height = (int)(tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y); 
+            // width and height of bounds without text.
+            //bounds.Width  = widthFirstRow;
+            //bounds.Height = (int)(tiles.Count * tileSize.Y + (tiles.Count - 1) * tileSpacing.Y); 
         }
 
         private void UpdateTileBounds()

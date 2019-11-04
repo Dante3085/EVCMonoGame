@@ -13,6 +13,7 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.animation;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src
 {
@@ -105,12 +106,12 @@ namespace EVCMonoGame.src
             runThreshold = 0.65f;
 
             playerSprite = new AnimatedSprite(position, 5.0f);
-            playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
+            playerSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             playerSprite.SetAnimation("IDLE_RIGHT");
             playerOrientation = Orientation.RIGHT;
 
             playerPortrait = new AnimatedSprite(Vector2.Zero, 4.0f);
-            playerPortrait.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora_portrait.txt");
+            playerPortrait.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora_portrait.anm.txt");
             playerPortrait.SetAnimation("TALKING_HAPPY_RIGHT");
 
             playerHealthbar = new Healthbar(9999, 9999, new Vector2(300, 100), new Vector2(100, 10));
