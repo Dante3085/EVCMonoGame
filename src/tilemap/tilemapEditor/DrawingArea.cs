@@ -20,6 +20,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // TODO: Besides hoveredTile, create the notion of currentTile in DrawingArea(Red Marker).
     // TODO: Display number of Tiles in DrawingArea.
     // TODO: Rectangle selection of many Tiles and move them around as a unit.
+    // TODO: Copy content of Rectangle selection with STRG+C and place it at mouse position with STRG+V.
     // TODO: Make lining up Tiles when moving a Tile easy. Select a Tile and move 1 unit with arrow keys.
     // TODO: Make deleting Tiles in DrawingArea possible.
 
