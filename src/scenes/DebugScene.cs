@@ -106,7 +106,19 @@ namespace EVCMonoGame.src.scenes
 
             if (InputManager.OnKeyPressed(Keys.H))
             {
-                camera.MoveCamera(camera.CameraPosition, camera.CameraPosition + new Vector2(50, 50), 1000);
+                camera.MoveCamera(camera.FocusObject.Position, camera.FocusObject.Position + new Vector2(50, 50), 1000);
+            }
+            if (InputManager.OnKeyPressed(Keys.J))
+            {
+                camera.MoveCamera(camera.FocusObject.Position, camera.FocusObject.Position - new Vector2(50, 50), 1000);
+            }
+            if (InputManager.OnKeyPressed(Keys.K))
+            {
+                camera.MoveCamera(camera.FocusObject.Position, player.Sprite.Position, 1000);
+            }
+            if (camera.FocusObject.Position == player.Sprite.Position)
+            {
+                camera.SetCameraToFocusObject(player.Sprite);
             }
 
             if (InputManager.OnKeyPressed(Keys.Space))

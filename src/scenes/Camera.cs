@@ -41,10 +41,11 @@ namespace EVCMonoGame.src.scenes
 
         private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
 
-        public Vector2 CameraPosition
+        public ITranslatable FocusObject
         {
-            get { return cameraPosition; }
+            get { return focusObject; }
         }
+
 
         public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint focusPoint = Screenpoint.CENTER)
         {
@@ -65,7 +66,7 @@ namespace EVCMonoGame.src.scenes
         //    cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
         //    setCameraToFocusObject(focusObject);
         //}
-        
+
         public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint screenpoint, Vector2 offset)
         {
             this.offset = offset;
@@ -77,10 +78,10 @@ namespace EVCMonoGame.src.scenes
             SetCameraToFocusObject(focusObject);
         }
 
-        public Camera(SceneManager manager, Vector2 position) 
+        public Camera(SceneManager manager, Vector2 position)
             : this(manager, new ITranslatablePosition(position)) { }
 
-        public Camera(SceneManager manager, Vector2 position, Screenpoint screenpoint) 
+        public Camera(SceneManager manager, Vector2 position, Screenpoint screenpoint)
             : this(manager, new ITranslatablePosition(position), screenpoint) { }
 
         public void SetOffset(Vector2 offset)
@@ -207,7 +208,11 @@ namespace EVCMonoGame.src.scenes
                 if (!moveEaser.IsFinished)
                 {
                     moveEaser.Update(gameTime);
-                    SetCameraToPosition(moveEaser.CurrentValue, Screenpoint.CENTER);
+                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue, 
+                        new List<float>()
+                        {
+                            1
+                        }), Screenpoint.CENTER);
                 }
             }
         }

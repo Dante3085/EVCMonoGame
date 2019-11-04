@@ -11,9 +11,9 @@ namespace EVCMonoGame.src
 {
     public static class Utility
     {
+        public delegate Vector2 PathModificationFunction(Vector2 from, Vector2 to, Vector2 current, List<float> factors);
         // RegularExpression for ReplaceWhitespace()
         private static readonly Regex sWhitespace = new Regex(@"\s+");
-
         /// <summary>
         /// Returns a new string which is equal to input except that all occurences of whitespace
         /// are replaced with replacement.
@@ -98,5 +98,35 @@ namespace EVCMonoGame.src
         {
             return "(" + rectangle.X + ", " + rectangle.Y + ", " + rectangle.Width + ", " + rectangle.Height + ")";
         }
+        #region pathModificationfunctions
+
+        /// <summary>
+        /// factors needs one Element stating the flatness of the curve
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="current"></param>
+        /// <param name="factors"></param>
+        /// <returns></returns>
+        public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
+        {
+            float flatnessFactor = factors.ElementAt(0);
+            float radius = (to - from).Length() * 0.5f;
+            float x = (current - from).Length();
+            float y = (float)Math.Sqrt(Math.Pow(radius, 2) - Math.Pow((x - radius), 2));
+            y *= Math.Abs(flatnessFactor);
+            Console.WriteLine("X = " + x + " Y = " + y + " radius = " + radius);
+            Vector2 a = new Vector2(0, y);
+            a = Utility.rotateVectorAntiClockwise(a, 90 + Utility.getAngleOfVectorInDegrees(to - from));
+
+            return a;
+        }
+
+        public static Vector2 None(Vector2 from, Vector2 to , Vector2 current ,List<float> factors)
+        {
+            return Vector2.Zero;
+        }
+        #endregion
+
     }
 }
