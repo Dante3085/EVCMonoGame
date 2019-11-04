@@ -166,23 +166,23 @@ namespace EVCMonoGame.src.scenes
             switch (focusPoint)
             {
                 case Screenpoint.UP_LEFT_EDGE:
-                    return (-1) * cameraPosition;
+                    return (-zoom) * cameraPosition;
                 case Screenpoint.UP_RIGHT_EDGE:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width, 0);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width, 0);
                 case Screenpoint.DOWN_RIGHT_EDGE:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width, viewport.Height);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width, viewport.Height);
                 case Screenpoint.DOWN_LEFT_EDGE:
-                    return (-1) * cameraPosition + new Vector2(0, viewport.Height);
+                    return (-zoom) * cameraPosition + new Vector2(0, viewport.Height);
                 case Screenpoint.UP:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width * 0.5f, 0);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width * 0.5f, 0);
                 case Screenpoint.RIGHT:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width, viewport.Height * 0.5f);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width, viewport.Height * 0.5f);
                 case Screenpoint.DOWN:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width * 0.5f, viewport.Height);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width * 0.5f, viewport.Height);
                 case Screenpoint.LEFT:
-                    return (-1) * cameraPosition + new Vector2(0, viewport.Height * 0.5f);
+                    return (-zoom) * cameraPosition + new Vector2(0, viewport.Height * 0.5f);
                 case Screenpoint.CENTER:
-                    return (-1) * cameraPosition + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
+                    return (-zoom) * cameraPosition + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
                 default:
                     return Vector2.Zero;
             }

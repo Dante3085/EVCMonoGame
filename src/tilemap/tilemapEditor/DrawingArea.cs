@@ -33,21 +33,23 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     public class DrawingArea
     {
         private Rectangle bounds;
-        private List<Tile> tiles                         = new List<Tile>();
-        private Vector2 currentMousePosition             = Vector2.Zero;
+        private List<Tile> tiles = new List<Tile>();
+        private Vector2 currentMousePosition = Vector2.Zero;
         private bool drawTileSelectionCurrentTileOnMouse = false;
-        private Rectangle destinationRectangle           = Rectangle.Empty;
-        private Tile tileHoveredByMouse                  = null;
-        private Rectangle tileHoveredByMouseMarker       = Rectangle.Empty;
+        private Rectangle destinationRectangle = Rectangle.Empty;
+        private Tile tileHoveredByMouse = null;
+        private Rectangle tileHoveredByMouseMarker = Rectangle.Empty;
         private TileSelection tileSelection;
 
-        private bool isAnyTileHoveredByMouse             = false;
-        private bool moveTileHoveredByMouse              = false;
+        private bool isAnyTileHoveredByMouse = false;
+        private bool moveTileHoveredByMouse = false;
 
-        private Vector2 mouseTravel                      = Vector2.Zero;
+        private Vector2 mouseTravel = Vector2.Zero;
 
         private SpriteFont font;
-        private String currentTileInfo                   = String.Empty;
+        private String currentTileInfo = String.Empty;
+
+        private float zoom = 1;
 
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)
         {
@@ -89,7 +91,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     }
                 }
 
-                if (!tileSelectionIsHoveredByMouse && 
+                if (!tileSelectionIsHoveredByMouse &&
                     !drawTileSelectionCurrentTileOnMouse &&
                     InputManager.HasMouseMoved)
                 {
@@ -200,7 +202,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Draw currentTileInfo
             if (tileHoveredByMouse != null)
             {
-                spriteBatch.DrawString(font, currentTileInfo, new Vector2((bounds.X + bounds.Width) * 0.25f, bounds.Top) , Color.White);
+                spriteBatch.DrawString(font, currentTileInfo, new Vector2((bounds.X + bounds.Width) * 0.25f, bounds.Top), Color.White);
             }
 
             spriteBatch.End();
