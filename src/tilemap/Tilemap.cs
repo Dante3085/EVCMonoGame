@@ -13,6 +13,7 @@ using EVCMonoGame.src.utility;
 namespace EVCMonoGame.src.tilemap
 {
     // TODO: Maybe rethink Tilemap to work better with TilemapEditor.
+    // TODO: Make Tilemap able to load the 'tilemap.ts.txt' FileFormat.
 
     public class Tilemap : scenes.IDrawable
     {

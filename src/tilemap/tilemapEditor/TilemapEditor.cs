@@ -25,9 +25,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // TODO: Tile being a class instead of a struct could create problems. 
     //       Struct value type might be smarter if we need to pass Tiles around.
 
-    // TODO: Create FileFormat that can store the information created in the TilemapEditor.
-    //       This format also has to be readable by a Tilemap instance.
-
     // TODO: Create a SaveAs Button that opens a FileDialog on being pressed.
     //       After choosing a name and location for the file that shall contain
     //       the current information of the TilemapEditor, the TilemapEditor creates
@@ -77,20 +74,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private TileSelection tileSelection;
         private DrawingArea drawingArea;
 
-        private Texture2D tileSet;
-        private String tileSetPath;
-
         private SpriteFont font;
-        private String fontPath;
+        private Vector2 fontSize;
+        private bool drawInfoText = false;
+
+        private Viewport viewport;
 
         #endregion
 
         #region Properties
-
-        public Texture2D TileSet
-        {
-            get { return tileSet; }
-        }
 
         public SpriteFont Font
         {
@@ -99,10 +91,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         #endregion
 
-        public TilemapEditor(String tileSetPath, String fontPath)
+        public TilemapEditor()
         {
-            this.tileSetPath = tileSetPath;
-            this.fontPath = fontPath;
+            this.viewport = viewport;
 
             tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1),
                                "Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt");
@@ -115,6 +106,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             CheckForSavingToFile();
             CheckForLoadingFromFile();
+
+            if (InputManager.OnKeyPressed(Microsoft.Xna.Framework.Input.Keys.I))
+            {
+                drawInfoText = !drawInfoText;
+            }
         }
 
         #region UpdateHelper
@@ -195,12 +191,30 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             drawingArea.Draw(gameTime, spriteBatch);
             tileSelection.Draw(gameTime, spriteBatch);
+
+            if (drawInfoText)
+            {
+                Vector2 textPosition = viewport.Bounds.Size.ToVector2() * new Vector2(0.5f, 0.5f) - 
+                                       (fontSize * new Vector2(0.5f, 0.5f));
+
+                spriteBatch.Begin();
+
+                spriteBatch.DrawString(font, "Hotkeys\n" +
+                                             "-------\n" + 
+                                             "S: Save\n" + 
+                                             "L: Load\n",
+                                             textPosition, Color.White);
+
+                spriteBatch.End();
+            }
         }
 
         public void LoadContent(ContentManager content, Viewport viewport)
         {
-            // tileSet = content.Load<Texture2D>(tileSetPath);
-            // font = content.Load<SpriteFont>(fontPath);
+            this.viewport = viewport;
+
+            font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+            fontSize = font.MeasureString("TEST");
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
 

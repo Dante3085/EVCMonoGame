@@ -43,10 +43,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private bool drawTileSelectionCurrentTileOnMouse = false;
         private Rectangle destinationRectangle           = Rectangle.Empty;
         private Tile tileHoveredByMouse                  = null;
-        private Rectangle tileHoveredByMouseMarker       = Rectangle.Empty;
         private TileSelection tileSelection;
 
-        private bool isAnyTileHoveredByMouse             = false;
         private bool moveTileHoveredByMouse              = false;
 
         private Vector2 mouseTravel                      = Vector2.Zero;
@@ -55,7 +53,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private String currentTileInfo                   = String.Empty;
 
         private Tile currentTile                         = null;
-        private Rectangle currentTileMarker              = Rectangle.Empty;
+
+        private bool drawHoveredTileMarker = false;
+        private bool drawCurrentTileMarker = false;
 
         #endregion
         #region Properties
@@ -74,146 +74,172 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             this.tileSelection = tileSelection;
         }
 
-        public void Update(GameTime gameTime)
+        public void UpdateTilePlacing()
         {
-            currentMousePosition = InputManager.CurrentMousePosition();
-
             bool tileSelectionHasCurrentTile = tileSelection.CurrentTile != null;
-            bool tileSelectionIsHoveredByMouse = tileSelection.IsHoveredByMouse;
 
+            // Check for drawing the currentTile of the TileSelection on the Mouse and
+            // placing the currentTile of TileSelection in the DrawingArea.
+            if (tileSelectionHasCurrentTile)
+            {
+                if (!tileSelection.IsHoveredByMouse)
+                {
+                    drawTileSelectionCurrentTileOnMouse = true;
+
+                    if (InputManager.OnLeftMouseButtonClicked())
+                    {
+                        Tile tsCurrentTile = tileSelection.CurrentTile;
+                        Tile newTile = new Tile(tsCurrentTile.name, tsCurrentTile.textureBounds,
+                        new Rectangle(currentMousePosition.ToPoint(), tsCurrentTile.screenBounds.Size));
+
+                        tiles.Add(newTile);
+                    }
+
+
+                }
+                else
+                {
+                    drawTileSelectionCurrentTileOnMouse = false;
+                }
+            }
+        }
+
+        public void UpdateKeyInput()
+        {
             // Move and improve this code.
             if (currentTile != null)
             {
-
                 if (InputManager.OnKeyPressed(Keys.Right))
                 {
-                    currentTileMarker = Rectangle.Empty;
-                    currentTile.screenBounds.Location += new Point(1, 0);
+                    drawCurrentTileMarker = false;
+                    drawHoveredTileMarker = false;
 
+                    currentTile.screenBounds.Location += new Point(1, 0);
                     currentTileInfo = currentTile.ToString();
                 }
                 else if (InputManager.OnKeyPressed(Keys.Left))
                 {
-                    currentTileMarker = Rectangle.Empty;
-                    currentTile.screenBounds.Location += new Point(-1, 0);
+                    drawCurrentTileMarker = false;
+                    drawHoveredTileMarker = false;
 
+                    currentTile.screenBounds.Location += new Point(-1, 0);
                     currentTileInfo = currentTile.ToString();
 
                 }
                 else if (InputManager.OnKeyPressed(Keys.Up))
                 {
-                    currentTileMarker = Rectangle.Empty;
-                    currentTile.screenBounds.Location += new Point(0, -1);
+                    drawCurrentTileMarker = false;
+                    drawHoveredTileMarker = false;
 
+                    currentTile.screenBounds.Location += new Point(0, -1);
                     currentTileInfo = currentTile.ToString();
 
                 }
                 else if (InputManager.OnKeyPressed(Keys.Down))
                 {
-                    currentTileMarker = Rectangle.Empty;
-                    currentTile.screenBounds.Location += new Point(0, 1);
+                    drawCurrentTileMarker = false;
+                    drawHoveredTileMarker = false;
 
+                    currentTile.screenBounds.Location += new Point(0, 1);
                     currentTileInfo = currentTile.ToString();
 
                 }
+                else if (InputManager.OnKeyPressed(Keys.Delete))
+                {
+                    tiles.Remove(currentTile);
+                    currentTile = null;
+                }
+                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.C))
+                {
+                    // TODO: Store currently selected Tiles in copyTilesBuffer(Override previous buffer contents).
+                }
+                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.V))
+                {
+                    // TODO: Place Tiles at Mouse Position that are currently in copyTilesBuffer.
+                    //       Every Tile needs to be offset with it's previous position from the 
+                    //       Mouse Position. Otherwise all Tiles are put to the same position.
+                }
+                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.Z))
+                {
+                    // TODO: Create a notion of a previous State and restore that state here.
+                }
             }
+        }
+
+        public void UpdateHoveringAndMovingTilesWithMouse()
+        {
+            // Check for hovering and moving Tiles with Mouse.
+            if (!tileSelection.IsHoveredByMouse &&
+                !drawTileSelectionCurrentTileOnMouse &&
+                InputManager.HasMouseMoved)
+            {
+                if (!moveTileHoveredByMouse)
+                {
+                    // Check for Mouse-Hover on one of the already placed Tiles in the DrawingArea and
+                    // and detecting if the hovered Tile needs to be moved around.
+                    foreach (Tile tile in tiles)
+                    {
+                        tileHoveredByMouse = null;
+
+                        if (tile.screenBounds.Contains(currentMousePosition))
+                        {
+                            drawHoveredTileMarker = true;
+                            tileHoveredByMouse = tile;
+
+                            break;
+                        }
+                    }
+                }
+
+                // Hide the tileHoveredByMouseMarker when no Tile is hovered.
+                if (tileHoveredByMouse == null)
+                {
+                    drawHoveredTileMarker = false;
+                }
+
+                // During moving the hovered Tile.
+                if (moveTileHoveredByMouse)
+                {
+                    // TODO: Move Tile in broader steps.
+
+                    tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
+                    currentTileInfo = currentTile.ToString();
+                }
+            }
+
+            if ((tileHoveredByMouse != null) && InputManager.OnLeftMouseButtonClicked())
+            {
+                currentTile = tileHoveredByMouse;
+
+                drawCurrentTileMarker = !drawCurrentTileMarker;
+                drawHoveredTileMarker = false;
+                moveTileHoveredByMouse = true;
+                currentTileInfo = currentTile.ToString();
+            }
+            else if (moveTileHoveredByMouse && InputManager.OnLeftMouseButtonReleased())
+            {
+                moveTileHoveredByMouse = false;
+
+                // Only restore the currentTileMarker if the Tile was actually moved.
+                if (mouseTravel != Vector2.Zero)
+                {
+                    drawCurrentTileMarker = true;
+                }
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            currentMousePosition = InputManager.CurrentMousePosition();
+            mouseTravel = currentMousePosition - InputManager.PreviousMousePosition();
 
             // Check for everything that only needs to happen when the Mouse is inside
             // the DrawingArea's bounds.
             if (bounds.Contains(currentMousePosition))
             {
-                // Check for drawing the currentTile of the TileSelection on the Mouse and
-                // placing the currentTile of TileSelection in the DrawingArea.
-                if (tileSelectionHasCurrentTile)
-                {
-                    if (!tileSelectionIsHoveredByMouse)
-                    {
-                        drawTileSelectionCurrentTileOnMouse = true;
-
-                        if (InputManager.OnLeftMouseButtonClicked())
-                        {
-                            Tile tsCurrentTile = tileSelection.CurrentTile;
-                            Tile newTile = new Tile(tsCurrentTile.name, tsCurrentTile.textureBounds,
-                            new Rectangle(currentMousePosition.ToPoint(), tsCurrentTile.screenBounds.Size));
-
-                            tiles.Add(newTile);
-                        }
-
-
-                    }
-                    else
-                    {
-                        drawTileSelectionCurrentTileOnMouse = false;
-                    }
-                }
-
-                // Check for hovering and moving Tiles with Mouse.
-                if (!tileSelectionIsHoveredByMouse && 
-                    !drawTileSelectionCurrentTileOnMouse &&
-                    InputManager.HasMouseMoved)
-                {
-                    if (!moveTileHoveredByMouse)
-                    {
-                        // Check for Mouse-Hover on one of the already placed Tiles in the DrawingArea and
-                        // and detecting if the hovered Tile needs to be moved around.
-                        foreach (Tile tile in tiles)
-                        {
-                            isAnyTileHoveredByMouse = false;
-                            tileHoveredByMouse = null;
-
-                            if (tile.screenBounds.Contains(currentMousePosition))
-                            {
-                                isAnyTileHoveredByMouse = true;
-                                tileHoveredByMouseMarker = tile.screenBounds;
-                                tileHoveredByMouse = tile;
-
-                                break;
-                            }
-                        }
-                    }
-
-                    // Hide the tileHoveredByMouseMarker when no Tile is hovered.
-                    if (!isAnyTileHoveredByMouse)
-                    {
-                        tileHoveredByMouseMarker = Rectangle.Empty;
-                    }
-
-                    // During moving the hovered Tile.
-                    if (moveTileHoveredByMouse)
-                    {
-                        mouseTravel = currentMousePosition - InputManager.PreviousMousePosition();
-
-                        //if (mouseTravel.Length() > 50)
-                        //{
-                        //    tileHoveredByMouse.screenBounds.Location += (mouseTravel).ToPoint();
-                        //    mouseTravel = Vector2.Zero;
-                        //}
-
-                        tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
-                        currentTileMarker.Location += mouseTravel.ToPoint();
-
-                        currentTileInfo = currentTile.ToString();
-                    }
-                }
-
-                // Start moving the hovered Tile.
-                if (isAnyTileHoveredByMouse && InputManager.OnLeftMouseButtonClicked())
-                {
-                    moveTileHoveredByMouse = true;
-                    tileHoveredByMouseMarker = Rectangle.Empty;
-
-                    currentTile = tileHoveredByMouse;
-                    currentTileMarker = currentTile.screenBounds;
-
-                    currentTileInfo = currentTile.ToString();
-                }
-
-                // Stop moving the hovered Tile.
-                else if (moveTileHoveredByMouse && InputManager.OnLeftMouseButtonReleased())
-                {
-                    moveTileHoveredByMouse = false;
-                    tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
-                }
+                UpdateTilePlacing();
+                UpdateHoveringAndMovingTilesWithMouse();
+                UpdateKeyInput();
             }
 
             // When the Mouse is not inside the DrawingArea's bounds, 
@@ -239,8 +265,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 spriteBatch.Draw(tileSelection.TileSet, destinationRectangle, tile.textureBounds, Color.White);
             }
 
-            Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
-            Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
+            if (drawHoveredTileMarker && tileHoveredByMouse != null)
+            {
+                Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouse.screenBounds, Color.AliceBlue, 5);
+            }
+
+            if (drawCurrentTileMarker && currentTile != null)
+            {
+                Primitives2D.DrawRectangle(spriteBatch, currentTile.screenBounds, Color.DarkRed, 5);
+            }
 
             if (drawTileSelectionCurrentTileOnMouse)
             {

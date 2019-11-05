@@ -23,7 +23,7 @@ namespace EVCMonoGame.src.states
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-            tilemapEditor = new TilemapEditor("delete me", "delete me");
+            tilemapEditor = new TilemapEditor();
         }
 
         public override void Update(GameTime gameTime, bool otherstateHasFocus, bool coveredByOtherstate)
