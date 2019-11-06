@@ -28,7 +28,17 @@ namespace EVCMonoGame.src.utility
             return sWhitespace.Replace(input, replacement);
         }
 
-        public static Vector2 scaleVectorTo(Vector2 originalVector, float toVectorLength)
+        /// <summary>
+        /// Returns Vector2 with absolute coordinates.
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static Vector2 AbsoluteVector(Vector2 v)
+        {
+            return new Vector2(Math.Abs(v.X), Math.Abs(v.Y));
+        }
+
+        public static Vector2 ScaleVectorTo(Vector2 originalVector, float toVectorLength)
         {
             Vector2 scaledVector = new Vector2(0, 0);
             if (!(originalVector.X == 0 && originalVector.Y == 0))
@@ -40,7 +50,7 @@ namespace EVCMonoGame.src.utility
             return scaledVector;
         }
 
-        public static Vector2 rotateVectorAntiClockwise(Vector2 originalVector, float angleInDegree)
+        public static Vector2 RotateVectorAntiClockwise(Vector2 originalVector, float angleInDegree)
         {
             Vector2 rotatedVector = new Vector2(0, 0);
             float r = (float)Math.Sqrt(Math.Pow(originalVector.X, 2) + Math.Pow(originalVector.Y, 2));
@@ -51,7 +61,7 @@ namespace EVCMonoGame.src.utility
             return rotatedVector;
         }
 
-        public static float getAngleOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
+        public static float GetAngleOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
         {   
             float phi = (float)(180*(1/(Math.PI/Math.Atan2(-originalVector.Y, originalVector.X))));// -Y um berechnung in normales mathematisches Koordinatensystem umzusetzen
             //Console.WriteLine(phi);
@@ -120,7 +130,7 @@ namespace EVCMonoGame.src.utility
             y *= Math.Abs(flatnessFactor);
             Console.WriteLine("X = " + x + " Y = " + y + " radius = " + radius);
             Vector2 a = new Vector2(0, y);
-            a = Utility.rotateVectorAntiClockwise(a, 90 + Utility.getAngleOfVectorInDegrees(to - from));
+            a = Utility.RotateVectorAntiClockwise(a, 90 + Utility.GetAngleOfVectorInDegrees(to - from));
 
             return a;
         }

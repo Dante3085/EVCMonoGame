@@ -93,7 +93,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TilemapEditor()
         {
-            this.viewport = viewport;
 
             tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1),
                                "Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt");

@@ -57,6 +57,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private bool drawHoveredTileMarker = false;
         private bool drawCurrentTileMarker = false;
 
+        private List<Tile> rectangleSelection = new List<Tile>();
+        private Rectangle selectionRectangle = Rectangle.Empty;
+        private Vector2 selectionRectangleStartPoint = Vector2.Zero;
+        private bool selectionRectangleHasStartPoint = false;
+        private Rectangle selectionBoundingBox = Rectangle.Empty;
+
         #endregion
         #region Properties
 
@@ -198,13 +204,13 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
 
                 // During moving the hovered Tile.
-                if (moveTileHoveredByMouse)
-                {
-                    // TODO: Move Tile in broader steps.
+                //if (moveTileHoveredByMouse)
+                //{
+                //    // TODO: Move Tile in broader steps.
 
-                    tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
-                    currentTileInfo = currentTile.ToString();
-                }
+                //    tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
+                //    currentTileInfo = currentTile.ToString();
+                //}
             }
 
             if ((tileHoveredByMouse != null) && InputManager.OnLeftMouseButtonClicked())
@@ -228,6 +234,86 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
         }
 
+        public void UpdateRectangleSelection()
+        {
+            if (tileSelection.IsHoveredByMouse)
+                return;
+
+            // Is there a rectangleSelection that we can manipulate ?
+            if (selectionRectangle.Contains(currentMousePosition) && InputManager.IsLeftMouseButtonDown())
+            {
+                // Move all Tiles in rectangleSelection by mouseTravel.
+                foreach (Tile tile in rectangleSelection)
+                {
+                    tile.screenBounds.Location += mouseTravel.ToPoint();
+                }
+            }
+
+            // Begin drawing selectionRectangle
+            else if (InputManager.OnLeftMouseButtonClicked())
+            {
+                selectionRectangleStartPoint = currentMousePosition;
+                selectionRectangleHasStartPoint = true;
+            }
+
+            // End drawing selectionRectangle and find out which Tiles were selected.
+            else if (InputManager.OnLeftMouseButtonReleased())
+            {
+                // Points for selectionBoundingBox.
+                Vector2 topLeft = new Vector2(float.MaxValue, float.MaxValue);
+                Vector2 bottomRight = new Vector2(float.MinValue, float.MinValue);
+
+                // Clear old selection and check which Tiles on DrawingArea are in selectionRectangle
+                rectangleSelection.Clear();
+                foreach (Tile tile in tiles)
+                {
+                    if (selectionRectangle.Contains(tile.screenBounds))
+                    {
+                        rectangleSelection.Add(tile);
+                    }
+
+                    // Find out selectionBoundingBox.
+                    Vector2 temp = tile.screenBounds.Location.ToVector2();
+
+                    if (temp.X < topLeft.X)
+                    {
+                        topLeft.X = temp.X;
+                    }
+                    if (temp.Y < topLeft.Y)
+                    {
+                        topLeft.Y = temp.Y;
+                    }
+
+                    if (temp.X > bottomRight.X)
+                    {
+                        bottomRight.X = temp.X;
+                    }
+                    if (temp.Y > bottomRight.Y)
+                    {
+                        bottomRight.Y = temp.Y;
+                    }
+                }
+
+                selectionBoundingBox.Location = topLeft.ToPoint();
+                selectionBoundingBox.Size = (bottomRight - topLeft).ToPoint();
+
+                //selectionRectangleStartPoint = Vector2.Zero;
+                //selectionRectangleHasStartPoint = false;
+            }
+
+            // While holding LeftMouseButton, calculate the selectionRectangle from the initial
+            // Point where the LeftMouseButton was pushed down to the currentMousePosition.
+            if (selectionRectangleHasStartPoint && InputManager.IsLeftMouseButtonDown())
+            {
+
+                // TODO: Verstehen.
+                selectionRectangle.Width = (int)Math.Abs(currentMousePosition.X - selectionRectangleStartPoint.X);
+                selectionRectangle.Height = (int)Math.Abs(currentMousePosition.Y - selectionRectangleStartPoint.Y);
+                selectionRectangle.X = (int)Math.Min(selectionRectangleStartPoint.X, currentMousePosition.X);
+                selectionRectangle.Y = (int)Math.Min(selectionRectangleStartPoint.Y, currentMousePosition.Y);
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             currentMousePosition = InputManager.CurrentMousePosition();
@@ -240,6 +326,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 UpdateTilePlacing();
                 UpdateHoveringAndMovingTilesWithMouse();
                 UpdateKeyInput();
+                UpdateRectangleSelection();
             }
 
             // When the Mouse is not inside the DrawingArea's bounds, 
@@ -286,6 +373,26 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             if (currentTile != null)
             {
                 spriteBatch.DrawString(font, currentTileInfo, new Vector2((bounds.X + bounds.Width) * 0.25f, bounds.Top) , Color.White);
+            }
+
+            // Mark all Tiles in rectangleSelection.
+            if (rectangleSelection.Count != 0)
+            {
+                //foreach (Tile tile in rectangleSelection)
+                //{
+                //    Primitives2D.DrawRectangle(spriteBatch, tile.screenBounds, Color.DarkRed, 5);
+                //}
+
+                Primitives2D.DrawRectangle(spriteBatch, selectionBoundingBox, Color.DarkRed, 5);
+            }
+
+            // Draw selectionRectangle
+            if (selectionRectangleHasStartPoint)
+            {
+                Color darkRed = Color.Blue;
+                darkRed.A = 10;
+
+                Primitives2D.FillRectangle(spriteBatch, selectionRectangle, darkRed);
             }
 
             spriteBatch.End();
