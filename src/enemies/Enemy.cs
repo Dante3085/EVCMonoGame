@@ -21,16 +21,18 @@ namespace EVCMonoGame.src.enemies
         protected AnimatedSprite enemySprite;
         protected Healthbar enemyHealthbar;
 
+        protected CombatArgs debugCombatArgs;
+
         #endregion
 
         #region Properties
-
-        #region CombatCollidable
 
         public AnimatedSprite Sprite
         {
             get { return enemySprite; }
         }
+
+        #region CombatCollidable
 
         public Rectangle HurtBounds
         {
@@ -47,23 +49,19 @@ namespace EVCMonoGame.src.enemies
             get; private set;
         }
 
+        public bool HasActiveHurtBounds
+        {
+            get; private set;
+        }
+
         public bool IsAlive
         {
             get { return enemyHealthbar.CurrentHp > 0; }
         }
 
-        public int CurrentDamage
+        public CombatArgs CurrentCombatArgs
         {
-            get 
-            { 
-                // TODO: Implement crazy damage calculations with Character stats and other stuff.
-                return 30; 
-            }
-        }
-
-        public CombatArgs CombatArgs
-        {
-            get { return new CombatArgs(); }
+            get { return debugCombatArgs; }
         }
 
         #endregion
@@ -76,6 +74,8 @@ namespace EVCMonoGame.src.enemies
         {
             enemySprite = new AnimatedSprite(position, 5.0f);
             enemyHealthbar = new Healthbar(9999, 9999, Vector2.Zero, new Vector2(100, 10));
+
+            debugCombatArgs = new CombatArgs(this, this, new Vector2(2, 0), 5);
         }
 
         #endregion
@@ -103,14 +103,10 @@ namespace EVCMonoGame.src.enemies
         #endregion
 
         #region CombatCollidable
-        public virtual void OnCombatCollision(CombatCollidable attacker)
+        public virtual void OnCombatCollision(CombatArgs combatArgs)
         {
-            // TODO: This is specific to Enemy Type
-        }
-
-        public virtual void ReceiveDamage(int amount)
-        {
-            enemyHealthbar.CurrentHp -= amount;
+            enemyHealthbar.CurrentHp -= combatArgs.damage;
+            enemySprite.Position += combatArgs.knockBack;
         }
 
         #endregion

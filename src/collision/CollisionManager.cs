@@ -4,14 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using C3.MonoGame;
 
 using EVCMonoGame.src.scenes;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.collision
 {
+    // TODO: Fix ResolveGeometryCollision()
+    // TODO: Figure out how to properly convey CombatArgs to victim and handle them in a unified way
+    //       so that the same attack always has the same effect.
+    // TODO: How to properly remove CombatCollidables when they are dead ?
+    // TODO: 
+
     public enum Corner
     {
         LEFT_TOP = 1,
@@ -24,6 +31,7 @@ namespace EVCMonoGame.src.collision
     {
         #region Fields
 
+        private HashSet<Collidable> collidables;
         private HashSet<GeometryCollidable> geometryCollidables;
         private HashSet<CombatCollidable> combatCollidables;
 
@@ -100,11 +108,25 @@ namespace EVCMonoGame.src.collision
 
         private void ResolveCombatCollision(CombatCollidable attacker, CombatCollidable victim)
         {
-            victim.OnCombatCollision(attacker);
-            victim.ReceiveDamage(attacker.CurrentDamage);
+            // Probleme: Woher soll CollisionManager wissen welches CombatEvent mit welchen Argumenten 
+            // der attacker an das victim senden möchte.
+
+            //victim.OnCombatCollision(attacker);
+            //if (!victim.IsAlive)
+            //{
+            //    // TODO: Liste für Collidables, die entfernt werden müssen.
+            //    // Vielleicht dann doch lieber Collidable Hierarchie ? Typ check mit enum ?
+            //    // Hier kann nicht entfernt werden, da doppelte for-Schleife dann Probleme bekommt.
+            //}
+
+            CombatArgs attackerCombatArgs = attacker.CurrentCombatArgs;
+            attackerCombatArgs.attacker = attacker;
+            attackerCombatArgs.victim = victim;
+
+            victim.OnCombatCollision(attackerCombatArgs);
             if (!victim.IsAlive)
             {
-               
+                Console.WriteLine("Victim died in CombatCollision.");
             }
         }
 
@@ -133,8 +155,10 @@ namespace EVCMonoGame.src.collision
         {
             Vector2 g1Shift = g1.Position - g1.PreviousPosition;
             Vector2 g2Shift = g2.Position - g2.PreviousPosition;
-            Vector2 g1CollisionPosition = new Vector2(g1.Position.X, g1.Position.Y);
-            Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
+            //Vector2 g1CollisionPosition = new Vector2(g1.Position.X, g1.Position.Y);
+            //Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
+            Vector2 g1CollisionPosition = g1.Position;
+            Vector2 g2CollisionPosition = g2.Position;
 
             if (g1Shift != Vector2.Zero)
             {
@@ -142,7 +166,7 @@ namespace EVCMonoGame.src.collision
                 Vector2 backShift = g1Shift * (-1);
                 while (g1.Bounds.Intersects(g2.Bounds))
                 {
-                    backShift = Utility.scaleVectorTo(backShift, length);
+                    backShift = Utility.ScaleVectorTo(backShift, length);
                     g1.Position = g1CollisionPosition + backShift;
                     length += 0.5f;
                 }
@@ -158,7 +182,7 @@ namespace EVCMonoGame.src.collision
                 Vector2 backShift = g2Shift * (-1);
                 while (g1.Bounds.Intersects(g2.Bounds))
                 {
-                    backShift = Utility.scaleVectorTo(backShift, length);
+                    backShift = Utility.ScaleVectorTo(backShift, length);
                     g2.Position = g2CollisionPosition + backShift;
                     length += 0.5f;
                 }
@@ -183,17 +207,6 @@ namespace EVCMonoGame.src.collision
             }
         }
 
-        public void RemoveGeometryCollidables(params GeometryCollidable[] geometryCollidables)
-        {
-            foreach (GeometryCollidable g in geometryCollidables)
-            {
-                if (this.geometryCollidables.Remove(g))
-                {
-                    throw new ArgumentException("The given GeometryCollidable is not known to this CollisionManager.");
-                }
-            }
-        }
-
         public void AddCombatCollidables(params CombatCollidable[] combatCollidables)
         {
             foreach (CombatCollidable c in combatCollidables)
@@ -201,17 +214,6 @@ namespace EVCMonoGame.src.collision
                 if (!this.combatCollidables.Add(c))
                 {
                     throw new ArgumentException("The given CombatCollidable is already known to this CollisionManger.");
-                }
-            }
-        }
-        
-        public void RemoveCombatCollidables(params CombatCollidable[] combatCollidables)
-        {
-            foreach (CombatCollidable c in combatCollidables)
-            {
-                if (!this.combatCollidables.Remove(c))
-                {
-                    throw new ArgumentException("The given CombatCollidable is not known to this CollisionManager.");
                 }
             }
         }

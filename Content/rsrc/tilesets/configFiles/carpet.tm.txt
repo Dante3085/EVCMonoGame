@@ -1,0 +1,51 @@
+TILESET = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
+
+[TILE]
+NAME           = carpet_top_left
+TEXTURE_BOUNDS = (16, 1328, 16, 16)
+SCREEN_BOUNDS  = (643, 163, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (743, 163, 100, 100)
+
+[TILE]
+NAME           = carpet_top_right
+TEXTURE_BOUNDS = (48, 1328, 16, 16)
+SCREEN_BOUNDS  = (843, 163, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_left
+TEXTURE_BOUNDS = (16, 1344, 16, 16)
+SCREEN_BOUNDS  = (643, 263, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (743, 263, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_right
+TEXTURE_BOUNDS = (48, 1344, 16, 16)
+SCREEN_BOUNDS  = (843, 263, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_left
+TEXTURE_BOUNDS = (16, 1360, 16, 16)
+SCREEN_BOUNDS  = (643, 363, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (743, 363, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_right
+TEXTURE_BOUNDS = (48, 1360, 16, 16)
+SCREEN_BOUNDS  = (843, 363, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_right
+TEXTURE_BOUNDS = (48, 1360, 16, 16)
+SCREEN_BOUNDS  = (1316, 239, 100, 100)

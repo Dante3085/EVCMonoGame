@@ -16,10 +16,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
     // TODO: Make it impossible for the TileSelection to go outside of the screen.
     // TODO: Clear tileHoveredByMouseMarker if no Tile is marked(Like in DrawingArea).
-    // TODO: Fix bounds seem to be wrong. MouseHover moving does not work at bottom of TileSelection.
-
-    // TODO: Solution for moving the TileSelection with Mouse being annoying: Lock/Unlock moving on leftMouseDoubleClick
-    //       or some other input, like pressing L. Show the Locked State with text.
 
     // TODO: When moving the TileSelection around, disable the tileHoveredByMouseMarker so that 
     //       that it doesn't flicker when the Mouse moves violently.
