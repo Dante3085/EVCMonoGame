@@ -48,6 +48,8 @@ namespace EVCMonoGame.src
 
         private bool flinching;
 
+        private CombatArgs debugCombatArgs;
+
         #endregion
         #region Properties
         public AnimatedSprite Sprite
@@ -75,14 +77,19 @@ namespace EVCMonoGame.src
             get; private set;
         }
 
+        public bool HasActiveHurtBounds
+        {
+            get; private set;
+        }
+
         public bool IsAlive
         {
             get { return playerHealthbar.CurrentHp > 0; }
         }
 
-        public int CurrentDamage
+        public CombatArgs CurrentCombatArgs
         {
-            get { return 50; }
+            get { return debugCombatArgs; }
         }
 
         public Rectangle Bounds
@@ -128,6 +135,8 @@ namespace EVCMonoGame.src
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
             flinching = false;
+
+            debugCombatArgs = new CombatArgs(this, this, new Vector2(10, 0), 20);
         }
         #endregion
         #region IDrawable
@@ -263,7 +272,7 @@ namespace EVCMonoGame.src
                 if (InputManager.IsKeyPressed(keyboardControls[1])) directionVector.Y += 100; //down
                 if (InputManager.IsKeyPressed(keyboardControls[3])) directionVector.X -= 100; //left
 
-                movementVector = Utility.scaleVectorTo(directionVector, playerSpeed);
+                movementVector = Utility.ScaleVectorTo(directionVector, playerSpeed);
             }
             else
             {
@@ -273,7 +282,6 @@ namespace EVCMonoGame.src
                 directionVector.Y = currentThumbSticks.Left.Y * -1;
 
                 movementVector = directionVector * (playerSpeed * (1 + InputManager.CurrentTriggers().Right));
-                Console.WriteLine(movementVector);
             }
 
             playerSprite.Position += movementVector;
@@ -338,7 +346,7 @@ namespace EVCMonoGame.src
                 }
                 else
                 {
-                    float mvAngle = Utility.getAngleOfVectorInDegrees(movementVector);
+                    float mvAngle = Utility.GetAngleOfVectorInDegrees(movementVector);
                     float directionVectorLength = directionVector.Length();
 
                     if (mvAngle > (-22.5) && mvAngle <= (22.5))
@@ -415,14 +423,13 @@ namespace EVCMonoGame.src
 
         #endregion
         #region CombatCollidable
-        public void ReceiveDamage(int amount)
-        {
-            playerHealthbar.CurrentHp -= amount;
-            // Update Character Hp as well.
-        }
+        
 
-        public void OnCombatCollision(CombatCollidable attacker)
+        public void OnCombatCollision(CombatArgs combatArgs)
         {
+            playerHealthbar.CurrentHp -= combatArgs.damage;
+            playerSprite.Position += combatArgs.knockBack;
+
             switch(playerOrientation)
             {
                 case Orientation.DOWN: playerSprite.SetAnimation("FLINCH_LEFT"); break;

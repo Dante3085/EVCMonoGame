@@ -47,14 +47,10 @@ namespace EVCMonoGame.src.enemies
         #endregion
 
         #region CombatCollidable
-        public override void OnCombatCollision(CombatCollidable attacker)
+        public override void OnCombatCollision(CombatArgs combatArgs)
         {
+            base.OnCombatCollision(combatArgs);
             enemySprite.SetAnimation("FLINCH_LEFT");
-        }
-
-        public override void ReceiveDamage(int amount)
-        {
-            enemyHealthbar.CurrentHp -= amount;
         }
 
         #endregion

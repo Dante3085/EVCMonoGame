@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.collision
 {
-    public interface GeometryCollidable
+    public interface GeometryCollidable : Collidable
     {
         Rectangle Bounds { get; }
         Vector2 Position { get; set; }
