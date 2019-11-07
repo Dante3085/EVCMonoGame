@@ -41,11 +41,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private List<Tile> tiles = new List<Tile>();
         private Vector2 currentMousePosition = Vector2.Zero;
         private bool drawTileSelectionCurrentTileOnMouse = false;
-        private Rectangle destinationRectangle           = Rectangle.Empty;
-        private Tile tileHoveredByMouse                  = null;
+        private Rectangle destinationRectangle = Rectangle.Empty;
+        private Tile tileHoveredByMouse = null;
         private TileSelection tileSelection;
 
-        private bool moveTileHoveredByMouse              = false;
+        private bool moveTileHoveredByMouse = false;
 
         private Vector2 mouseTravel = Vector2.Zero;
 
@@ -53,8 +53,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private String currentTileInfo = String.Empty;
 
         private float zoom = 1;
+        private Vector2 position = Vector2.Zero;
 
-        private Tile currentTile                         = null;
+        private Tile currentTile = null;
 
         private bool drawHoveredTileMarker = false;
         private bool drawCurrentTileMarker = false;
@@ -114,6 +115,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void UpdateKeyInput()
         {
+            if (InputManager.IsMiddleMouseButtonDown() && !InputManager.OnMiddleMouseButtonClicked())
+            {
+                position -= (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
+            }
             // Move and improve this code.
             if (currentTile != null)
             {
@@ -238,6 +243,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void UpdateRectangleSelection()
         {
+            
             if (tileSelection.IsHoveredByMouse)
                 return;
 
@@ -319,7 +325,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         public void Update(GameTime gameTime)
         {
             currentMousePosition = InputManager.CurrentMousePosition();
-            mouseTravel = currentMousePosition - InputManager.PreviousMousePosition();
+            Vector2 disposition = new Vector2((bounds.Width - (bounds.Width * zoom)) / 2, (bounds.Height - (bounds.Height * zoom)) / 2);
+            currentMousePosition -= disposition - position;
+            currentMousePosition /= zoom;
+            Vector2 previousMousePosition = InputManager.PreviousMousePosition();
+            previousMousePosition -= disposition - position;
+            previousMousePosition /= zoom;
+            //currentMousePosition = ((zoom) * currentMousePosition + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f));
+
+            mouseTravel = InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition();
 
             // Check for everything that only needs to happen when the Mouse is inside
             // the DrawingArea's bounds.
@@ -351,14 +365,14 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
             else if (InputManager.CurrentScrollWheel() > InputManager.PreviousScrollWheel())
             {
-                zoom += 0.01f+(0.1f*zoom);
+                zoom += 0.01f + (0.1f * zoom);
             }
             Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
             return new Matrix(
                      new Vector4(zoom, 0, 0, 0),
                      new Vector4(0, zoom, 0, 0),
                      new Vector4(0, 0, 1, 0),
-                     new Vector4(point.X, point.Y, 0, 1));
+                     new Vector4(point.X-position.X, point.Y-position.Y, 0, 1));
             //return Matrix.Identity;
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

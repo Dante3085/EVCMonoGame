@@ -356,6 +356,18 @@ namespace EVCMonoGame.src.input
                    currentMouseState.RightButton == ButtonState.Released;
         }
 
+        public static bool OnMiddleMouseButtonClicked()
+        {
+            return previousMouseState.MiddleButton == ButtonState.Released &&
+                   currentMouseState.MiddleButton == ButtonState.Pressed;
+        }
+
+        public static bool OnMiddleMouseButtonReleased()
+        {
+            return previousMouseState.MiddleButton == ButtonState.Pressed &&
+                   currentMouseState.MiddleButton == ButtonState.Released;
+        }
+
         public static bool IsLeftMouseButtonDown()
         {
             return currentMouseState.LeftButton == ButtonState.Pressed;
@@ -364,6 +376,11 @@ namespace EVCMonoGame.src.input
         public static bool IsRightMouseButtonDown()
         {
             return currentMouseState.RightButton == ButtonState.Pressed;
+        }
+
+        public static bool IsMiddleMouseButtonDown()
+        {
+            return currentMouseState.MiddleButton == ButtonState.Pressed;
         }
 
         public static float CurrentScrollWheel()
