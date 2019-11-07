@@ -273,6 +273,10 @@ namespace EVCMonoGame.src
                 if (InputManager.IsKeyPressed(keyboardControls[3])) directionVector.X -= 100; //left
 
                 movementVector = Utility.ScaleVectorTo(directionVector, playerSpeed);
+                if (InputManager.IsKeyPressed(Keys.LeftShift) || InputManager.IsKeyPressed(Keys.RightShift))
+                {
+                    movementVector *= 2;
+                }
             }
             else
             {
