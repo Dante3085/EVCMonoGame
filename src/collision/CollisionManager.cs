@@ -160,10 +160,11 @@ namespace EVCMonoGame.src.collision
             Vector2 g1CollisionPosition = g1.Position;
             Vector2 g2CollisionPosition = g2.Position;
 
-            if (g1Shift != Vector2.Zero)
+            if (g2Shift == Vector2.Zero)
             {
                 float length = 0.5f;
                 Vector2 backShift = g1Shift * (-1);
+                Vector2 startPosition = g1.PreviousPosition;
                 while (g1.Bounds.Intersects(g2.Bounds))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
@@ -174,12 +175,15 @@ namespace EVCMonoGame.src.collision
                 if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
                 g1.Position += new Vector2(0, (g1CollisionPosition - g1.Position).Y);
                 if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
+                g1.Position = startPosition;
+                g1.Position = g1.PreviousPosition;
 
             }
-            else if (g2Shift != Vector2.Zero)
+            else if (g1Shift == Vector2.Zero)
             {
                 float length = 0.5f;
                 Vector2 backShift = g2Shift * (-1);
+                Vector2 startPosition = g2.PreviousPosition;
                 while (g1.Bounds.Intersects(g2.Bounds))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
@@ -190,6 +194,66 @@ namespace EVCMonoGame.src.collision
                 if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
                 g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
                 if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
+                g2.Position = startPosition;
+                g2.Position = g2.PreviousPosition;
+            }
+            else if (g1Shift != Vector2.Zero && g2Shift != Vector2.Zero)
+            {
+                Vector2 g1StartPosition = g1.PreviousPosition;
+                Vector2 g2StartPosition = g2.PreviousPosition;
+                Vector2 g1CollisionSolution;
+                Vector2 g2CollisionSolution;
+                float g1CollisionSolutionLength = 0;
+                float g2CollisionSolutionLength = 0;
+                
+                //g1 Collision Solution
+                float length = 0.5f;
+                Vector2 backShift = g1Shift * (-1);
+                Vector2 startPosition = g1.PreviousPosition;
+                while (g1.Bounds.Intersects(g2.Bounds))
+                {
+                    backShift = Utility.ScaleVectorTo(backShift, length);
+                    g1.Position = g1CollisionPosition + backShift;
+                    length += 0.5f;
+                }
+                g1.Position += new Vector2((g1CollisionPosition - g1.Position).X, 0);
+                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
+                g1.Position += new Vector2(0, (g1CollisionPosition - g1.Position).Y);
+                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
+                g1CollisionSolution = g1.Position;
+                g1.Position = g1StartPosition;
+                g1.Position = g1CollisionPosition;
+                g1CollisionSolutionLength = (g1CollisionSolution - g1CollisionPosition).Length();
+               
+                //g2 Collision Solution
+                length = 0.5f;
+                backShift = g2Shift * (-1);
+                while (g1.Bounds.Intersects(g2.Bounds))
+                {
+                    backShift = Utility.ScaleVectorTo(backShift, length);
+                    g2.Position = g2CollisionPosition + backShift;
+                    length += 0.5f;
+                }
+                g2.Position += new Vector2((g2CollisionPosition - g2.Position).X, 0);
+                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
+                g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
+                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
+                g2CollisionSolution = g2.Position;
+                g2.Position = g2StartPosition;
+                g2.Position = g2CollisionPosition;
+                g2CollisionSolutionLength = (g2CollisionSolution - g2CollisionPosition).Length();
+
+                //chosing of the correct solution
+                if (g1CollisionSolutionLength < g2CollisionSolutionLength)
+                {
+                    g1.Position = g1StartPosition;
+                    g1.Position = g1CollisionSolution;
+                }
+                else
+                {
+                    g2.Position = g2StartPosition;
+                    g2.Position = g2CollisionSolution;
+                }
             }
         }
         #endregion
