@@ -395,6 +395,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     leftHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
+            else
+            {
+                leftHoldElapsed = 0;
+            }
 
             // Move Up 
             if (InputManager.OnKeyPressed(Keys.Up))
@@ -426,6 +430,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     upHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
+            else
+            {
+                upHoldElapsed = 0;
+            }
 
             // Move Down.
             if (InputManager.OnKeyPressed(Keys.Down))
@@ -456,6 +464,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 {
                     downHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
+            }
+            else
+            {
+                downHoldElapsed = 0;
             }
         }
 
@@ -605,11 +617,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void SaveToFile(String path)
         {
-            if (System.IO.File.Exists(path))
-            {
-                throw new ArgumentException("The file '" + path + "' already exists.\n" +
-                    "Delete it manually if you want to overwrite it!");
-            }
+            //if (System.IO.File.Exists(path))
+            //{
+            //    throw new ArgumentException("The file '" + path + "' already exists.\n" +
+            //        "Delete it manually if you want to overwrite it!");
+            //}
 
             System.IO.StreamWriter writer = new System.IO.StreamWriter(path);
 
