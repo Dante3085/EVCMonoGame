@@ -58,7 +58,14 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private bool selectionBoxHasStartPoint = false;
         private bool drawMultipleTilesAtOnce = false;
         private Rectangle minimalBoundingBox = Rectangle.Empty;
-        private bool movingSelection = false;
+        private bool movingSelectionWithMouse = false;
+        private bool movingSelectionWithKeys = false;
+
+        private const float holdDelay = 500;
+        private float rightHoldElapsed = 0;
+        private float leftHoldElapsed = 0;
+        private float upHoldElapsed = 0;
+        private float downHoldElapsed = 0;
 
         #endregion
         #region Properties
@@ -128,7 +135,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             UpdateTileDrawing();
             UpdateHoveredTile();
             UpdateDetectingSelection();
-            UpdateMovingSelection();
+            UpdateMovingSelection(gameTime);
             UpdateSelectionCopyCutPasteDelete();
         }
 
@@ -208,7 +215,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             if (tileSelection.IsHoveredByMouse ||
                 drawTileSelectionCurrentTileOnMouse ||
-                movingSelection)
+                movingSelectionWithMouse)
                 return;
 
             // One Tile selected.
@@ -288,24 +295,25 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
         }
 
-        private void UpdateMovingSelection()
+        private void UpdateMovingSelection(GameTime gameTime)
         {
             if (tileSelection.IsHoveredByMouse ||
                 selection.Count == 0 ||
                 selectionBoxHasStartPoint)
                 return;
 
+            // Move selection with Mouse.
             if (minimalBoundingBox.Contains(currentMousePosition) &&
                 InputManager.OnLeftMouseButtonClicked())
             {
-                movingSelection = true;
+                movingSelectionWithMouse = true;
             }
             else if (InputManager.OnLeftMouseButtonReleased())
             {
-                movingSelection = false;
+                movingSelectionWithMouse = false;
             }
 
-            if (movingSelection &&
+            if (movingSelectionWithMouse &&
                 mouseTravel != Vector2.Zero)
             {
                 foreach (Tile tile in selection)
@@ -313,6 +321,141 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     tile.screenBounds.Location += mouseTravel.ToPoint();
                 }
                 minimalBoundingBox.Location += mouseTravel.ToPoint();
+            }
+
+            UpdateMovingSelectionWithKeys(gameTime);
+        }
+
+        private void UpdateMovingSelectionWithKeys(GameTime gameTime)
+        {
+            movingSelectionWithKeys = false;
+
+            // Move Right
+            if (InputManager.OnKeyPressed(Keys.Right))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the right.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(1, 0);
+                }
+                minimalBoundingBox.Location += new Point(1, 0);
+            }
+            if (InputManager.IsKeyPressed(Keys.Right))
+            {
+                movingSelectionWithKeys = true;
+
+                if (rightHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the right.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(1, 0);
+                    }
+                    minimalBoundingBox.Location += new Point(1, 0);
+
+                    rightHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    rightHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                rightHoldElapsed = 0;
+            }
+
+            // Move Left
+            if (InputManager.OnKeyPressed(Keys.Left))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the left.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(-1, 0);
+                }
+                minimalBoundingBox.Location += new Point(-1, 0);
+            }
+            if (InputManager.IsKeyPressed(Keys.Left))
+            {
+                movingSelectionWithKeys = true;
+
+                if (leftHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the left.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(-1, 0);
+                    }
+                    minimalBoundingBox.Location += new Point(-1, 0);
+
+                    leftHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    leftHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+
+            // Move Up 
+            if (InputManager.OnKeyPressed(Keys.Up))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the top.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(0, -1);
+                }
+                minimalBoundingBox.Location += new Point(0, -1);
+            }
+            if (InputManager.IsKeyPressed(Keys.Up))
+            {
+                movingSelectionWithKeys = true;
+
+                if (upHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the top.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(0, -1);
+                    }
+                    minimalBoundingBox.Location += new Point(0, -1);
+
+                    upHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    upHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+
+            // Move Down.
+            if (InputManager.OnKeyPressed(Keys.Down))
+            {
+                // Move every Tile and the minimumBoundingBox one step to bottom.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(0, 1);
+                }
+                minimalBoundingBox.Location += new Point(0, 1);
+            }
+            if (InputManager.IsKeyPressed(Keys.Down))
+            {
+                movingSelectionWithKeys = true;
+
+                if (downHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to bottom.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(0, 1);
+                    }
+                    minimalBoundingBox.Location += new Point(0, 1);
+
+                    downHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    downHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
             }
         }
 
@@ -382,10 +525,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private Matrix CalcZoomMatrix()
         {
-            if (InputManager.CurrentScrollWheel() != InputManager.PreviousScrollWheel())
-            {
-                Console.WriteLine(InputManager.CurrentScrollWheel());
-            }
             if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
             {
                 zoom -= 0.01f + (0.04f * zoom);
@@ -423,7 +562,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             // Mark hovered Tile.
-            if (hoveredTile != null)
+            if (hoveredTile != null && 
+                !movingSelectionWithMouse &&
+                !movingSelectionWithKeys)
             {
                 Primitives2D.DrawRectangle(spriteBatch, hoveredTile.screenBounds, Color.AliceBlue, 5);
             }
@@ -438,7 +579,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             // Mark selection.
-            if (selection.Count != 0)
+            if (selection.Count != 0 &&
+                !movingSelectionWithMouse &&
+                !movingSelectionWithKeys)
             {
                 // Mark selection with one Tile.
                 if (selection.Count == 1)
