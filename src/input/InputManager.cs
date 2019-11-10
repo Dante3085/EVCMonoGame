@@ -393,6 +393,11 @@ namespace EVCMonoGame.src.input
             return previousMouseState.ScrollWheelValue;
         }
 
+        public static bool IsMiddleMouseButtonDown()
+        {
+            return currentMouseState.MiddleButton == ButtonState.Pressed;
+        }
+
         #endregion
         #endregion
     }

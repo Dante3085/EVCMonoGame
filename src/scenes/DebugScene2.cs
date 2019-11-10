@@ -33,7 +33,7 @@ namespace EVCMonoGame.src.scenes
             collisionManager = new CollisionManager();
             collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
 
-            beachTilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh_beach.txt", Vector2.Zero);
+            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.SetZoom(0.5f);

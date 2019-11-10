@@ -41,30 +41,31 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private List<Tile> tiles = new List<Tile>();
         private Vector2 currentMousePosition = Vector2.Zero;
         private bool drawTileSelectionCurrentTileOnMouse = false;
-        private Rectangle destinationRectangle = Rectangle.Empty;
-        private Tile tileHoveredByMouse = null;
         private TileSelection tileSelection;
 
-        private bool moveTileHoveredByMouse = false;
 
         private Vector2 mouseTravel = Vector2.Zero;
 
-        private SpriteFont font;
-        private String currentTileInfo = String.Empty;
-
         private float zoom = 1;
-        private Vector2 position = Vector2.Zero;
+        private Vector2 position;
+        private Vector2 disposition;
 
-        private Tile currentTile = null;
+        private Tile hoveredTile = null;
+        private List<Tile> copyBuffer = new List<Tile>();
+        private List<Tile> selection = new List<Tile>();
+        private Rectangle selectionBox = Rectangle.Empty;
+        private Vector2 selectionBoxStartPoint = Vector2.Zero;
+        private bool selectionBoxHasStartPoint = false;
+        private bool drawMultipleTilesAtOnce = false;
+        private Rectangle minimalBoundingBox = Rectangle.Empty;
+        private bool movingSelectionWithMouse = false;
+        private bool movingSelectionWithKeys = false;
 
-        private bool drawHoveredTileMarker = false;
-        private bool drawCurrentTileMarker = false;
-
-        private List<Tile> rectangleSelection = new List<Tile>();
-        private Rectangle selectionRectangle = Rectangle.Empty;
-        private Vector2 selectionRectangleStartPoint = Vector2.Zero;
-        private bool selectionRectangleHasStartPoint = false;
-        private Rectangle selectionBoundingBox = Rectangle.Empty;
+        private const float holdDelay = 500;
+        private float rightHoldElapsed = 0;
+        private float leftHoldElapsed = 0;
+        private float upHoldElapsed = 0;
+        private float downHoldElapsed = 0;
 
         #endregion
         #region Properties
@@ -75,6 +76,35 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             set { tiles = value; }
         }
 
+        public int NumTilesSelection
+        {
+            get { return selection.Count; }
+        }
+
+        public int NumTilesCopyBuffer
+        {
+            get { return copyBuffer.Count; }
+        }
+
+        public String CurrentTileInfo
+        {
+            get
+            {
+                if (selection.Count == 1)
+                {
+                    return selection[0].ToString();
+                }
+                else if (selection.Count > 1)
+                {
+                    return "More than one Tile selected.";
+                }
+                else
+                {
+                    return "No Tile selected";
+                }
+            }
+        }
+
         #endregion
 
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)
@@ -83,282 +113,430 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             this.tileSelection = tileSelection;
         }
 
-        public void UpdateTilePlacing()
-        {
-            bool tileSelectionHasCurrentTile = tileSelection.CurrentTile != null;
-
-            // Check for drawing the currentTile of the TileSelection on the Mouse and
-            // placing the currentTile of TileSelection in the DrawingArea.
-            if (tileSelectionHasCurrentTile)
-            {
-                if (!tileSelection.IsHoveredByMouse)
-                {
-                    drawTileSelectionCurrentTileOnMouse = true;
-
-                    if (InputManager.OnLeftMouseButtonClicked())
-                    {
-                        Tile tsCurrentTile = tileSelection.CurrentTile;
-                        Tile newTile = new Tile(tsCurrentTile.name, tsCurrentTile.textureBounds,
-                        new Rectangle(currentMousePosition.ToPoint(), tsCurrentTile.screenBounds.Size));
-
-                        tiles.Add(newTile);
-                    }
-
-
-                }
-                else
-                {
-                    drawTileSelectionCurrentTileOnMouse = false;
-                }
-            }
-        }
-
-        public void UpdateKeyInput()
-        {
-            if (InputManager.IsMiddleMouseButtonDown() && !InputManager.OnMiddleMouseButtonClicked())
-            {
-                position -= (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
-            }
-            // Move and improve this code.
-            if (currentTile != null)
-            {
-                if (InputManager.OnKeyPressed(Keys.Right))
-                {
-                    drawCurrentTileMarker = false;
-                    drawHoveredTileMarker = false;
-
-                    currentTile.screenBounds.Location += new Point(1, 0);
-                    currentTileInfo = currentTile.ToString();
-                }
-                else if (InputManager.OnKeyPressed(Keys.Left))
-                {
-                    drawCurrentTileMarker = false;
-                    drawHoveredTileMarker = false;
-
-                    currentTile.screenBounds.Location += new Point(-1, 0);
-                    currentTileInfo = currentTile.ToString();
-
-                }
-                else if (InputManager.OnKeyPressed(Keys.Up))
-                {
-                    drawCurrentTileMarker = false;
-                    drawHoveredTileMarker = false;
-
-                    currentTile.screenBounds.Location += new Point(0, -1);
-                    currentTileInfo = currentTile.ToString();
-
-                }
-                else if (InputManager.OnKeyPressed(Keys.Down))
-                {
-                    drawCurrentTileMarker = false;
-                    drawHoveredTileMarker = false;
-
-                    currentTile.screenBounds.Location += new Point(0, 1);
-                    currentTileInfo = currentTile.ToString();
-
-                }
-                else if (InputManager.OnKeyPressed(Keys.Delete))
-                {
-                    tiles.Remove(currentTile);
-                    currentTile = null;
-                }
-                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.C))
-                {
-                    // TODO: Store currently selected Tiles in copyTilesBuffer(Override previous buffer contents).
-                }
-                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.V))
-                {
-                    // TODO: Place Tiles at Mouse Position that are currently in copyTilesBuffer.
-                    //       Every Tile needs to be offset with it's previous position from the 
-                    //       Mouse Position. Otherwise all Tiles are put to the same position.
-                }
-                else if (InputManager.AreAllKeysPressed(Keys.LeftControl, Keys.Z))
-                {
-                    // TODO: Create a notion of a previous State and restore that state here.
-                }
-            }
-        }
-
-        public void UpdateHoveringAndMovingTilesWithMouse()
-        {
-            // Check for hovering and moving Tiles with Mouse.
-            if (!tileSelection.IsHoveredByMouse &&
-                !drawTileSelectionCurrentTileOnMouse &&
-                InputManager.HasMouseMoved)
-            {
-                if (!moveTileHoveredByMouse)
-                {
-                    // Check for Mouse-Hover on one of the already placed Tiles in the DrawingArea and
-                    // and detecting if the hovered Tile needs to be moved around.
-                    foreach (Tile tile in tiles)
-                    {
-                        tileHoveredByMouse = null;
-
-                        if (tile.screenBounds.Contains(currentMousePosition))
-                        {
-                            drawHoveredTileMarker = true;
-                            tileHoveredByMouse = tile;
-
-                            break;
-                        }
-                    }
-                }
-
-                // Hide the tileHoveredByMouseMarker when no Tile is hovered.
-                if (tileHoveredByMouse == null)
-                {
-                    drawHoveredTileMarker = false;
-                }
-
-                // During moving the hovered Tile.
-                //if (moveTileHoveredByMouse)
-                //{
-                //    // TODO: Move Tile in broader steps.
-
-                //    tileHoveredByMouse.screenBounds.Location += mouseTravel.ToPoint();
-                //    currentTileInfo = currentTile.ToString();
-                //}
-            }
-
-            if ((tileHoveredByMouse != null) && InputManager.OnLeftMouseButtonClicked())
-            {
-                currentTile = tileHoveredByMouse;
-
-                drawCurrentTileMarker = !drawCurrentTileMarker;
-                drawHoveredTileMarker = false;
-                moveTileHoveredByMouse = true;
-                currentTileInfo = currentTile.ToString();
-            }
-            else if (moveTileHoveredByMouse && InputManager.OnLeftMouseButtonReleased())
-            {
-                moveTileHoveredByMouse = false;
-
-                // Only restore the currentTileMarker if the Tile was actually moved.
-                if (mouseTravel != Vector2.Zero)
-                {
-                    drawCurrentTileMarker = true;
-                }
-            }
-        }
-
-        public void UpdateRectangleSelection()
-        {
-            
-            if (tileSelection.IsHoveredByMouse)
-                return;
-
-            // Is there a rectangleSelection that we can manipulate ?
-            if (selectionRectangle.Contains(currentMousePosition) && InputManager.IsLeftMouseButtonDown())
-            {
-                // Move all Tiles in rectangleSelection by mouseTravel.
-                foreach (Tile tile in rectangleSelection)
-                {
-                    tile.screenBounds.Location += mouseTravel.ToPoint();
-                }
-            }
-
-            // Begin drawing selectionRectangle
-            else if (InputManager.OnLeftMouseButtonClicked())
-            {
-                selectionRectangleStartPoint = currentMousePosition;
-                selectionRectangleHasStartPoint = true;
-            }
-
-            // End drawing selectionRectangle and find out which Tiles were selected.
-            else if (InputManager.OnLeftMouseButtonReleased())
-            {
-                // Points for selectionBoundingBox.
-                Vector2 topLeft = new Vector2(float.MaxValue, float.MaxValue);
-                Vector2 bottomRight = new Vector2(float.MinValue, float.MinValue);
-
-                // Clear old selection and check which Tiles on DrawingArea are in selectionRectangle
-                rectangleSelection.Clear();
-                foreach (Tile tile in tiles)
-                {
-                    if (selectionRectangle.Contains(tile.screenBounds))
-                    {
-                        rectangleSelection.Add(tile);
-                    }
-
-                    // Find out selectionBoundingBox.
-                    Vector2 temp = tile.screenBounds.Location.ToVector2();
-
-                    if (temp.X < topLeft.X)
-                    {
-                        topLeft.X = temp.X;
-                    }
-                    if (temp.Y < topLeft.Y)
-                    {
-                        topLeft.Y = temp.Y;
-                    }
-
-                    if (temp.X > bottomRight.X)
-                    {
-                        bottomRight.X = temp.X;
-                    }
-                    if (temp.Y > bottomRight.Y)
-                    {
-                        bottomRight.Y = temp.Y;
-                    }
-                }
-
-                selectionBoundingBox.Location = topLeft.ToPoint();
-                selectionBoundingBox.Size = (bottomRight - topLeft).ToPoint();
-
-                //selectionRectangleStartPoint = Vector2.Zero;
-                //selectionRectangleHasStartPoint = false;
-            }
-
-            // While holding LeftMouseButton, calculate the selectionRectangle from the initial
-            // Point where the LeftMouseButton was pushed down to the currentMousePosition.
-            if (selectionRectangleHasStartPoint && InputManager.IsLeftMouseButtonDown())
-            {
-
-                // TODO: Verstehen.
-                selectionRectangle.Width = (int)Math.Abs(currentMousePosition.X - selectionRectangleStartPoint.X);
-                selectionRectangle.Height = (int)Math.Abs(currentMousePosition.Y - selectionRectangleStartPoint.Y);
-                selectionRectangle.X = (int)Math.Min(selectionRectangleStartPoint.X, currentMousePosition.X);
-                selectionRectangle.Y = (int)Math.Min(selectionRectangleStartPoint.Y, currentMousePosition.Y);
-            }
-        }
-
         public void Update(GameTime gameTime)
         {
+            // Correct for zooming.
             currentMousePosition = InputManager.CurrentMousePosition();
-            Vector2 disposition = new Vector2((bounds.Width - (bounds.Width * zoom)) / 2, (bounds.Height - (bounds.Height * zoom)) / 2);
+            disposition = new Vector2((bounds.Width - (bounds.Width * zoom)) / 2, (bounds.Height - (bounds.Height * zoom)) / 2);
             currentMousePosition -= disposition - position;
             currentMousePosition /= zoom;
             Vector2 previousMousePosition = InputManager.PreviousMousePosition();
             previousMousePosition -= disposition - position;
             previousMousePosition /= zoom;
-            //currentMousePosition = ((zoom) * currentMousePosition + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f));
+            mouseTravel = currentMousePosition - previousMousePosition;
 
-            mouseTravel = InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition();
-
-            // Check for everything that only needs to happen when the Mouse is inside
-            // the DrawingArea's bounds.
-            if (bounds.Contains(currentMousePosition))
+            // Update dragging.
+            if (InputManager.IsMiddleMouseButtonDown())
             {
-                UpdateTilePlacing();
-                UpdateHoveringAndMovingTilesWithMouse();
-                UpdateKeyInput();
-                UpdateRectangleSelection();
+                position -= (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
             }
 
-            // When the Mouse is not inside the DrawingArea's bounds, 
-            // we don't even want to look if the TileSelection has a
-            // currentTile that we could draw at the Mouse's position.
+            // Update all DrawingArea components.
+            UpdateTileDrawing();
+            UpdateHoveredTile();
+            UpdateDetectingSelection();
+            UpdateMovingSelection(gameTime);
+            UpdateSelectionCopyCutPasteDelete();
+        }
+
+        #region UpdateHelper
+
+        private void UpdateTileDrawing()
+        {
+            Tile tsct = tileSelection.CurrentTile;
+
+            if (!tileSelection.IsHoveredByMouse &&
+                tsct != null)
+            {
+                drawTileSelectionCurrentTileOnMouse = true;
+
+                if (InputManager.OnLeftMouseButtonClicked())
+                {
+                    DrawTileSelectionCurrentTile();
+                    drawMultipleTilesAtOnce = true;
+                }
+                else if (InputManager.OnLeftMouseButtonReleased())
+                {
+                    drawMultipleTilesAtOnce = false;
+                }
+
+                if (drawMultipleTilesAtOnce)
+                {
+                    // If last added Tile and tileSelection's currentTile at currentMousePosition overlap, 
+                    // draw tileSelection's currentTile again.
+                    if (!tiles[tiles.Count - 1].screenBounds.Intersects(new Rectangle(currentMousePosition.ToPoint(), tsct.screenBounds.Size)))
+                    {
+                        DrawTileSelectionCurrentTile();
+                    }
+                }
+            }
             else
             {
                 drawTileSelectionCurrentTileOnMouse = false;
             }
         }
-        private Matrix getZoom()
+
+        private void DrawTileSelectionCurrentTile()
         {
-            if (InputManager.CurrentScrollWheel() != InputManager.PreviousScrollWheel())
+            Tile tsct = tileSelection.CurrentTile;
+
+            Tile newTile = new Tile(tsct.name, tsct.textureBounds,
+                        new Rectangle(currentMousePosition.ToPoint(), tsct.screenBounds.Size));
+
+            tiles.Add(newTile);
+        }
+
+        private void UpdateHoveredTile()
+        {
+            if (tileSelection.IsHoveredByMouse ||
+                drawTileSelectionCurrentTileOnMouse ||
+                selectionBoxHasStartPoint)
             {
-                Console.WriteLine(InputManager.CurrentScrollWheel());
+                hoveredTile = null;
+                return;
             }
+
+            // If there is no hovered Tile we don't want to keep marking the previously hovered Tile,
+            // so we set it to null here and if there actually is a hovered Tile this will be overriden
+            // by the actual hovered Tile.
+            hoveredTile = null;
+            for (int i = tiles.Count - 1; i >= 0; --i)
+            {
+                Tile tile = tiles[i];
+                if (tile.screenBounds.Contains(currentMousePosition))
+                {
+                    hoveredTile = tile;
+                    return;
+                }
+            }
+        }
+
+        private void UpdateDetectingSelection()
+        {
+            if (tileSelection.IsHoveredByMouse ||
+                drawTileSelectionCurrentTileOnMouse ||
+                movingSelectionWithMouse)
+                return;
+
+            // One Tile selected.
+            if (hoveredTile != null &&
+                !minimalBoundingBox.Contains(currentMousePosition) &&
+                InputManager.OnLeftMouseButtonClicked())
+            {
+                // If we are clicking the already selected Tile again, just throw it out
+                // of the selection.
+                if (selection.Count == 1 &&
+                    selection[0] == hoveredTile)
+                {
+                    selection.Clear();
+
+                    minimalBoundingBox = Rectangle.Empty;
+                }
+                else
+                {
+                    selection.Clear();
+                    selection.Add(hoveredTile);
+
+                    minimalBoundingBox = hoveredTile.screenBounds;
+                }
+            }
+
+            // Multiple Tiles selected with RectangleSelection.
+            // We return on minimalBoundingBox.Contains(currentMousePosition) because
+            // we don't want to cancel the selection(search for a new one) when the user
+            // is trying to move it.
+            if (hoveredTile != null ||
+                minimalBoundingBox.Contains(currentMousePosition))
+                return;
+
+            if (InputManager.OnLeftMouseButtonClicked())
+            {
+                selectionBoxStartPoint = currentMousePosition;
+                selectionBoxHasStartPoint = true;
+                minimalBoundingBox = Rectangle.Empty;
+            }
+            else if (InputManager.OnLeftMouseButtonReleased())
+            {
+                selectionBoxHasStartPoint = false;
+
+                // Find out which Tiles were selected.
+                // We want to know the minimumBoundingBox of all selected Tiles as well.
+                Vector2 topLeft = new Vector2(float.MaxValue, float.MaxValue);
+                Vector2 bottomRight = new Vector2(float.MinValue, float.MinValue);
+
+                selection.Clear();
+                foreach (Tile tile in tiles)
+                {
+                    if (selectionBox.Contains(tile.screenBounds))
+                    {
+                        selection.Add(tile);
+
+                        // Find out topLeft Point of minimumBoundingBox.
+                        if (tile.screenBounds.Left < topLeft.X)
+                            topLeft.X = tile.screenBounds.Left;
+                        if (tile.screenBounds.Top < topLeft.Y)
+                            topLeft.Y = tile.screenBounds.Top;
+
+                        // Find bottomRight Point of minimumBoundingBox.
+                        if (tile.screenBounds.Right > bottomRight.X)
+                            bottomRight.X = tile.screenBounds.Right;
+                        if (tile.screenBounds.Bottom > bottomRight.Y)
+                            bottomRight.Y = tile.screenBounds.Bottom;
+                    }
+                }
+                minimalBoundingBox = new Rectangle(topLeft.ToPoint(), (bottomRight - topLeft).ToPoint());
+            }
+            if (selectionBoxHasStartPoint && InputManager.IsLeftMouseButtonDown())
+            {
+                selectionBox.Width = (int)Math.Abs(currentMousePosition.X - selectionBoxStartPoint.X);
+                selectionBox.Height = (int)Math.Abs(currentMousePosition.Y - selectionBoxStartPoint.Y);
+                selectionBox.X = (int)Math.Min(selectionBoxStartPoint.X, currentMousePosition.X);
+                selectionBox.Y = (int)Math.Min(selectionBoxStartPoint.Y, currentMousePosition.Y);
+            }
+        }
+
+        private void UpdateMovingSelection(GameTime gameTime)
+        {
+            if (tileSelection.IsHoveredByMouse ||
+                selection.Count == 0 ||
+                selectionBoxHasStartPoint)
+                return;
+
+            // Move selection with Mouse.
+            if (minimalBoundingBox.Contains(currentMousePosition) &&
+                InputManager.OnLeftMouseButtonClicked())
+            {
+                movingSelectionWithMouse = true;
+            }
+            else if (InputManager.OnLeftMouseButtonReleased())
+            {
+                movingSelectionWithMouse = false;
+            }
+
+            if (movingSelectionWithMouse &&
+                mouseTravel != Vector2.Zero)
+            {
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += mouseTravel.ToPoint();
+                }
+                minimalBoundingBox.Location += mouseTravel.ToPoint();
+            }
+
+            UpdateMovingSelectionWithKeys(gameTime);
+        }
+
+        private void UpdateMovingSelectionWithKeys(GameTime gameTime)
+        {
+            movingSelectionWithKeys = false;
+
+            // Move Right
+            if (InputManager.OnKeyPressed(Keys.Right))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the right.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(1, 0);
+                }
+                minimalBoundingBox.Location += new Point(1, 0);
+            }
+            if (InputManager.IsKeyPressed(Keys.Right))
+            {
+                movingSelectionWithKeys = true;
+
+                if (rightHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the right.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(1, 0);
+                    }
+                    minimalBoundingBox.Location += new Point(1, 0);
+
+                    rightHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    rightHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                rightHoldElapsed = 0;
+            }
+
+            // Move Left
+            if (InputManager.OnKeyPressed(Keys.Left))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the left.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(-1, 0);
+                }
+                minimalBoundingBox.Location += new Point(-1, 0);
+            }
+            if (InputManager.IsKeyPressed(Keys.Left))
+            {
+                movingSelectionWithKeys = true;
+
+                if (leftHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the left.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(-1, 0);
+                    }
+                    minimalBoundingBox.Location += new Point(-1, 0);
+
+                    leftHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    leftHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                leftHoldElapsed = 0;
+            }
+
+            // Move Up 
+            if (InputManager.OnKeyPressed(Keys.Up))
+            {
+                // Move every Tile and the minimumBoundingBox one step to the top.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(0, -1);
+                }
+                minimalBoundingBox.Location += new Point(0, -1);
+            }
+            if (InputManager.IsKeyPressed(Keys.Up))
+            {
+                movingSelectionWithKeys = true;
+
+                if (upHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to the top.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(0, -1);
+                    }
+                    minimalBoundingBox.Location += new Point(0, -1);
+
+                    upHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    upHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                upHoldElapsed = 0;
+            }
+
+            // Move Down.
+            if (InputManager.OnKeyPressed(Keys.Down))
+            {
+                // Move every Tile and the minimumBoundingBox one step to bottom.
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Location += new Point(0, 1);
+                }
+                minimalBoundingBox.Location += new Point(0, 1);
+            }
+            if (InputManager.IsKeyPressed(Keys.Down))
+            {
+                movingSelectionWithKeys = true;
+
+                if (downHoldElapsed >= holdDelay)
+                {
+                    // Move every Tile and the minimumBoundingBox one step to bottom.
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += new Point(0, 1);
+                    }
+                    minimalBoundingBox.Location += new Point(0, 1);
+
+                    downHoldElapsed *= 0.90f;
+                }
+                else
+                {
+                    downHoldElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+            }
+            else
+            {
+                downHoldElapsed = 0;
+            }
+        }
+
+        private void UpdateSelectionCopyCutPasteDelete()
+        {
+            if (tileSelection.IsHoveredByMouse)
+                return;
+
+            if (selection.Count != 0 &&
+                InputManager.IsKeyPressed(Keys.Delete))
+            {
+                tiles.RemoveAll((tile) =>
+                {
+                    return selection.Contains(tile);
+                });
+                selection.Clear();
+                minimalBoundingBox = Rectangle.Empty;
+            }
+
+            // TODO: Hier möchte ich eigentlich OnAllKeysPressed() vom InputManager benutzen, um
+            // die üblichen Tastenkombinationen STRG+C, STRG+X, STRG+V benutzen zu können.
+            // Ich habe bis jetzt aber noch keine schöne bzw. überhaupt keine Lösung für OnAllKeysPressed()
+            // gefunden.
+
+            // Copy
+            else if (selection.Count != 0 &&
+                     InputManager.OnKeyPressed(Keys.C))
+            {
+                copyBuffer.Clear();
+                copyBuffer.AddRange(selection);
+            }
+
+            // Cut
+            else if (selection.Count != 0 &&
+                     InputManager.OnKeyPressed(Keys.X))
+            {
+                copyBuffer.Clear();
+                copyBuffer.AddRange(selection);
+
+                // Remove all Tiles that have been cut from DrawingArea.
+                tiles.RemoveAll((tile) =>
+                {
+                    return selection.Contains(tile);
+                });
+
+                minimalBoundingBox = Rectangle.Empty;
+            }
+
+
+            // Paste
+            else if (copyBuffer.Count != 0 &&
+                     InputManager.OnKeyPressed(Keys.V))
+            {
+                Vector2 shiftVector = currentMousePosition - (copyBuffer[0].screenBounds.Location.ToVector2());
+
+                foreach (Tile tile in copyBuffer)
+                {
+                    Vector2 newTilePosition = tile.screenBounds.Location.ToVector2() + shiftVector;
+
+                    Tile newTile = new Tile(tile.name, tile.textureBounds,
+                        new Rectangle(newTilePosition.ToPoint(), tile.screenBounds.Size));
+
+                    tiles.Add(newTile);
+                }
+            }
+        }
+
+        private Matrix CalcZoomMatrix()
+        {
             if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
             {
                 zoom -= 0.01f + (0.04f * zoom);
@@ -367,69 +545,67 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 zoom += 0.01f + (0.1f * zoom);
             }
+
             Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
             return new Matrix(
                      new Vector4(zoom, 0, 0, 0),
                      new Vector4(0, zoom, 0, 0),
                      new Vector4(0, 0, 1, 0),
-                     new Vector4(point.X-position.X, point.Y-position.Y, 0, 1));
-            //return Matrix.Identity;
+                     new Vector4(point.X - position.X, point.Y - position.Y, 0, 1));
         }
+
+        #endregion
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: getZoom());
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: CalcZoomMatrix());
 
-            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.DarkRed);
-
+            // Draw all Tiles on DrawingArea.
             foreach (Tile tile in tiles)
             {
-                destinationRectangle.Location = tile.screenBounds.Location;
-                destinationRectangle.Size = tile.screenBounds.Size;
-
-                spriteBatch.Draw(tileSelection.TileSet, destinationRectangle, tile.textureBounds, Color.White);
+                spriteBatch.Draw(tileSelection.TileSet, tile.screenBounds, tile.textureBounds, Color.White);
             }
 
-            if (drawHoveredTileMarker && tileHoveredByMouse != null)
-            {
-                Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouse.screenBounds, Color.AliceBlue, 5);
-            }
-
-            if (drawCurrentTileMarker && currentTile != null)
-            {
-                Primitives2D.DrawRectangle(spriteBatch, currentTile.screenBounds, Color.DarkRed, 5);
-            }
-
+            // Draw tileSeleciton's currentTile.
             if (drawTileSelectionCurrentTileOnMouse)
             {
-                spriteBatch.Draw(tileSelection.TileSet,
-                new Rectangle(currentMousePosition.ToPoint(), tileSelection.CurrentTile.screenBounds.Size),
-                tileSelection.CurrentTile.textureBounds, Color.White);
+                spriteBatch.Draw(tileSelection.TileSet, new Rectangle(currentMousePosition.ToPoint(), tileSelection.CurrentTile.screenBounds.Size),
+                                 tileSelection.CurrentTile.textureBounds, Color.White);
             }
 
-            // Draw currentTileInfo
-            if (currentTile != null)
+            // Mark hovered Tile.
+            if (hoveredTile != null && 
+                !movingSelectionWithMouse &&
+                !movingSelectionWithKeys)
             {
-                spriteBatch.DrawString(font, currentTileInfo, new Vector2((bounds.X + bounds.Width) * 0.25f, bounds.Top), Color.White);
+                Primitives2D.DrawRectangle(spriteBatch, hoveredTile.screenBounds, Color.AliceBlue, 5);
             }
 
-            // Mark all Tiles in rectangleSelection.
-            if (rectangleSelection.Count != 0)
+            // Draw selectionBox
+            if (selectionBoxHasStartPoint)
             {
-                //foreach (Tile tile in rectangleSelection)
-                //{
-                //    Primitives2D.DrawRectangle(spriteBatch, tile.screenBounds, Color.DarkRed, 5);
-                //}
+                Color color = Color.Blue;
+                color.A = 15;
 
-                Primitives2D.DrawRectangle(spriteBatch, selectionBoundingBox, Color.DarkRed, 5);
+                Primitives2D.FillRectangle(spriteBatch, selectionBox, color);
             }
 
-            // Draw selectionRectangle
-            if (selectionRectangleHasStartPoint)
+            // Mark selection.
+            if (selection.Count != 0 &&
+                !movingSelectionWithMouse &&
+                !movingSelectionWithKeys)
             {
-                Color darkRed = Color.Blue;
-                darkRed.A = 10;
+                // Mark selection with one Tile.
+                if (selection.Count == 1)
+                {
+                    Primitives2D.DrawRectangle(spriteBatch, selection[0].screenBounds, Color.DarkRed, 5);
+                }
 
-                Primitives2D.FillRectangle(spriteBatch, selectionRectangle, darkRed);
+                // Mark selection with multiple Tiles.
+                else
+                {
+                    Primitives2D.DrawRectangle(spriteBatch, minimalBoundingBox, Color.DarkRed, 5);
+                }
             }
 
             spriteBatch.End();
@@ -437,16 +613,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void LoadContent(ContentManager content)
         {
-            font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
         }
 
         public void SaveToFile(String path)
         {
-            if (System.IO.File.Exists(path))
-            {
-                throw new ArgumentException("The file '" + path + "' already exists.\n" +
-                    "Delete it manually if you want to overwrite it!");
-            }
+            //if (System.IO.File.Exists(path))
+            //{
+            //    throw new ArgumentException("The file '" + path + "' already exists.\n" +
+            //        "Delete it manually if you want to overwrite it!");
+            //}
 
             System.IO.StreamWriter writer = new System.IO.StreamWriter(path);
 

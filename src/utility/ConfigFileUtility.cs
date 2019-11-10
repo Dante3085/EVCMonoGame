@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-using EVCMonoGame.src.tilemap.tilemapEditor;
+using EVCMonoGame.src.tilemap;
 
 namespace EVCMonoGame.src.utility
 {

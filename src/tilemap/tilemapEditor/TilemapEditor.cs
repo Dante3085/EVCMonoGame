@@ -36,34 +36,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // TODO: Create a LoadTilemap Button that loads a Tilemap that was previously created with
     //       TilemapEditor into the TilemapEditor to work on it further.
 
-
-    public class Tile
-    {
-        public String name;
-        public Rectangle textureBounds;
-        public Rectangle screenBounds;
-
-        public Tile(String name, Rectangle textureBounds, Rectangle screenBounds)
-        {
-            this.name = name;
-            this.textureBounds = textureBounds;
-            this.screenBounds = screenBounds;
-        }
-
-        public Tile(Tile otherTile)
-        {
-            this.name = otherTile.name;
-            this.textureBounds = otherTile.textureBounds;
-            this.screenBounds = otherTile.screenBounds;
-        }
-
-        public override string ToString()
-        {
-            return "TILE{" + name + ", " + Utility.RectangleToString(textureBounds) + ", " + 
-                   Utility.RectangleToString(screenBounds) + "}"; 
-        }
-    }
-
     // (Moritz): Ich habe den TilemapEditor extra nicht von scenes.Updateable erben und scenes.IDrawable implementieren lassen,
     //           weil er im Hauptmenü durch den TilemapEditorState erreichbar sein soll. Die Klassen im states Ordner haben nichts
     //           mit den Klassen in unserem scenes Ordner zu tun.
@@ -75,6 +47,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private DrawingArea drawingArea;
 
         private SpriteFont font;
+        private String infoText = String.Empty;
         private Vector2 fontSize;
         private bool drawInfoText = false;
 
@@ -93,7 +66,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TilemapEditor()
         {
-
             tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1),
                                "Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt");
         }
@@ -193,16 +165,33 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             if (drawInfoText)
             {
-                Vector2 textPosition = viewport.Bounds.Size.ToVector2() * new Vector2(0.5f, 0.5f) - 
+                Vector2 textPosition = viewport.Bounds.Size.ToVector2() * new Vector2(0.5f, 0.5f) -
                                        (fontSize * new Vector2(0.5f, 0.5f));
+
+                infoText = "General\n" +
+                           "Hold MiddleMouseButton: Drag screen\n" +
+                           "Hold LeftMouseButton: Rectangle selection\n" +
+                           "MouseWheel: Zoom in/out\n" +
+                           "Hold Arrow Keys: Move selection slowly\n" +
+                           "Hotkeys\n" +
+                           "-------\n" +
+                           "S: Save\n" +
+                           "L: Load\n" +
+                           "C: Copy Selection\n" +
+                           "X: Cut Selection\n" +
+                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "Delete/Entf: Delete selected Tiles\n" +
+                           "DrawingArea\n" +
+                           "-----------\n" +
+                           "NumTiles: " + drawingArea.Tiles.Count + "\n" +
+                           "NumTilesSelection: " + drawingArea.NumTilesSelection + "\n" +
+                           "NumTilesCopyBuffer: " + drawingArea.NumTilesCopyBuffer + "\n" +
+                           "CurrentTileInfo: \n" + 
+                           drawingArea.CurrentTileInfo;
 
                 spriteBatch.Begin();
 
-                spriteBatch.DrawString(font, "Hotkeys\n" +
-                                             "-------\n" + 
-                                             "S: Save\n" + 
-                                             "L: Load\n",
-                                             textPosition, Color.White);
+                spriteBatch.DrawString(font, infoText, textPosition, Color.Red);
 
                 spriteBatch.End();
             }
@@ -212,8 +201,28 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             this.viewport = viewport;
 
+            infoText =     "General\n" +
+                           "Hold MiddleMouseButton: Drag screen\n" +
+                           "Hold LeftMouseButton: Rectangle selection\n" +
+                           "MouseWheel: Zoom in/out\n" +
+                           "Hold Arrow Keys: Move selection slowly\n" +
+                           "Hotkeys\n" +
+                           "-------\n" +
+                           "S: Save\n" +
+                           "L: Load\n" +
+                           "C: Copy Selection\n" +
+                           "X: Cut Selection\n" +
+                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "Delete/Entf: Delete selected Tiles\n" +
+                           "DrawingArea\n" +
+                           "-----------\n" +
+                           "NumTiles: \n" +
+                           "NumTilesSelection: \n" +
+                           "NumTilesCopyBuffer: \n" +
+                           "CurrentTileInfo: \n";
+
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
-            fontSize = font.MeasureString("TEST");
+            fontSize = font.MeasureString(infoText);
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
 
@@ -239,7 +248,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             Rectangle screenBounds = Rectangle.Empty;
             List<Tile> tiles = new List<Tile>();
 
-            while((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) != null)
             {
                 // Find section
                 if (line.StartsWith("[") && line.EndsWith("]"))

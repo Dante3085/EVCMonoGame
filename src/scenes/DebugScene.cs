@@ -43,7 +43,8 @@ namespace EVCMonoGame.src.scenes
 
             geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
             geometryBox2 = new GeometryBox(new Rectangle(1300, 480, 500, 25));
-            tilemap = new Tilemap("Content/rsrc/tilesets/configFiles/kh_castle.txt", Vector2.Zero);
+
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
             sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
