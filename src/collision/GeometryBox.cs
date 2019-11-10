@@ -10,7 +10,7 @@ using C3.MonoGame;
 
 namespace EVCMonoGame.src.collision
 {
-    public class GeometryBox : GeometryCollision
+    public class GeometryBox : IGeometryCollision
     {
         private Rectangle bounds;
         private Vector2 previousPosition;
@@ -19,6 +19,7 @@ namespace EVCMonoGame.src.collision
         {
             this.bounds = bounds;
             previousPosition = bounds.Location.ToVector2();
+			CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
         }
 
         public Rectangle CollisionBox
@@ -52,7 +53,7 @@ namespace EVCMonoGame.src.collision
             // Nothing to load
         }
 
-		public void OnGeometryCollision(GeometryCollision collider)
+		public void OnGeometryCollision(IGeometryCollision collider)
 		{
 			//Console.WriteLine("got collide");
 		}

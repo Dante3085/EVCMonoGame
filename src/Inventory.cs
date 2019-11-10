@@ -69,22 +69,25 @@ namespace EVCMonoGame.src
 
 		public void starterInventory()
 		{
-
-			activeItem = new Item(new Rectangle(0, 0, 0, 0));
-			items.Add(activeItem);
-			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
-			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
-			items.Add(new Item(new Rectangle(0, 0, 0, 0)));
+			
 
 		}
 
 		public void addItem(Item item)
 		{
+			if (activeItem == null)
+			{
+				activeItem = item;
+			}
 			items.Add(item);
 		}
 
 		public void removeItem(Item item)
 		{
+			if (activeItem == item)
+			{
+				activeItem = items.ElementAt<Item>(0);
+			}
 			items.Remove(item);
 		}
 
@@ -160,17 +163,22 @@ namespace EVCMonoGame.src
 		public Item NavigateItems(GameTime gameTime, Direction direction)
 		{
 
-			if (isGUIBusy(gameTime))
+			if (items.Count() != 0)
+			{
+				if (isGUIBusy(gameTime))
+					return activeItem;
+
+				StartAnimation(direction);
+
+				int currentPos = items.IndexOf(activeItem);
+				currentPos = Utility.Mod(currentPos + (int)direction, items.Count());
+				activeItem = items.ElementAt<Item>(currentPos);
+
+
 				return activeItem;
-
-			StartAnimation(direction);
-
-			int currentPos = items.IndexOf(activeItem);
-			currentPos = Utility.mod(currentPos + (int)direction, items.Count());
-			activeItem = items.ElementAt<Item>(currentPos);
-
-
-			return activeItem;
+			}
+			else
+				return null;
 		}
 
 		public void StartAnimation(Direction direction)
@@ -180,7 +188,7 @@ namespace EVCMonoGame.src
 			{
 				int posActiveItem = items.IndexOf(activeItem);
 				animPrevPos = new Vector2(posActiveItem * itemSize.X + posActiveItem * itemSpacing, 0);
-				int posAfterNavigation = Utility.mod(posActiveItem + (int)direction, items.Count());
+				int posAfterNavigation = Utility.Mod(posActiveItem + (int)direction, items.Count());
 				animGoalPos = new Vector2(posAfterNavigation * itemSize.X + posAfterNavigation * itemSpacing, 0);
 				isAnimating = true;
 				animationElapsedTime = 0.0d;

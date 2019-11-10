@@ -26,14 +26,19 @@ namespace EVCMonoGame.src
             return sWhitespace.Replace(input, replacement);
         }
 
-		public static int mod(int a, int n)
+		public static int Mod(int a, int n)
 		{
-			int result = a % n;
-			if ((result < 0 && n > 0) || (result > 0 && n < 0))
+			if (n != 0)
 			{
-				result += n;
+				int result = a % n;
+				if ((result < 0 && n > 0) || (result > 0 && n < 0))
+				{
+					result += n;
+				}
+				return result;
 			}
-			return result;
+			else
+				return 0;
 		}
 
 		public static Vector2 scaleVectorTo(Vector2 originalVector, float toVectorLength)

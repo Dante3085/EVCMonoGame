@@ -14,14 +14,13 @@ using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes
 {
-	public class DebugScreen2 : Scene
+	public class ItemDebugScene : Scene
 	{
-		private Player player;
 		private SpriteFont randomText;
 		private Texture2D background;
 		private GeometryBox geometryBox;
 
-		public DebugScreen2(SceneManager sceneManager)
+		public ItemDebugScene(SceneManager sceneManager)
 			: base(sceneManager)
 		{
 		}
@@ -30,43 +29,33 @@ namespace EVCMonoGame.src.scenes
 		{
 			base.LevelStartsEvent();
 
-			player = new Player(new Rectangle(750, 300, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left});
-			Enemy dummyEnemy = new DummyEnemy(new Rectangle(800, 100, 100, 100));
-			geometryBox = new GeometryBox(new Rectangle(300, 300, 200, 200));
+			DummyEnemy dummyEnemy = new DummyEnemy(new Rectangle(100, 700, 50, 50));
 
-			//spawnCharacter(player, new Rectangle(750, 300, 100, 100));
-
+			
 			// Spawn Items
-			PickUpItem.Stats HealPotionStats = new PickUpItem.Stats();
-			HealPotionStats.heal = 10;
+			PickUpItem HealPotion = new PickUpItem(new Rectangle(700, 500, 50, 50)) { stats = new PickUpItem.ItemStats() { heal = 10 } };
+			PickUpItem PosionPotion = new PickUpItem(new Rectangle(800, 500, 50, 50)) { stats = new PickUpItem.ItemStats() { heal = -40 } };
+			PickUpItem SpeedPotion = new PickUpItem(new Rectangle(750, 560, 50, 50)) { stats = new PickUpItem.ItemStats() { speed = 6 } };
 
-			PickUpItem HealPotion = new PickUpItem(new Rectangle(700, 500, 50, 50), HealPotionStats);
+			new GeometryBox(new Rectangle(500, 299, 200, 200));
+			new GeometryBox(new Rectangle(100, 100, 200, 200));
+			new GeometryBox(new Rectangle(300, 100, 100, 100));
 
-
-			CollisionManager.AddCollidables(new Collision[]
-			{
-				dummyEnemy,
-				player,
-				HealPotion,
-				geometryBox,
-				new GeometryBox(new Rectangle(500, 299, 200, 200)),
-				new GeometryBox(new Rectangle(100, 100, 200, 200)),
-				new GeometryBox(new Rectangle(300, 100, 100, 100)),
-				new GeometryBox(new Rectangle(100, 300, 110, 100)),
-			});
 
 			updateables.AddRange(new Updateable[]
 			{
-				player,
 				dummyEnemy,
-				HealPotion,
+				//HealPotion,
+				//PosionPotion,
+				//SpeedPotion,
 			});
 
 			drawables.AddRange(new IDrawable[]
 			{
-				player,
 				dummyEnemy,
-				HealPotion,
+				//HealPotion,
+				//PosionPotion,
+				//SpeedPotion,
 			});
 		}
 		
@@ -80,12 +69,9 @@ namespace EVCMonoGame.src.scenes
 
 		public override void LoadContent(ContentManager content)
         {
-            //randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
-
-            //background = content.Load<Texture2D>("rsrc/backgrounds/background");
-
             base.LoadContent(content);
-        }
+			randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+		}
 
         public override void Update(GameTime gameTime)
         {
@@ -102,7 +88,7 @@ namespace EVCMonoGame.src.scenes
             spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             //spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
-            //spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.", new Vector2(100, 100), Color.DarkRed);
+            spriteBatch.DrawString(randomText, "Press X for NavMesh.", new Vector2(30, 40), Color.White);
 
             spriteBatch.End();
 

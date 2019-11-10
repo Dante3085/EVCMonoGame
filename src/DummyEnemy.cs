@@ -14,9 +14,8 @@ namespace EVCMonoGame.src
 {
 	public class DummyEnemy : Enemy
 	{
-		public DummyEnemy(Rectangle bounds)
+		public DummyEnemy(Rectangle bounds) : base(bounds)
 		{
-			CollisionBox = bounds;
 		}
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

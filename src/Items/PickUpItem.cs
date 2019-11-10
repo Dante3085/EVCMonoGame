@@ -10,27 +10,25 @@ namespace EVCMonoGame.src.Items
 {
 	public class PickUpItem : Item
 	{
-		public struct Stats
+		public struct ItemStats
 		{
 			public int heal;
-
+			public int speed;
 		}
 
-		Stats stats;
+		public ItemStats stats;
 		public bool permaStats;
 
-		public PickUpItem(Rectangle bounds, Stats stats) : base(bounds)
+		public PickUpItem(Rectangle bounds) : base(bounds)
 		{
-			this.stats = stats;
 		}
 
-		public void PickUp(Player player)
+		public override void PickUp(Player player)
 		{
 			player.Healthbar.CurrentHp += stats.heal;
-			CollisionManager.removeCollidable(this);
-
+			player.PlayerSpeed += stats.speed;
+			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
+			player.PlayerInventory.addItem(this);
 		}
-
-
 	}
 }

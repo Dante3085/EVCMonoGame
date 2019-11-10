@@ -13,5 +13,10 @@ namespace EVCMonoGame.src.Items
 		{
 
 		}
+
+		public override void PickUp(Player player)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

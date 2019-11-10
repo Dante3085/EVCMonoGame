@@ -12,12 +12,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Item : Updateable, scenes.IDrawable, Collision
+	public abstract class Item : Updateable, scenes.IDrawable, Collision
 	{
 		public Vector2 worldPosition;
 		public Rectangle geoHitbox;
-		
+
 		// GeometryCollidable
+		#region Properties
 		public Vector2 WorldPosition
 		{
 			set
@@ -47,11 +48,15 @@ namespace EVCMonoGame.src.Items
 				return geoHitbox;
 			}
 		}
+		#endregion
 
 		public Item(Rectangle bounds)
 		{
 			CollisionBox = bounds;
+			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
 		}
+		public abstract void PickUp(Player player);
+
 
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{

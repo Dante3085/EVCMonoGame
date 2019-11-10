@@ -8,6 +8,8 @@ using System.Threading;
 
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.input;
+using System.Collections.Generic;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.states
 {
@@ -21,10 +23,16 @@ namespace EVCMonoGame.src.states
         private ContentManager content;
         private SpriteFont gameFont;
 
-        private Vector2 playerPosition = new Vector2(100, 100);
-        private Vector2 enemyPosition = new Vector2(100, 100);
+		private static Player playerOne;
+		private static Player playerTwo;
+		private static List<Player> players;
 
-        private Random random = new Random();
+		public static Player PlayerOne
+		{
+			get { return playerOne; }
+		}
+
+		private Random random = new Random();
 
         private float pauseAlpha;
 
@@ -36,29 +44,38 @@ namespace EVCMonoGame.src.states
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-        }
+
+			players = new List<Player>();
+
+			playerOne = new Player(new Rectangle(550, 600, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			players.Add(playerOne);
+			//if : is Zweispiele ausgewählt
+
+		}
 
         public override void LoadContent()
         {
-            if (content == null)
-                content = new ContentManager(StateManager.Game.Services, "Content");
+			if (content == null)
+				content = new ContentManager(StateManager.Game.Services, "Content");
 
-            // Aus irgendeinem Grund ist der stateManager im Konstruktor von Gameplaystate noch null.
-            // Hier aber nicht mehr.
-            sceneManager = new SceneManager(StateManager.Game);
+			// Aus irgendeinem Grund ist der stateManager im Konstruktor von Gameplaystate noch null.
+			// Hier aber nicht mehr.
+			sceneManager = new SceneManager(StateManager.Game);
             sceneManager.LoadContent();
+			PlayerOne.LoadContent(content);
 
-            gameFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading state.
-            // Thread.Sleep(1000);
+			//gameFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
-            // once the load has finished, we use ResetElapsedTime to tell the game's
-            // timing mechanism that we have just finished a very long frame, and that
-            // it should not try to catch up.
-            StateManager.Game.ResetElapsedTime();
+			// A real game would probably have more content than this sample, so
+			// it would take longer to load. We simulate that by delaying for a
+			// while, giving you a chance to admire the beautiful loading state.
+			// Thread.Sleep(1000);
+
+			// once the load has finished, we use ResetElapsedTime to tell the game's
+			// timing mechanism that we have just finished a very long frame, and that
+			// it should not try to catch up.
+			StateManager.Game.ResetElapsedTime();
         }
 
         public override void UnloadContent()
@@ -83,19 +100,9 @@ namespace EVCMonoGame.src.states
                 pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
 
             if (IsActive)
-            {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the state.
-                Vector2 targetPosition = new Vector2( StateManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
-                sceneManager.Update(gameTime);
+			{
+				PlayerOne.Update(gameTime);
+				sceneManager.Update(gameTime);
             }
         }
 
@@ -120,28 +127,49 @@ namespace EVCMonoGame.src.states
         {
             // This game has a blue background. Why? Because!
             StateManager.GraphicsDevice.Clear(ClearOptions.Target,
-                                               Color.CornflowerBlue, 0, 0);
+                                               Color.Black, 0, 0);
 
             sceneManager.Draw(gameTime);
-
             // Our player and enemy are both actually just text strings.
             SpriteBatch spriteBatch = StateManager.SpriteBatch;
 
             spriteBatch.Begin();
 
-            //spriteBatch.DrawString(gameFont, "// TODO", enemyPosition + Vector2.One, Color.Green);
+			//spriteBatch.DrawString(gameFont, "// TODO", enemyPosition + Vector2.One, Color.Green);
 
-            //spriteBatch.DrawString(gameFont, "Insert Gameplay Here", enemyPosition, Color.DarkRed);
+			//spriteBatch.DrawString(gameFont, "Insert Gameplay Here", enemyPosition, Color.DarkRed);
 
-            spriteBatch.End();
+			PlayerOne.Draw(gameTime, spriteBatch);
+			spriteBatch.End();
 
-            // If the game is transitioning on or off, fade it out to black.
-            if (TransitionPosition > 0 || pauseAlpha > 0)
+
+			// If the game is transitioning on or off, fade it out to black.
+			if (TransitionPosition > 0 || pauseAlpha > 0)
             {
                 float alpha = MathHelper.Lerp(1f - TransitionAlpha, 1f, pauseAlpha / 2);
 
                 StateManager.FadeBackBufferToBlack(alpha);
             }
         }
-    }
+
+		public static Player GetPlayer(PlayerIndex playerIndex)
+		{
+			switch (playerIndex)
+			{
+				case PlayerIndex.One:
+					return playerOne;
+				case PlayerIndex.Two:
+					return playerTwo;
+				default:
+					return null;
+			}
+		}
+
+		public static List<Player> GetAllPlayers()
+		{
+			return players;
+		}
+
+
+	}
 }

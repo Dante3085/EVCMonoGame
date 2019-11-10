@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.collision;
 
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -52,22 +53,22 @@ namespace EVCMonoGame.src.scenes
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             nextScene = null;
-            easer = new Easer(0, 255, 500, Easing.SineEaseIn);
+            easer = new Easer(0, 255, 0, Easing.SineEaseIn);
             transitioning = false;
             reverseTransitionFinished = false;
 
             fpsCounter = new FpsCounter(Vector2.Zero, Color.White);
 
             scenes = new Dictionary<EScene, Scene>();
-			scenes[EScene.DEBUG_2] = new DebugScene(this);
-            scenes[EScene.DEBUG] = new DebugScreen2(this);
+			scenes[EScene.DEBUG] = new CollisionDebugScene(this);
+			scenes[EScene.DEBUG_2] = new ItemDebugScene(this);
 			currentScene = previousScene = scenes[EScene.DEBUG];
 			SceneTransition(EScene.DEBUG); // Debug
         }
 
         public void LoadContent()
         {
-            sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
+            //sceneTransitionTexture = game.Content.Load<Texture2D>("rsrc/backgrounds/blank");
             fpsCounter.LoadContent(game.Content);
 
             foreach (Scene s in scenes.Values)
@@ -118,7 +119,13 @@ namespace EVCMonoGame.src.scenes
 			transitioning = true;
             easer.start();
 
-
+		
+			// Collision verpassen evtl auslagern in "Play"
+			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
+			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+			//CollisionManager.AddCollidables(GameplayState.PlayerTwo);
+			//CollisionManager.AddCollidables(GameplayState.PlayerThree);
+			//CollisionManager.AddCollidables(GameplayState.PlayerFour);
 
 		}
 
@@ -156,8 +163,7 @@ namespace EVCMonoGame.src.scenes
         {
             // Achtung: Easer haben immer float Werte. Bei float denkt der Color Konstruktor allerdings
             // er bekommt einen Wert von 0.0 bis 1.0, also nach int casten.
-            spriteBatch.Draw(sceneTransitionTexture, 
-                game.GraphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
+            //spriteBatch.Draw(sceneTransitionTexture, game.GraphicsDevice.Viewport.Bounds, new Color(0, 0, 0, (int)easer.CurrentValue));
         }
 
         public Vector2 GetViewportCenter()

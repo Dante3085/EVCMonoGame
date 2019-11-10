@@ -22,12 +22,12 @@ namespace EVCMonoGame.src
     {
 
         private AnimatedSprite playerSprite;
-        private float playerSpeed;
-		private Vector2 playerDirection;
 		private ItemFinder itemFinder;
 		private Inventory inventory;
 
+		private Keys[] controls;
 
+		#region Porperties
 		public AnimatedSprite Sprite
         {
             get { return playerSprite; }
@@ -39,18 +39,25 @@ namespace EVCMonoGame.src
 			set { inventory = value; }
 		}
 
+		public float PlayerSpeed
+		{
+			get { return movementSpeed; }
+			set { movementSpeed = value; }
+		}
+
+		private Vector2 PlayerDirection
+		{
+			get { return movementDirection; }
+			set { movementDirection = value; }
+		}
+		#endregion
 
 
-		
-
-		private Keys[] controls;
-
-        public Player(Rectangle bounds, Keys[] controls)
+        public Player(Rectangle bounds, Keys[] controls) : base(bounds)
         {
-			CollisionBox = bounds;
 			inventory = new Inventory(this);
 			itemFinder = new ItemFinder(this);
-
+			
             //playerSprite = new AnimatedSprite("rsrc/spritesheets/CronoTransparentBackground", position, 6.0f);
 
             // Frames sind leicht falsch(Abgeschnittene Ecken).
@@ -83,7 +90,7 @@ namespace EVCMonoGame.src
             //playerSprite.LoadFromFile("Content/rsrc/spritesheets/configFiles/sora.txt");
             //playerSprite.SetAnimation("IDLE");
 			
-            playerSpeed = 8;
+            PlayerSpeed = 8;
 
             if (controls.Length != 4)
             {
@@ -100,8 +107,8 @@ namespace EVCMonoGame.src
             itemFinder.Draw(gameTime, spriteBatch);
 
 			//Debug
-			playerDirection.Normalize();
-			Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + playerDirection*50, Color.Black);
+			PlayerDirection.Normalize();
+			Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + PlayerDirection*50, Color.Black);
         }
 
         public override void LoadContent(ContentManager content)
@@ -115,26 +122,26 @@ namespace EVCMonoGame.src
 			// TODO: playerSprite steuern(Animationen ändern und bewegen)
 			base.Update(gameTime);
 
-			processInput(gameTime);
+			ProcessInput(gameTime);
             itemFinder.Update(gameTime);
 
             //playerSprite.Update(gameTime);
         }
 
-		public void processInput(GameTime gameTime)
+		public void ProcessInput(GameTime gameTime)
 		{
 			int[] anzahl = { 0, 0 };
 
 			//Vector2 currentPosition = playerSprite.Position;
 
-			playerDirection = Vector2.Zero;
+			PlayerDirection = Vector2.Zero;
 
 			// Debug and dirty codeplacement
-			if (InputManager.IsKeyPressed(Keys.Left))
+			if (InputManager.IsKeyPressed(Keys.Q))
 			{
 				PlayerInventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			}
-			if (InputManager.IsKeyPressed(Keys.Right))
+			if (InputManager.IsKeyPressed(Keys.R))
 			{
 				PlayerInventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
 			}
@@ -150,33 +157,33 @@ namespace EVCMonoGame.src
 				{
 					++anzahl[0];
 					//playerSprite.SetAnimation("WALK_UP");
-					playerDirection += new Vector2(0, -1);
+					PlayerDirection += new Vector2(0, -1);
 				}
 				if (InputManager.IsKeyPressed(controls[1]))
 				{
 					++anzahl[0];
 					//playerSprite.SetAnimation("WALK_DOWN");
-					playerDirection += new Vector2(0, 1);
+					PlayerDirection += new Vector2(0, 1);
 				}
 				if (InputManager.IsKeyPressed(controls[2]))
 				{
 					++anzahl[1];
 					//playerSprite.SetAnimation("WALK_RIGHT");
-					playerDirection += new Vector2(1, 0);
+					PlayerDirection += new Vector2(1, 0);
 				}
 				if (InputManager.IsKeyPressed(controls[3]))
 				{
 					++anzahl[1];
 					//playerSprite.SetAnimation("WALK_LEFT");
-					playerDirection += new Vector2(-1, 0);
+					PlayerDirection += new Vector2(-1, 0);
 				}
 
 				// Richtungsvektor Normalizieren
-				if (playerDirection != Vector2.Zero)
-					playerDirection.Normalize();
+				if (PlayerDirection != Vector2.Zero)
+					PlayerDirection.Normalize();
 
 				//Snap to Grid
-				WorldPosition +=  playerDirection * playerSpeed;
+				WorldPosition +=  PlayerDirection * PlayerSpeed;
 
 				// Funktion fixt unsere Position
 				if (CollisionManager.IsCollisionAfterMove(this, true, true))
@@ -187,10 +194,8 @@ namespace EVCMonoGame.src
                         Console.WriteLine(item);
                         if (item is Item)
                         {
-                            if (item is PickUpItem)
-                            {
-                                ((PickUpItem)item).PickUp(this);
-                            }
+							((Item)item).PickUp(this);
+                            
                         }
                     }
                 }
@@ -209,7 +214,7 @@ namespace EVCMonoGame.src
 
 		}
 
-		public override void OnGeometryCollision(GeometryCollision collider)
+		public override void OnGeometryCollision(IGeometryCollision collider)
 		{
 			base.OnGeometryCollision(collider);
 			//Console.WriteLine("Player Collison Feedback");
