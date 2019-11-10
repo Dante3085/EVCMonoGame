@@ -168,10 +168,18 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 Vector2 textPosition = viewport.Bounds.Size.ToVector2() * new Vector2(0.5f, 0.5f) -
                                        (fontSize * new Vector2(0.5f, 0.5f));
 
-                infoText = "Hotkeys\n" +
+                infoText = "General\n" +
+                           "Hold MiddleMouseButton: Drag screen\n" +
+                           "Hold LeftMouseButton: Rectangle selection\n" +
+                           "MouseWheel: Zoom in/out\n" +
+                           "Hotkeys\n" +
                            "-------\n" +
                            "S: Save\n" +
-                           "L: Load\n\n" +
+                           "L: Load\n" +
+                           "C: Copy Selection\n" +
+                           "X: Cut Selection\n" +
+                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "Delete/Entf: Delete selected Tiles\n" +
                            "DrawingArea\n" +
                            "-----------\n" +
                            "NumTiles: " + drawingArea.Tiles.Count + "\n" +
@@ -192,14 +200,24 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             this.viewport = viewport;
 
-            infoText = "Hotkeys\n" +
-                       "-------\n" +
-                       "S: Save\n" +
-                       "L: Load\n\n" +
-                       "DrawingArea\n" +
-                       "-----------\n" +
-                       "NumTiles: \n"  +
-                       "CurrentTileInfo: ";
+            infoText = "General\n" +
+                           "Hold MiddleMouseButton: Drag screen\n" +
+                           "Hold LeftMouseButton: Rectangle selection\n" +
+                           "MouseWheel: Zoom in/out\n" +
+                           "Hotkeys\n" +
+                           "-------\n" +
+                           "S: Save\n" +
+                           "L: Load\n" +
+                           "C: Copy Selection\n" +
+                           "X: Cut Selection\n" +
+                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "Delete/Entf: Delete selected Tiles\n" +
+                           "DrawingArea\n" +
+                           "-----------\n" +
+                           "NumTiles: \n" +
+                           "NumTilesSelection: \n" +
+                           "NumTilesCopyBuffer: \n" +
+                           "CurrentTileInfo: \n";
 
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             fontSize = font.MeasureString(infoText);

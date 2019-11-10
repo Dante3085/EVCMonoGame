@@ -47,6 +47,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private Vector2 mouseTravel = Vector2.Zero;
 
         private float zoom = 1;
+        private Vector2 position;
+        private Vector2 disposition;
 
         private Tile hoveredTile = null;
         private List<Tile> copyBuffer = new List<Tile>();
@@ -106,9 +108,23 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void Update(GameTime gameTime)
         {
+            // Correct for zooming.
             currentMousePosition = InputManager.CurrentMousePosition();
-            mouseTravel = currentMousePosition - InputManager.PreviousMousePosition();
+            disposition = new Vector2((bounds.Width - (bounds.Width * zoom)) / 2, (bounds.Height - (bounds.Height * zoom)) / 2);
+            currentMousePosition -= disposition - position;
+            currentMousePosition /= zoom;
+            Vector2 previousMousePosition = InputManager.PreviousMousePosition();
+            previousMousePosition -= disposition - position;
+            previousMousePosition /= zoom;
+            mouseTravel = currentMousePosition - previousMousePosition;
 
+            // Update dragging.
+            if (InputManager.IsMiddleMouseButtonDown())
+            {
+                position -= (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
+            }
+
+            // Update all DrawingArea components.
             UpdateTileDrawing();
             UpdateHoveredTile();
             UpdateDetectingSelection();
@@ -350,7 +366,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             else if (copyBuffer.Count != 0 &&
                      InputManager.OnKeyPressed(Keys.V))
             {
-                Vector2 shiftVector = currentMousePosition - copyBuffer[0].screenBounds.Location.ToVector2();
+                Vector2 shiftVector = currentMousePosition - (copyBuffer[0].screenBounds.Location.ToVector2());
 
                 foreach (Tile tile in copyBuffer)
                 {
@@ -364,11 +380,34 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
         }
 
+        private Matrix CalcZoomMatrix()
+        {
+            if (InputManager.CurrentScrollWheel() != InputManager.PreviousScrollWheel())
+            {
+                Console.WriteLine(InputManager.CurrentScrollWheel());
+            }
+            if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
+            {
+                zoom -= 0.01f + (0.04f * zoom);
+            }
+            else if (InputManager.CurrentScrollWheel() > InputManager.PreviousScrollWheel())
+            {
+                zoom += 0.01f + (0.1f * zoom);
+            }
+
+            Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
+            return new Matrix(
+                     new Vector4(zoom, 0, 0, 0),
+                     new Vector4(0, zoom, 0, 0),
+                     new Vector4(0, 0, 1, 0),
+                     new Vector4(point.X - position.X, point.Y - position.Y, 0, 1));
+        }
+
         #endregion
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: CalcZoomMatrix());
 
             // Draw all Tiles on DrawingArea.
             foreach (Tile tile in tiles)
@@ -415,30 +454,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             spriteBatch.End();
-        }
-
-        private Matrix getZoom()
-        {
-            if (InputManager.CurrentScrollWheel() != InputManager.PreviousScrollWheel())
-            {
-                Console.WriteLine(InputManager.CurrentScrollWheel());
-            }
-            if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
-            {
-                zoom -= 0.01f + (0.04f * zoom);
-            }
-            else if (InputManager.CurrentScrollWheel() > InputManager.PreviousScrollWheel())
-            {
-                zoom += 0.01f + (0.1f * zoom);
-            }
-
-            Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
-            return new Matrix(
-                     new Vector4(zoom, 0, 0, 0),
-                     new Vector4(0, zoom, 0, 0),
-                     new Vector4(0, 0, 1, 0),
-                     new Vector4(point.X, point.Y, 0, 1));
-            //return Matrix.Identity;
         }
 
         public void LoadContent(ContentManager content)
