@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.tilemap.tilemapEditor
+namespace EVCMonoGame.src.tilemap
 {
     public class Tile
     {
