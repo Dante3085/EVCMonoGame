@@ -172,6 +172,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "Hold MiddleMouseButton: Drag screen\n" +
                            "Hold LeftMouseButton: Rectangle selection\n" +
                            "MouseWheel: Zoom in/out\n" +
+                           "Hold Arrow Keys: Move selection slowly\n" +
                            "Hotkeys\n" +
                            "-------\n" +
                            "S: Save\n" +
@@ -200,10 +201,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             this.viewport = viewport;
 
-            infoText = "General\n" +
+            infoText =     "General\n" +
                            "Hold MiddleMouseButton: Drag screen\n" +
                            "Hold LeftMouseButton: Rectangle selection\n" +
                            "MouseWheel: Zoom in/out\n" +
+                           "Hold Arrow Keys: Move selection slowly\n" +
                            "Hotkeys\n" +
                            "-------\n" +
                            "S: Save\n" +

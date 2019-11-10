@@ -201,7 +201,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // Draw TileSelection String, TileSelection's bounds, tileHoveredByMouseMarker and currentTileMarker.
             spriteBatch.DrawString(font, text, bounds.Location.ToVector2(), Color.White);
-            // Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Green, 5);
+            Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Green, 5);
             Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
             Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
 
