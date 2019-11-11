@@ -109,8 +109,19 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyPressed(Keys key)
         {
-            return !previousKeyboardState.IsKeyDown(key) && 
+            return !previousKeyboardState.IsKeyDown(key) &&
                     currentKeyboardState.IsKeyDown(key);
+        }
+
+        public static bool OnKeyCombinationPressed(params Keys[] keys)
+        {
+            bool oneKeyPressedFirstTime = false;
+            foreach (Keys k in keys)
+            {
+                if(!IsKeyPressed(k)) return false;
+                if (!oneKeyPressedFirstTime && OnKeyPressed(k)) oneKeyPressedFirstTime = true;
+            }
+            return oneKeyPressedFirstTime;
         }
 
         /// <summary>

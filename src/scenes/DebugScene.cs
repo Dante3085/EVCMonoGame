@@ -93,6 +93,7 @@ namespace EVCMonoGame.src.scenes
 
         public override void Update(GameTime gameTime)
         {
+            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.A)) Console.WriteLine("PRESSED");
             if (InputManager.OnKeyPressed(Keys.F1))
             {
                 if (drawables.Contains(collisionManager))
