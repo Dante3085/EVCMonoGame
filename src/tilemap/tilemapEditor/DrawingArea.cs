@@ -117,18 +117,20 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             // Correct for zooming.
             currentMousePosition = InputManager.CurrentMousePosition();
-            disposition = new Vector2((bounds.Width - (bounds.Width * zoom)) / 2, (bounds.Height - (bounds.Height * zoom)) / 2);
-            currentMousePosition -= disposition - position;
+            currentMousePosition -= position;
             currentMousePosition /= zoom;
             Vector2 previousMousePosition = InputManager.PreviousMousePosition();
-            previousMousePosition -= disposition - position;
+            previousMousePosition -= position;
             previousMousePosition /= zoom;
             mouseTravel = currentMousePosition - previousMousePosition;
 
             // Update dragging.
             if (InputManager.IsMiddleMouseButtonDown())
             {
-                position -= (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
+                Vector2 positionTemp = position;
+                position += (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
+                if (position.X > 0) position.X = positionTemp.X;
+                if (position.Y > 0) position.Y = positionTemp.Y;
             }
 
             // Update all DrawingArea components.
@@ -546,12 +548,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 zoom += 0.01f + (0.1f * zoom);
             }
 
-            Vector2 point = (-zoom) * new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f) + new Vector2(bounds.Width * 0.5f, bounds.Height * 0.5f);
             return new Matrix(
-                     new Vector4(zoom, 0, 0, 0),
-                     new Vector4(0, zoom, 0, 0),
-                     new Vector4(0, 0, 1, 0),
-                     new Vector4(point.X - position.X, point.Y - position.Y, 0, 1));
+                   new Vector4(zoom, 0, 0, 0),
+                   new Vector4(0, zoom, 0, 0),
+                   new Vector4(0, 0, 1, 0),
+                   new Vector4(/*point.X - */position.X, /*point.Y - */position.Y, 0, 1));
+            
         }
 
         #endregion
@@ -574,7 +576,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             // Mark hovered Tile.
-            if (hoveredTile != null && 
+            if (hoveredTile != null &&
                 !movingSelectionWithMouse &&
                 !movingSelectionWithKeys)
             {
