@@ -150,6 +150,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             {
                 gridActivated = !gridActivated;
             }
+            //Snap all Tiles
+            if (gridActivated && InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.S))
+            {
+                SnapAllTilesToGrid();
+            }
 
             // Update all DrawingArea components.
             UpdateTileDrawing();
@@ -228,6 +233,35 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 newTile.screenBounds.Location += snappingVector.ToPoint();
             }
             tiles.Add(newTile);
+        }
+
+        private void SnapAllTilesToGrid()
+        {
+            foreach (Tile tile in tiles)
+            {
+                Vector2 insideCellPosition = new Vector2((int)(tile.screenBounds.Location.X) % gridCellSize, (int)(tile.screenBounds.Location.Y) % gridCellSize);
+                if (insideCellPosition != Vector2.Zero && gridActivated)
+                {
+                    Vector2 snappingVector = Vector2.Zero;
+                    if ((insideCellPosition.X) < gridCellSize / 2)//näher an linker Kante 
+                    {
+                        snappingVector.X -= insideCellPosition.X;
+                    }
+                    else//näher an Rechter Kante
+                    {
+                        snappingVector.X += (gridCellSize - insideCellPosition.X);
+                    }
+                    if ((insideCellPosition.Y) < gridCellSize / 2)//näher an oberer Kante 
+                    {
+                        snappingVector.Y -= insideCellPosition.Y;
+                    }
+                    else//näher an unterer Kante
+                    {
+                        snappingVector.Y += (gridCellSize - insideCellPosition.Y);
+                    }
+                    tile.screenBounds.Location += snappingVector.ToPoint();
+                }
+            }
         }
 
         private void UpdateHoveredTile()
@@ -443,7 +477,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     minimalBoundingBox.Location += correctionVector.ToPoint();
                     foreach (Tile tile in selection)
                     {
-                        tile.screenBounds.Location += snappingVector.ToPoint()+correctionVector.ToPoint();
+                        tile.screenBounds.Location += snappingVector.ToPoint() + correctionVector.ToPoint();
                     }
                 }
             }
