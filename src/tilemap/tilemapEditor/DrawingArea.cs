@@ -775,18 +775,18 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 !movingSelectionWithMouse &&
                 !movingSelectionWithKeys*/)
             {
+                Color boxColor = Color.DarkRed;
+                boxColor.A = 50;
+
                 // Mark selection with one Tile.
                 if (selection.Count == 1)
                 {
-                    Primitives2D.DrawRectangle(spriteBatch, selection[0].screenBounds, Color.DarkRed, 5);
+                    Primitives2D.FillRectangle(spriteBatch, selection[0].screenBounds, boxColor);
                 }
 
                 // Mark selection with multiple Tiles.
                 else
                 {
-                    Color boxColor = Color.DarkRed;
-                    boxColor.A = 50;
-
                     Primitives2D.FillRectangle(spriteBatch, minimalBoundingBox, boxColor);
                 }
             }
