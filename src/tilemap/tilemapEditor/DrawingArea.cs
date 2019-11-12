@@ -108,6 +108,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
             }
         }
+        public int GridCellSize
+        {
+            get { return gridCellSize; }
+            set { gridCellSize = value; }
+        }
 
         #endregion
 
@@ -115,6 +120,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             this.bounds = bounds;
             this.tileSelection = tileSelection;
+            this.gridCellSize = (int)tileSelection.TileSize.X;
         }
 
         public void Update(GameTime gameTime)
@@ -135,6 +141,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 position += (InputManager.CurrentMousePosition() - InputManager.PreviousMousePosition());
                 if (position.X > 0) position.X = positionTemp.X;
                 if (position.Y > 0) position.Y = positionTemp.Y;
+            }
+
+            //toggle Grid
+            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.G))
+            {
+                gridActivated = !gridActivated;
             }
 
             // Update all DrawingArea components.
@@ -190,7 +202,29 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             Tile newTile = new Tile(tsct.name, tsct.textureBounds,
                         new Rectangle(currentMousePosition.ToPoint(), tsct.screenBounds.Size));
+            Vector2 insideCellPosition = new Vector2((int)(newTile.screenBounds.Location.X) % gridCellSize, (int)(newTile.screenBounds.Location.Y) % gridCellSize);
+            if (insideCellPosition != Vector2.Zero && gridActivated)
+            {
+                Vector2 snappingVector = Vector2.Zero;
+                if ((insideCellPosition.X) < gridCellSize / 2)//näher an linker Kante 
+                {
+                    snappingVector.X -= insideCellPosition.X;
+                }
+                else//näher an Rechter Kante
+                {
+                    snappingVector.X += (gridCellSize - insideCellPosition.X);
+                }
+                if ((insideCellPosition.Y) < gridCellSize / 2)//näher an oberer Kante 
+                {
+                    snappingVector.Y -= insideCellPosition.Y;
+                }
+                else//näher an unterer Kante
+                {
+                    snappingVector.Y += (gridCellSize - insideCellPosition.Y);
+                }
+                newTile.screenBounds.Location += snappingVector.ToPoint();
 
+            }
             tiles.Add(newTile);
         }
 
@@ -372,7 +406,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             if (gridActivated && InputManager.OnLeftMouseButtonReleased())
             {
                 Vector2 insideCellPosition = new Vector2((int)(minimalBoundingBox.Location.X) % gridCellSize, (int)(minimalBoundingBox.Location.Y) % gridCellSize);
-                Vector2 startPosition = minimalBoundingBox.Location.ToVector2();
                 if (insideCellPosition != Vector2.Zero)
                 {
                     Vector2 snappingVector = Vector2.Zero;
@@ -392,7 +425,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     {
                         snappingVector.Y += (gridCellSize - insideCellPosition.Y);
                     }
-                    minimalBoundingBox.Location += snappingVector.ToPoint();bool debug = (minimalBoundingBox.Location.X % 100 != 0) || (minimalBoundingBox.Location.Y % 100 != 0);
+                    minimalBoundingBox.Location += snappingVector.ToPoint();
                     foreach (Tile tile in selection)
                     {
                         tile.screenBounds.Location += snappingVector.ToPoint();
@@ -620,7 +653,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 return;
 
             scalingSelection = false;
-            
+
             if (InputManager.IsKeyPressed(Keys.LeftAlt))
             {
                 scalingSelection = true;
@@ -633,7 +666,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private Matrix CalcZoomMatrix()
         {
-            if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.001f)
+            if (InputManager.CurrentScrollWheel() < InputManager.PreviousScrollWheel() && zoom > 0.027f)
             {
                 zoom -= 0.01f + (0.04f * zoom);
             }
@@ -706,6 +739,30 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     Primitives2D.FillRectangle(spriteBatch, minimalBoundingBox, boxColor);
                 }
             }
+
+            if (gridActivated)
+            {
+                Console.WriteLine(position);
+                float currentDisplayingWidth = bounds.Width / zoom;
+                float currentDisplayingHeight = bounds.Height / zoom;
+                for (float i = 0; i < -position.X / zoom + currentDisplayingWidth + gridCellSize; i += gridCellSize)
+                {
+                    float x;
+                    float y = -position.Y / zoom + currentDisplayingHeight + gridCellSize;
+                    Vector2 start = new Vector2(i, 0);
+                    Vector2 end = new Vector2(i, y);
+                    Primitives2D.DrawLine(spriteBatch, start, end, Color.DarkCyan, 2 / zoom);
+                }
+                for (float i = 0; i < -position.Y / zoom + currentDisplayingHeight + gridCellSize; i += gridCellSize)
+                {
+                    float x = -position.X / zoom + currentDisplayingWidth + gridCellSize;
+                    Vector2 start = new Vector2(0, i);
+                    Vector2 end = new Vector2(x, i);
+                    Primitives2D.DrawLine(spriteBatch, start, end, Color.DarkCyan, 2 / zoom);
+                }
+            }
+
+            // draw Grid
 
             spriteBatch.End();
         }

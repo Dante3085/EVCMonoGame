@@ -30,11 +30,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private Rectangle bounds;
         private Vector2 tileSize;
         private int numTilesPerRow;
-        private Texture2D tileSet       = null;
-        private String tileSetName      = String.Empty;
-        private List<List<Tile>> tiles  = new List<List<Tile>>();
-        private Tile currentTile        = null;
-        private Tile tileHoveredByMouse = null;                 
+        private Texture2D tileSet = null;
+        private String tileSetName = String.Empty;
+        private List<List<Tile>> tiles = new List<List<Tile>>();
+        private Tile currentTile = null;
+        private Tile tileHoveredByMouse = null;
         private Vector2 tileSpacing;
 
         private SpriteFont font;
@@ -44,8 +44,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private Rectangle tileHoveredByMouseMarker;
         private Rectangle currentTileMarker = Rectangle.Empty;
 
-        private bool moveTileSelection           = false;
-        private bool movementLocked              = false;
+        private bool moveTileSelection = false;
+        private bool movementLocked = false;
 
         #endregion
 
@@ -54,11 +54,17 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         public Vector2 Position
         {
             get { return bounds.Location.ToVector2(); }
-            set 
+            set
             {
                 bounds.Location = value.ToPoint();
                 UpdateTileBounds();
             }
+        }
+
+        public Vector2 TileSize
+        {
+            get { return tileSize; }
+            set { tileSize = value; }
         }
 
         public Rectangle Bounds
@@ -92,9 +98,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TileSelection
         (
-            Vector2 position, 
-            Vector2 tileSize, 
-            int numTilesPerRow, 
+            Vector2 position,
+            Vector2 tileSize,
+            int numTilesPerRow,
             Vector2 tileSpacing
         )
         {

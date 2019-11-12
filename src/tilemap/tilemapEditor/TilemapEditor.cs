@@ -193,6 +193,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 if (!openFileDialogCanceled)
                 {
                     tileSelection.ReadTilesFromFile(fileName, content);
+                    drawingArea.GridCellSize = (int)tileSelection.TileSize.X;
                 }
             }
         }
