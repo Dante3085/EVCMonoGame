@@ -33,6 +33,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
     // TODO: Make it possible to draw multiple Tiles in quick succession.
 
+    // TODO: InfoText ergänzen. Grid und TileSelection Hide show.
+
     public class DrawingArea
     {
         #region Fields
@@ -69,7 +71,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private float downHoldElapsed = 0;
 
         private int gridCellSize = 100;
-        private bool gridActivated = true;
+        private bool gridActivated = false;
 
         #endregion
         #region Properties
@@ -165,7 +167,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         {
             Tile tsct = tileSelection.CurrentTile;
 
-            if (!tileSelection.IsHoveredByMouse &&
+            if ((!tileSelection.IsHoveredByMouse ||
+                  tileSelection.Hidden) &&
                 tsct != null)
             {
                 drawTileSelectionCurrentTileOnMouse = true;
@@ -229,9 +232,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void UpdateHoveredTile()
         {
-            if (tileSelection.IsHoveredByMouse ||
+            if (!tileSelection.Hidden &&
+                (tileSelection.IsHoveredByMouse ||
                 drawTileSelectionCurrentTileOnMouse ||
-                selectionBoxHasStartPoint)
+                selectionBoxHasStartPoint))
             {
                 hoveredTile = null;
                 return;
@@ -254,9 +258,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void UpdateDetectingSelection()
         {
-            if (tileSelection.IsHoveredByMouse ||
+            if (!tileSelection.Hidden &&
+                (tileSelection.IsHoveredByMouse ||
                 drawTileSelectionCurrentTileOnMouse ||
-                movingSelectionWithMouse)
+                movingSelectionWithMouse))
                 return;
 
             // Select all Tiles with STRG+A
@@ -296,17 +301,17 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // We return on minimalBoundingBox.Contains(currentMousePosition) because
             // we don't want to cancel the selection(search for a new one) when the user
             // is trying to move it.
-            if (hoveredTile != null ||
+            if (/*hoveredTile != null ||*/
                 minimalBoundingBox.Contains(currentMousePosition))
                 return;
 
-            if (InputManager.OnLeftMouseButtonClicked())
+            if (InputManager.OnRightMouseButtonClicked())
             {
                 selectionBoxStartPoint = currentMousePosition;
                 selectionBoxHasStartPoint = true;
                 minimalBoundingBox = Rectangle.Empty;
             }
-            else if (InputManager.OnLeftMouseButtonReleased())
+            else if (InputManager.OnRightMouseButtonReleased())
             {
                 selectionBoxHasStartPoint = false;
 
@@ -341,7 +346,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
                 minimalBoundingBox = new Rectangle(topLeft.ToPoint(), (bottomRight - topLeft).ToPoint());
             }
-            if (selectionBoxHasStartPoint && InputManager.IsLeftMouseButtonDown())
+            if (selectionBoxHasStartPoint && InputManager.IsRightMouseButtonDown())
             {
                 selectionBox.Width = (int)Math.Abs(currentMousePosition.X - selectionBoxStartPoint.X);
                 selectionBox.Height = (int)Math.Abs(currentMousePosition.Y - selectionBoxStartPoint.Y);
@@ -374,10 +379,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void UpdateMovingSelection(GameTime gameTime)
         {
-            if (tileSelection.IsHoveredByMouse ||
+            if (!tileSelection.Hidden &&
+                (tileSelection.IsHoveredByMouse ||
                 selection.Count == 0 ||
                 selectionBoxHasStartPoint ||
-                scalingSelection)
+                scalingSelection))
                 return;
 
             // Move selection with Mouse.
@@ -592,7 +598,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void UpdateSelectionCopyCutPasteDelete()
         {
-            if (tileSelection.IsHoveredByMouse)
+            if (!tileSelection.Hidden &&
+                tileSelection.IsHoveredByMouse)
                 return;
 
             if (selection.Count != 0 &&
@@ -656,9 +663,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private void UpdateScalingSelection()
         {
-            if (tileSelection.IsHoveredByMouse ||
+            if (!tileSelection.Hidden &&
+                (tileSelection.IsHoveredByMouse ||
                 selection.Count == 0 ||
-                selectionBoxHasStartPoint)
+                selectionBoxHasStartPoint))
                 return;
 
             scalingSelection = false;
