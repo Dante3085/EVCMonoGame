@@ -749,14 +749,13 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
             }
 
+            // draw Grid
             if (gridActivated)
             {
-                Console.WriteLine(position);
                 float currentDisplayingWidth = bounds.Width / zoom;
                 float currentDisplayingHeight = bounds.Height / zoom;
                 for (float i = 0; i < -position.X / zoom + currentDisplayingWidth + gridCellSize; i += gridCellSize)
                 {
-                    float x;
                     float y = -position.Y / zoom + currentDisplayingHeight + gridCellSize;
                     Vector2 start = new Vector2(i, 0);
                     Vector2 end = new Vector2(i, y);
@@ -771,7 +770,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
             }
 
-            // draw Grid
 
             spriteBatch.End();
         }
