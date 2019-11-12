@@ -67,6 +67,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private float upHoldElapsed = 0;
         private float downHoldElapsed = 0;
 
+        private int gridCellSize = 100;
+        private bool gridActivated = true;
+
         #endregion
         #region Properties
 
@@ -323,6 +326,38 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     tile.screenBounds.Location += mouseTravel.ToPoint();
                 }
                 minimalBoundingBox.Location += mouseTravel.ToPoint();
+
+            }
+            //Grid Snapping
+            if (gridActivated && InputManager.OnLeftMouseButtonReleased())
+            {
+                Vector2 insideCellPosition = new Vector2((int)(minimalBoundingBox.Location.X) % gridCellSize, (int)(minimalBoundingBox.Location.Y) % gridCellSize);
+                Vector2 startPosition = minimalBoundingBox.Location.ToVector2();
+                if (insideCellPosition != Vector2.Zero)
+                {
+                    Vector2 snappingVector = Vector2.Zero;
+                    if ((insideCellPosition.X) < gridCellSize / 2)//näher an linker Kante 
+                    {
+                        snappingVector.X -= insideCellPosition.X;
+                    }
+                    else//näher an Rechter Kante
+                    {
+                        snappingVector.X += (gridCellSize - insideCellPosition.X);
+                    }
+                    if ((insideCellPosition.Y) < gridCellSize / 2)//näher an oberer Kante 
+                    {
+                        snappingVector.Y -= insideCellPosition.Y;
+                    }
+                    else//näher an unterer Kante
+                    {
+                        snappingVector.Y += (gridCellSize - insideCellPosition.Y);
+                    }
+                    minimalBoundingBox.Location += snappingVector.ToPoint();bool debug = (minimalBoundingBox.Location.X % 100 != 0) || (minimalBoundingBox.Location.Y % 100 != 0);
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Location += snappingVector.ToPoint();
+                    }
+                }
             }
 
             UpdateMovingSelectionWithKeys(gameTime);
@@ -553,7 +588,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                    new Vector4(0, zoom, 0, 0),
                    new Vector4(0, 0, 1, 0),
                    new Vector4(/*point.X - */position.X, /*point.Y - */position.Y, 0, 1));
-            
+
         }
 
         #endregion
