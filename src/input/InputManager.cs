@@ -113,6 +113,13 @@ namespace EVCMonoGame.src.input
                     currentKeyboardState.IsKeyDown(key);
         }
 
+        /// <summary>
+        /// Returns true if isKeyPressed() is true for all of the given keys 
+        /// and OnKeyPressed is true for one of the key
+        /// and no other keys are being pressed, otherwise false.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static bool OnKeyCombinationPressed(params Keys[] keys)
         {
             bool oneKeyPressedFirstTime = false;
@@ -121,7 +128,7 @@ namespace EVCMonoGame.src.input
                 if(!IsKeyPressed(k)) return false;
                 if (!oneKeyPressedFirstTime && OnKeyPressed(k)) oneKeyPressedFirstTime = true;
             }
-            return oneKeyPressedFirstTime;
+            return oneKeyPressedFirstTime && (keys.Length==currentKeyboardState.GetPressedKeys().Length);
         }
 
         /// <summary>
