@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.input
 {
-    // TODO: OnKeyCombinationPressed(keys)
+    // Todo: Mouse DoubleClick
     // TODO: OnKeyCombinationReleased(keys)
     // TODO: InputContexts
     // TODO: Actions and States
