@@ -1,19 +1,13 @@
-﻿using System;
+﻿using EVCMonoGame.src.input;
+using EVCMonoGame.src.utility;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
-
-using EVCMonoGame.src.input;
-using EVCMonoGame.src.gui;
-using EVCMonoGame.src.utility;
-using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.tilemap.tilemapEditor
 {
@@ -53,6 +47,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private Viewport viewport;
 
+        private ContentManager content;
+
         #endregion
 
         #region Properties
@@ -66,8 +62,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TilemapEditor()
         {
-            tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1),
-                               "Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt");
+            tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1));
         }
 
         public void Update(GameTime gameTime)
@@ -75,8 +70,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             tileSelection.Update(gameTime);
             drawingArea.Update(gameTime);
 
-            CheckForSavingToFile();
-            CheckForLoadingFromFile();
+            CheckForSavingTilemapToFile();
+            CheckForLoadingTilemapFromFile();
+            CheckForLoadingTileSelectionFromFile();
 
             if (InputManager.OnKeyPressed(Microsoft.Xna.Framework.Input.Keys.I))
             {
@@ -85,15 +81,18 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         }
 
         #region UpdateHelper
-        private void CheckForSavingToFile()
+        private void CheckForSavingTilemapToFile()
         {
             // Namespace muss hier voll spezifiziert sein wegen WindowsForms ambiguity.
             // Vielleicht in ConfigFileUtility verschieben ?
-            if (InputManager.OnKeyPressed(Microsoft.Xna.Framework.Input.Keys.S))
+            if (InputManager.OnKeyCombinationPressed(Microsoft.Xna.Framework.Input.Keys.LeftControl,
+                                                     Microsoft.Xna.Framework.Input.Keys.S))
             {
                 String fileName = String.Empty;
                 bool saveFileDialogCanceled = false;
+
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Title = "Save Tilemap as example.tm.txt";
 
                 Thread dialogThread = new Thread(() =>
                 {
@@ -122,13 +121,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
         }
 
-        private void CheckForLoadingFromFile()
+        private void CheckForLoadingTilemapFromFile()
         {
-            if (InputManager.OnKeyPressed(Microsoft.Xna.Framework.Input.Keys.L))
+            if (InputManager.OnKeyCombinationPressed(Microsoft.Xna.Framework.Input.Keys.LeftControl,
+                                                     Microsoft.Xna.Framework.Input.Keys.L))
             {
                 String fileName = String.Empty;
                 bool openFileDialogCanceled = false;
+
                 OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = "Select Tilemap file(example.tm.txt) to load...";
 
                 Thread dialogThread = new Thread(() =>
                 {
@@ -156,6 +158,45 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
             }
         }
+
+        private void CheckForLoadingTileSelectionFromFile()
+        {
+            if (InputManager.OnKeyCombinationPressed(Microsoft.Xna.Framework.Input.Keys.LeftControl, 
+                                                     Microsoft.Xna.Framework.Input.Keys.T))
+            {
+                String fileName = String.Empty;
+                bool openFileDialogCanceled = false;
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = "Select TileSelection file(example.ts.txt) to load...";
+
+                Thread dialogThread = new Thread(() =>
+                {
+                    DialogResult dialogResult = openFileDialog.ShowDialog();
+
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        openFileDialogCanceled = false;
+                        fileName = openFileDialog.FileName;
+                    }
+                    else if (dialogResult == DialogResult.Cancel)
+                    {
+                        openFileDialogCanceled = true;
+                    }
+                });
+                dialogThread.SetApartmentState(ApartmentState.STA);
+                dialogThread.Start();
+
+                // Wait for the SaveFileDialog to close.
+                dialogThread.Join();
+
+                if (!openFileDialogCanceled)
+                {
+                    tileSelection.ReadTilesFromFile(fileName, content);
+                }
+            }
+        }
+
         #endregion
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -175,11 +216,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "Hold Arrow Keys: Move selection slowly\n" +
                            "Hotkeys\n" +
                            "-------\n" +
-                           "S: Save\n" +
-                           "L: Load\n" +
-                           "C: Copy Selection\n" +
-                           "X: Cut Selection\n" +
-                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "STRG+S: Save\n" +
+                           "STRG+L: Load\n" +
+                           "STRG+T: Load TileSelection\n" +
+                           "STRG+C: Copy Selection\n" +
+                           "STRG+X: Cut Selection\n" +
+                           "STRG+V: Paste Copy/Cut to Mouse Position\n" +
                            "Delete/Entf: Delete selected Tiles\n" +
                            "DrawingArea\n" +
                            "-----------\n" +
@@ -187,7 +229,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "NumTilesSelection: " + drawingArea.NumTilesSelection + "\n" +
                            "NumTilesCopyBuffer: " + drawingArea.NumTilesCopyBuffer + "\n" +
                            "CurrentTileInfo: \n" + 
-                           drawingArea.CurrentTileInfo;
+                           drawingArea.SelectionInfo;
 
                 spriteBatch.Begin();
 
@@ -199,6 +241,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void LoadContent(ContentManager content, Viewport viewport)
         {
+            this.content = content;
+
             this.viewport = viewport;
 
             infoText =     "General\n" +
@@ -208,11 +252,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "Hold Arrow Keys: Move selection slowly\n" +
                            "Hotkeys\n" +
                            "-------\n" +
-                           "S: Save\n" +
-                           "L: Load\n" +
-                           "C: Copy Selection\n" +
-                           "X: Cut Selection\n" +
-                           "V: Paste Copy/Cut to Mouse Position\n" +
+                           "STRG+S: Save\n" +
+                           "STRG+L: Load\n" +
+                           "STRG+T: Load TileSelection\n" +
+                           "STRG+C: Copy Selection\n" +
+                           "STRG+X: Cut Selection\n" +
+                           "STRG+V: Paste Copy/Cut to Mouse Position\n" +
                            "Delete/Entf: Delete selected Tiles\n" +
                            "DrawingArea\n" +
                            "-----------\n" +
@@ -225,6 +270,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             fontSize = font.MeasureString(infoText);
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
+            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt", content);
 
             tileSelection.LoadContent(content);
             drawingArea.LoadContent(content);

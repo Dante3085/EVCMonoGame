@@ -89,7 +89,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             get { return copyBuffer.Count; }
         }
 
-        public String CurrentTileInfo
+        public String SelectionInfo
         {
             get
             {
@@ -99,7 +99,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
                 else if (selection.Count > 1)
                 {
-                    return "More than one Tile selected.";
+                    return "minimalBoundingBox: " + minimalBoundingBox.ToString();
                 }
                 else
                 {
@@ -223,6 +223,16 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 movingSelectionWithMouse)
                 return;
 
+            // Select all Tiles with STRG+A
+            // Select all Tiles with STRG+A
+            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.A))
+            {
+                selection.Clear();
+                selection.AddRange(tiles);
+
+                CalcSelectionMinimalBoundingBox();
+            }
+
             // One Tile selected.
             if (hoveredTile != null &&
                 !minimalBoundingBox.Contains(currentMousePosition) &&
@@ -269,6 +279,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 Vector2 topLeft = new Vector2(float.MaxValue, float.MaxValue);
                 Vector2 bottomRight = new Vector2(float.MinValue, float.MinValue);
 
+                // We don't use DetectSelectionMinimalBoundingBox() because we already have to iterate
+                // over all Tiles to figure out which actually are inside the selection.
+                // So while we are iterating over all Tiles we can simultaneously figure out the dimensions
+                // of the minimalBoundingBox.
                 selection.Clear();
                 foreach (Tile tile in tiles)
                 {
@@ -300,11 +314,34 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
         }
 
+        private void CalcSelectionMinimalBoundingBox()
+        {
+            Vector2 topLeft = new Vector2(float.MaxValue, float.MaxValue);
+            Vector2 bottomRight = new Vector2(float.MinValue, float.MinValue);
+
+            foreach (Tile tile in selection)
+            {
+                // Find out topLeft Point of minimumBoundingBox.
+                if (tile.screenBounds.Left < topLeft.X)
+                    topLeft.X = tile.screenBounds.Left;
+                if (tile.screenBounds.Top < topLeft.Y)
+                    topLeft.Y = tile.screenBounds.Top;
+
+                // Find bottomRight Point of minimumBoundingBox.
+                if (tile.screenBounds.Right > bottomRight.X)
+                    bottomRight.X = tile.screenBounds.Right;
+                if (tile.screenBounds.Bottom > bottomRight.Y)
+                    bottomRight.Y = tile.screenBounds.Bottom;
+            }
+            minimalBoundingBox = new Rectangle(topLeft.ToPoint(), (bottomRight - topLeft).ToPoint());
+        }
+
         private void UpdateMovingSelection(GameTime gameTime)
         {
             if (tileSelection.IsHoveredByMouse ||
                 selection.Count == 0 ||
-                selectionBoxHasStartPoint)
+                selectionBoxHasStartPoint ||
+                scalingSelection)
                 return;
 
             // Move selection with Mouse.
@@ -514,7 +551,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 return;
 
             if (selection.Count != 0 &&
-                InputManager.IsKeyPressed(Keys.Delete))
+                InputManager.OnKeyPressed(Keys.Delete))
             {
                 tiles.RemoveAll((tile) =>
                 {
@@ -531,7 +568,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // Copy
             else if (selection.Count != 0 &&
-                     InputManager.OnKeyPressed(Keys.C))
+                     InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.C))
             {
                 copyBuffer.Clear();
                 copyBuffer.AddRange(selection);
@@ -539,7 +576,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // Cut
             else if (selection.Count != 0 &&
-                     InputManager.OnKeyPressed(Keys.X))
+                     InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.X))
             {
                 copyBuffer.Clear();
                 copyBuffer.AddRange(selection);
@@ -556,7 +593,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             // Paste
             else if (copyBuffer.Count != 0 &&
-                     InputManager.OnKeyPressed(Keys.V))
+                     InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.V))
             {
                 Vector2 shiftVector = currentMousePosition - (copyBuffer[0].screenBounds.Location.ToVector2());
 
@@ -628,9 +665,9 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             // Mark selection.
-            if (selection.Count != 0 &&
+            if (selection.Count != 0 /* &&
                 !movingSelectionWithMouse &&
-                !movingSelectionWithKeys)
+                !movingSelectionWithKeys*/)
             {
                 // Mark selection with one Tile.
                 if (selection.Count == 1)
@@ -641,7 +678,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 // Mark selection with multiple Tiles.
                 else
                 {
-                    Primitives2D.DrawRectangle(spriteBatch, minimalBoundingBox, Color.DarkRed, 5);
+                    Color boxColor = Color.DarkRed;
+                    boxColor.A = 50;
+
+                    Primitives2D.FillRectangle(spriteBatch, minimalBoundingBox, boxColor);
                 }
             }
 

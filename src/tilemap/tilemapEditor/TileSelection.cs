@@ -74,6 +74,13 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         public Texture2D TileSet
         {
             get { return tileSet; }
+            set { tileSet = value; }
+        }
+
+        public List<List<Tile>> Tiles
+        {
+            get { return tiles; }
+            set { tiles = value; }
         }
 
         public bool IsHoveredByMouse
@@ -88,8 +95,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             Vector2 position, 
             Vector2 tileSize, 
             int numTilesPerRow, 
-            Vector2 tileSpacing, 
-            String tileSelectionFile
+            Vector2 tileSpacing
         )
         {
             this.tileSize = tileSize;
@@ -97,8 +103,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             this.tileSpacing = tileSpacing;
 
             bounds = new Rectangle(position.ToPoint(), Point.Zero);
-
-            ReadTilesFromFile(tileSelectionFile);
         }
 
         public void Update(GameTime gameTime)
@@ -210,8 +214,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void LoadContent(ContentManager content)
         {
-            tileSet = content.Load<Texture2D>(tileSetName);
-
             font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             text = "Tile-Selection\nMovementLocked: false";
             fontSize = font.MeasureString(text);
@@ -224,11 +226,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             tileHoveredByMouseMarker = tiles[0][0].screenBounds;
         }
 
-        private void ReadTilesFromFile(String file)
+        public void ReadTilesFromFile(String file, ContentManager content)
         {
             TileSelectionData tileSelectionData = ConfigFileUtility.ReadTileSelectionFile(file, numTilesPerRow);
             tiles = tileSelectionData.tiles;
-            tileSetName = tileSelectionData.tileSetName;
+            tileSet = content.Load<Texture2D>(tileSelectionData.tileSetName);
         }
 
         private void UpdateBounds()
