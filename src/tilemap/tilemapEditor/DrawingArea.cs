@@ -223,7 +223,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     snappingVector.Y += (gridCellSize - insideCellPosition.Y);
                 }
                 newTile.screenBounds.Location += snappingVector.ToPoint();
-
             }
             tiles.Add(newTile);
         }
@@ -426,9 +425,19 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         snappingVector.Y += (gridCellSize - insideCellPosition.Y);
                     }
                     minimalBoundingBox.Location += snappingVector.ToPoint();
+                    Vector2 correctionVector = Vector2.Zero;
+                    if (minimalBoundingBox.Location.X < 0)
+                    {
+                        correctionVector.X -= minimalBoundingBox.Location.X;
+                    }
+                    if (minimalBoundingBox.Location.Y < 0)
+                    {
+                        correctionVector.Y -= minimalBoundingBox.Location.Y;
+                    }
+                    minimalBoundingBox.Location += correctionVector.ToPoint();
                     foreach (Tile tile in selection)
                     {
-                        tile.screenBounds.Location += snappingVector.ToPoint();
+                        tile.screenBounds.Location += snappingVector.ToPoint()+correctionVector.ToPoint();
                     }
                 }
             }
