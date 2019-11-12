@@ -48,10 +48,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private float zoom = 1;
         private Vector2 position;
-        private Vector2 disposition;
 
         private Tile hoveredTile = null;
         private List<Tile> copyBuffer = new List<Tile>();
+        private List<Tile> undoBuffer = new List<Tile>();
         private List<Tile> selection = new List<Tile>();
         private Rectangle selectionBox = Rectangle.Empty;
         private Vector2 selectionBoxStartPoint = Vector2.Zero;
@@ -60,12 +60,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private Rectangle minimalBoundingBox = Rectangle.Empty;
         private bool movingSelectionWithMouse = false;
         private bool movingSelectionWithKeys = false;
+        private bool scalingSelection = false;
 
         private const float holdDelay = 500;
         private float rightHoldElapsed = 0;
         private float leftHoldElapsed = 0;
         private float upHoldElapsed = 0;
         private float downHoldElapsed = 0;
+
+
 
         #endregion
         #region Properties
@@ -139,9 +142,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             UpdateDetectingSelection();
             UpdateMovingSelection(gameTime);
             UpdateSelectionCopyCutPasteDelete();
+            UpdateScalingSelection();
         }
 
         #region UpdateHelper
+
 
         private void UpdateTileDrawing()
         {
@@ -570,6 +575,25 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         new Rectangle(newTilePosition.ToPoint(), tile.screenBounds.Size));
 
                     tiles.Add(newTile);
+                }
+            }
+        }
+
+        private void UpdateScalingSelection()
+        {
+            if (tileSelection.IsHoveredByMouse ||
+                selection.Count == 0 ||
+                selectionBoxHasStartPoint)
+                return;
+
+            scalingSelection = false;
+            
+            if (InputManager.IsKeyPressed(Keys.LeftAlt))
+            {
+                scalingSelection = true;
+                foreach (Tile tile in selection)
+                {
+                    tile.screenBounds.Size += mouseTravel.ToPoint();
                 }
             }
         }
