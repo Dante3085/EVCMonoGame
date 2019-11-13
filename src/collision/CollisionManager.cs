@@ -159,7 +159,7 @@ namespace EVCMonoGame.src.collision
             //Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
             Vector2 g1CollisionPosition = g1.Position;
             Vector2 g2CollisionPosition = g2.Position;
-
+            if (g1Shift == Vector2.Zero && g2Shift == Vector2.Zero) return;
             if (g2Shift == Vector2.Zero)
             {
                 float length = 0.5f;
