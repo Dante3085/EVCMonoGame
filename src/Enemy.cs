@@ -18,8 +18,11 @@ namespace EVCMonoGame.src
 
 		private Vector2 aggroSize = new Vector2(400, 400);
 		private Player target;
-		List<Point> waypoints;
-		private int agentMindestBreite;
+		private List<Point> waypoints;
+        private Vector2 lastWaypoint;
+        private Vector2 nextWaypoint;
+
+        private int agentMindestBreite;
 		
 		private Rectangle bounds;
 
@@ -125,15 +128,19 @@ namespace EVCMonoGame.src
 			{
 				if (waypoints.Count() > 0)
 				{
+                    if(nextWaypoint == Vector2.Zero)
+                        nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;
 
-					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
+                    if(nextWaypoint == lastWaypoint)
+                        nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
 
-			
+                    movementDirection = nextWaypoint - WorldPosition;
 
-					movementDirection = nextWaypoint - WorldPosition;
-
-					if (Vector2.Distance(nextWaypoint, WorldPosition) < agentMindestBreite)
+					if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed)
 					{
+                        movementDirection = nextWaypoint - WorldPosition;
+                        lastWaypoint = nextWaypoint;
+                        nextWaypoint = Vector2.Zero;
 						waypoints.RemoveAt(0);
 					}
 				}

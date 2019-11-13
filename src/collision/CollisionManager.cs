@@ -41,8 +41,7 @@ namespace EVCMonoGame.src.collision
             foreach (Collision c in allCollisionsChannel)
             {
                 Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
-
-
+                
 				Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red);
 			}
 
@@ -52,11 +51,12 @@ namespace EVCMonoGame.src.collision
 				{
 					for (var j = 0; j < navGrid.GetLength(1); j++)
 					{
-						if (navGrid[i, j] == 1)
+                        if (navGrid[i, j] == 0 && InputManager.IsKeyPressed(Keys.Y))
+                            Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Green);
+
+                        if (navGrid[i, j] == 1)
 							Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red);
-						//else
-						//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugAgentMindestBreite, j * debugAgentMindestBreite, debugAgentMindestBreite, debugAgentMindestBreite), Color.Green);
-					}
+						}
 				}
 			}
 
