@@ -741,8 +741,13 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Draw tileSeleciton's currentTile.
             if (drawTileSelectionCurrentTileOnMouse)
             {
+                Game1.MouseVisible = false;
                 spriteBatch.Draw(tileSelection.TileSet, new Rectangle(currentMousePosition.ToPoint(), tileSelection.CurrentTile.screenBounds.Size),
                                  tileSelection.CurrentTile.textureBounds, Color.White);
+            }
+            else
+            {
+                Game1.MouseVisible = true;
             }
 
             // Mark hovered Tile.
