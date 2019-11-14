@@ -762,9 +762,42 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             if (InputManager.IsKeyPressed(Keys.LeftAlt))
             {
                 scalingSelection = true;
-                foreach (Tile tile in selection)
+                if (gridActivated)
                 {
-                    tile.screenBounds.Size += mouseTravel.ToPoint();
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Size += currentMousePosition.ToPoint() - (tile.screenBounds.Location + tile.screenBounds.Size);
+                        Vector2 insideCellPosition = new Vector2((int)(tile.screenBounds.Location.X + tile.screenBounds.Width) % gridCellSize,
+                            (int)(tile.screenBounds.Location.Y + tile.screenBounds.Height) % gridCellSize);
+                        if (gridActivated)
+                        {
+                            Vector2 snappingVector = Vector2.Zero;
+                            if ((insideCellPosition.X) < gridCellSize / 2)//näher an linker Kante 
+                            {
+                                snappingVector.X -= insideCellPosition.X;
+                            }
+                            else//näher an Rechter Kante
+                            {
+                                snappingVector.X += (gridCellSize - insideCellPosition.X);
+                            }
+                            if ((insideCellPosition.Y) < gridCellSize / 2)//näher an oberer Kante 
+                            {
+                                snappingVector.Y -= insideCellPosition.Y;
+                            }
+                            else//näher an unterer Kante
+                            {
+                                snappingVector.Y += (gridCellSize - insideCellPosition.Y);
+                            }
+                            tile.screenBounds.Size += snappingVector.ToPoint();
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Tile tile in selection)
+                    {
+                        tile.screenBounds.Size += mouseTravel.ToPoint();
+                    }
                 }
             }
         }
