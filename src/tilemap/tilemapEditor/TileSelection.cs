@@ -47,9 +47,17 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private bool moveTileSelection = false;
         private bool movementLocked = false;
 
+        private bool hidden = false;
+
         #endregion
 
         #region Properties
+
+        public bool Hidden
+        {
+            get { return hidden; }
+            set { hidden = value; }
+        }
 
         public Vector2 Position
         {
@@ -113,6 +121,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public void Update(GameTime gameTime)
         {
+            // Check for hiding TileSelection.
+            if (InputManager.OnKeyPressed(Keys.H))
+            {
+                hidden = !hidden;
+            }
+
+            if (hidden)
+                return;
+
             Vector2 currentMousePosition = InputManager.CurrentMousePosition();
 
             bool breakOuterLoop = false;

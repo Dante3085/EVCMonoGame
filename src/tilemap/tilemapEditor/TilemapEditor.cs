@@ -33,6 +33,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
     // (Moritz): Ich habe den TilemapEditor extra nicht von scenes.Updateable erben und scenes.IDrawable implementieren lassen,
     //           weil er im Hauptmenü durch den TilemapEditorState erreichbar sein soll. Die Klassen im states Ordner haben nichts
     //           mit den Klassen in unserem scenes Ordner zu tun.
+
     public class TilemapEditor
     {
         #region Fields
@@ -203,7 +204,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             drawingArea.Draw(gameTime, spriteBatch);
-            tileSelection.Draw(gameTime, spriteBatch);
+
+            if (!tileSelection.Hidden)
+            {
+                tileSelection.Draw(gameTime, spriteBatch);
+            }
 
             if (drawInfoText)
             {
@@ -223,6 +228,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "STRG+C: Copy Selection\n" +
                            "STRG+X: Cut Selection\n" +
                            "STRG+V: Paste Copy/Cut to Mouse Position\n" +
+                           "STRG+G: Toggle Grid\n" +
+                           "STRG+H: Show/Hide TileSelection\n" +
                            "Delete/Entf: Delete selected Tiles\n" +
                            "DrawingArea\n" +
                            "-----------\n" +
@@ -259,6 +266,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                            "STRG+C: Copy Selection\n" +
                            "STRG+X: Cut Selection\n" +
                            "STRG+V: Paste Copy/Cut to Mouse Position\n" +
+                           "STRG+G: Toggle Grid\n" +
+                           "STRG+H: Show/Hide TileSelection\n" +
                            "Delete/Entf: Delete selected Tiles\n" +
                            "DrawingArea\n" +
                            "-----------\n" +
