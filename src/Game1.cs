@@ -28,6 +28,12 @@ namespace EVCMonoGame.src
         private FpsCounter fpsCounter;
         private bool drawFpsCounter;
 
+        public static bool MouseVisible
+        {
+            get;
+            set;
+        }
+
         // By preloading any assets used by UI rendering, we avoid framerate glitches
         // when they suddenly need to be loaded in the middle of a menu transition.
         private static readonly string[] preloadAssets =
@@ -39,6 +45,7 @@ namespace EVCMonoGame.src
         {
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            MouseVisible = true;
 
             graphics = new GraphicsDeviceManager(this);
 
@@ -76,7 +83,7 @@ namespace EVCMonoGame.src
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            IsMouseVisible = MouseVisible;
             if (InputManager.OnKeyPressed(Keys.F2))
             {
                 drawFpsCounter = drawFpsCounter ? false : true;
@@ -95,7 +102,7 @@ namespace EVCMonoGame.src
 
             spriteBatch.Begin();
 
-            if (drawFpsCounter) 
+            if (drawFpsCounter)
             {
                 fpsCounter.Draw(gameTime, spriteBatch);
             }
