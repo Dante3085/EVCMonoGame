@@ -73,6 +73,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         private int gridCellSize = 100;
         private bool gridActivated = false;
 
+        private bool collisionBoxMode = false;
+        private bool isCreatingCollisionBox = false;
+        private Rectangle currentCollisionBox = Rectangle.Empty;
+        private Vector2 collisionStartPoint;
+        private List<Rectangle> collisionBoxes = new List<Rectangle>();
+
         #endregion
         #region Properties
 
@@ -145,28 +151,76 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 if (position.Y > 0) position.Y = positionTemp.Y;
             }
 
+            //toggle collision box mode
+            tileSelection.Hidden = collisionBoxMode;
+            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.C, Keys.B))
+            {
+                collisionBoxMode = !collisionBoxMode;
+            }
             //toggle Grid
             if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.G))
             {
                 gridActivated = !gridActivated;
             }
-            //Snap all Tiles
-            if (gridActivated && InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.S))
+            if (collisionBoxMode)
             {
-                SnapAllTilesToGrid();
+                drawTileSelectionCurrentTileOnMouse = false;
+                UpdateCollisionDrawing();
             }
+            else
+            {
+                //Snap all Tiles
+                if (gridActivated && InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.S))
+                {
+                    SnapAllTilesToGrid();
+                }
 
-            // Update all DrawingArea components.
-            UpdateTileDrawing();
-            UpdateHoveredTile();
-            UpdateDetectingSelection();
-            UpdateMovingSelection(gameTime);
-            UpdateSelectionCopyCutPasteDelete();
-            UpdateScalingSelection();
+                // Update all DrawingArea components.
+                UpdateTileDrawing();
+                UpdateHoveredTile();
+                UpdateDetectingSelection();
+                UpdateMovingSelection(gameTime);
+                UpdateSelectionCopyCutPasteDelete();
+                UpdateScalingSelection();
+            }
         }
 
         #region UpdateHelper
 
+
+        private void UpdateCollisionDrawing()
+        {
+            if (InputManager.OnKeyCombinationPressed(Keys.Delete))
+            {
+                collisionBoxes.RemoveAll((r) => { return r.Contains(currentMousePosition); });
+            }
+            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.Z))
+            {
+                collisionBoxes.RemoveAt(collisionBoxes.Count - 1);
+            }
+            if (InputManager.OnLeftMouseButtonClicked())
+            {
+                isCreatingCollisionBox = true;
+                currentCollisionBox = Rectangle.Empty;
+                currentCollisionBox.Location = (collisionStartPoint = currentMousePosition).ToPoint();
+            }
+            if (isCreatingCollisionBox)
+            {
+                currentCollisionBox.Width = (int)Math.Abs(currentMousePosition.X - collisionStartPoint.X);
+                currentCollisionBox.Height = (int)Math.Abs(currentMousePosition.Y - collisionStartPoint.Y);
+                currentCollisionBox.X = (int)Math.Min(collisionStartPoint.X, currentMousePosition.X);
+                currentCollisionBox.Y = (int)Math.Min(collisionStartPoint.Y, currentMousePosition.Y);
+            }
+            if (InputManager.OnLeftMouseButtonReleased())
+            {
+                isCreatingCollisionBox = false;
+                if (currentCollisionBox.Width >= 1 && currentCollisionBox.Height >= 1)
+                {
+                    collisionBoxes.Add(currentCollisionBox);
+                }
+                currentCollisionBox = Rectangle.Empty;
+            }
+        }
 
         private void UpdateTileDrawing()
         {
@@ -743,7 +797,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Draw all Tiles on DrawingArea.
             foreach (Tile tile in tiles)
             {
-                spriteBatch.Draw(tileSelection.TileSet, tile.screenBounds, tile.textureBounds, Color.White);
+                spriteBatch.Draw(tileSelection.TileSet, tile.screenBounds, tile.textureBounds, collisionBoxMode ? Color.DarkSlateGray : Color.White);
             }
 
             // Draw tileSeleciton's currentTile.
@@ -761,7 +815,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Mark hovered Tile.
             if (hoveredTile != null &&
                 !movingSelectionWithMouse &&
-                !movingSelectionWithKeys)
+                !movingSelectionWithKeys &&
+                !collisionBoxMode)
             {
                 Primitives2D.DrawRectangle(spriteBatch, hoveredTile.screenBounds, Color.AliceBlue, 5);
             }
@@ -816,7 +871,32 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                     Primitives2D.DrawLine(spriteBatch, start, end, Color.DarkCyan, 2 / zoom);
                 }
             }
-
+            if (collisionBoxMode)
+            {
+                Color lineColor = Color.BlueViolet;
+                Color fillColor = Color.BlueViolet;
+                fillColor.A = 50;
+                if (isCreatingCollisionBox)
+                {
+                    Primitives2D.DrawRectangle(spriteBatch, currentCollisionBox, lineColor, 2 / zoom);
+                    Primitives2D.FillRectangle(spriteBatch, currentCollisionBox, fillColor);
+                }
+                foreach (Rectangle box in collisionBoxes)
+                {
+                    if (box.Contains(currentMousePosition) && !isCreatingCollisionBox)
+                    {
+                        fillColor.G += 100;
+                        Primitives2D.DrawRectangle(spriteBatch, box, lineColor, 2 / zoom);
+                        Primitives2D.FillRectangle(spriteBatch, box, fillColor);
+                        fillColor.G -= 100;
+                    }
+                    else
+                    {
+                        Primitives2D.DrawRectangle(spriteBatch, box, lineColor, 2 / zoom);
+                        Primitives2D.FillRectangle(spriteBatch, box, fillColor);
+                    }
+                }
+            }
 
             spriteBatch.End();
         }
@@ -849,6 +929,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 writer.WriteLine("NAME           = " + tile.name);
                 writer.WriteLine("TEXTURE_BOUNDS = " + Utility.RectangleToString(tile.textureBounds));
                 writer.WriteLine("SCREEN_BOUNDS  = " + Utility.RectangleToString(tile.screenBounds));
+            }
+            foreach (Rectangle box in collisionBoxes)
+            {
+                // Separate every Tile by an empty line
+                writer.WriteLine("");
+
+                // Write Tile information to file
+                writer.WriteLine("[COLLISION_BOX]");
+                writer.WriteLine("COLLISION_BOUNDS  = " + Utility.RectangleToString(box));
             }
 
             writer.Close();

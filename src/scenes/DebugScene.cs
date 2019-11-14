@@ -39,10 +39,8 @@ namespace EVCMonoGame.src.scenes
             player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A }, 8);
             player2.DoesUpdateMovement = false;
 
-            geometryBox = new GeometryBox(new Rectangle(550, 370, 800, 100));
-            geometryBox2 = new GeometryBox(new Rectangle(1300, 480, 500, 25));
+            shadow = new Shadow(new Vector2(1000, 600));
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
             sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
@@ -51,10 +49,11 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, geometryBox,
-                                                    geometryBox2);
-
-            collisionManager.AddCombatCollidables(player, player2);
+            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
+            collisionManager.AddCombatCollidables(player, player2, shadow);
+            
+            //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt", collisionManager);
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt", collisionManager);
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.SetZoom(1.25f);
@@ -66,9 +65,8 @@ namespace EVCMonoGame.src.scenes
                 collisionManager,
             });
 
-            drawables.AddRange(new IDrawable[]
-            {
-                tilemap,
+            drawables.AddRange(new IDrawable[] 
+            { 
                 player,
                 player2,
             });
@@ -88,6 +86,8 @@ namespace EVCMonoGame.src.scenes
 
         public override void LoadContent(ContentManager content)
         {
+            tilemap.LoadContent(content);
+
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
             background = content.Load<Texture2D>("rsrc/backgrounds/map1");
@@ -140,8 +140,8 @@ namespace EVCMonoGame.src.scenes
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
+            tilemap.Draw(gameTime, spriteBatch);
             // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);
