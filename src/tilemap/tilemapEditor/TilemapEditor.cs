@@ -303,6 +303,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             Rectangle textureBounds = Rectangle.Empty;
             Rectangle screenBounds = Rectangle.Empty;
             List<Tile> tiles = new List<Tile>();
+            List<Rectangle> collisionBoxes = new List<Rectangle>();
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -324,14 +325,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                         screenBounds = Utility.StringToRectangle(line);
 
                         tiles.Add(new Tile(tileName, textureBounds, screenBounds));
-
-                        //if (numTilesInLastRow == numTilesPerRow)
-                        //{
-                        //    tiles.Add(new List<Tile>());
-                        //    numTilesInLastRow = 0;
-                        //}
-                        //tiles[tiles.Count - 1].Add(new Tile(tileName, tileBounds, Rectangle.Empty));
-                        //++numTilesInLastRow;
+                    }
+                    else if (line.Contains("COLLISION_BOX"))
+                    {
+                        line = Utility.ReplaceWhitespace(reader.ReadLine(), ""); // Remove Whitespace
+                        line = line.Remove(0, 17); // Remove 'COLLISION_BOUNDS='
+                        collisionBoxes.Add(Utility.StringToRectangle(line));
                     }
                 }
                 else if (line.Contains("TILESET"))
@@ -342,6 +341,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             drawingArea.Tiles = tiles;
+            drawingArea.CollisionBoxes = collisionBoxes;
 
             // Figure out how to deal with new/old tileset.
             // Load Tileset if it has never been loaded and

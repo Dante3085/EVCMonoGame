@@ -82,6 +82,12 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
         #endregion
         #region Properties
 
+        public List<Rectangle> CollisionBoxes
+        {
+            get { return collisionBoxes; }
+            set { collisionBoxes = value; }
+        }
+        
         public List<Tile> Tiles
         {
             get { return tiles; }
