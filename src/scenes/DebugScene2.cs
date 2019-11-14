@@ -28,12 +28,11 @@ namespace EVCMonoGame.src.scenes
             : base(sceneManager)
         {
             player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
-            geometryBox = new GeometryBox(new Rectangle(300, 400, 200, 1000));
 
             collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, geometryBox);
+            collisionManager.AddGeometryCollidables(player.Sprite);
 
-            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt", collisionManager);
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.SetZoom(0.5f);
@@ -46,7 +45,6 @@ namespace EVCMonoGame.src.scenes
 
             drawables.AddRange(new IDrawable[]
             {
-                beachTilemap,
                 collisionManager,
                 player,
             });
@@ -54,6 +52,8 @@ namespace EVCMonoGame.src.scenes
 
         public override void LoadContent(ContentManager content)
         {
+            beachTilemap.LoadContent(content);
+
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
             background = content.Load<Texture2D>("rsrc/backgrounds/background");
@@ -74,7 +74,7 @@ namespace EVCMonoGame.src.scenes
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-
+            beachTilemap.Draw(gameTime, spriteBatch);
             // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);

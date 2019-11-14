@@ -214,7 +214,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             if (InputManager.OnLeftMouseButtonReleased())
             {
                 isCreatingCollisionBox = false;
-                collisionBoxes.Add(currentCollisionBox);
+                if (currentCollisionBox.Width >= 1 && currentCollisionBox.Height >= 1)
+                {
+                    collisionBoxes.Add(currentCollisionBox);
+                }
                 currentCollisionBox = Rectangle.Empty;
             }
         }
@@ -926,6 +929,15 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 writer.WriteLine("NAME           = " + tile.name);
                 writer.WriteLine("TEXTURE_BOUNDS = " + Utility.RectangleToString(tile.textureBounds));
                 writer.WriteLine("SCREEN_BOUNDS  = " + Utility.RectangleToString(tile.screenBounds));
+            }
+            foreach (Rectangle box in collisionBoxes)
+            {
+                // Separate every Tile by an empty line
+                writer.WriteLine("");
+
+                // Write Tile information to file
+                writer.WriteLine("[COLLISION_BOX]");
+                writer.WriteLine("COLLISION_BOUNDS  = " + Utility.RectangleToString(box));
             }
 
             writer.Close();

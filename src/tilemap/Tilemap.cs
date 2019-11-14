@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.utility;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.tilemap
 {
@@ -21,11 +22,13 @@ namespace EVCMonoGame.src.tilemap
         private Texture2D tileSet = null;
         private String tileSetPath = String.Empty;
         private Vector2 position;
+        List<GeometryBox> collisionBoxes = new List<GeometryBox>();
 
-        public Tilemap(Vector2 position, String tilemapFile)
+        public Tilemap(Vector2 position, String tilemapFile, CollisionManager collisionManager)
         {
             this.position = position;
             ReadTilemapFile(tilemapFile);
+            collisionManager.AddGeometryCollidables(collisionBoxes.ToArray());
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -60,6 +63,7 @@ namespace EVCMonoGame.src.tilemap
             Rectangle textureBounds = Rectangle.Empty;
             Rectangle screenBounds = Rectangle.Empty;
             List<Tile> tiles = new List<Tile>();
+            List<GeometryBox> collisionBoxes = new List<GeometryBox>();
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -82,6 +86,12 @@ namespace EVCMonoGame.src.tilemap
 
                         tiles.Add(new Tile(tileName, textureBounds, screenBounds));
                     }
+                    else if(line.Contains("COLLISION_BOX"))
+                    {
+                        line = Utility.ReplaceWhitespace(reader.ReadLine(), ""); // Remove Whitespace
+                        line = line.Remove(0, 17); // Remove 'COLLISION_BOUNDS='
+                        collisionBoxes.Add(new GeometryBox(Utility.StringToRectangle(line)));
+                    }
                 }
                 else if (line.Contains("TILESET"))
                 {
@@ -91,6 +101,7 @@ namespace EVCMonoGame.src.tilemap
             }
 
             this.tiles = tiles;
+            this.collisionBoxes = collisionBoxes;
             this.tileSetPath = tileSetPath;
 
             reader.Close();
