@@ -1,9 +1,5 @@
 TILESET = rsrc/tilesets/overworld_tileset_grass
 
-// TODO: Tiles von einem Tileset automatisiert einlesen, indem gesagt wird
-// lese über das gesamte Tileset beispielsweise 16 x 16 Tiles ein.
-// Problem dabei ist, wie man die einzelnen Tiles dann benennt.
-
 [TILE]
 NAME           = Grass_0
 TEXTURE_BOUNDS = (0, 0, 16, 16)

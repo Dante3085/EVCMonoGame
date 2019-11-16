@@ -37,7 +37,7 @@ namespace EVCMonoGame.src
                 Vector2 entryPosition = position;
                 entryPosition.Y += i * textSize.Y;
 
-                spriteBatch.DrawString(font, entries[i], entryPosition, Color.White);
+                spriteBatch.DrawString(font, entries[i], entryPosition, Color.DarkRed);
             }
         }
 

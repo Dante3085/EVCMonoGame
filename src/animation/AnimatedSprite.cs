@@ -17,7 +17,7 @@ namespace EVCMonoGame.src.animation
     // TODO: Optimize LoadFromFile() and HelperMethods. ~20ms is a bit long
     // TODO: Implement frameOffsets.
 
-    public class AnimatedSprite : Updateable, scenes.IDrawable, GeometryCollidable, ITranslatable
+    public class AnimatedSprite : scenes.IUpdateable, scenes.IDrawable, Collidable, ITranslatable
     {
         class  Animation
         {
@@ -104,8 +104,15 @@ namespace EVCMonoGame.src.animation
         private Vector2 previousPosition;
         private float scale;
 
+        private Rectangle bounds;
+
         #endregion
         #region Properties
+
+        public bool DoUpdate
+        {
+            get; set;
+        } = true;
 
         public Rectangle CurrentHurtBounds
         {
@@ -136,13 +143,15 @@ namespace EVCMonoGame.src.animation
         {
             get
             {
-                Rectangle bounds = new Rectangle();
+                // Rectangle bounds = new Rectangle();
                 bounds.Location = position.ToPoint();
 
                 // TODO: Nicht einfach Animationsnamen eintragen. Irgendwie generisch berechnen.
                 bounds.Size = animations["IDLE_LEFT"].Frames[0].Size;
                 bounds.Width *= (int)(scale);
                 bounds.Height *= (int)(scale);
+
+                bounds.Inflate(-20, -50);
 
                 return bounds;
             }
@@ -194,6 +203,49 @@ namespace EVCMonoGame.src.animation
             get { return frameIndex; }
         }
 
+        public Vector2 WorldPosition
+        {
+            set
+            {
+                PreviousWorldPosition = position;
+
+                position.X = (int)value.X;
+                position.Y = (int)value.Y;
+                bounds.X = (int)value.X;
+                bounds.Y = (int)value.Y;
+            }
+
+            get
+            {
+                return position;
+            }
+        }
+
+        public Vector2 PreviousWorldPosition { get; set; }
+
+        public Rectangle CollisionBox
+        {
+            set
+            {
+                bounds = value;
+                position = value.Location.ToVector2();
+            }
+            get
+            {
+                Rectangle bounds = new Rectangle();
+                bounds.Location = position.ToPoint();
+
+                // TODO: Nicht einfach Animationsnamen eintragen. Irgendwie generisch berechnen.
+                bounds.Size = animations["IDLE_LEFT"].Frames[0].Size;
+                bounds.Width *= (int)(scale);
+                bounds.Height *= (int)(scale);
+
+                bounds.Inflate(-20, -50);
+
+                return bounds;
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -224,7 +276,7 @@ namespace EVCMonoGame.src.animation
         #endregion
 
         #region Updateable
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -236,7 +288,7 @@ namespace EVCMonoGame.src.animation
 
                 // Increase frameIndex depending on if the Animation is looped or not
                 int frameCount = animation.Frames.Length;
-                if (!animation.IsLooped)
+                if (!animation.IsLooped && !animation.IsFinished)
                 {
                     if ((frameIndex + 1) == frameCount)
                     {
@@ -253,6 +305,7 @@ namespace EVCMonoGame.src.animation
                 }
             }
         }
+
         #endregion
         #region IDrawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -352,6 +405,14 @@ namespace EVCMonoGame.src.animation
                 AddAnimation(aD.animationName, aD.frames, aD.hurtBounds, aD.attackBounds,
                              aD.frameDelays, aD.frameOffsets, aD.isMirrored, aD.isLooped);
             }
+        }
+
+        /// <summary>
+        /// If the given Animation is non-looping and is finished
+        /// </summary>
+        public void ResetAnimation(String animName)
+        {
+
         }
 
         #endregion

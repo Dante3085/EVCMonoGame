@@ -1,5 +1,8 @@
 TILESET = rsrc/tilesets/overworld_tileset_grass
 
+[GEOMETRY]
+
+
 [TILE]
 NAME           = Woods_Top_Left
 TEXTURE_BOUNDS = (144, 64, 16, 16)
@@ -89,3 +92,6 @@ SCREEN_BOUNDS  = (1203, 346, 100, 100)
 NAME           = Woods_Bottom_Right
 TEXTURE_BOUNDS = (176, 96, 16, 16)
 SCREEN_BOUNDS  = (1203, 446, 100, 100)
+
+[COLLISION_BOX]
+BOUNDS = (0, 0, 10, 10)

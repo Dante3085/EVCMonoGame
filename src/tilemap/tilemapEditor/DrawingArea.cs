@@ -884,7 +884,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Draw all Tiles on DrawingArea.
             foreach (Tile tile in tiles)
             {
-                spriteBatch.Draw(tileSelection.TileSet, tile.screenBounds, tile.textureBounds, collisionBoxMode ? Color.DarkSlateGray : Color.White);
+                spriteBatch.Draw(tileSelection.TileSet, tile.screenBounds, tile.textureBounds, collisionBoxMode ? Color.LightGray : 
+                                                                                                                  Color.White);
             }
 
             // Draw tileSeleciton's currentTile.

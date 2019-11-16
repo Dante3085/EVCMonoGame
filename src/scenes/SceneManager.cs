@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -57,6 +59,12 @@ namespace EVCMonoGame.src.scenes
         {
             get { return debugTexts; }
         }
+
+        public ContentManager Content
+        {
+            get { return game.Content; }
+        }
+
         #endregion
         #region Constructors
         public SceneManager(Game game)
@@ -123,9 +131,14 @@ namespace EVCMonoGame.src.scenes
                 throw new ArgumentException(to + " is not known to the ScreenManager.");
             }
 
+            CollisionManager.CleanCollisonManager();
+
             nextScene = scenes[to];
             transitioning = true;
             easer.Start();
+
+            previousScene.OnExitScene();
+            nextScene.OnEnterScene();
         }
 
         public void TransitionToPreviousScreen()

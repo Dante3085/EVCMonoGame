@@ -54,7 +54,10 @@ namespace EVCMonoGame.src
 
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+
             graphics.IsFullScreen = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            IsFixedTimeStep = true;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);
@@ -94,7 +97,6 @@ namespace EVCMonoGame.src
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
-            // FpsCounter needs to be updatet in Draw() to measure the draw performance.
             fpsCounter.Update(gameTime);
 
             // The real drawing happens inside the screen manager component.
@@ -119,6 +121,8 @@ namespace EVCMonoGame.src
             {
                 game.Run();
             }
+
+            Console.WriteLine("d");
         }
     }
 }

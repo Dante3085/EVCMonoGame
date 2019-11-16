@@ -10,6 +10,7 @@ using C3.MonoGame;
 
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.utility;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.collision
 {
@@ -19,188 +20,126 @@ namespace EVCMonoGame.src.collision
     // TODO: How to properly remove CombatCollidables when they are dead ?
     // TODO: 
 
-    public enum Corner
+    public static class CollisionManager
     {
-        LEFT_TOP = 1,
-        RIGHT_TOP,
-        RIGHT_BOTTOM,
-        LEFT_BOTTOM
-    }
+        public static List<Collidable> allCollisionsChannel = new List<Collidable>();
+        public static List<Collidable> obstacleCollisionChannel = new List<Collidable>();
+        public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
+        public static List<Collidable> itemCollisionChannel = new List<Collidable>();
+        public static List<Collidable> playerCollisionChannel = new List<Collidable>();
 
-    public class CollisionManager : Updateable, scenes.IDrawable
-    {
-        #region Fields
-
-        private HashSet<Collidable> collidables;
-        private HashSet<GeometryCollidable> geometryCollidables;
-        private HashSet<CombatCollidable> combatCollidables;
-
-        #endregion
-
-        #region Constructors
-        public CollisionManager()
+        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            geometryCollidables = new HashSet<GeometryCollidable>();
-            combatCollidables = new HashSet<CombatCollidable>();
-        }
-        #endregion
-
-        #region Drawable
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            // Draw Collision information of all GeometryCollidables.
-            foreach (GeometryCollidable g in geometryCollidables)
+            foreach (Collidable c in allCollisionsChannel)
             {
-                Color darkBlue = Color.DarkBlue;
-                darkBlue.A = 50;
-                Primitives2D.DrawRectangle(spriteBatch, g.Bounds, darkBlue, 3);
-            }
-
-            // Draw Collision information of all CombatCollidables.
-            foreach (CombatCollidable c in combatCollidables)
-            {
-                Color darkGreen = Color.DarkGreen;
-                darkGreen.A = 50;
-                Primitives2D.FillRectangle(spriteBatch, c.HurtBounds, darkGreen);
-
-                Color darkRed = Color.DarkRed;
-                darkRed.A = 50;
-                Primitives2D.FillRectangle(spriteBatch, c.AttackBounds, darkRed);
+                Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
+                Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red);
             }
         }
 
-        public void LoadContent(ContentManager content)
+        public static void Update(GameTime gameTime)
         {
-
-        }
-        #endregion
-        #region Updateable
-        public override void Update(GameTime gameTime)
-        {
-            CheckGeometryCollisions();
-            CheckCombatCollisions();
+            
         }
 
-        #region UpdateableHelper
-        private void CheckCombatCollisions()
+        public static void AddCollidables(List<Collidable> channel, bool excludeFromAllCollisonChannel = false,
+                                          params Collidable[] collidables)
         {
-            foreach (CombatCollidable c1 in combatCollidables)
+            foreach (Collidable c in collidables)
             {
-                foreach (CombatCollidable c2 in combatCollidables)
+                CollisionManager.allCollisionsChannel.Add(c);
+                channel.Add(c);
+
+                if (c is Player && !playerCollisionChannel.Contains(c))
+                    playerCollisionChannel.Add((Collidable)c);
+            }
+        }
+
+        public static void AddCollidable(Collidable collidable, List<Collidable> collisionChannel, bool excludeFromAllCollisonChannel = false)
+        {
+            if(!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(collidable))
+                allCollisionsChannel.Add(collidable);
+
+            if (!collisionChannel.Contains(collidable))
+                collisionChannel.Add((Collidable)collidable);
+        }
+
+        public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
+        {
+            CollisionManager.allCollisionsChannel.Remove(c);
+        }
+
+        public static void CleanCollisonManager()
+        {
+            allCollisionsChannel.Clear();
+            obstacleCollisionChannel.Clear();
+            enemyCollisionChannel.Clear();
+            itemCollisionChannel.Clear();
+        }
+
+        public static bool IsObstacleCollision(Collidable g1)
+        {
+            foreach (Collidable obstacle in obstacleCollisionChannel)
+            {
+                if (g1 != obstacle)
                 {
-                    if (c1 == c2)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (c1.HasActiveAttackBounds)
-                        {
-                            if (c1.AttackBounds.Intersects(c2.HurtBounds))
-                            {
-                                ResolveCombatCollision(c1, c2);
-                            }
-                        }
-                    }
+                    if (g1.CollisionBox.Intersects(obstacle.CollisionBox))
+                        return true;
                 }
             }
+
+            return false;
         }
 
-        private void ResolveCombatCollision(CombatCollidable attacker, CombatCollidable victim)
+        public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
         {
-            // Probleme: Woher soll CollisionManager wissen welches CombatEvent mit welchen Argumenten 
-            // der attacker an das victim senden möchte.
-
-            //victim.OnCombatCollision(attacker);
-            //if (!victim.IsAlive)
-            //{
-            //    // TODO: Liste für Collidables, die entfernt werden müssen.
-            //    // Vielleicht dann doch lieber Collidable Hierarchie ? Typ check mit enum ?
-            //    // Hier kann nicht entfernt werden, da doppelte for-Schleife dann Probleme bekommt.
-            //}
-
-            CombatArgs attackerCombatArgs = attacker.CurrentCombatArgs;
-            attackerCombatArgs.attacker = attacker;
-            attackerCombatArgs.victim = victim;
-
-            victim.OnCombatCollision(attackerCombatArgs);
-            if (!victim.IsAlive)
-            {
-                Console.WriteLine("Victim died in CombatCollision.");
-            }
-        }
-
-        private void CheckGeometryCollisions()
-        {
-            foreach (GeometryCollidable g1 in geometryCollidables)
-            {
-                foreach (GeometryCollidable g2 in geometryCollidables)
-                {
-                    if (g1 == g2)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (g1.Bounds.Intersects(g2.Bounds))
-                        {
-                            ResolveGeometryCollision(g1, g2);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void ResolveGeometryCollision(GeometryCollidable g1, GeometryCollidable g2)
-        {
-            Vector2 g1Shift = g1.Position - g1.PreviousPosition;
-            Vector2 g2Shift = g2.Position - g2.PreviousPosition;
-            //Vector2 g1CollisionPosition = new Vector2(g1.Position.X, g1.Position.Y);
-            //Vector2 g2CollisionPosition = new Vector2(g2.Position.X, g2.Position.Y);
-            Vector2 g1CollisionPosition = g1.Position;
-            Vector2 g2CollisionPosition = g2.Position;
+            Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
+            Vector2 g2Shift = g2.WorldPosition - g2.PreviousWorldPosition;
+         
+            Vector2 g1CollisionPosition = g1.WorldPosition;
+            Vector2 g2CollisionPosition = g2.WorldPosition;
             if (g1Shift == Vector2.Zero && g2Shift == Vector2.Zero) return;
             if (g2Shift == Vector2.Zero)
             {
                 float length = 0.5f;
                 Vector2 backShift = g1Shift * (-1);
-                Vector2 startPosition = g1.PreviousPosition;
-                while (g1.Bounds.Intersects(g2.Bounds))
+                Vector2 startPosition = g1.PreviousWorldPosition;
+                while (g1.CollisionBox.Intersects(g2.CollisionBox))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
-                    g1.Position = g1CollisionPosition + backShift;
+                    g1.WorldPosition = g1CollisionPosition + backShift;
                     length += 0.5f;
                 }
-                g1.Position += new Vector2((g1CollisionPosition - g1.Position).X, 0);
-                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
-                g1.Position += new Vector2(0, (g1CollisionPosition - g1.Position).Y);
-                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
-                g1.Position = startPosition;
-                g1.Position = g1.PreviousPosition;
+                g1.WorldPosition += new Vector2((g1CollisionPosition - g1.WorldPosition).X, 0);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g1.WorldPosition = g1.PreviousWorldPosition;
+                g1.WorldPosition += new Vector2(0, (g1CollisionPosition - g1.WorldPosition).Y);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g1.WorldPosition = g1.PreviousWorldPosition;
+                g1.WorldPosition = startPosition;
+                g1.WorldPosition = g1.PreviousWorldPosition;
 
             }
             else if (g1Shift == Vector2.Zero)
             {
                 float length = 0.5f;
                 Vector2 backShift = g2Shift * (-1);
-                Vector2 startPosition = g2.PreviousPosition;
-                while (g1.Bounds.Intersects(g2.Bounds))
+                Vector2 startPosition = g2.PreviousWorldPosition;
+                while (g1.CollisionBox.Intersects(g2.CollisionBox))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
-                    g2.Position = g2CollisionPosition + backShift;
+                    g2.WorldPosition = g2CollisionPosition + backShift;
                     length += 0.5f;
                 }
-                g2.Position += new Vector2((g2CollisionPosition - g2.Position).X, 0);
-                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
-                g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
-                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
-                g2.Position = startPosition;
-                g2.Position = g2.PreviousPosition;
+                g2.WorldPosition += new Vector2((g2CollisionPosition - g2.WorldPosition).X, 0);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g2.WorldPosition = g2.PreviousWorldPosition;
+                g2.WorldPosition += new Vector2(0, (g2CollisionPosition - g2.WorldPosition).Y);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g2.WorldPosition = g2.PreviousWorldPosition;
+                g2.WorldPosition = startPosition;
+                g2.WorldPosition = g2.PreviousWorldPosition;
             }
             else if (g1Shift != Vector2.Zero && g2Shift != Vector2.Zero)
             {
-                Vector2 g1StartPosition = g1.PreviousPosition;
-                Vector2 g2StartPosition = g2.PreviousPosition;
+                Vector2 g1StartPosition = g1.PreviousWorldPosition;
+                Vector2 g2StartPosition = g2.PreviousWorldPosition;
                 Vector2 g1CollisionSolution;
                 Vector2 g2CollisionSolution;
                 float g1CollisionSolutionLength = 0;
@@ -209,79 +148,228 @@ namespace EVCMonoGame.src.collision
                 //g1 Collision Solution
                 float length = 0.5f;
                 Vector2 backShift = g1Shift * (-1);
-                Vector2 startPosition = g1.PreviousPosition;
-                while (g1.Bounds.Intersects(g2.Bounds))
+                Vector2 startPosition = g1.PreviousWorldPosition;
+                while (g1.CollisionBox.Intersects(g2.CollisionBox))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
-                    g1.Position = g1CollisionPosition + backShift;
+                    g1.WorldPosition = g1CollisionPosition + backShift;
                     length += 0.5f;
                 }
-                g1.Position += new Vector2((g1CollisionPosition - g1.Position).X, 0);
-                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
-                g1.Position += new Vector2(0, (g1CollisionPosition - g1.Position).Y);
-                if (g1.Bounds.Intersects(g2.Bounds)) g1.Position = g1.PreviousPosition;
-                g1CollisionSolution = g1.Position;
-                g1.Position = g1StartPosition;
-                g1.Position = g1CollisionPosition;
+                g1.WorldPosition += new Vector2((g1CollisionPosition - g1.WorldPosition).X, 0);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g1.WorldPosition = g1.PreviousWorldPosition;
+                g1.WorldPosition += new Vector2(0, (g1CollisionPosition - g1.WorldPosition).Y);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g1.WorldPosition = g1.PreviousWorldPosition;
+                g1CollisionSolution = g1.WorldPosition;
+                g1.WorldPosition = g1StartPosition;
+                g1.WorldPosition = g1CollisionPosition;
                 g1CollisionSolutionLength = (g1CollisionSolution - g1CollisionPosition).Length();
                
                 //g2 Collision Solution
                 length = 0.5f;
                 backShift = g2Shift * (-1);
-                while (g1.Bounds.Intersects(g2.Bounds))
+                while (g1.CollisionBox.Intersects(g2.CollisionBox))
                 {
                     backShift = Utility.ScaleVectorTo(backShift, length);
-                    g2.Position = g2CollisionPosition + backShift;
+                    g2.WorldPosition = g2CollisionPosition + backShift;
                     length += 0.5f;
                 }
-                g2.Position += new Vector2((g2CollisionPosition - g2.Position).X, 0);
-                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
-                g2.Position += new Vector2(0, (g2CollisionPosition - g2.Position).Y);
-                if (g1.Bounds.Intersects(g2.Bounds)) g2.Position = g2.PreviousPosition;
-                g2CollisionSolution = g2.Position;
-                g2.Position = g2StartPosition;
-                g2.Position = g2CollisionPosition;
+                g2.WorldPosition += new Vector2((g2CollisionPosition - g2.WorldPosition).X, 0);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g2.WorldPosition = g2.PreviousWorldPosition;
+                g2.WorldPosition += new Vector2(0, (g2CollisionPosition - g2.WorldPosition).Y);
+                if (g1.CollisionBox.Intersects(g2.CollisionBox)) g2.WorldPosition = g2.PreviousWorldPosition;
+                g2CollisionSolution = g2.WorldPosition;
+                g2.WorldPosition = g2StartPosition;
+                g2.WorldPosition = g2CollisionPosition;
                 g2CollisionSolutionLength = (g2CollisionSolution - g2CollisionPosition).Length();
 
                 //chosing of the correct solution
                 if (g1CollisionSolutionLength < g2CollisionSolutionLength)
                 {
-                    g1.Position = g1StartPosition;
-                    g1.Position = g1CollisionSolution;
+                    g1.WorldPosition = g1StartPosition;
+                    g1.WorldPosition = g1CollisionSolution;
                 }
                 else
                 {
-                    g2.Position = g2StartPosition;
-                    g2.Position = g2CollisionSolution;
+                    g2.WorldPosition = g2StartPosition;
+                    g2.WorldPosition = g2CollisionSolution;
                 }
             }
         }
-        #endregion
-        #endregion
-        #region CollisionManager
 
-        public void AddGeometryCollidables(params GeometryCollidable[] geometryCollidables)
+        public static List<Collidable> GetCollidablesOnCollision(Collidable c1)
         {
-            foreach (GeometryCollidable g in geometryCollidables)
+            List<Collidable> intersectingCollidables = new List<Collidable>();
+
+            foreach (Collidable c2 in allCollisionsChannel)
             {
-                if (!this.geometryCollidables.Add(g))
+                if (c1 != c2)
                 {
-                    throw new ArgumentException("The given GeometryCollidable is already known to this CollisionManger.");
+                    if (c1.CollisionBox.Intersects(c2.CollisionBox))
+                    {
+                        intersectingCollidables.Add(c2);
+                    }
                 }
             }
+
+
+            return intersectingCollidables;
         }
 
-        public void AddCombatCollidables(params CombatCollidable[] combatCollidables)
+        public static List<Collidable> GetAllCollidablesByPosition(Rectangle area, 
+                                                                  List<Collidable> collisionChannel)
         {
-            foreach (CombatCollidable c in combatCollidables)
+            
+            List<Collidable> collidableList = new List<Collidable>();
+            foreach (Collidable collidable in collisionChannel)
             {
-                if (!this.combatCollidables.Add(c))
-                {
-                    throw new ArgumentException("The given CombatCollidable is already known to this CollisionManger.");
-                }
+                if (collidable.CollisionBox.Intersects(area))
+                    collidableList.Add(collidable);
             }
+            return collidableList;
         }
 
-        #endregion
+        public static List<Collidable> GetAllCollidablesByPosition(Vector2 WorldPosition, Vector2 size, 
+                                                                  List<Collidable> collisionChannel)
+        {
+            return GetAllCollidablesByPosition(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
+                                               collisionChannel);
+        }
+
+        public static bool IsPlayerInArea(Rectangle bounds)
+        {
+            foreach (Player player in playerCollisionChannel)
+            {
+                if (bounds.Intersects(player.CollisionBox))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsPlayerInRange(Collidable collidable, float range)
+        {
+            foreach(Player player in playerCollisionChannel)
+            {
+                float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), 
+                                                  player.CollisionBox.Center.ToVector2());
+
+                if (distance >= range)
+                    return false;
+            }
+            return true;
+        }
+
+        //public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
+        //{
+        //    bool isCollision = false;
+
+        //    foreach (Collidable g2 in allCollisionsChannel)
+        //    {
+        //        if (g1 != g2)
+        //        {
+        //            if (g1.CollisionBox.Intersects(g2.CollisionBox))
+        //            {
+        //                isCollision = true;
+
+        //                if (fixCollision && IsObstacleCollision(g1))
+        //                {
+        //                    ResolveGeometryCollision(g1, g2);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return isCollision;
+        //}
+
+        public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+        {
+            bool isCollision = false;
+            foreach (Collidable g2 in allCollisionsChannel)
+            {
+                if (g1 != g2)
+                {
+                    if (g1.CollisionBox.Intersects(g2.CollisionBox))
+                    {
+                        isCollision = true;
+
+                        if (fixMyCollision && IsObstacleCollision(g1))
+                        {
+
+                            // Zurück gelegte Distanz aka auch Richtung
+                            Vector2 direction = g1.WorldPosition - g1.PreviousWorldPosition;
+
+                            // Only Integers
+                            direction.X = (int)Math.Round(direction.X);
+                            direction.Y = (int)Math.Round(direction.Y);
+
+                            Vector2 tempDirection = direction;
+
+
+                            // Interpoliere Bewegung soweit raus, bis keine Collision mehr entsteht (Diagonale Achsenkollision)
+                            while (IsObstacleCollision(g1))
+                            {
+                                // Math.Sign(0) == 0
+                                tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
+                                tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
+
+                                if (tempDirection == Vector2.Zero)
+                                    break;
+
+                                // g1.CollisionBox = new Rectangle((g1.PreviousWorldPosition + tempDirection).ToPoint(), g1.CollisionBox.Size);
+                                g1.WorldPosition = g1.PreviousWorldPosition + tempDirection;
+                            }
+
+                            // Fixed Position
+                            Vector2 bumpedPosition = g1.WorldPosition = g1.PreviousWorldPosition + tempDirection;
+                            tempDirection = direction;
+
+                            //Slide entlang der Wand und überprüfe auf erneuter Collision
+                            if (resolveCollisionWithSliding)
+                            {
+                                // Teste X Achse
+                                while (tempDirection.X != 0)
+                                {
+
+                                    tempDirection.X = tempDirection.X - Math.Sign(tempDirection.X);
+                                    // g1.CollisionBox = new Rectangle((bumpedPosition + new Vector2(tempDirection.X, 0)).ToPoint(), g1.CollisionBox.Size);
+                                    g1.WorldPosition = bumpedPosition + new Vector2(tempDirection.X, 0);
+
+                                    if (!IsObstacleCollision(g1))
+                                    {
+                                        g1.WorldPosition = bumpedPosition + new Vector2(tempDirection.X, 0);
+                                        bumpedPosition = g1.WorldPosition;
+                                        tempDirection = direction;
+                                        break;
+                                    }
+
+                                }
+
+                                // Teste Y Achse
+                                while (tempDirection.Y != 0)
+                                {
+
+                                    tempDirection.Y = tempDirection.Y - Math.Sign(tempDirection.Y);
+                                    // g1.CollisionBox = new Rectangle((bumpedPosition + new Vector2(0, tempDirection.Y)).ToPoint(), g1.CollisionBox.Size);
+                                    g1.WorldPosition = bumpedPosition + new Vector2(0, tempDirection.Y);
+
+                                    if (!IsObstacleCollision(g1))
+                                    {
+                                        g1.WorldPosition = bumpedPosition + new Vector2(0, tempDirection.Y);
+                                        bumpedPosition = g1.WorldPosition;
+                                        break;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            return isCollision;
+        }
     }
 }

@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.scenes
 {
-    public abstract class Updateable
+    public interface IUpdateable
     {
-        public bool DoUpdate
+        bool DoUpdate
         {
             get; set;
-        } = true;
+        }
 
-        public abstract void Update(GameTime gameTime);
+        void Update(GameTime gameTime);
     }
 }

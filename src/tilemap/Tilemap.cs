@@ -24,11 +24,11 @@ namespace EVCMonoGame.src.tilemap
         private Vector2 position;
         List<GeometryBox> collisionBoxes = new List<GeometryBox>();
 
-        public Tilemap(Vector2 position, String tilemapFile, CollisionManager collisionManager)
+        public Tilemap(Vector2 position, String tilemapFile)
         {
             this.position = position;
             ReadTilemapFile(tilemapFile);
-            collisionManager.AddGeometryCollidables(collisionBoxes.ToArray());
+            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel, collidables: collisionBoxes.ToArray());
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.tilemap;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -19,7 +20,6 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private SpriteFont randomText;
         private Texture2D background;
-        private CollisionManager collisionManager;
         private GeometryBox geometryBox;
 
         private Tilemap beachTilemap;
@@ -27,27 +27,35 @@ namespace EVCMonoGame.src.scenes
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
+            OnEnterScene();
+        }
 
-            collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite);
+        public override void OnEnterScene()
+        {
+            player = new Player(3000, 2000, Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
 
-            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt", collisionManager);
+            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            beachTilemap.LoadContent(sceneManager.Content);
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.SetZoom(0.5f);
 
-            updateables.AddRange(new Updateable[]
+            updateables.AddRange(new IUpdateable[]
             {
                 player,
-                collisionManager,
             });
 
             drawables.AddRange(new IDrawable[]
             {
-                collisionManager,
                 player,
             });
+
+            base.LoadContent(sceneManager.Content);
+        }
+
+        public override void OnExitScene()
+        {
+            base.OnExitScene();
         }
 
         public override void LoadContent(ContentManager content)

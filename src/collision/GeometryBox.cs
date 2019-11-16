@@ -10,13 +10,11 @@ using C3.MonoGame;
 
 namespace EVCMonoGame.src.collision
 {
-    public class GeometryBox : GeometryCollidable
+    public class GeometryBox : Collidable
     {
-        #region Fields
         private Rectangle bounds;
         private Vector2 previousPosition;
-        #endregion
-        #region Properties
+
         public Rectangle Bounds
         {
             get { return bounds; }
@@ -37,13 +35,31 @@ namespace EVCMonoGame.src.collision
         {
             get { return previousPosition; }
         }
-        #endregion
-        #region Constructors
+
+        public Rectangle CollisionBox
+        {
+            get { return bounds; }
+        }
+
+        public Vector2 WorldPosition
+        {
+            get { return bounds.Location.ToVector2(); }
+            set
+            {
+                previousPosition = bounds.Location.ToVector2();
+                bounds.Location = value.ToPoint();
+            }
+        }
+
+        public Vector2 PreviousWorldPosition
+        {
+            get { return previousPosition; }
+        }
+
         public GeometryBox(Rectangle bounds)
         {
             this.bounds = bounds;
             previousPosition = bounds.Location.ToVector2();
         }
-        #endregion
     }
 }

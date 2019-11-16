@@ -18,6 +18,8 @@ namespace EVCMonoGame.src.states
     /// </summary>
     internal class GameplayState : GameState
     {
+        // TODO: Player hier statisch erzeugen.
+
         private ContentManager content;
         private SpriteFont gameFont;
 
