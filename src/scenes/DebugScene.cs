@@ -13,6 +13,7 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -22,9 +23,7 @@ namespace EVCMonoGame.src.scenes
         private Player player2;
 
         private Shadow[] shadows = new Shadow[50];
-
-        private GeometryBox geometryBox;
-        private GeometryBox geometryBox2;
+		
         private SpriteFont randomText;
         private Texture2D background;
         private Tilemap tilemap;
@@ -32,16 +31,21 @@ namespace EVCMonoGame.src.scenes
         public DebugScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            OnEnterScene();
         }
 
         public override void OnEnterScene()
         {
-            player = new Player(3000, 2000, new Vector2(500, 1200),
-                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
+			base.OnEnterScene();
 
-            player2 = new Player(5000, 3000, new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A }, 8);
-            player2.DoesUpdateMovement = false;
+			player = GameplayState.PlayerOne;
+			player.WorldPosition = new Vector2(500, 1200);
+
+			if (GameplayState.IsTwoPlayer)
+			{
+				player2 = GameplayState.PlayerTwo;
+				player2.WorldPosition = new Vector2(200, 500);
+				player2.DoesUpdateMovement = false;
+			}
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
             sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
@@ -50,22 +54,15 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
-            // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt", collisionManager);
-            tilemap.LoadContent(sceneManager.Content);
+            //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
             {
-                player,
-                player2,
             });
 
             drawables.AddRange(new IDrawable[]
             {
-                player,
-                player2,
             });
-
-            base.LoadContent(sceneManager.Content);
 
             Random rnd = new Random();
             for (int i = 0; i < shadows.Length; ++i)
@@ -81,8 +78,8 @@ namespace EVCMonoGame.src.scenes
         }
 
         public override void OnExitScene()
-        {
-            base.OnExitScene();
+		{
+			base.OnExitScene();
         }
 
         public override void LoadContent(ContentManager content)
@@ -121,13 +118,13 @@ namespace EVCMonoGame.src.scenes
             {
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
-
-            sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
-            sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
-            sceneManager.GlobalDebugTexts.Entries[2] = "ShadowAnimElapsed: " + shadows[0].Sprite.ElapsedMillis;
-            sceneManager.GlobalDebugTexts.Entries[3] = "ShadowCurrentAnim: " + shadows[0].Sprite.CurrentAnimation;
-            sceneManager.GlobalDebugTexts.Entries[4] = "ShadowAnimFrameIndex: " + shadows[0].Sprite.FrameIndex;
-
+			
+			sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
+			sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
+			sceneManager.GlobalDebugTexts.Entries[2] = "ShadowAnimElapsed: " + shadows[0].Sprite.ElapsedMillis;
+			sceneManager.GlobalDebugTexts.Entries[3] = "ShadowCurrentAnim: " + shadows[0].Sprite.CurrentAnimation;
+			sceneManager.GlobalDebugTexts.Entries[4] = "ShadowAnimFrameIndex: " + shadows[0].Sprite.FrameIndex;
+			
             base.Update(gameTime);
         }
 

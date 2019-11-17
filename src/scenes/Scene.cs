@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.states;
 
 using EVCMonoGame.src.collision;
 
@@ -20,6 +21,7 @@ namespace EVCMonoGame.src.scenes
         protected List<IDrawable> drawables;
         protected SceneManager sceneManager;
         protected Camera camera;
+		protected bool pauseScene;
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)
@@ -34,24 +36,27 @@ namespace EVCMonoGame.src.scenes
         #region Methods
         public virtual void Update(GameTime gameTime)
         {
-            foreach (IUpdateable u in updateables)
-            {
-                u.Update(gameTime);
-            }
-            camera.Update(gameTime);
+			if (!pauseScene)
+			{
+				foreach (IUpdateable u in updateables)
+				{
+					u.Update(gameTime);
+				}
+				camera.Update(gameTime);
+			}
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
+		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
-            CollisionManager.Draw(gameTime, spriteBatch);
+			CollisionManager.Draw(gameTime, spriteBatch);
 
-            foreach (IDrawable d in drawables)
-            {
-                d.Draw(gameTime, spriteBatch);
-            }
-            spriteBatch.End();
+			foreach (IDrawable d in drawables)
+			{
+				d.Draw(gameTime, spriteBatch);
+			}
+			spriteBatch.End();
         }
 
         public virtual void LoadContent(ContentManager contentManager)
@@ -64,14 +69,30 @@ namespace EVCMonoGame.src.scenes
 
         public virtual void OnEnterScene()
         {
+			updateables.Add(GameplayState.PlayerOne);
+			drawables.Add(GameplayState.PlayerOne);
 
-        }
+			if (GameplayState.IsTwoPlayer) {
+				updateables.Add(GameplayState.PlayerTwo);
+				drawables.Add(GameplayState.PlayerTwo);
+			}
+		}
 
         public virtual void OnExitScene()
         {
             updateables.Clear();
             drawables.Clear();
-        }
+		}
+
+		public void Pause()
+		{
+			pauseScene = true;
+		}
+
+		public void Unpause()
+		{
+			pauseScene = false;
+		}
 
         #endregion
     }

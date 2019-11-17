@@ -8,6 +8,8 @@ using System.Threading;
 
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.characters;
+using System.Collections.Generic;
 
 namespace EVCMonoGame.src.states
 {
@@ -23,22 +25,50 @@ namespace EVCMonoGame.src.states
         private ContentManager content;
         private SpriteFont gameFont;
 
-        private Vector2 playerPosition = new Vector2(100, 100);
-        private Vector2 enemyPosition = new Vector2(100, 100);
+		private static Player playerOne;
+		private static Player playerTwo;
+		private static List<Player> players;
+		private static bool isTwoPlayer;
 
-        private Random random = new Random();
+		private Random random = new Random();
 
         private float pauseAlpha;
 
         private SceneManager sceneManager;
 
-        public GameplayState()
+		#region Propertie
+		public static Player PlayerOne
+		{
+			get { return playerOne; }
+		}
+		public static Player PlayerTwo
+		{
+			get { return playerTwo; }
+		}
+
+		public static bool IsTwoPlayer
+		{
+			get { return isTwoPlayer; }
+		}
+		#endregion
+
+		public GameplayState()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-        }
 
-        public override void LoadContent()
+			players = new List<Player>();
+
+			playerOne = new Player(100, 99, new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			players.Add(playerOne);
+			//if : is Zweispiele ausgewählt
+			//playerTwo = new Player(new Rectangle(550, 600, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			//players.Add(playerTwo);
+			//isTwoPlayer = true;
+
+		}
+
+		public override void LoadContent()
         {
             if (content == null)
                 content = new ContentManager(StateManager.Game.Services, "Content");
@@ -84,19 +114,6 @@ namespace EVCMonoGame.src.states
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-                const float randomization = 10;
-
-                enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-                // Apply a stabilizing force to stop the enemy moving off the state.
-                Vector2 targetPosition = new Vector2(
-                    StateManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
-                    200);
-
-                enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
-
                 sceneManager.Update(gameTime);
             }
         }
@@ -128,11 +145,6 @@ namespace EVCMonoGame.src.states
             SpriteBatch spriteBatch = StateManager.SpriteBatch;
 
             spriteBatch.Begin();
-
-            spriteBatch.DrawString(gameFont, "// TODO", enemyPosition + Vector2.One, Color.Green);
-
-            spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                                   enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
 

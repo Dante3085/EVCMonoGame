@@ -52,23 +52,33 @@ namespace EVCMonoGame.src
             //graphics.PreferredBackBufferWidth = 3240;
             //graphics.PreferredBackBufferHeight = 2160;
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
 
             graphics.IsFullScreen = false;
             graphics.SynchronizeWithVerticalRetrace = true;
             IsFixedTimeStep = true;
+
+			// Debug Helpers
+			bool bypassMainMenu = true;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);
 
             Components.Add(stateManager);
 
-            // Activate the first screens.
-            stateManager.AddState(new BackgroundState(), null);
-            stateManager.AddState(new MainMenuState(), null);
+			// Activate the first screens.
+			if (bypassMainMenu)
+				LoadingState.Load(stateManager, true, PlayerIndex.One, new GameplayState());
+			else
+			{
 
-            fpsCounter = new FpsCounter(Vector2.Zero);
+				stateManager.AddState(new BackgroundState(), null);
+				stateManager.AddState(new MainMenuState(), null);
+			}
+
+
+				fpsCounter = new FpsCounter(Vector2.Zero);
             drawFpsCounter = true;
         }
 

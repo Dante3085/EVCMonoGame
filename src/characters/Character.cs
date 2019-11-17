@@ -129,7 +129,10 @@ namespace EVCMonoGame.src.characters
         public Character(int maxHp, int currentHp, Vector2 position)
         {
             healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 20));
-            WorldPosition = position;
+
+			WorldPosition = position;
+			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(50, 50));
+
             sprite = new AnimatedSprite(position, 5.0f);
 
 
@@ -139,10 +142,15 @@ namespace EVCMonoGame.src.characters
         public virtual void Update(GameTime gameTime)
         {
             sprite.Update(gameTime);
-            healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
+			healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
 
-            // collisionBox = sprite.Bounds;
-        }
+			// collisionBox = sprite.Bounds;
+		}
+
+		public virtual void OnMove()
+		{
+			healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
+		}
 
         public virtual void LoadContent(ContentManager content)
         {

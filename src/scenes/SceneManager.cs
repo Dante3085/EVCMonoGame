@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -83,7 +84,10 @@ namespace EVCMonoGame.src.scenes
             scenes = new Dictionary<EScene, Scene>();
             scenes[EScene.DEBUG] = new DebugScene(this);
             scenes[EScene.DEBUG_2] = new DebugScreen2(this);
-            currentScene = previousScene = scenes[EScene.DEBUG];
+            currentScene = previousScene = scenes[EScene.DEBUG_2];
+
+			currentScene.OnEnterScene();
+			currentScene.LoadContent(game.Content);
         }
         #endregion
         #region Methods
@@ -93,10 +97,12 @@ namespace EVCMonoGame.src.scenes
             globalFont = game.Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             debugTexts.LoadContent(game.Content);
 
-            foreach (Scene s in scenes.Values)
-            {
-                s.LoadContent(game.Content);
-            }
+			// Evtl überflüssig, da wir nur den Content vom aktuellen Level fetchen möchten
+			// Wir nehmen die Ladezeit von paar ms beim level transition im Kauf
+            //foreach (Scene s in scenes.Values)
+            //{
+            //    s.LoadContent(game.Content);
+            //}
         }
 
         public void Update(GameTime gameTime)
@@ -105,7 +111,7 @@ namespace EVCMonoGame.src.scenes
             currentScene.Update(gameTime);
 
             // Global Updating
-            // if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
+            if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
             if (transitioning) { UpdateTransition(gameTime); }
             debugTexts.Entries[0] = InputManager.CurrentMousePosition().ToString();
         }
@@ -126,22 +132,41 @@ namespace EVCMonoGame.src.scenes
 
         public void SceneTransition(EScene to)
         {
-            if (!scenes.ContainsKey(to))
-            {
-                throw new ArgumentException(to + " is not known to the ScreenManager.");
-            }
 
-            CollisionManager.CleanCollisonManager();
+			if (!transitioning && currentScene != scenes[to])
+			{
+				if (!scenes.ContainsKey(to))
+				{
+					throw new ArgumentException(to + " is not known to the ScreenManager.");
+				}
 
-            nextScene = scenes[to];
-            transitioning = true;
-            easer.Start();
+				currentScene.Pause();
+				CollisionManager.CleanCollisonManager();
 
-            previousScene.OnExitScene();
-            nextScene.OnEnterScene();
-        }
+				nextScene = scenes[to];
 
-        public void TransitionToPreviousScreen()
+				transitioning = true;
+				easer.Start();
+
+				nextScene.OnEnterScene();
+				nextScene.LoadContent(game.Content);
+				//todo loading screen
+
+
+				// Kollision für Players setzen
+				CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
+				CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+				//CollisionManager.AddCollidables(GameplayState.PlayerTwo);
+				//CollisionManager.AddCollidables(GameplayState.PlayerThree);
+				//CollisionManager.AddCollidables(GameplayState.PlayerFour);
+			}
+			else
+			{
+
+			}
+		}
+
+		public void TransitionToPreviousScreen()
         {
             nextScene = previousScene;
             transitioning = true;
@@ -162,11 +187,14 @@ namespace EVCMonoGame.src.scenes
                 else
                 {
                     previousScene = currentScene;
+					previousScene.OnExitScene();
+
                     currentScene = nextScene;
-                    easer.Reverse();
+					currentScene.Unpause();
+					easer.Reverse();
                     easer.Start();
                     reverseTransitionFinished = true;
-                }
+				}
             }
 
         }

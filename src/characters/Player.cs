@@ -61,11 +61,13 @@ namespace EVCMonoGame.src.characters
         #endregion
 
         #region Constructors
-        public Player(int maxHp, int currentHp, Vector2 position, Keys[] controls, float playerSpeed)
+        public Player(int maxHp, int currentHp, Vector2 position, Keys[] controls)
             : base(maxHp, currentHp, position)
         {
             isAttacking = false;
             runThreshold = 0.65f;
+
+			movementSpeed = 7.5f;
 
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("IDLE_RIGHT");
@@ -375,6 +377,8 @@ namespace EVCMonoGame.src.characters
                     }
                 }
             }
+
+			OnMove();
         }
 
         #endregion
