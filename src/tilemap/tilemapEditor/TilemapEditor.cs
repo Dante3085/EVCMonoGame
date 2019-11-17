@@ -63,7 +63,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TilemapEditor()
         {
-            tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(100, 100), 3, new Vector2(1, 1));
+            tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(64, 64), 5, new Vector2(1, 1));
         }
 
         public void Update(GameTime gameTime)
@@ -280,7 +280,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             fontSize = font.MeasureString(infoText);
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
-            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/overworld_tiles.ts.txt", content);
+            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/ff6Tiles.ts.txt", content);
 
             tileSelection.LoadContent(content);
             drawingArea.LoadContent(content);

@@ -77,12 +77,12 @@ namespace EVCMonoGame.src.utility
         {
             int indexComma = vecString.IndexOf(',');
 
-            Vector2 frameOffset = Vector2.Zero;
-            frameOffset.X = int.Parse(vecString.Substring(1, indexComma - 1));
-            frameOffset.Y = int.Parse(vecString.Substring(indexComma + 1,
+            Vector2 vector = Vector2.Zero;
+            vector.X = int.Parse(vecString.Substring(1, indexComma - 1));
+            vector.Y = int.Parse(vecString.Substring(indexComma + 1,
                                       (vecString.Length - 2) - (indexComma)));
 
-            return frameOffset;
+            return vector;
         }
 
         /// <summary>

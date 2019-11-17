@@ -420,15 +420,11 @@ namespace EVCMonoGame.src.utility
             System.IO.StreamReader reader = new System.IO.StreamReader(path);
             String line = String.Empty;
 
-            int numTilesInLastRow = 0;
-
             // Variables for storing the information that will be read.
             List<List<Tile>> tiles = new List<List<Tile>>();
             tiles.Add(new List<Tile>());
 
             String tileSetName = String.Empty;
-            String tileName = String.Empty;
-            Rectangle textureBounds = Rectangle.Empty;
 
             while ((line = reader.ReadLine()) != null)
             {
@@ -438,6 +434,9 @@ namespace EVCMonoGame.src.utility
                     // Determine specific section
                     if (line.Contains("TILE"))
                     {
+                        String tileName = String.Empty;
+                        Rectangle textureBounds = Rectangle.Empty;
+
                         line = Utility.ReplaceWhitespace(reader.ReadLine(), ""); // Remove Whitespace
                         tileName = line.Remove(0, 5); // Remove 'NAME='
 
@@ -445,19 +444,50 @@ namespace EVCMonoGame.src.utility
                         line = line.Remove(0, 15); // Remove 'TEXTURE_BOUNDS='
                         textureBounds = Utility.StringToRectangle(line);
 
-                        if (numTilesInLastRow == numTilesPerRow)
+                        if (tiles[tiles.Count - 1].Count == numTilesPerRow)
                         {
                             tiles.Add(new List<Tile>());
-                            numTilesInLastRow = 0;
                         }
                         tiles[tiles.Count - 1].Add(new Tile(tileName, textureBounds, Rectangle.Empty));
-                        ++numTilesInLastRow;
                     }
                 }
                 else if (line.Contains("TILESET"))
                 {
                     line = Utility.ReplaceWhitespace(line, "");
                     tileSetName = line.Substring(8); // Read everything after 'TILESET='
+                }
+
+                // Read all Tiles of a specified size in a specified region.
+                else if (line.Contains("AUTO_TILES"))
+                {
+                    line = Utility.ReplaceWhitespace(line, "");
+                    line = line.Remove(0, 11); // Remove 'AUTO_TILES='
+
+                    Vector2 tileSize = Utility.StringToVector2(line.Substring(0, line.IndexOf("@")));
+                    Rectangle region = Utility.StringToRectangle(line.Substring(line.IndexOf("@") + 1));
+                    int row = 0;
+                    int column = 0;
+                    int numAutoTiles = 0;
+                    Rectangle textureBounds = Rectangle.Empty;
+
+                    while((region.Location.ToVector2().Y + (row * tileSize.Y)) < region.Bottom)
+                    {
+                        if ((region.Location.ToVector2().X + (column * tileSize.X)) >= region.Right)
+                        {
+                            ++row;
+                            column = 0;
+                        }
+
+                        textureBounds = new Rectangle((region.Location.ToVector2() + new Vector2(column++ * tileSize.X, row * tileSize.Y)).ToPoint(),
+                                                      tileSize.ToPoint());
+
+                        if (tiles[tiles.Count - 1].Count == numTilesPerRow)
+                        {
+                            tiles.Add(new List<Tile>());
+                        }
+                        tiles[tiles.Count - 1].Add(new Tile("auto_tile_" + numAutoTiles++.ToString(), 
+                                                   textureBounds, Rectangle.Empty));
+                    }
                 }
             }
             reader.Close();
