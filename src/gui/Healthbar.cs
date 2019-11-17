@@ -103,7 +103,7 @@ namespace EVCMonoGame.src.gui
         }
 
         #endregion
-
+        #region Constructors
         public Healthbar(int maxHp, int currentHp, Vector2 position, Vector2 size)
         {
             outlineThickness = 1;
@@ -124,7 +124,8 @@ namespace EVCMonoGame.src.gui
             MaxHp = maxHp;
             CurrentHp = currentHp;
         }
-
+        #endregion
+        #region Drawable
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(hpTextFont, hpTextStr, hpTextBounds.Location.ToVector2(), Color.White);
@@ -144,11 +145,6 @@ namespace EVCMonoGame.src.gui
 
 
         }
-
-        public void UnloadContent()
-        {
-            // TODO
-            
-        }
+        #endregion
     }
 }

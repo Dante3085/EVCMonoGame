@@ -7,35 +7,47 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
-using EVCMonoGame.src.scenes;
-
 namespace EVCMonoGame.src
 {
-    class FpsCounter : Updateable, scenes.IDrawable
+    // TODO: Fix issue that when enabling the FpsCounter with F2, the fps are shortly and wrongly very low.
+    //       I assume 
+
+    public class FpsCounter
     {
-        private float fps;
         private SpriteFont font;
         private String str;
         private Vector2 position;
-        Color color;
 
-        public FpsCounter(Vector2 position, Color color)
+        int frameRate = 0;
+        int frameCounter = 0;
+        TimeSpan elapsedTime = TimeSpan.Zero;
+
+        public FpsCounter(Vector2 position)
         {
-            fps = -1;
-            str = "";
             this.position = position;
-            this.color = color;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            fps = 1.0f / (float)gameTime.ElapsedGameTime.TotalSeconds;
-            str = fps.ToString();
+            elapsedTime += gameTime.ElapsedGameTime;
+
+            // After 1 second passed put the amount of frames that happened
+            // into frameRate. That's basically our fps.
+            if (elapsedTime > TimeSpan.FromSeconds(1))
+            {
+                elapsedTime -= TimeSpan.FromSeconds(1);
+                frameRate = frameCounter;
+                frameCounter = 0;
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, str, position, color);
+            ++frameCounter;
+            str = String.Format("fps: {0}", frameRate);
+
+            spriteBatch.DrawString(font, str, new Vector2(33, 33), Color.DarkRed);
+            spriteBatch.DrawString(font, str, new Vector2(32, 32), Color.White);
         }
 
         public void LoadContent(ContentManager content)

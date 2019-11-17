@@ -1,0 +1,63 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_shadow_transparent
+
+[ANIMATION]
+NAME          = IDLE_LEFT
+FRAMES        = (2, 7, 31, 29), (37, 10, 32, 26), (72, 7, 31, 29), (109, 8, 35, 28), (147, 6, 37, 30), (189, 7, 39, 29), (233, 9, 33, 27), (268, 11, 34, 25), (304, 13, 39, 23)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 180, 180, 180, 180, 180, 180, 180, 180, 180
+FRAME_OFFSETS = (0, 10), (0, 20), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-30, 30),
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = IDLE_RIGHT
+FRAMES        = (2, 7, 31, 29), (37, 10, 32, 26), (72, 7, 31, 29), (109, 8, 35, 28), (147, 6, 37, 30), (189, 7, 39, 29), (233, 9, 33, 27), (268, 11, 34, 25), (304, 13, 39, 23)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 120@all
+FRAME_OFFSETS = (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (-30, 30),
+IS_MIRRORED   = true
+IS_LOOPED     = true
+
+
+[ANIMATION]
+NAME          = FLINCH_LEFT
+FRAMES        = (3, 447, 24, 44), (30, 431, 25, 60), (59, 441, 34, 50), (97, 452, 35, 39), (136, 456, 37, 35)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 120@all
+FRAME_OFFSETS = (0, -50), (0, -120), (0, -70), (0, -20), (-50, 0),
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = FLINCH_RIGHT
+FRAMES        = (3, 447, 24, 44), (30, 431, 25, 60), (59, 441, 34, 50), (97, 452, 35, 39), (136, 456, 37, 35)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 120@all
+FRAME_OFFSETS = (0, -50), (0, -120), (0, -70), (0, -20), (-50, 0),
+IS_MIRRORED   = true
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = SPAWN_LEFT
+FRAMES        = (6, 110, 29, 16), (39, 108, 32, 18), (75, 104, 40, 23), (120, 102, 38, 24), (165, 97, 30, 29), (198, 95, 26, 31), (229, 98, 25, 28), (256, 100, 29, 26), (289, 90, 22, 36)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 180@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = SPAWN_RIGHT
+FRAMES        = (6, 110, 29, 16), (39, 108, 32, 18), (75, 104, 40, 23), (120, 102, 38, 24), (165, 97, 30, 29), (198, 95, 26, 31), (229, 98, 25, 28), (256, 100, 29, 26), (289, 90, 22, 36)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 180@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = false

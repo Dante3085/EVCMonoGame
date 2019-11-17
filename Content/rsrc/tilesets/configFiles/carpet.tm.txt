@@ -1,0 +1,156 @@
+TILESET = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
+
+[TILE]
+NAME           = carpet_top_left
+TEXTURE_BOUNDS = (16, 1328, 16, 16)
+SCREEN_BOUNDS  = (500, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (600, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (700, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (800, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (900, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+SCREEN_BOUNDS  = (1000, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_top_right
+TEXTURE_BOUNDS = (48, 1328, 16, 16)
+SCREEN_BOUNDS  = (1100, 200, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_left
+TEXTURE_BOUNDS = (16, 1344, 16, 16)
+SCREEN_BOUNDS  = (500, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_left
+TEXTURE_BOUNDS = (16, 1360, 16, 16)
+SCREEN_BOUNDS  = (500, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (700, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (800, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (900, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (700, 500, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (800, 500, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (900, 500, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (600, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (1000, 400, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_right
+TEXTURE_BOUNDS = (48, 1344, 16, 16)
+SCREEN_BOUNDS  = (1100, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (600, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (700, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (800, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (900, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+SCREEN_BOUNDS  = (1000, 300, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_left
+TEXTURE_BOUNDS = (16, 1360, 16, 16)
+SCREEN_BOUNDS  = (600, 600, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_left
+TEXTURE_BOUNDS = (16, 1344, 16, 16)
+SCREEN_BOUNDS  = (600, 500, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (700, 600, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (800, 600, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+SCREEN_BOUNDS  = (900, 600, 100, 100)
+
+[TILE]
+NAME           = carpet_middle_right
+TEXTURE_BOUNDS = (48, 1344, 16, 16)
+SCREEN_BOUNDS  = (1000, 500, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_right
+TEXTURE_BOUNDS = (48, 1360, 16, 16)
+SCREEN_BOUNDS  = (1000, 600, 100, 100)
+
+[TILE]
+NAME           = carpet_bottom_right
+TEXTURE_BOUNDS = (48, 1360, 16, 16)
+SCREEN_BOUNDS  = (1100, 400, 100, 100)

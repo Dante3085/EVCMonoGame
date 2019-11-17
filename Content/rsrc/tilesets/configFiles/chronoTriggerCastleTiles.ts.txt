@@ -1,0 +1,45 @@
+TILESET = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
+
+[TILE]
+NAME           = carpet_top_left 
+TEXTURE_BOUNDS = (16, 1328, 16, 16)
+
+[TILE]
+NAME           = carpet_top
+TEXTURE_BOUNDS = (32, 1328, 16, 16)
+
+[TILE]
+NAME           = carpet_top_right
+TEXTURE_BOUNDS = (48, 1328, 16, 16)
+
+[TILE]
+NAME           = carpet_middle_left
+TEXTURE_BOUNDS = (16, 1344, 16, 16)
+
+[TILE]
+NAME           = carpet_middle
+TEXTURE_BOUNDS = (32, 1344, 16, 16)
+
+[TILE]
+NAME           = carpet_middle_right
+TEXTURE_BOUNDS = (48, 1344, 16, 16)
+
+[TILE]
+NAME           = carpet_bottom_left
+TEXTURE_BOUNDS = (16, 1360, 16, 16)
+
+[TILE]
+NAME           = carpet_bottom_middle
+TEXTURE_BOUNDS = (32, 1360, 16, 16)
+
+[TILE]
+NAME           = carpet_bottom_right
+TEXTURE_BOUNDS = (48, 1360, 16, 16)
+
+[TILE]
+NAME = castle_door
+TEXTURE_BOUNDS = (352, 1072, 192, 112)
+
+[TILE]
+NAME           = dirt_up_left
+TEXTURE_BOUNDS = (288, 1248, 16, 16)

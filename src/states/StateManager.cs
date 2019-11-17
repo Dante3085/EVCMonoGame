@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 using EVCMonoGame.src.input;
 
@@ -132,12 +133,13 @@ namespace EVCMonoGame.src.states
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            InputManager.UpdateInputStates();
+            InputManager.UpdateInputStates(gameTime);
 
-            //if (InputManager.OnKeyPressed(Keys.Escape))
-            //{
-            //    Game.Exit();
-            //}
+            if (InputManager.AreAllButtonsPressed(Buttons.Back, Buttons.Start)
+                || InputManager.AreAllKeysPressed(Keys.Escape, Keys.Delete))
+            {
+                Game.Exit();
+            }
 
             // Read the keyboard and gamepad.
             input.Update();

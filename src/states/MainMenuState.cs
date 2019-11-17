@@ -18,16 +18,19 @@ namespace EVCMonoGame.src.states
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry tilemapEditorEntry = new MenuEntry("Tilemap Editor");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
+            tilemapEditorEntry.Selected += TilemapEditorMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);
+            MenuEntries.Add(tilemapEditorEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
         }
@@ -41,8 +44,12 @@ namespace EVCMonoGame.src.states
         /// </summary>
         private void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingState.Load(StateManager, true, e.PlayerIndex,
-                               new GameplayState());
+            LoadingState.Load(StateManager, true, e.PlayerIndex, new GameplayState());
+        }
+
+        private void TilemapEditorMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            LoadingState.Load(StateManager, true, e.PlayerIndex, new TilemapEditorState());
         }
 
         /// <summary>

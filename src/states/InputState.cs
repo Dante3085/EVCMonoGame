@@ -144,8 +144,7 @@ namespace EVCMonoGame.src.states
         {
             return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
                    IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
+                   IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex);
         }
 
         /// <summary>
@@ -157,7 +156,8 @@ namespace EVCMonoGame.src.states
         public bool IsMenuCancel(PlayerIndex? controllingPlayer,
                                  out PlayerIndex playerIndex)
         {
-            return IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
+            return IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.B, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.Back, controllingPlayer, out playerIndex);
         }

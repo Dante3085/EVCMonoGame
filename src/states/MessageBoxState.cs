@@ -44,7 +44,7 @@ namespace EVCMonoGame.src.states
         public MessageBoxState(string message, bool includeUsageText)
         {
             const string usageText = "\nA button, Space, Enter = ok" +
-                                     "\nB button, Esc = cancel";
+                                     "\nB button, Start button, Esc = cancel";
 
             if (includeUsageText)
                 this.message = message + usageText;

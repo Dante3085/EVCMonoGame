@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// author: https://github.com/z2oh/C3.MonoGame.Primitives2D
+
 namespace C3.MonoGame
 {
 	/// <summary>

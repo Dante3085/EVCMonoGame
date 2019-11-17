@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
+
+using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.states
 {
@@ -79,13 +82,15 @@ namespace EVCMonoGame.src.states
             // If we pass a null controlling player, the InputState helper returns to
             // us which player actually provided the input. We pass that through to
             // OnSelectEntry and OnCancel, so they can tell which player triggered them.
-            PlayerIndex playerIndex;
+            PlayerIndex playerIndex = PlayerIndex.One;
 
-            if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
+            if (InputManager.OnAnyKeyPressed(Keys.Enter, Keys.Space)
+                || InputManager.OnButtonPressed(Buttons.A))
             {
                 OnSelectEntry(selectedEntry, playerIndex);
             }
-            else if (input.IsMenuCancel(ControllingPlayer, out playerIndex))
+            else if (InputManager.OnKeyPressed(Keys.Escape)
+                || InputManager.OnAnyButtonPressed(Buttons.Start, Buttons.B))
             {
                 OnCancel(playerIndex);
             }
