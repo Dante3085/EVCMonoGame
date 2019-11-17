@@ -74,7 +74,7 @@ namespace EVCMonoGame.src.scenes
             }
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.SetZoom(1.25f);
+            camera.SetZoom(0.5f);
         }
 
         public override void OnExitScene()

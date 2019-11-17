@@ -122,7 +122,7 @@ namespace EVCMonoGame.src.characters
 			bool usePathfinding = true;
 			if (usePathfinding)
 			{
-				if (waypoints.Count() > 0)
+				if (waypoints != null && waypoints.Count() > 0)
 				{
 
 					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
