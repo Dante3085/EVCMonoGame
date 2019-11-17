@@ -28,7 +28,10 @@ namespace EVCMonoGame.src
         private FpsCounter fpsCounter;
         private bool drawFpsCounter;
 
-        public static bool MouseVisible
+		// Debug Helpers
+		bool bypassMainMenu = true;
+
+		public static bool MouseVisible
         {
             get;
             set;
@@ -59,8 +62,6 @@ namespace EVCMonoGame.src
             graphics.SynchronizeWithVerticalRetrace = true;
             IsFixedTimeStep = true;
 
-			// Debug Helpers
-			bool bypassMainMenu = true;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);
