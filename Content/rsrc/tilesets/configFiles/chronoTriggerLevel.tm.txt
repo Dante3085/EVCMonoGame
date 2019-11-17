@@ -1,0 +1,246 @@
+TILESET = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
+
+[TILE]
+NAME           = dirt_row_two_left
+TEXTURE_BOUNDS = (288, 1264, 16, 16)
+SCREEN_BOUNDS  = (400, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (500, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (600, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_left
+TEXTURE_BOUNDS = (288, 1280, 16, 16)
+SCREEN_BOUNDS  = (400, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (500, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (600, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (900, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (1000, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_right
+TEXTURE_BOUNDS = (336, 1264, 16, 16)
+SCREEN_BOUNDS  = (1100, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (900, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (1000, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_right
+TEXTURE_BOUNDS = (336, 1280, 16, 16)
+SCREEN_BOUNDS  = (1100, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (500, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (600, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (500, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (600, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (500, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (600, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_left
+TEXTURE_BOUNDS = (288, 1264, 16, 16)
+SCREEN_BOUNDS  = (400, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_left
+TEXTURE_BOUNDS = (288, 1280, 16, 16)
+SCREEN_BOUNDS  = (400, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_left
+TEXTURE_BOUNDS = (288, 1264, 16, 16)
+SCREEN_BOUNDS  = (400, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (700, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (800, 800, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (700, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (800, 700, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_left
+TEXTURE_BOUNDS = (288, 1296, 16, 16)
+SCREEN_BOUNDS  = (400, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_left
+TEXTURE_BOUNDS = (304, 1296, 16, 16)
+SCREEN_BOUNDS  = (500, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_right
+TEXTURE_BOUNDS = (320, 1296, 16, 16)
+SCREEN_BOUNDS  = (600, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (700, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (800, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (700, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (800, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (700, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (800, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_left
+TEXTURE_BOUNDS = (304, 1296, 16, 16)
+SCREEN_BOUNDS  = (700, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_right
+TEXTURE_BOUNDS = (320, 1296, 16, 16)
+SCREEN_BOUNDS  = (800, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_left
+TEXTURE_BOUNDS = (304, 1296, 16, 16)
+SCREEN_BOUNDS  = (900, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_middle_right
+TEXTURE_BOUNDS = (320, 1296, 16, 16)
+SCREEN_BOUNDS  = (1000, 1200, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_right
+TEXTURE_BOUNDS = (336, 1264, 16, 16)
+SCREEN_BOUNDS  = (1100, 899, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_right
+TEXTURE_BOUNDS = (336, 1280, 16, 16)
+SCREEN_BOUNDS  = (1100, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (900, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (1000, 900, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+SCREEN_BOUNDS  = (900, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+SCREEN_BOUNDS  = (1000, 1000, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+SCREEN_BOUNDS  = (900, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+SCREEN_BOUNDS  = (1000, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_two_right
+TEXTURE_BOUNDS = (336, 1264, 16, 16)
+SCREEN_BOUNDS  = (1100, 1100, 100, 100)
+
+[TILE]
+NAME           = dirt_row_four_right
+TEXTURE_BOUNDS = (336, 1296, 16, 16)
+SCREEN_BOUNDS  = (1100, 1200, 100, 100)
+
+[TILE]
+NAME           = gate
+TEXTURE_BOUNDS = (352, 1072, 192, 96)
+SCREEN_BOUNDS  = (400, 0, 800, 700)

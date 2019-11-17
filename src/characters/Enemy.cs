@@ -124,11 +124,7 @@ namespace EVCMonoGame.src.characters
 			{
 				if (waypoints != null && waypoints.Count() > 0)
 				{
-
 					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
-
-
-
 					movementDirection = nextWaypoint - WorldPosition;
 
 					if (Vector2.Distance(nextWaypoint, WorldPosition) < agentMindestBreite)
@@ -136,8 +132,6 @@ namespace EVCMonoGame.src.characters
 						waypoints.RemoveAt(0);
 					}
 				}
-
-
 			}
 			else
 				movementDirection = character.WorldPosition - WorldPosition;

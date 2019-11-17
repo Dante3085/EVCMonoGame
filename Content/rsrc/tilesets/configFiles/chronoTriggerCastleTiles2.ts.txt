@@ -1,0 +1,3 @@
+TILESET    = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
+AUTO_TILES = (16, 16)@all
+AUTO_TILES = (16, 16)@(0, 0, 100, 100)
