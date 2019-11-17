@@ -131,10 +131,9 @@ namespace EVCMonoGame.src.characters
             healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 20));
 
 			WorldPosition = position;
-			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(50, 50));
 
-            sprite = new AnimatedSprite(position, 5.0f);
-
+			sprite = new AnimatedSprite(position, 5.0f);
+			
 
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
         }
@@ -155,7 +154,7 @@ namespace EVCMonoGame.src.characters
         public virtual void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
-            collisionBox = sprite.Bounds;
+            //collisionBox = sprite.Bounds;
 
             healthbar.LoadContent(content);
         }

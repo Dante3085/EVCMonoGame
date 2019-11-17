@@ -52,8 +52,9 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("elapsed:");
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentAnim:");
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
+			sceneManager.GlobalDebugTexts.Entries.Add("Debug Draw Mode: Press X");
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
@@ -67,10 +68,17 @@ namespace EVCMonoGame.src.scenes
             Random rnd = new Random();
             for (int i = 0; i < shadows.Length; ++i)
             {
-                shadows[i] = new Shadow(3000, 2000, new Vector2(rnd.Next(0, 3000), rnd.Next(0, 1080)));
-
-                updateables.Add(shadows[i]);
-                drawables.Add(shadows[i]);
+				Vector2 spawnPosition = new Vector2(rnd.Next(0, 3000), rnd.Next(0, 1080));
+				Rectangle spawnBounds = new Rectangle(spawnPosition.ToPoint(), new Point(100, 100));
+				if (!CollisionManager.IsCollisionInArea(spawnBounds, CollisionManager.allCollisionsChannel))
+				{
+					shadows[i] = new Shadow(3000, 2000, spawnPosition);
+					updateables.Add(shadows[i]);
+					drawables.Add(shadows[i]);
+				}
+				else
+					i--;
+				
             }
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);

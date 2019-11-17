@@ -15,6 +15,7 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.animation;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters
 {
@@ -69,6 +70,8 @@ namespace EVCMonoGame.src.characters
 
 			movementSpeed = 7.5f;
 
+			CollisionBox = new Rectangle(position.ToPoint(), new Point(120, 220));
+
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("IDLE_RIGHT");
             playerOrientation = Orientation.RIGHT;
@@ -88,7 +91,7 @@ namespace EVCMonoGame.src.characters
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
             flinching = false;
-        }
+		}
         #endregion
         #region IDrawable
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
