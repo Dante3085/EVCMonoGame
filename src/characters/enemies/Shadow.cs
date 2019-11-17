@@ -10,27 +10,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 using EVCMonoGame.src.collision;
 
-namespace EVCMonoGame.src.enemies
+namespace EVCMonoGame.src.characters.enemies
 {
     public class Shadow : Enemy
     {
-
-        public Shadow(Vector2 position)
-            : base(position)
+        public Shadow(int maxHp, int currentHp, Vector2 position)
+            : base(maxHp, currentHp, position)
         {
-            enemySprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
-            enemySprite.SetAnimation("IDLE_LEFT");
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
+            sprite.SetAnimation("SPAWN_LEFT");
         }
 
         #region Updateables
         public override void Update(GameTime gameTime)
         {
-            if (enemySprite.AnimationFinished)
-            {
-                enemySprite.SetAnimation("IDLE_LEFT");
-            }
-
             base.Update(gameTime);
+
+            if (sprite.CurrentAnimation == "SPAWN_LEFT" && 
+                sprite.AnimationFinished)
+            {
+                sprite.SetAnimation("SPAWN_LEFT");
+            }
         }
         #endregion
 
@@ -47,11 +47,11 @@ namespace EVCMonoGame.src.enemies
         #endregion
 
         #region CombatCollidable
-        public override void OnCombatCollision(CombatArgs combatArgs)
-        {
-            base.OnCombatCollision(combatArgs);
-            enemySprite.SetAnimation("FLINCH_LEFT");
-        }
+        //public override void OnCombatCollision(CombatArgs combatArgs)
+        //{
+        //    base.OnCombatCollision(combatArgs);
+        //    enemySprite.SetAnimation("FLINCH_LEFT");
+        //}
 
         #endregion
     }

@@ -16,14 +16,27 @@ namespace EVCMonoGame.src.gui
     // TODO: Fix MouseHover.
     // TODO: Fix TextPlacement.
 
-    public class Button : Updateable, scenes.IDrawable
+    public class Button : scenes.IUpdateable, scenes.IDrawable
     {
+        #region Fields
+
         private Rectangle bounds;
         private SpriteFont font;
         private Vector2 textSize;
         private String text;
         private Action action;
         private Color fillColor;
+
+        #endregion
+
+        #region Properties
+
+        public bool DoUpdate
+        {
+            get; set;
+        } = true;
+
+        #endregion
 
         public Button(Rectangle bounds,String text, Action action)
         {
@@ -34,7 +47,7 @@ namespace EVCMonoGame.src.gui
             fillColor.A = 0;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (bounds.Contains(InputManager.CurrentMousePosition()))
             {

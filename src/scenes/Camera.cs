@@ -30,8 +30,10 @@ namespace EVCMonoGame.src.scenes
         LEFT,
         CENTER
     }
-    public class Camera : Updateable
+    public class Camera : IUpdateable
     {
+        #region Fields
+
         private Vector2 cameraPosition;
         private float zoom = 1;
         private SceneManager sceneManager;
@@ -39,6 +41,13 @@ namespace EVCMonoGame.src.scenes
         private bool followsFocusObject = false;
         private Screenpoint focusPoint = Screenpoint.CENTER;
         private Vector2 offset = Vector2.Zero;
+
+        #endregion
+
+        public bool DoUpdate
+        {
+            get; set;
+        } = true;
 
         private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
 
@@ -198,7 +207,7 @@ namespace EVCMonoGame.src.scenes
                      new Vector4(cameraPosition.X, cameraPosition.Y, 0, 1));
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (followsFocusObject)
             {

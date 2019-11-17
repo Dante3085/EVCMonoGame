@@ -10,8 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
-using EVCMonoGame.src.enemies;
+using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.tilemap;
+using EVCMonoGame.src.characters;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -21,26 +23,29 @@ namespace EVCMonoGame.src.scenes
         private Player player2;
 
         private Shadow[] shadows = new Shadow[50];
-
-        private GeometryBox geometryBox;
-        private GeometryBox geometryBox2;
+		
         private SpriteFont randomText;
         private Texture2D background;
         private Tilemap tilemap;
 
-        private CollisionManager collisionManager;
-
         public DebugScene(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(new Vector2(400, 1200), 
-                new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
+        }
 
-            player2 = new Player(new Vector2(200, 500), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A }, 8);
-            player2.DoesUpdateMovement = false;
+        public override void OnEnterScene()
+        {
+			base.OnEnterScene();
 
-            shadow = new Shadow(new Vector2(1000, 600));
+			player = GameplayState.PlayerOne;
+			player.WorldPosition = new Vector2(500, 1200);
 
+			if (GameplayState.IsTwoPlayer)
+			{
+				player2 = GameplayState.PlayerTwo;
+				player2.WorldPosition = new Vector2(200, 500);
+				player2.DoesUpdateMovement = false;
+			}
 
             sceneManager.GlobalDebugTexts.Entries.Add("playerPos");
             sceneManager.GlobalDebugTexts.Entries.Add("playerBounds");
@@ -48,40 +53,33 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentAnim:");
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 
-            collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite, player2.Sprite, shadow.Sprite);
-            collisionManager.AddCombatCollidables(player, player2, shadow);
-            
-            //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt", collisionManager);
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt", collisionManager);
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
 
-            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.SetZoom(1.25f);
-
-            updateables.AddRange(new Updateable[] 
-            { 
-                player,
-                player2,
-                collisionManager,
+            updateables.AddRange(new IUpdateable[]
+            {
             });
 
-            drawables.AddRange(new IDrawable[] 
-            { 
-                player,
-                player2,
+            drawables.AddRange(new IDrawable[]
+            {
             });
 
             Random rnd = new Random();
             for (int i = 0; i < shadows.Length; ++i)
             {
-                shadows[i] = new Shadow(new Vector2(rnd.Next(0, 3000), rnd.Next(0, 1080)));
-
-                collisionManager.AddGeometryCollidables(shadows[i].Sprite);
-                collisionManager.AddCombatCollidables(shadows[i]);
+                shadows[i] = new Shadow(3000, 2000, new Vector2(rnd.Next(0, 3000), rnd.Next(0, 1080)));
 
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
             }
+
+            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
+            camera.SetZoom(1.25f);
+        }
+
+        public override void OnExitScene()
+		{
+			base.OnExitScene();
         }
 
         public override void LoadContent(ContentManager content)
@@ -98,17 +96,6 @@ namespace EVCMonoGame.src.scenes
         public override void Update(GameTime gameTime)
         {
             if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.A)) Console.WriteLine("PRESSED");
-            if (InputManager.OnKeyPressed(Keys.F1))
-            {
-                if (drawables.Contains(collisionManager))
-                {
-                    drawables.Remove(collisionManager);
-                }
-                else
-                {
-                    drawables.Add(collisionManager);
-                }
-            }
 
             if (InputManager.OnKeyPressed(Keys.H))
             {
@@ -131,10 +118,13 @@ namespace EVCMonoGame.src.scenes
             {
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
-
-            sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
-            sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
-
+			
+			sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
+			sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
+			sceneManager.GlobalDebugTexts.Entries[2] = "ShadowAnimElapsed: " + shadows[0].Sprite.ElapsedMillis;
+			sceneManager.GlobalDebugTexts.Entries[3] = "ShadowCurrentAnim: " + shadows[0].Sprite.CurrentAnimation;
+			sceneManager.GlobalDebugTexts.Entries[4] = "ShadowAnimFrameIndex: " + shadows[0].Sprite.FrameIndex;
+			
             base.Update(gameTime);
         }
 

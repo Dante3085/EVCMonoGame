@@ -37,5 +37,9 @@ NAME           = carpet_bottom_right
 TEXTURE_BOUNDS = (48, 1360, 16, 16)
 
 [TILE]
-NAME           = door
-TEXTURE_BOUNDS = (16, 1280, 48, 48)
+NAME = castle_door
+TEXTURE_BOUNDS = (352, 1072, 192, 112)
+
+[TILE]
+NAME           = dirt_up_left
+TEXTURE_BOUNDS = (288, 1248, 16, 16)

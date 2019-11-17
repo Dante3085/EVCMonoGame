@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.tilemap;
+using EVCMonoGame.src.characters;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -19,35 +21,43 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private SpriteFont randomText;
         private Texture2D background;
-        private CollisionManager collisionManager;
-        private GeometryBox geometryBox;
 
         private Tilemap beachTilemap;
 
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
-            player = new Player(Vector2.Zero, new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left }, 8);
+        }
 
-            collisionManager = new CollisionManager();
-            collisionManager.AddGeometryCollidables(player.Sprite);
+        public override void OnEnterScene()
+        {
+			base.OnEnterScene();
 
-            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt", collisionManager);
+			player = GameplayState.PlayerOne;
+			player.WorldPosition = new Vector2(400, 500);
+
+            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.SetZoom(0.5f);
 
-            updateables.AddRange(new Updateable[]
+            updateables.AddRange(new IUpdateable[]
             {
-                player,
-                collisionManager,
+				//Enemies
+				//Items
+				//etc.
             });
 
             drawables.AddRange(new IDrawable[]
             {
-                collisionManager,
-                player,
             });
+			
+        }
+
+        public override void OnExitScene()
+        {
+            base.OnExitScene();
         }
 
         public override void LoadContent(ContentManager content)
@@ -58,7 +68,7 @@ namespace EVCMonoGame.src.scenes
 
             background = content.Load<Texture2D>("rsrc/backgrounds/background");
 
-            base.LoadContent(content);
+			base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)

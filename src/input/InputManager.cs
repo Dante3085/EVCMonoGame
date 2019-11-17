@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace EVCMonoGame.src.input
 {
@@ -14,9 +15,15 @@ namespace EVCMonoGame.src.input
     public static class InputManager
     {
         #region StaticFields
+
+        /// <summary>
+        /// InputDelay that all Inputs are valid for.
+        /// </summary>
+        private static int bufferDelayMillis = 1000;
+
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;
-        // private static List<Keys> keyboardInputBuffer;
+        private static List<Keys> buffer = new List<Keys>();
 
         private static GamePadState currentGamePadState;
         private static GamePadState previousGamePadState;
@@ -71,7 +78,7 @@ namespace EVCMonoGame.src.input
         /// <summary>
         /// Always call before all you'r input operations(First instruction in Update()).
         /// </summary>
-        public static void UpdateInputStates()
+        public static void UpdateInputStates(GameTime gameTime)
         {
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
@@ -82,6 +89,7 @@ namespace EVCMonoGame.src.input
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
 
+            // Check if last input was given by keyboard or gamepad.
             if (inputByKeyboard)
             {
                 if (OnAnyButtonPressed(buttonsEnum))
@@ -96,6 +104,11 @@ namespace EVCMonoGame.src.input
                     inputByKeyboard = true;
                 }
             }
+
+            // Update inputBuffers.
+
+            // Add new keys to keyCombinationBuffer
+
         }
 
         #region Keyboard
@@ -123,6 +136,7 @@ namespace EVCMonoGame.src.input
         public static bool OnKeyCombinationPressed(params Keys[] keys)
         {
             bool oneKeyPressedFirstTime = false;
+
             foreach (Keys k in keys)
             {
                 if(!IsKeyPressed(k)) return false;
@@ -140,7 +154,7 @@ namespace EVCMonoGame.src.input
         /// <returns></returns>
         public static bool OnKeyReleased(Keys key)
         {
-            return previousKeyboardState.IsKeyDown(key) && 
+            return previousKeyboardState.IsKeyDown(key) &&
                   !currentKeyboardState.IsKeyDown(key);
         }
 
@@ -227,41 +241,50 @@ namespace EVCMonoGame.src.input
             return true;
         }
 
-        #endregion
-        //public static bool OnKeyCombinationPressed(params Keys[] keys)
+        //private static bool Contains(List<Keys> buffer, Keys[] keys)
         //{
-        //    String keyCombination = "";
-
-        //    if (!keyCombinations.ContainsKey(keys.GetHashCode()))
+        //    foreach (Keys key in keys)
         //    {
-        //        keyCombinations.Add(keys.GetHashCode(), )
-        //    }
-
-        //    //foreach (Keys k in keys)
-        //    //{
-        //    //    if (previousKeyboardState.IsKeyDown(k) ||
-        //    //        !currentKeyboardState.IsKeyDown(k))
-        //    //    {
-        //    //        return false;
-        //    //    }
-        //    //}
-        //    //return true;
-
-        //    foreach (Keys k in keys)
-        //    {
-        //        if (!currentKeyboardState.IsKeyDown(k))
-        //        {
+        //        if (!buffer.Contains(key))
         //            return false;
-        //        }
         //    }
         //    return true;
         //}
+
+        //public static bool OnAllKeysPressed(params Keys[] keys)
+        //{
+        //    // TODO: Das funktioniert so wie ich es will. Der Code ist aber
+        //    //       extrem hässlich.
+            
+        //    // Prinzip: Überprüfe mit AreAllKeysPressed(), ob alle nötigen
+        //    // Keys gedrückt sind. Falls alle Keys gedrückt sind, merke dir
+        //    // das dies geschehen ist und verhindere das true zurückgegeben 
+        //    // wird bis nicht mehr alle Keys gedrückt sind.
+
+        //    if (!Contains(buffer, keys) && 
+        //        AreAllKeysPressed(keys))
+        //    {
+        //        buffer.AddRange(keys);
+        //        return true;
+        //    }
+        //    else if (!AreAllKeysPressed(keys))
+        //    {
+        //        buffer.RemoveAll((key) =>
+        //        {
+        //            return keys.Contains(key);
+        //        });
+        //        return false;
+        //    }
+        //    return false;
+        //}
+
+        #endregion
         #endregion
         #region GamePad
         #region Buttons
         public static bool OnButtonPressed(Buttons button)
         {
-            return !previousGamePadState.IsButtonDown(button) && 
+            return !previousGamePadState.IsButtonDown(button) &&
                     currentGamePadState.IsButtonDown(button);
         }
 
@@ -352,7 +375,7 @@ namespace EVCMonoGame.src.input
 
         public static bool OnLeftMouseButtonClicked()
         {
-            return previousMouseState.LeftButton == ButtonState.Released && 
+            return previousMouseState.LeftButton == ButtonState.Released &&
                    currentMouseState.LeftButton == ButtonState.Pressed;
         }
 

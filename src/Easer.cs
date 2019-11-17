@@ -12,7 +12,7 @@ namespace EVCMonoGame.src
     // TODO: Implement Easer with Vector2 internally, so that Easing of 2D-Positions(i.e. 2 values 
     // at the same time) is natural/easy to implement
 
-    public class Easer : Updateable
+    public class Easer : scenes.IUpdateable
     {
         #region Fields
         private int elapsedMillis;
@@ -26,6 +26,7 @@ namespace EVCMonoGame.src
 
         #endregion
         #region Properties
+
         public Vector2 CurrentValue
         {
             get { return currentValue; }
@@ -66,6 +67,11 @@ namespace EVCMonoGame.src
             set { durationInMillis = value; }
         }
 
+        public bool DoUpdate
+        {
+            get; set;
+        } = true;
+
         #endregion
 
         #region Constructors
@@ -84,7 +90,7 @@ namespace EVCMonoGame.src
         #endregion
 
         #region Methods
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (!DoUpdate || isFinished)
                 return;

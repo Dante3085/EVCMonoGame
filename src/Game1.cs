@@ -28,7 +28,10 @@ namespace EVCMonoGame.src
         private FpsCounter fpsCounter;
         private bool drawFpsCounter;
 
-        public static bool MouseVisible
+		// Debug Helpers
+		bool bypassMainMenu = true;
+
+		public static bool MouseVisible
         {
             get;
             set;
@@ -54,18 +57,30 @@ namespace EVCMonoGame.src
 
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+
             graphics.IsFullScreen = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            IsFixedTimeStep = true;
+
+			// Debug Helpers
+			bool bypassMainMenu = false;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);
 
             Components.Add(stateManager);
 
-            // Activate the first screens.
-            stateManager.AddState(new BackgroundState(), null);
-            stateManager.AddState(new MainMenuState(), null);
+			// Activate the first screens.
+			if (bypassMainMenu)
+				LoadingState.Load(stateManager, true, PlayerIndex.One, new GameplayState());
+			else
+			{
+				stateManager.AddState(new BackgroundState(), null);
+				stateManager.AddState(new MainMenuState(), null);
+			}
 
-            fpsCounter = new FpsCounter(Vector2.Zero);
+
+			fpsCounter = new FpsCounter(Vector2.Zero);
             drawFpsCounter = true;
         }
 
@@ -94,7 +109,6 @@ namespace EVCMonoGame.src
         {
             graphics.GraphicsDevice.Clear(Color.Black);
 
-            // FpsCounter needs to be updatet in Draw() to measure the draw performance.
             fpsCounter.Update(gameTime);
 
             // The real drawing happens inside the screen manager component.
@@ -119,6 +133,8 @@ namespace EVCMonoGame.src
             {
                 game.Run();
             }
+
+            Console.WriteLine("d");
         }
     }
 }
