@@ -25,9 +25,12 @@ namespace EVCMonoGame.src.characters
 		#region Fields
 		private float aggroRange;
 		private Player target;
-		List<Point> waypoints;
 		private int agentMindestBreite;
 		Vector2 movementDirection;
+
+		List<Point> waypoints;
+		private Vector2 lastWaypoint;
+		private Vector2 nextWaypoint;
 
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
@@ -141,19 +144,28 @@ namespace EVCMonoGame.src.characters
 			bool usePathfinding = true;
 			if (usePathfinding)
 			{
-				if (waypoints != null && waypoints.Count() > 1)
+
+				if (waypoints != null && waypoints.Count() > 0)
 				{
+					if (nextWaypoint == Vector2.Zero)
+						nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;
+					
 
-					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
 
+					if (nextWaypoint == lastWaypoint)
+						nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
 
-
+					movementDirection = nextWaypoint - WorldPosition;
 					movementDirection = nextWaypoint - WorldPosition;
 
 					if (Vector2.Distance(nextWaypoint, WorldPosition) < agentMindestBreite)
-					{
-						waypoints.RemoveAt(0);
-					}
+						if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed)
+						{
+							movementDirection = nextWaypoint - WorldPosition;
+							lastWaypoint = nextWaypoint;
+							nextWaypoint = Vector2.Zero;
+							waypoints.RemoveAt(0);
+						}
 				}
 
 
