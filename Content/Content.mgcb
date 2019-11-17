@@ -728,6 +728,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/coin.png
 
+#begin rsrc/spritesheets/configFiles/anmFileTemplate.txt
+/copy:rsrc/spritesheets/configFiles/anmFileTemplate.txt
+
+#begin rsrc/spritesheets/configFiles/shadow.anm.txt
+/copy:rsrc/spritesheets/configFiles/shadow.anm.txt
+
+#begin rsrc/spritesheets/configFiles/sora.anm.txt
+/copy:rsrc/spritesheets/configFiles/sora.anm.txt
+
+#begin rsrc/spritesheets/configFiles/sora_portrait.anm.txt
+/copy:rsrc/spritesheets/configFiles/sora_portrait.anm.txt
+
 #begin rsrc/spritesheets/crono.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3115,6 +3127,51 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/atlas2.png
+
+#begin rsrc/tilesets/configFiles/carpet.tm.txt
+/copy:rsrc/tilesets/configFiles/carpet.tm.txt
+
+#begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
+/copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/collisiontest.tm.txt
+/copy:rsrc/tilesets/configFiles/collisiontest.tm.txt
+
+#begin rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
+/copy:rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
+
+#begin rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
+
+#begin rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
+/copy:rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
+
+#begin rsrc/tilesets/configFiles/kh_beach.txt
+/copy:rsrc/tilesets/configFiles/kh_beach.txt
+
+#begin rsrc/tilesets/configFiles/kh_castle.txt
+/copy:rsrc/tilesets/configFiles/kh_castle.txt
+
+#begin rsrc/tilesets/configFiles/Level1.txt
+/copy:rsrc/tilesets/configFiles/Level1.txt
+
+#begin rsrc/tilesets/configFiles/oneForest.tm.txt
+/copy:rsrc/tilesets/configFiles/oneForest.tm.txt
+
+#begin rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+/copy:rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/tmFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tmFileTemplate.txt
+
+#begin rsrc/tilesets/configFiles/tsFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tsFileTemplate.txt
+
+#begin rsrc/tilesets/configFiles/twoForests.tm.txt
+/copy:rsrc/tilesets/configFiles/twoForests.tm.txt
+
+#begin rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
 
 #begin rsrc/tilesets/khcom_backgrounds.png
 /importer:TextureImporter
