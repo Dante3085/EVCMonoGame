@@ -14,6 +14,9 @@ using EVCMonoGame.src.gui;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.A.I;
 using EVCMonoGame.src.states;
+using C3.MonoGame;
+using EVCMonoGame.src.input;
+using Microsoft.Xna.Framework.Input;
 
 namespace EVCMonoGame.src.characters
 {
@@ -24,6 +27,7 @@ namespace EVCMonoGame.src.characters
 		private Player target;
 		List<Point> waypoints;
 		private int agentMindestBreite;
+		Vector2 movementDirection;
 
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
@@ -45,10 +49,9 @@ namespace EVCMonoGame.src.characters
         {
             sprite = new AnimatedSprite(position, 5.0f);
 
-            CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
-
-			aggroRange = 400;
+			aggroRange = 600;
 			movementSpeed = 3f;
+			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
 		}
@@ -59,6 +62,22 @@ namespace EVCMonoGame.src.characters
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			base.Draw(gameTime, spriteBatch);
+
+			//Debug
+
+			if (InputManager.IsKeyPressed(Keys.X) || InputManager.IsButtonPressed(Buttons.RightTrigger))
+			{
+				movementDirection.Normalize();
+				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
+				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), aggroRange, 20, Color.Red, 2);
+			
+
+			if (waypoints != null)
+				foreach (Point waypoint in waypoints)
+				{
+					Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
+				}
+			}
 		}
 
 		public override void LoadContent(ContentManager content)
@@ -113,7 +132,7 @@ namespace EVCMonoGame.src.characters
 			//
 			//
 
-			Vector2 movementDirection = Vector2.Zero;
+			movementDirection = Vector2.Zero;
 
 
 			PreviousWorldPosition = WorldPosition;
@@ -122,7 +141,7 @@ namespace EVCMonoGame.src.characters
 			bool usePathfinding = true;
 			if (usePathfinding)
 			{
-				if (waypoints != null && waypoints.Count() > 0)
+				if (waypoints != null && waypoints.Count() > 1)
 				{
 					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
 					movementDirection = nextWaypoint - WorldPosition;

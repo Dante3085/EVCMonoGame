@@ -38,9 +38,10 @@ namespace EVCMonoGame.src.collision
         {
             foreach (Collidable c in allCollisionsChannel)
             {
-                Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
-                Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red);
+                Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 2);
+                Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
             }
+			
 
 			// Draw Grid
 			if (navGrid != null && InputManager.IsKeyPressed(Keys.X))
@@ -50,9 +51,9 @@ namespace EVCMonoGame.src.collision
 					for (var j = 0; j < navGrid.GetLength(1); j++)
 					{
 						if (navGrid[i, j] == 1)
-							Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red);
+							Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red, 2);
 						//else
-						//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugAgentMindestBreite, j * debugAgentMindestBreite, debugAgentMindestBreite, debugAgentMindestBreite), Color.Green);
+						//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Green, 2);
 					}
 				}
 			}
@@ -112,7 +113,18 @@ namespace EVCMonoGame.src.collision
             return false;
         }
 
-        public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
+		public static bool IsCollisionInArea(Rectangle area, List<Collidable> collisionChannel)
+		{
+			foreach (Collidable obstacle in collisionChannel)
+			{
+				if (area.Intersects(obstacle.CollisionBox))
+					return true;
+			}
+
+			return false;
+		}
+
+		public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
         {
             Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
             Vector2 g2Shift = g2.WorldPosition - g2.PreviousWorldPosition;
@@ -525,7 +537,30 @@ namespace EVCMonoGame.src.collision
 
 			return navGrid;
 		}
-	}
+
+		// Zieht eine Box Zwischen 2 Collidables auf und meldet ob eine Kollision mit Obstakles stattgefunden hat.
+		public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel)
+		{
+			int posX = (int) fromCollidable.CollisionBox.Center.X;
+			int posY = (int) fromCollidable.CollisionBox.Center.Y;
+			int with = Math.Abs(toCollidable.CollisionBox.Center.X - toCollidable.CollisionBox.Center.X);
+			int height = Math.Abs(toCollidable.CollisionBox.Center.Y - toCollidable.CollisionBox.Center.Y);
+
+			Rectangle raycast = new Rectangle(posX, posY, with, height);
+
+			foreach (Collidable obstacle in obstacleCollisionChannel)
+			{
+				if (fromCollidable != obstacle && toCollidable != obstacle)
+				{
+					if (raycast.Intersects(obstacle.CollisionBox))
+						return true;
+				}
+			}
+			
+			return false;
+		}
+
+	} // End of Class
 
 
 }
