@@ -11,6 +11,8 @@ using C3.MonoGame;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
+using EVCMonoGame.src.input;
+using Microsoft.Xna.Framework.Input;
 
 namespace EVCMonoGame.src.collision
 {
@@ -26,7 +28,11 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> obstacleCollisionChannel = new List<Collidable>();
         public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
         public static List<Collidable> itemCollisionChannel = new List<Collidable>();
-        public static List<Collidable> playerCollisionChannel = new List<Collidable>();
+		public static List<Collidable> playerCollisionChannel = new List<Collidable>();
+
+		private static byte[,] navGrid;
+		private static int debugGridCellSize;
+
 
         public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -35,7 +41,22 @@ namespace EVCMonoGame.src.collision
                 Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond);
                 Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red);
             }
-        }
+
+			// Draw Grid
+			if (navGrid != null && InputManager.IsKeyPressed(Keys.X))
+			{
+				for (var i = 0; i < navGrid.GetLength(0); i++)
+				{
+					for (var j = 0; j < navGrid.GetLength(1); j++)
+					{
+						if (navGrid[i, j] == 1)
+							Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red);
+						//else
+						//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugAgentMindestBreite, j * debugAgentMindestBreite, debugAgentMindestBreite, debugAgentMindestBreite), Color.Green);
+					}
+				}
+			}
+		}
 
         public static void Update(GameTime gameTime)
         {
@@ -260,29 +281,59 @@ namespace EVCMonoGame.src.collision
             return true;
         }
 
-        //public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
-        //{
-        //    bool isCollision = false;
+		public static List<Player> GetAllPlayersInArea(Rectangle bounds)
+		{
+			List<Player> intersectingPlayers = new List<Player>();
 
-        //    foreach (Collidable g2 in allCollisionsChannel)
-        //    {
-        //        if (g1 != g2)
-        //        {
-        //            if (g1.CollisionBox.Intersects(g2.CollisionBox))
-        //            {
-        //                isCollision = true;
+			foreach (Player player in playerCollisionChannel)
+			{
+				if (bounds.Intersects(player.CollisionBox))
+				{
+					intersectingPlayers.Add(player);
+				}
+			}
 
-        //                if (fixCollision && IsObstacleCollision(g1))
-        //                {
-        //                    ResolveGeometryCollision(g1, g2);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return isCollision;
-        //}
+			return intersectingPlayers;
+		}
 
-        public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+		public static List<Player> GetAllPlayersInRange(Collidable collidable, float range)
+		{
+			List<Player> playersInRange = new List<Player>();
+
+			foreach (Player player in playerCollisionChannel)
+			{
+				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+												  player.CollisionBox.Center.ToVector2());
+
+				if (distance < range)
+					playersInRange.Add(player);
+			}
+			return playersInRange;
+		}
+
+		//public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
+		//{
+		//    bool isCollision = false;
+
+		//    foreach (Collidable g2 in allCollisionsChannel)
+		//    {
+		//        if (g1 != g2)
+		//        {
+		//            if (g1.CollisionBox.Intersects(g2.CollisionBox))
+		//            {
+		//                isCollision = true;
+
+		//                if (fixCollision && IsObstacleCollision(g1))
+		//                {
+		//                    ResolveGeometryCollision(g1, g2);
+		//                }
+		//            }
+		//        }
+		//    }
+		//    return isCollision;
+		//}
+
+		public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
         {
             bool isCollision = false;
             foreach (Collidable g2 in allCollisionsChannel)
@@ -371,5 +422,110 @@ namespace EVCMonoGame.src.collision
 
             return isCollision;
         }
-    }
+
+
+
+		///	<summary>
+		///	Generiert ein 2D-Grid worin sämtliche Kollisionen auftreten
+		///	</summary>
+		///	<param name="levelWidth">Höhe des Grids</param>
+		/// <param name="levelHeight">Breite des Grids</param>
+		/// <param name="gridCellSize">Agent navigations breite. Bestimmt die größe der einzelnen Gridzellen.</param>
+		public static byte[,] GenerateLevelNavGrid(int levelWidth, int levelHeight, int agentMindestBreite = 10)
+		{
+			debugGridCellSize = agentMindestBreite;
+
+			navGrid = new byte[levelWidth, levelHeight];
+
+			foreach (Collidable gc in obstacleCollisionChannel)
+			{
+				if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
+				{
+					Point startPos = new Point((int)(gc.WorldPosition.X / agentMindestBreite), (int)(gc.WorldPosition.Y / agentMindestBreite)); // if in bounce fehlt
+
+					int displacement = 0;
+
+					float collisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
+					float collisionGridWidth = agentMindestBreite;
+
+					if (gc.CollisionBox.Width % agentMindestBreite > 0)
+						collisionGridWidth = (gc.CollisionBox.Width / agentMindestBreite) * agentMindestBreite;
+
+					if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
+					{
+						displacement = 1;
+					}
+					//todo für Y
+
+					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + displacement; i++)
+					{
+						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite); j++)
+						{
+							navGrid[startPos.X + i, startPos.Y + j] = 1;
+						}
+					}
+				}
+
+
+			}
+
+			return navGrid;
+		}
+
+		///	<summary>
+		///	Generiert ein 2D-Grid innerhalb einer Bounds worin sämtliche Kollisionen auftreten
+		///	</summary>
+		///	<param name="gridBounds">Bounds in der das Grid augezogen und in Gridzellen unterteilt wird. WorldPosition wird beachtet!</param>
+		/// <param name="gridCellSize">Bestimmt die Breite der Zellen in dem die GridBounds unterteilt wird.</param>
+		public static byte[,] GenerateNavGrid(Rectangle gridBounds, int gridCellSize = 10)
+		{
+			debugGridCellSize = gridCellSize;
+
+			// Grid aufgeteilt in Zellen
+			navGrid = new byte[gridBounds.Width / gridCellSize, gridBounds.Height / gridCellSize];
+
+
+
+			List<Collidable> obstacles = GetAllCollidablesByPosition(gridBounds.Location.ToVector2(), gridBounds.Size.ToVector2(), obstacleCollisionChannel);
+
+			foreach (Collidable gc in obstacles)
+			{
+				if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
+				{
+
+
+
+					Point startPos = new Point((int)(gc.WorldPosition.X / gridCellSize), (int)(gc.WorldPosition.Y / gridCellSize)); // if in bounce fehlt
+
+					int displacement = 0;
+
+					float collisionPositionOffset = gc.WorldPosition.X - gridCellSize * startPos.X;
+					float collisionGridWidth = gridCellSize;
+
+					if (gc.CollisionBox.Width % gridCellSize > 0)
+						collisionGridWidth = (gc.CollisionBox.Width / gridCellSize) * gridCellSize;
+
+					if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > gridCellSize)
+					{
+						displacement = 1;
+					}
+					//todo für Y
+
+					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / gridCellSize) + displacement; i++)
+					{
+						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / gridCellSize); j++)
+						{
+							navGrid[startPos.X + i, startPos.Y + j] = 1;
+						}
+					}
+				}
+
+
+			}
+
+			return navGrid;
+		}
+	}
+
+
 }

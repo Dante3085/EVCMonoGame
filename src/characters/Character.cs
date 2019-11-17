@@ -166,13 +166,23 @@ namespace EVCMonoGame.src.characters
             healthbar.Draw(gameTime, spriteBatch);
         }
 
-        #region CombatCollidable
-        //public virtual void OnCombatCollision(CombatArgs combatArgs)
-        //{
-        //    enemyHealthbar.CurrentHp -= combatArgs.damage;
-        //    enemySprite.Position += combatArgs.knockBack;
-        //}
+		public virtual void Attack(Character target)
+		{
 
-        #endregion
-    }
+		}
+
+		public virtual void OnDamage(float ammount)
+		{
+			Healthbar.CurrentHp -= (int)ammount;
+		}
+
+		#region CombatCollidable
+		//public virtual void OnCombatCollision(CombatArgs combatArgs)
+		//{
+		//    enemyHealthbar.CurrentHp -= combatArgs.damage;
+		//    enemySprite.Position += combatArgs.knockBack;
+		//}
+
+		#endregion
+	}
 }

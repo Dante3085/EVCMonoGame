@@ -28,7 +28,10 @@ namespace EVCMonoGame.src
         private FpsCounter fpsCounter;
         private bool drawFpsCounter;
 
-        public static bool MouseVisible
+		// Debug Helpers
+		bool bypassMainMenu = true;
+
+		public static bool MouseVisible
         {
             get;
             set;
