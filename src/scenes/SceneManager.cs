@@ -148,17 +148,9 @@ namespace EVCMonoGame.src.scenes
 				transitioning = true;
 				easer.Start();
 
-				nextScene.OnEnterScene();
-				nextScene.LoadContent(game.Content);
 				//todo loading screen
 
 
-				// Kollision für Players setzen
-				CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
-				CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
-				//CollisionManager.AddCollidables(GameplayState.PlayerTwo);
-				//CollisionManager.AddCollidables(GameplayState.PlayerThree);
-				//CollisionManager.AddCollidables(GameplayState.PlayerFour);
 			}
 			else
 			{
@@ -194,6 +186,18 @@ namespace EVCMonoGame.src.scenes
 					easer.Reverse();
                     easer.Start();
                     reverseTransitionFinished = true;
+
+
+					nextScene.OnEnterScene();
+					nextScene.LoadContent(game.Content);
+
+					// Kollision für Players setzen
+					//CollisionManager.AddCollidables(GameplayState.PlayerTwo);
+					//CollisionManager.AddCollidables(GameplayState.PlayerThree);
+					//CollisionManager.AddCollidables(GameplayState.PlayerFour);
+					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
+					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+
 				}
             }
 
