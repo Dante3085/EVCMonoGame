@@ -21,8 +21,8 @@ namespace EVCMonoGame.src.statemachine
 {
     public abstract class StateManager : scenes.IUpdateable
     {
-        List<State> states;
-        State currentState;
+        protected List<State> states;
+        protected State currentState;
 
         public bool DoUpdate
         {

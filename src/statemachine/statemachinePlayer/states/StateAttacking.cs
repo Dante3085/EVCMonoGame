@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EVCMonoGame.src.statemachine.statemachinePlayer;
+using EVCMonoGame.src.statemachine.statemachinePlayer.transitions;
 
 namespace EVCMonoGame.src.statemachine.statemachinePlayer.states
 {
-    class StateAttacking
+    class StateAttacking : State
     {
+        public StateAttacking(StateManagerPlayer stateManager, params Transition[] transitions) : base(stateManager, "Attacking")
+        {
+            this.stateId = "Attacking";
+            this.transitions = transitions.ToList();
+            this.transitions.Add(new TransitionFinishedNoMoving(stateManager, "Idle"));
+        }
+
     }
 }

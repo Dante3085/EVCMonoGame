@@ -29,11 +29,10 @@ namespace EVCMonoGame.src.statemachine
             get; set;
         }
 
-        public State(StateManager stateManager, String stateId, params Transition[] transitions)
+        public State(StateManager stateManager, String stateId)
         {
             this.stateManager = stateManager;
             this.stateId = stateId;
-            this.transitions = transitions.ToList();
         }
 
         public enum MethodStage
