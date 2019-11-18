@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private Player player2;
 
-        private Shadow[] shadows = new Shadow[10];
+        private Pusher[] shadows = new Pusher[10];
 		
         private SpriteFont randomText;
         private Texture2D background;
@@ -72,7 +72,7 @@ namespace EVCMonoGame.src.scenes
 				Rectangle spawnBounds = new Rectangle(spawnPosition.ToPoint(), new Point(100, 100));
 				if (!CollisionManager.IsCollisionInArea(spawnBounds, CollisionManager.allCollisionsChannel))
 				{
-					shadows[i] = new Shadow(3000, 2000, spawnPosition);
+					shadows[i] = new Pusher(3000, 2000, spawnPosition);
 					updateables.Add(shadows[i]);
 					drawables.Add(shadows[i]);
 				}

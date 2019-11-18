@@ -20,5 +20,6 @@ namespace EVCMonoGame.src
 		public static bool ShowNavgrid = true;
 		public static bool ShowPathfinding = true;
 		public static bool ShowRaycasts = true;
+		public static bool ShowAttackRange = true;
 	}
 }
