@@ -10,8 +10,8 @@ namespace EVCMonoGame.src
 	{
 
 		// Menu
-		public static bool SkipMenu = false;
-		public static bool ExitGameOnEscapeKey = false;
+		public static bool SkipMenu = true;
+		public static bool ExitGameOnEscapeKey = true;
 		public static bool StartWithLevelEditor = false;
 
 
@@ -19,6 +19,6 @@ namespace EVCMonoGame.src
 		public static bool ShowCollision = true;
 		public static bool ShowNavgrid = true;
 		public static bool ShowPathfinding = true;
-
+		public static bool ShowRaycasts = true;
 	}
 }

@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private Player player2;
 
-        private Shadow[] shadows = new Shadow[0];
+        private Shadow[] shadows = new Shadow[10];
 		
         private SpriteFont randomText;
         private Texture2D background;
@@ -54,7 +54,7 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 			sceneManager.GlobalDebugTexts.Entries.Add("Debug Draw Mode: Press X");
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
@@ -82,7 +82,7 @@ namespace EVCMonoGame.src.scenes
             }
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.SetZoom(1.25f);
+            camera.SetZoom(1.0f);
         }
 
         public override void OnExitScene()

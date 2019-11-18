@@ -33,8 +33,9 @@ namespace EVCMonoGame.src.collision
 		private static byte[,] navGrid;
 		private static int debugGridCellSize;
 
+		private static List<Rectangle> raycasts;
 
-        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 			if (DebugOptions.ShowCollision)
 			{
@@ -44,6 +45,10 @@ namespace EVCMonoGame.src.collision
 					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
 				}
 			}
+
+			if(raycasts != null && DebugOptions.ShowRaycasts)
+				foreach (Rectangle ray in raycasts) 
+					Primitives2D.DrawRectangle(spriteBatch, ray, Color.Violet, 4);
 
 
 			// Draw Grid
@@ -100,6 +105,9 @@ namespace EVCMonoGame.src.collision
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();
             itemCollisionChannel.Clear();
+
+			navGrid = null;
+			
         }
 
         public static bool IsObstacleCollision(Collidable g1)
@@ -544,19 +552,37 @@ namespace EVCMonoGame.src.collision
 		// Zieht eine Box Zwischen 2 Collidables auf und meldet ob eine Kollision mit Obstakles stattgefunden hat.
 		public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel)
 		{
-			int posX = (int) fromCollidable.CollisionBox.Center.X;
-			int posY = (int) fromCollidable.CollisionBox.Center.Y;
-			int with = Math.Abs(toCollidable.CollisionBox.Center.X - toCollidable.CollisionBox.Center.X);
-			int height = Math.Abs(toCollidable.CollisionBox.Center.Y - toCollidable.CollisionBox.Center.Y);
 
-			Rectangle raycast = new Rectangle(posX, posY, with, height);
+			raycasts = new List<Rectangle>();
 
-			foreach (Collidable obstacle in obstacleCollisionChannel)
+			int posX = fromCollidable.CollisionBox.X;
+			int posY = fromCollidable.CollisionBox.Y;
+
+			int agentWidth = fromCollidable.CollisionBox.Width;
+
+
+			Vector2 distance = toCollidable.CollisionBox.Center.ToVector2() - fromCollidable.CollisionBox.Center.ToVector2();
+			Vector2 unitDirection = distance;
+			unitDirection.Normalize();
+
+			int iterations = (int) distance.Length() / agentWidth;
+
+			
+
+			for (int i = 0; i < iterations; i++)
 			{
-				if (fromCollidable != obstacle && toCollidable != obstacle)
+				raycasts.Add(new Rectangle((int)(unitDirection.X * 5) + posX + (int)(distance.X / iterations) * i, (int)(unitDirection.Y * 5) + posY + (int)(distance.Y / iterations) * i, fromCollidable.CollisionBox.Width, fromCollidable.CollisionBox.Height));
+			}
+
+			foreach (Rectangle ray in raycasts)
+			{
+				foreach (Collidable obstacle in obstacleCollisionChannel.Except<Collidable>(enemyCollisionChannel))
 				{
-					if (raycast.Intersects(obstacle.CollisionBox))
-						return true;
+					if (fromCollidable != obstacle && toCollidable != obstacle)
+					{
+						if (ray.Intersects(obstacle.CollisionBox))
+							return true;
+					}
 				}
 			}
 			

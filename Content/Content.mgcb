@@ -3128,14 +3128,29 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/atlas2.png
 
+#begin rsrc/tilesets/configFiles/bigWoods.tm.txt
+/copy:rsrc/tilesets/configFiles/bigWoods.tm.txt
+
 #begin rsrc/tilesets/configFiles/carpet.tm.txt
 /copy:rsrc/tilesets/configFiles/carpet.tm.txt
 
 #begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
 /copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
 
+#begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles2.ts.txt
+/copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles2.ts.txt
+
+#begin rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt
+/copy:rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt
+
 #begin rsrc/tilesets/configFiles/collisiontest.tm.txt
 /copy:rsrc/tilesets/configFiles/collisiontest.tm.txt
+
+#begin rsrc/tilesets/configFiles/ff6Level.tm.txt
+/copy:rsrc/tilesets/configFiles/ff6Level.tm.txt
+
+#begin rsrc/tilesets/configFiles/ff6Tiles.ts.txt
+/copy:rsrc/tilesets/configFiles/ff6Tiles.ts.txt
 
 #begin rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
 /copy:rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
@@ -3152,14 +3167,23 @@
 #begin rsrc/tilesets/configFiles/kh_castle.txt
 /copy:rsrc/tilesets/configFiles/kh_castle.txt
 
+#begin rsrc/tilesets/configFiles/large.tm.txt
+/copy:rsrc/tilesets/configFiles/large.tm.txt
+
 #begin rsrc/tilesets/configFiles/Level1.txt
 /copy:rsrc/tilesets/configFiles/Level1.txt
+
+#begin rsrc/tilesets/configFiles/moved.tm.txt
+/copy:rsrc/tilesets/configFiles/moved.tm.txt
 
 #begin rsrc/tilesets/configFiles/oneForest.tm.txt
 /copy:rsrc/tilesets/configFiles/oneForest.tm.txt
 
 #begin rsrc/tilesets/configFiles/overworld_tiles.ts.txt
 /copy:rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/rnd.tm.txt
+/copy:rsrc/tilesets/configFiles/rnd.tm.txt
 
 #begin rsrc/tilesets/configFiles/tmFileTemplate.txt
 /copy:rsrc/tilesets/configFiles/tmFileTemplate.txt

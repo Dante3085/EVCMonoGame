@@ -59,9 +59,6 @@ namespace EVCMonoGame.src
             graphics.SynchronizeWithVerticalRetrace = true;
             IsFixedTimeStep = true;
 
-			// Debug Helpers
-			bool bypassMainMenu = false;
-
             // Create the screen manager component.
             stateManager = new StateManager(this);
 
