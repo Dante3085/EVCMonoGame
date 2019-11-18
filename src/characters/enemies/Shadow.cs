@@ -18,7 +18,7 @@ namespace EVCMonoGame.src.characters.enemies
             : base(maxHp, currentHp, position)
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
-            sprite.SetAnimation("SPAWN_LEFT");
+            sprite.SetAnimation("NORMAL_ATTACK_LEFT");
         }
 
         #region Updateables
@@ -26,11 +26,7 @@ namespace EVCMonoGame.src.characters.enemies
         {
             base.Update(gameTime);
 
-            if (sprite.CurrentAnimation == "SPAWN_LEFT" && 
-                sprite.AnimationFinished)
-            {
-                sprite.SetAnimation("SPAWN_LEFT");
-            }
+            
         }
         #endregion
 

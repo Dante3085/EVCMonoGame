@@ -59,21 +59,7 @@ namespace EVCMonoGame.src.scenes
             {
             });
 
-            //        Random rnd = new Random();
-            //        for (int i = 0; i < shadows.Length; ++i)
-            //        {
-            //Vector2 spawnPosition = new Vector2(800, 800);
-            //Rectangle spawnBounds = new Rectangle(spawnPosition.ToPoint(), new Point(100, 100));
-            //if (!CollisionManager.IsCollisionInArea(spawnBounds, CollisionManager.allCollisionsChannel))
-            //{
-            //	shadows[i] = new Shadow(3000, 2000, spawnPosition);
-            //	updateables.Add(shadows[i]);
-            //	drawables.Add(shadows[i]);
-            //}
-            //else
-            //	i--;
-
-            //        }
+            sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
 
             shadows[0] = new Shadow(200, 200, new Vector2(800, 1000));
             updateables.Add(shadows[0]);
@@ -97,6 +83,8 @@ namespace EVCMonoGame.src.scenes
 
         public override void Update(GameTime gameTime)
         {
+            sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: " + shadows[0].Sprite.FrameIndex;
+
             if (InputManager.OnKeyPressed(Keys.H))
             {
                 camera.MoveCamera(camera.FocusObject.Position, camera.FocusObject.Position + new Vector2(50, 50), 1000);

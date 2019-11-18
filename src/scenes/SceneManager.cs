@@ -115,7 +115,6 @@ namespace EVCMonoGame.src.scenes
 
             // Global Updating
             if (transitioning) { UpdateTransition(gameTime); }
-            debugTexts.Entries[0] = InputManager.CurrentMousePosition().ToString();
         }
 
         public void Draw(GameTime gameTime)
