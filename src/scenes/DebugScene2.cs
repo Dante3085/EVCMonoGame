@@ -24,6 +24,7 @@ namespace EVCMonoGame.src.scenes
 
         private Tilemap beachTilemap;
 
+
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -36,7 +37,7 @@ namespace EVCMonoGame.src.scenes
 			player = GameplayState.PlayerOne;
 			player.WorldPosition = new Vector2(400, 500);
 
-            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
             
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);

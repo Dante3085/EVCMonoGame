@@ -23,7 +23,6 @@ namespace EVCMonoGame.src.characters
     public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
     {
 		#region Fields
-		private float aggroRange;
 		private Player target;
 		private int agentMindestBreite;
 		Vector2 movementDirection;
@@ -35,8 +34,10 @@ namespace EVCMonoGame.src.characters
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
 		protected float attackDmg = 10;
+		protected float attackRange = 200;
 		protected float cooldownOnAttack = 0.0f; // in mili
 		protected bool isAttackOnCooldown = false;
+		protected float aggroRange;
 
 
 		#endregion
@@ -68,18 +69,18 @@ namespace EVCMonoGame.src.characters
 
 			//Debug
 
-			if (InputManager.IsKeyPressed(Keys.X) || InputManager.IsButtonPressed(Buttons.RightTrigger))
+			if (DebugOptions.ShowPathfinding)
 			{
 				movementDirection.Normalize();
 				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
 				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), aggroRange, 20, Color.Red, 2);
 			
 
-			if (waypoints != null)
-				foreach (Point waypoint in waypoints)
-				{
-					Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
-				}
+				if (waypoints != null)
+					foreach (Point waypoint in waypoints)
+					{
+						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
+					}
 			}
 		}
 
@@ -140,29 +141,37 @@ namespace EVCMonoGame.src.characters
 
 			PreviousWorldPosition = WorldPosition;
 
-			//todo: wenn collision zwischen Enemy und Spieler, dann Pathfinding aktivieren, ansonsten normal richtungsvektor
-			bool usePathfinding = true;
-			if (usePathfinding)
+
+			if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
 			{
+
 
 				if (waypoints != null && waypoints.Count() > 1)
 				{
-					Vector2 nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
-					movementDirection = nextWaypoint - WorldPosition;
-					movementDirection = nextWaypoint - WorldPosition;
+					if (nextWaypoint == Vector2.Zero)
+						nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;
 
-					if (Vector2.Distance(nextWaypoint, WorldPosition) < agentMindestBreite)
-						if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed)
-						{
-							movementDirection = nextWaypoint - WorldPosition;
-							lastWaypoint = nextWaypoint;
-							nextWaypoint = Vector2.Zero;
-							waypoints.RemoveAt(0);
-						}
+
+
+					if (nextWaypoint == lastWaypoint)
+						nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
+
+					movementDirection = nextWaypoint - WorldPosition;
+					
+					if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed*2)
+					{
+						movementDirection = nextWaypoint - WorldPosition;
+						lastWaypoint = nextWaypoint;
+						nextWaypoint = Vector2.Zero;
+						waypoints.RemoveAt(0);
+					}
 				}
 			}
 			else
+			{
 				movementDirection = character.WorldPosition - WorldPosition;
+				nextWaypoint = lastWaypoint;
+			}
 
 			// Richtungsvektor Normalizieren
 			if (movementDirection != Vector2.Zero)
@@ -176,7 +185,7 @@ namespace EVCMonoGame.src.characters
 			if (CollisionManager.IsCollisionAfterMove(this, true, true))
 			{
 				// Besser wäre eig. eine Attack Range einrichten. To Do
-				List<Player> players = CollisionManager.GetAllPlayersInRange(this, aggroRange);
+				List<Player> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
 				if (players.Count > 0)
 				{
 					//target = getNearestPlayer()
