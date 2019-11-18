@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private Player player2;
 
-        private Shadow[] shadows = new Shadow[50];
+        private Shadow[] shadows = new Shadow[0];
 		
         private SpriteFont randomText;
         private Texture2D background;
@@ -54,7 +54,7 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries.Add("CurrentFrameIndex:");
 			sceneManager.GlobalDebugTexts.Entries.Add("Debug Draw Mode: Press X");
 
-			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
@@ -82,7 +82,7 @@ namespace EVCMonoGame.src.scenes
             }
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.SetZoom(0.5f);
+            camera.SetZoom(1.25f);
         }
 
         public override void OnExitScene()
@@ -103,8 +103,6 @@ namespace EVCMonoGame.src.scenes
 
         public override void Update(GameTime gameTime)
         {
-            if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.LeftAlt, Keys.A)) Console.WriteLine("PRESSED");
-
             if (InputManager.OnKeyPressed(Keys.H))
             {
                 camera.MoveCamera(camera.FocusObject.Position, camera.FocusObject.Position + new Vector2(50, 50), 1000);
@@ -127,11 +125,11 @@ namespace EVCMonoGame.src.scenes
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
 			
-			sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
-			sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
-			sceneManager.GlobalDebugTexts.Entries[2] = "ShadowAnimElapsed: " + shadows[0].Sprite.ElapsedMillis;
-			sceneManager.GlobalDebugTexts.Entries[3] = "ShadowCurrentAnim: " + shadows[0].Sprite.CurrentAnimation;
-			sceneManager.GlobalDebugTexts.Entries[4] = "ShadowAnimFrameIndex: " + shadows[0].Sprite.FrameIndex;
+			//sceneManager.GlobalDebugTexts.Entries[0] = "PlayerPos: " + player.Sprite.Position;
+			//sceneManager.GlobalDebugTexts.Entries[1] = "PlayerBounds: " + player.Sprite.Bounds;
+			//sceneManager.GlobalDebugTexts.Entries[2] = "ShadowAnimElapsed: " + shadows[0].Sprite.ElapsedMillis;
+			//sceneManager.GlobalDebugTexts.Entries[3] = "ShadowCurrentAnim: " + shadows[0].Sprite.CurrentAnimation;
+			//sceneManager.GlobalDebugTexts.Entries[4] = "ShadowAnimFrameIndex: " + shadows[0].Sprite.FrameIndex;
 			
             base.Update(gameTime);
         }

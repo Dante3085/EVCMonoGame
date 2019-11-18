@@ -52,13 +52,15 @@ namespace EVCMonoGame.src
             //graphics.PreferredBackBufferWidth = 3240;
             //graphics.PreferredBackBufferHeight = 2160;
 
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
 
             graphics.IsFullScreen = false;
             graphics.SynchronizeWithVerticalRetrace = true;
             IsFixedTimeStep = true;
 
+			// Debug Helpers
+			bool bypassMainMenu = false;
 
             // Create the screen manager component.
             stateManager = new StateManager(this);

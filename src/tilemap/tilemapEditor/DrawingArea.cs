@@ -158,10 +158,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             }
 
             //toggle collision box mode
-            tileSelection.Hidden = collisionBoxMode;
             if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.C, Keys.B))
             {
                 collisionBoxMode = !collisionBoxMode;
+                tileSelection.Hidden = collisionBoxMode;
             }
             //toggle Grid
             if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.G))

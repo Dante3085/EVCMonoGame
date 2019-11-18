@@ -86,13 +86,12 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.DEBUG_2] = new DebugScreen2(this);
             currentScene = previousScene = scenes[EScene.DEBUG];
 
-
-
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);
 
-			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
-		}
+            CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
+            CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+        }
         #endregion
         #region Methods
         public void LoadContent()

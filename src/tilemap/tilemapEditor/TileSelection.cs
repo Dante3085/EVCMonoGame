@@ -190,6 +190,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             else
             {
                 IsHoveredByMouse = false;
+                tileHoveredByMouse = null;
             }
 
             // Check for moving the TileSelection around.
@@ -229,7 +230,14 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Draw TileSelection String, TileSelection's bounds, tileHoveredByMouseMarker and currentTileMarker.
             spriteBatch.DrawString(font, text, bounds.Location.ToVector2(), Color.White);
             Primitives2D.DrawRectangle(spriteBatch, bounds, Color.Green, 5);
-            Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
+
+            if (tileHoveredByMouse != null)
+            {
+                Primitives2D.DrawRectangle(spriteBatch, tileHoveredByMouseMarker, Color.AliceBlue, 5);
+                spriteBatch.DrawString(font, tileHoveredByMouse.name, 
+                              InputManager.CurrentMousePosition() + new Vector2(0, -fontSize.Y), Color.White);
+            }
+
             Primitives2D.DrawRectangle(spriteBatch, currentTileMarker, Color.DarkRed, 5);
 
             spriteBatch.End();
@@ -254,6 +262,8 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             TileSelectionData tileSelectionData = ConfigFileUtility.ReadTileSelectionFile(file, numTilesPerRow);
             tiles = tileSelectionData.tiles;
             tileSet = content.Load<Texture2D>(tileSelectionData.tileSetName);
+
+            UpdateBounds();
         }
 
         private void UpdateBounds()
@@ -279,7 +289,10 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                 }
             }
 
-            tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
+            if (tileHoveredByMouse != null)
+            {
+                tileHoveredByMouseMarker = tileHoveredByMouse.screenBounds;
+            }
 
             if (currentTile != null)
             {

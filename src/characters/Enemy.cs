@@ -167,8 +167,6 @@ namespace EVCMonoGame.src.characters
 							waypoints.RemoveAt(0);
 						}
 				}
-
-
 			}
 			else
 				movementDirection = character.WorldPosition - WorldPosition;
