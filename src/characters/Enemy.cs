@@ -145,7 +145,7 @@ namespace EVCMonoGame.src.characters
 			if (usePathfinding)
 			{
 
-				if (waypoints != null && waypoints.Count() > 0)
+				if (waypoints != null && waypoints.Count() > 1)
 				{
 					if (nextWaypoint == Vector2.Zero)
 						nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;

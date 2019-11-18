@@ -79,7 +79,7 @@ namespace EVCMonoGame.src
 			}
 
 
-				fpsCounter = new FpsCounter(Vector2.Zero);
+			fpsCounter = new FpsCounter(Vector2.Zero);
             drawFpsCounter = true;
         }
 
@@ -132,8 +132,6 @@ namespace EVCMonoGame.src
             {
                 game.Run();
             }
-
-            Console.WriteLine("d");
         }
     }
 }
