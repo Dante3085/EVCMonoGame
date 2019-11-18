@@ -104,11 +104,12 @@ namespace EVCMonoGame.src.collision
             allCollisionsChannel.Clear();
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();
+			playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
 
 			navGrid = null;
-			
-        }
+			raycasts = null;
+		}
 
         public static bool IsObstacleCollision(Collidable g1)
         {
