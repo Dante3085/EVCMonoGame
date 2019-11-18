@@ -115,7 +115,7 @@ namespace EVCMonoGame.src.scenes
             currentScene.Update(gameTime);
 
             // Global Updating
-            //if (InputManager.OnKeyPressed(Keys.Escape)) { game.Exit(); }
+            if (InputManager.OnKeyPressed(Keys.Escape) && DebugOptions.ExitGameOnEscapeKey) { game.Exit(); }
             if (transitioning) { UpdateTransition(gameTime); }
             debugTexts.Entries[0] = InputManager.CurrentMousePosition().ToString();
         }

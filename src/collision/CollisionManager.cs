@@ -36,15 +36,18 @@ namespace EVCMonoGame.src.collision
 
         public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Collidable c in allCollisionsChannel)
-            {
-                Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 2);
-                Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
-            }
-			
+			if (DebugOptions.ShowCollision)
+			{
+				foreach (Collidable c in allCollisionsChannel)
+				{
+					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 2);
+					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
+				}
+			}
+
 
 			// Draw Grid
-			if (navGrid != null && InputManager.IsKeyPressed(Keys.X))
+			if (navGrid != null && DebugOptions.ShowNavgrid)
 			{
 				for (var i = 0; i < navGrid.GetLength(0); i++)
 				{

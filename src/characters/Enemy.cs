@@ -68,18 +68,18 @@ namespace EVCMonoGame.src.characters
 
 			//Debug
 
-			if (InputManager.IsKeyPressed(Keys.X) || InputManager.IsButtonPressed(Buttons.RightTrigger))
+			if (DebugOptions.ShowPathfinding)
 			{
 				movementDirection.Normalize();
 				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
 				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), aggroRange, 20, Color.Red, 2);
 			
 
-			if (waypoints != null)
-				foreach (Point waypoint in waypoints)
-				{
-					Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
-				}
+				if (waypoints != null)
+					foreach (Point waypoint in waypoints)
+					{
+						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
+					}
 			}
 		}
 

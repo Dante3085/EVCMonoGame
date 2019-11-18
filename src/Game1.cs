@@ -28,9 +28,6 @@ namespace EVCMonoGame.src
         private FpsCounter fpsCounter;
         private bool drawFpsCounter;
 
-		// Debug Helpers
-		bool bypassMainMenu = true;
-
 		public static bool MouseVisible
         {
             get;
@@ -69,11 +66,11 @@ namespace EVCMonoGame.src
             Components.Add(stateManager);
 
 			// Activate the first screens.
-			if (bypassMainMenu)
+			if (DebugOptions.SkipMenu)
 				LoadingState.Load(stateManager, true, PlayerIndex.One, new GameplayState());
-			else
-			{
-
+			else if(DebugOptions.StartWithLevelEditor)
+				LoadingState.Load(stateManager, true, PlayerIndex.One, new TilemapEditorState());
+			else {
 				stateManager.AddState(new BackgroundState(), null);
 				stateManager.AddState(new MainMenuState(), null);
 			}

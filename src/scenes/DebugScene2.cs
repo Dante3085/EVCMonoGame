@@ -24,6 +24,7 @@ namespace EVCMonoGame.src.scenes
 
         private Tilemap beachTilemap;
 
+
         public DebugScreen2(SceneManager sceneManager)
             : base(sceneManager)
         {
