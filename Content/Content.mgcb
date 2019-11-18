@@ -728,6 +728,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/coin.png
 
+#begin rsrc/spritesheets/configFiles/anmFileTemplate.txt
+/copy:rsrc/spritesheets/configFiles/anmFileTemplate.txt
+
+#begin rsrc/spritesheets/configFiles/shadow.anm.txt
+/copy:rsrc/spritesheets/configFiles/shadow.anm.txt
+
+#begin rsrc/spritesheets/configFiles/sora.anm.txt
+/copy:rsrc/spritesheets/configFiles/sora.anm.txt
+
+#begin rsrc/spritesheets/configFiles/sora_portrait.anm.txt
+/copy:rsrc/spritesheets/configFiles/sora_portrait.anm.txt
+
 #begin rsrc/spritesheets/crono.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3212,6 +3224,51 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/atlas2.png
 
+#begin rsrc/tilesets/configFiles/carpet.tm.txt
+/copy:rsrc/tilesets/configFiles/carpet.tm.txt
+
+#begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
+/copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/collisiontest.tm.txt
+/copy:rsrc/tilesets/configFiles/collisiontest.tm.txt
+
+#begin rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
+/copy:rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
+
+#begin rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
+
+#begin rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
+/copy:rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
+
+#begin rsrc/tilesets/configFiles/kh_beach.txt
+/copy:rsrc/tilesets/configFiles/kh_beach.txt
+
+#begin rsrc/tilesets/configFiles/kh_castle.txt
+/copy:rsrc/tilesets/configFiles/kh_castle.txt
+
+#begin rsrc/tilesets/configFiles/Level1.txt
+/copy:rsrc/tilesets/configFiles/Level1.txt
+
+#begin rsrc/tilesets/configFiles/oneForest.tm.txt
+/copy:rsrc/tilesets/configFiles/oneForest.tm.txt
+
+#begin rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+/copy:rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/tmFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tmFileTemplate.txt
+
+#begin rsrc/tilesets/configFiles/tsFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tsFileTemplate.txt
+
+#begin rsrc/tilesets/configFiles/twoForests.tm.txt
+/copy:rsrc/tilesets/configFiles/twoForests.tm.txt
+
+#begin rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
+
 #begin rsrc/tilesets/FF6MapTileAirship.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3476,6 +3533,30 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/khcom_backgrounds.png
 
+#begin rsrc/tilesets/khcom_backgrounds.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/khcom_backgrounds.png
+
+#begin rsrc/tilesets/objects.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/objects.png
+
 #begin rsrc/tilesets/objects.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3524,7 +3605,7 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/overworld_tileset_grass.png
 
-#begin rsrc/tilesets/sfml-tileset.png
+#begin rsrc/tilesets/overworld_tileset_grass.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3534,7 +3615,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:rsrc/tilesets/sfml-tileset.png
+/build:rsrc/tilesets/overworld_tileset_grass.png
 
 #begin rsrc/tilesets/sfml-tileset.png
 /importer:TextureImporter
@@ -3548,17 +3629,6 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/sfml-tileset.png
 
-#begin rsrc/tilesets/SNES - Chrono Trigger - Castles.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/SNES - Chrono Trigger - Castles.png
 
 #begin rsrc/tilesets/SNES - Chrono Trigger - Court Room.gif
 /importer:TextureImporter
@@ -3608,17 +3678,6 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/SNES - Chrono Trigger - Mountains.png
 
-#begin rsrc/tilesets/snes_chrono_trigger_castle_transparent_background.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/snes_chrono_trigger_castle_transparent_background.png
 
 #begin rsrc/tilesets/tf_darkdimension_sheet.png
 /importer:TextureImporter
@@ -3668,6 +3727,30 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/tf_dd_A5_2.png
 
+#begin rsrc/tilesets/tf_dd_A5_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/tf_dd_A5_2.png
+
+#begin rsrc/tilesets/tf_dd_A5_3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/tf_dd_A5_3.png
+
 #begin rsrc/tilesets/tf_dd_A5_3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3715,6 +3798,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/tf_dd_B_2.png
+
+#begin rsrc/tilesets/tf_dd_B_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/tf_dd_B_2.png
+
+#begin rsrc/tilesets/tf_dd_B_3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/tilesets/tf_dd_B_3.png
 
 #begin rsrc/tilesets/tf_dd_B_3.png
 /importer:TextureImporter
