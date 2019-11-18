@@ -1,5 +1,6 @@
 TILESET = rsrc/tilesets/snes_chrono_trigger_castle_transparent_background
 
+
 [TILE]
 NAME           = carpet_top_left 
 TEXTURE_BOUNDS = (16, 1328, 16, 16)
@@ -39,3 +40,71 @@ TEXTURE_BOUNDS = (48, 1360, 16, 16)
 [TILE]
 NAME           = door
 TEXTURE_BOUNDS = (16, 1280, 48, 48)
+
+[TILE]
+NAME           = dirt_row_one_left
+TEXTURE_BOUNDS = (288, 1248, 16, 16)
+
+[TILE]
+NAME           = dirt_row_one_middle_left
+TEXTURE_BOUNDS = (304, 1248, 16, 16)
+
+[TILE]
+NAME           = dirt_row_one_middle_right
+TEXTURE_BOUNDS = (320, 1248, 16, 16)
+
+[TILE]
+NAME           = dirt_row_one_right
+TEXTURE_BOUNDS = (336, 1248, 16, 16)
+
+[TILE]
+NAME           = dirt_row_two_left
+TEXTURE_BOUNDS = (288, 1264, 16, 16)
+
+[TILE]
+NAME           = dirt_row_two_middle_left
+TEXTURE_BOUNDS = (304, 1264, 16, 16)
+
+[TILE]
+NAME           = dirt_row_two_middle_right
+TEXTURE_BOUNDS = (320, 1264, 16, 16)
+
+[TILE]
+NAME           = dirt_row_two_right
+TEXTURE_BOUNDS = (336, 1264, 16, 16)
+
+[TILE]
+NAME           = dirt_row_three_left
+TEXTURE_BOUNDS = (288, 1280, 16, 16)
+
+[TILE]
+NAME           = dirt_row_three_middle_left
+TEXTURE_BOUNDS = (304, 1280, 16, 16)
+
+[TILE]
+NAME           = dirt_row_three_middle_right
+TEXTURE_BOUNDS = (320, 1280, 16, 16)
+
+[TILE]
+NAME           = dirt_row_three_right
+TEXTURE_BOUNDS = (336, 1280, 16, 16)
+
+[TILE]
+NAME           = dirt_row_four_left
+TEXTURE_BOUNDS = (288, 1296, 16, 16)
+
+[TILE]
+NAME           = dirt_row_four_middle_left
+TEXTURE_BOUNDS = (304, 1296, 16, 16)
+
+[TILE]
+NAME           = dirt_row_four_middle_right
+TEXTURE_BOUNDS = (320, 1296, 16, 16)
+
+[TILE]
+NAME           = dirt_row_four_right
+TEXTURE_BOUNDS = (336, 1296, 16, 16)
+
+[TILE]
+NAME           = gate
+TEXTURE_BOUNDS = (352, 1072, 192, 96)
