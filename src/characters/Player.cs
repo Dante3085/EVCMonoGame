@@ -70,7 +70,7 @@ namespace EVCMonoGame.src.characters
 
 			movementSpeed = 7.5f;
 
-			CollisionBox = new Rectangle(position.ToPoint(), new Point(120, 220));
+			CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
 
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("IDLE_RIGHT");

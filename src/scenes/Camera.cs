@@ -41,20 +41,31 @@ namespace EVCMonoGame.src.scenes
         private bool followsFocusObject = false;
         private Screenpoint focusPoint = Screenpoint.CENTER;
         private Vector2 offset = Vector2.Zero;
+        private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
+
+        private float currentYRightThumbStick  = 0;
+        private float rightThumbStickMaxZoomRate = 0.025f;
 
         #endregion
 
+        #region Properties
         public bool DoUpdate
         {
             get; set;
         } = true;
 
-        private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
-
         public ITranslatable FocusObject
         {
             get { return focusObject; }
         }
+
+        public float Zoom
+        {
+            get { return zoom; }
+            set { zoom = value; }
+        }
+
+        #endregion
 
 
         public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint focusPoint = Screenpoint.CENTER)
@@ -155,10 +166,10 @@ namespace EVCMonoGame.src.scenes
             SetCameraToPosition(position);
         }
 
-        public void SetZoom(float zoom)
-        {
-            this.zoom = zoom;
-        }
+        //public void SetZoom(float zoom)
+        //{
+        //    this.zoom = zoom;
+        //}
 
         public void MoveCamera(Vector2 from, Vector2 to, int durationInMillis)
         {
@@ -224,6 +235,18 @@ namespace EVCMonoGame.src.scenes
                             1
                         }), Screenpoint.CENTER);
                 }
+            }
+
+            if (InputManager.HasRightGamePadStickMoved)
+            {
+                currentYRightThumbStick = InputManager.CurrentThumbSticks().Right.Y;
+
+                if (currentYRightThumbStick > rightThumbStickMaxZoomRate)
+                    currentYRightThumbStick = rightThumbStickMaxZoomRate;
+                else if (currentYRightThumbStick < -rightThumbStickMaxZoomRate)
+                    currentYRightThumbStick = -rightThumbStickMaxZoomRate;
+
+                zoom += currentYRightThumbStick;
             }
         }
     }

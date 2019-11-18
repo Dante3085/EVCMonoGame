@@ -128,6 +128,11 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             set { gridCellSize = value; }
         }
 
+        public Vector2 ZoomedMousePosition
+        {
+            get { return currentMousePosition; }
+        }
+
         #endregion
 
         public DrawingArea(Rectangle bounds, TileSelection tileSelection)

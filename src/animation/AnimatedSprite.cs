@@ -151,7 +151,7 @@ namespace EVCMonoGame.src.animation
                 bounds.Width *= (int)(scale);
                 bounds.Height *= (int)(scale);
 
-                bounds.Inflate(-20, -50);
+                bounds.Inflate(-20, -100);
 
                 return bounds;
             }
@@ -240,7 +240,7 @@ namespace EVCMonoGame.src.animation
                 bounds.Width *= (int)(scale);
                 bounds.Height *= (int)(scale);
 
-                bounds.Inflate(-20, -50);
+                bounds.Inflate(-20, -100);
 
                 return bounds;
             }

@@ -216,6 +216,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
                                        (fontSize * new Vector2(0.5f, 0.5f));
 
                 infoText = "General\n" +
+                           "MousePos: " + drawingArea.ZoomedMousePosition + "\n" +
                            "Hold MiddleMouseButton: Drag screen\n" +
                            "Hold LeftMouseButton: Rectangle selection\n" +
                            "MouseWheel: Zoom in/out\n" +
@@ -254,6 +255,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             this.viewport = viewport;
 
             infoText =     "General\n" +
+                           "MousePos: \n" +
                            "Hold MiddleMouseButton: Drag screen\n" +
                            "Hold LeftMouseButton: Rectangle selection\n" +
                            "MouseWheel: Zoom in/out\n" +

@@ -40,7 +40,7 @@ namespace EVCMonoGame.src.scenes
             
 
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.SetZoom(0.5f);
+            camera.Zoom = 0.5f;
 
             updateables.AddRange(new IUpdateable[]
             {

@@ -22,6 +22,9 @@ namespace EVCMonoGame.src.scenes
         protected SceneManager sceneManager;
         protected Camera camera;
 		protected bool pauseScene;
+
+        protected bool drawCollisionInfo = false;
+
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)
@@ -43,6 +46,11 @@ namespace EVCMonoGame.src.scenes
 					u.Update(gameTime);
 				}
 				camera.Update(gameTime);
+
+                if (InputManager.OnKeyPressed(Keys.F1))
+                {
+                    drawCollisionInfo = !drawCollisionInfo;
+                }
 			}
         }
 
@@ -50,7 +58,10 @@ namespace EVCMonoGame.src.scenes
 		{
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
-			CollisionManager.Draw(gameTime, spriteBatch);
+            if (drawCollisionInfo)
+            {
+                CollisionManager.Draw(gameTime, spriteBatch);
+            }
 
 			foreach (IDrawable d in drawables)
 			{
