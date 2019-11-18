@@ -133,8 +133,6 @@ namespace EVCMonoGame.src
             {
                 game.Run();
             }
-
-            Console.WriteLine("d");
         }
     }
 }
