@@ -1,4 +1,6 @@
 
+using EVCMonoGame.src.collision;
+
 namespace EVCMonoGame.src.states
 {
     /// <summary>
@@ -53,7 +55,9 @@ namespace EVCMonoGame.src.states
         /// </summary>
         private void ConfirmQuitMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
         {
-            LoadingState.Load(StateManager, false, null, new BackgroundState(),
+
+			CollisionManager.CleanCollisonManager();
+			LoadingState.Load(StateManager, false, null, new BackgroundState(),
                                                            new MainMenuState());
         }
 
