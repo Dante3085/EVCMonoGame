@@ -43,7 +43,7 @@ namespace EVCMonoGame.src.scenes
         private Vector2 offset = Vector2.Zero;
         private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
 
-        private float currentYRightThumbStick  = 0;
+        private float currentYRightThumbStick = 0;
         private float rightThumbStickMaxZoomRate = 0.025f;
 
         #endregion
@@ -229,7 +229,7 @@ namespace EVCMonoGame.src.scenes
                 if (!moveEaser.IsFinished)
                 {
                     moveEaser.Update(gameTime);
-                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue, 
+                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue,
                         new List<float>()
                         {
                             1
@@ -247,6 +247,14 @@ namespace EVCMonoGame.src.scenes
                     currentYRightThumbStick = -rightThumbStickMaxZoomRate;
 
                 zoom += currentYRightThumbStick;
+            }
+            if (InputManager.IsKeyPressed(Keys.OemMinus))
+            {
+                zoom -= 0.02f;
+            }
+            if (InputManager.IsKeyPressed(Keys.OemPlus))
+            {
+                zoom += 0.02f;
             }
         }
     }
