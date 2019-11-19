@@ -37,7 +37,7 @@ namespace EVCMonoGame.src.collision
 
 		public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-			if (DebugOptions.ShowCollision)
+			if (DebugOptions.showCollision)
 			{
 				foreach (Collidable c in allCollisionsChannel)
 				{
@@ -46,13 +46,15 @@ namespace EVCMonoGame.src.collision
 				}
 			}
 
-			if(raycasts != null && DebugOptions.ShowRaycasts)
-				foreach (Rectangle ray in raycasts) 
-					Primitives2D.DrawRectangle(spriteBatch, ray, Color.Violet, 4);
+            if (raycasts != null && DebugOptions.showRaycasts)
+            {
+                foreach (Rectangle ray in raycasts)
+                    Primitives2D.DrawRectangle(spriteBatch, ray, Color.Violet, 4);
+            }
 
 
 			// Draw Grid
-			if (navGrid != null && DebugOptions.ShowNavgrid)
+			if (navGrid != null && DebugOptions.showNavgrid)
 			{
 				for (var i = 0; i < navGrid.GetLength(0); i++)
 				{
@@ -105,9 +107,9 @@ namespace EVCMonoGame.src.collision
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();
             itemCollisionChannel.Clear();
+            playerCollisionChannel.Clear();
 
-			navGrid = null;
-			
+            navGrid = null;
         }
 
         public static bool IsObstacleCollision(Collidable g1)

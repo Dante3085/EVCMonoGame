@@ -46,11 +46,6 @@ namespace EVCMonoGame.src.scenes
 					u.Update(gameTime);
 				}
 				camera.Update(gameTime);
-
-                if (InputManager.OnKeyPressed(Keys.F1))
-                {
-                    drawCollisionInfo = !drawCollisionInfo;
-                }
 			}
         }
 
@@ -58,10 +53,7 @@ namespace EVCMonoGame.src.scenes
 		{
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
-            if (drawCollisionInfo)
-            {
-                CollisionManager.Draw(gameTime, spriteBatch);
-            }
+            CollisionManager.Draw(gameTime, spriteBatch);
 
 			foreach (IDrawable d in drawables)
 			{

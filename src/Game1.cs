@@ -65,9 +65,9 @@ namespace EVCMonoGame.src
             Components.Add(stateManager);
 
 			// Activate the first screens.
-			if (DebugOptions.SkipMenu)
+			if (DebugOptions.skipMenu)
 				LoadingState.Load(stateManager, true, PlayerIndex.One, new GameplayState());
-			else if(DebugOptions.StartWithLevelEditor)
+			else if(DebugOptions.startWithLevelEditor)
 				LoadingState.Load(stateManager, true, PlayerIndex.One, new TilemapEditorState());
 			else {
 				stateManager.AddState(new BackgroundState(), null);
@@ -94,10 +94,8 @@ namespace EVCMonoGame.src
         {
             base.Update(gameTime);
             IsMouseVisible = MouseVisible;
-            if (InputManager.OnKeyPressed(Keys.F2))
-            {
-                drawFpsCounter = drawFpsCounter ? false : true;
-            }
+
+            DebugOptions.Update();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -111,7 +109,7 @@ namespace EVCMonoGame.src
 
             spriteBatch.Begin();
 
-            if (drawFpsCounter)
+            if (DebugOptions.showFpsCounter)
             {
                 fpsCounter.Draw(gameTime, spriteBatch);
             }
