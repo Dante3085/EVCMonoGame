@@ -22,7 +22,9 @@ namespace EVCMonoGame.src.scenes
         private Player player;
         private Player player2;
 
-        private Shadow[] shadows = new Shadow[1];
+        private Shadow shadow = new Shadow(new Vector2(800, 1000));
+        private Defender defender = new Defender(new Vector2(800, 900));
+        private Gargoyle gargoyle = new Gargoyle(new Vector2(800, 1300));
 		
         private SpriteFont randomText;
         private Tilemap tilemap;
@@ -53,20 +55,22 @@ namespace EVCMonoGame.src.scenes
 
             updateables.AddRange(new IUpdateable[]
             {
+                defender, 
+                shadow,
+                gargoyle,
             });
 
             drawables.AddRange(new IDrawable[]
             {
+                defender,
+                shadow,
+                gargoyle,
             });
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
 
-            shadows[0] = new Shadow(200, 200, new Vector2(800, 1000));
-            updateables.Add(shadows[0]);
-            drawables.Add(shadows[0]);
-
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.Zoom = 1.25f;
+            camera.Zoom = 1.75f;
         }
 
         public override void OnExitScene()
@@ -83,7 +87,7 @@ namespace EVCMonoGame.src.scenes
 
         public override void Update(GameTime gameTime)
         {
-            sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: " + shadows[0].Sprite.FrameIndex;
+            sceneManager.GlobalDebugTexts.Entries[0] = "DefenderAnimFrame: " + defender.Sprite.FrameIndex;
 
             if (InputManager.OnKeyPressed(Keys.H))
             {

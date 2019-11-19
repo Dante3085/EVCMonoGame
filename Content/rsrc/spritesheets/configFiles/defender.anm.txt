@@ -1,0 +1,102 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_defender_transparent
+
+[ANIMATION]
+NAME          = IDLE_LEFT
+FRAMES        = (6, 41, 71, 73), (90, 41, 71, 73), (165, 45, 74, 69), (245, 45, 69, 69), (320, 44, 69, 70), (396, 46, 70, 68), (473, 43, 68, 71), (546, 41, 73, 73), (623, 41, 74, 73), (698, 40, 74, 74)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 200@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = IDLE_RIGHT
+FRAMES        = (6, 41, 71, 73), (90, 41, 71, 73), (165, 45, 74, 69), (245, 45, 69, 69), (320, 44, 69, 70), (396, 46, 70, 68), (473, 43, 68, 71), (546, 41, 73, 73), (623, 41, 74, 73), (698, 40, 74, 74)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 200@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = RUN_LEFT
+FRAMES        = (2, 123, 69, 70), (77, 129, 73, 64), (157, 123, 88, 70), (250, 121, 89, 72), (343, 122, 77, 71), (427, 121, 69, 72), (503, 120, 67, 73), (577, 120, 67, 73)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = RUN_RIGHT
+FRAMES        = (2, 123, 69, 70), (77, 129, 73, 64), (157, 123, 88, 70), (250, 121, 89, 72), (343, 122, 77, 71), (427, 121, 69, 72), (503, 120, 67, 73), (577, 120, 67, 73)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = FLINCH_LEFT
+FRAMES        = (5, 394, 70, 74), (81, 380, 80, 88), (171, 384, 82, 84), (259, 388, 76, 80), (342, 397, 72, 71), (424, 400, 74, 68), (504, 399, 70, 68), (585, 398, 69, 70)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = FLINCH_RIGHT
+FRAMES        = (5, 394, 70, 74), (81, 380, 80, 88), (171, 384, 82, 84), (259, 388, 76, 80), (342, 397, 72, 71), (424, 400, 74, 68), (504, 399, 70, 68), (585, 398, 69, 70)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = true
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = SHIELD_SPIN_LEFT
+FRAMES        = (4, 212, 72, 79), (81, 206, 86, 85), (172, 209, 81, 82), (259, 208, 78, 83), (341, 203, 77, 88), (422, 198, 77, 93), (504, 221, 73, 70), (583, 220, 71, 71), (659, 226, 67, 65), (731, 221, 69, 70), (808, 224, 65, 67)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0), (-30, -35), (-15, -20), (-5, -25), (-15, -50), (-25, -75), (0, 40), (10, 45), (25, 65), (25, 40), (40, 55)
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = SHIELD_SPIN_RIGHT
+FRAMES        = (4, 212, 72, 79), (81, 206, 86, 85), (172, 209, 81, 82), (259, 208, 78, 83), (341, 203, 77, 88), (422, 198, 77, 93), (504, 221, 73, 70), (583, 220, 71, 71), (659, 226, 67, 65), (731, 221, 69, 70), (808, 224, 65, 67)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0), (-40, -35), (-30, -20), (-25, -25), (-10, -50), (0, -75), (-5, 40), (-5, 45), (0, 65), (-10, 40), (-5, 55)
+IS_MIRRORED   = true
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = SHIELD_CHARGE_LEFT
+FRAMES        = (2, 311, 63, 67), (70, 308, 107, 70), (180, 294, 116, 84), (299, 291, 99, 87), (403, 294, 102, 84), (511, 296, 103, 82), (617, 307, 89, 71), (710, 301, 74, 77), (787, 305, 75, 73), (866, 309, 70, 69)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0), (-265, 15), (-330, -20), (-300, 0), (-310, 6), (-315, 6), (-225, 0), (-100, -20), (-85, -15), (-65, 10)
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = SHIELD_CHARGE_RIGHT
+FRAMES        = (2, 311, 63, 67), (70, 308, 107, 70), (180, 294, 116, 84), (299, 291, 99, 87), (403, 294, 102, 84), (511, 296, 103, 82), (617, 307, 89, 71), (710, 301, 74, 77), (787, 305, 75, 73), (866, 309, 70, 69)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 160@all
+FRAME_OFFSETS = (0, 0), (50, 10), (115, -20), (115, 0), (115, 5), (115, 5), (90, 0), (65, -10), (40, 0), (25, 0),
+IS_MIRRORED   = true
+IS_LOOPED     = true

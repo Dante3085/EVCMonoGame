@@ -20,22 +20,24 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        private Vector2 worldPosition;
-        private Rectangle collisionBox;
+        protected Vector2 worldPosition;
+        protected Rectangle collisionBox;
 
         // Stats
         String name;
-        protected int strength;
-        protected int defense;
-        protected int intelligence;
-        protected int agility;
         protected int maxHp;
         protected int currentHp;
         protected int maxMp;
         protected int currentMp;
+        protected int strength;
+        protected int defense;
+        protected int intelligence;
+        protected int agility;
         protected float movementSpeed = 8;
         private Healthbar healthbar;
 
+
+        protected Vector2 collisionBoxOffset = Vector2.Zero;
         protected AnimatedSprite sprite;
         protected CombatArgs combatArgs;
 
@@ -101,6 +103,7 @@ namespace EVCMonoGame.src.characters
                 worldPosition.Y = (int)value.Y;
                 collisionBox.X = (int)value.X;
                 collisionBox.Y = (int)value.Y;
+                collisionBox.Location += collisionBoxOffset.ToPoint();
             }
 
             get
@@ -126,14 +129,35 @@ namespace EVCMonoGame.src.characters
 
         #endregion
 
-        public Character(int maxHp, int currentHp, Vector2 position)
+        public Character
+        (
+            String name,
+            int maxHp,
+            int currentHp,
+            int maxMp,
+            int currentMp,
+            int strength,
+            int defense,
+            int intelligence,
+            int agility,
+            float movementSpeed,
+            Vector2 position
+        )
         {
-            healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 20));
+            this.name = name;
+            this.maxHp = maxHp;
+            this.currentHp = currentHp;
+            this.maxMp = maxMp;
+            this.currentMp = currentMp;
+            this.strength = strength;
+            this.defense = defense;
+            this.intelligence = intelligence;
+            this.agility = agility;
+            this.movementSpeed = movementSpeed;
+            WorldPosition = position;
 
-			WorldPosition = position;
-
+            healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 10));
 			sprite = new AnimatedSprite(position, 5.0f);
-			
 
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
         }

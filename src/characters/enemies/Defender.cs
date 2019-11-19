@@ -1,41 +1,40 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.characters.enemies
 {
-    public class Shadow : Enemy
+    public class Defender : Enemy
     {
-        public Shadow(Vector2 position)
+
+        public Defender(Vector2 position)
             : base
             (
-                  name: "Shadow",
-                  maxHp: 300,
-                  currentHp: 300,
+                  name: "Defender",
+                  maxHp: 1000,
+                  currentHp: 1000,
                   maxMp: 0,
                   currentMp: 0,
-                  strength: 5,
-                  defense: 3,
+                  strength: 8,
+                  defense: 15,
                   intelligence: 0,
-                  agility: 8,
-                  movementSpeed: 4,
+                  agility: 3,
+                  movementSpeed: 3,
                   position: position,
-                  exp: 50
+                  exp: 150
             )
         {
-            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
-            sprite.SetAnimation("WALK_DOWN_RIGHT");
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/defender.anm.txt");
+            sprite.SetAnimation("RUN_RIGHT");
 
-            collisionBox.Size = new Point(50, 50);
-            collisionBoxOffset = new Vector2(30, 30);
+            collisionBoxOffset = new Vector2(100, 100);
         }
 
         public override void Update(GameTime gameTime)

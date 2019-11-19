@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.scenes
         private SpriteFont randomText;
         private Texture2D background;
 
-        private Tilemap beachTilemap;
+        private Tilemap tilemap;
 
 
         public DebugScreen2(SceneManager sceneManager)
@@ -37,9 +37,8 @@ namespace EVCMonoGame.src.scenes
 			player = GameplayState.PlayerOne;
 			player.WorldPosition = new Vector2(400, 500);
 
-            beachTilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/ff6Level2.tm.txt");
             
-
             camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
             camera.Zoom = 0.5f;
 
@@ -63,7 +62,7 @@ namespace EVCMonoGame.src.scenes
 
         public override void LoadContent(ContentManager content)
         {
-            beachTilemap.LoadContent(content);
+            tilemap.LoadContent(content);
 
             randomText = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 
@@ -85,7 +84,7 @@ namespace EVCMonoGame.src.scenes
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-            beachTilemap.Draw(gameTime, spriteBatch);
+            tilemap.Draw(gameTime, spriteBatch);
             // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
                 new Vector2(100, 100), Color.DarkRed);

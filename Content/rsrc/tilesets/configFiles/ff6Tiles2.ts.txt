@@ -1,0 +1,2 @@
+TILESET    = rsrc/tilesets/FF6MapTileCastles
+AUTO_TILES = (16, 16)@(272, 256, 256, 256) 

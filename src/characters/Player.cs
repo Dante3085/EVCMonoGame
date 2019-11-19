@@ -62,9 +62,23 @@ namespace EVCMonoGame.src.characters
         #endregion
 
         #region Constructors
-        public Player(int maxHp, int currentHp, Vector2 position, Keys[] controls)
-            : base(maxHp, currentHp, position)
+        public Player(Vector2 position, Keys[] controls)
+             : base
+            (
+                  name: "Player",
+                  maxHp: 800,
+                  currentHp: 800,
+                  maxMp: 30,
+                  currentMp: 30,
+                  strength: 5,
+                  defense: 3,
+                  intelligence: 5,
+                  agility: 4,
+                  movementSpeed: 7,
+                  position: position
+            )
         {
+
             isAttacking = false;
             runThreshold = 0.65f;
 

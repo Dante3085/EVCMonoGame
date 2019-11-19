@@ -22,7 +22,8 @@ namespace EVCMonoGame.src.characters
 {
     public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
     {
-		#region Fields
+		#region Field
+        
 		private Player target;
 		private int agentMindestBreite;
 		Vector2 movementDirection;
@@ -39,6 +40,7 @@ namespace EVCMonoGame.src.characters
 		protected bool isAttackOnCooldown = false;
 		protected float aggroRange;
 
+        protected int exp;
 
 		#endregion
 
@@ -48,13 +50,41 @@ namespace EVCMonoGame.src.characters
 
 		#region Constructors
 
-		public Enemy(int maxHp, int currentHp, Vector2 position)
-            : base(maxHp, currentHp, position)
+		public Enemy
+        (
+            String name,
+            int maxHp,
+            int currentHp,
+            int maxMp,
+            int currentMp,
+            int strength,
+            int defense,
+            int intelligence,
+            int agility,
+            float movementSpeed,
+            Vector2 position,
+            int exp
+        ) 
+            : base
+            (
+                  name,
+                  maxHp, 
+                  currentHp,
+                  maxMp,
+                  currentMp,
+                  strength,
+                  defense,
+                  intelligence,
+                  agility,
+                  movementSpeed,
+                  position
+            )
         {
+            this.exp = exp;
+
             sprite = new AnimatedSprite(position, 5.0f);
 
 			aggroRange = 600;
-			movementSpeed = 3f;
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
@@ -69,7 +99,7 @@ namespace EVCMonoGame.src.characters
 
 			//Debug
 
-			if (DebugOptions.ShowPathfinding)
+			if (DebugOptions.showPathfinding)
 			{
 				movementDirection.Normalize();
 				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
@@ -110,7 +140,19 @@ namespace EVCMonoGame.src.characters
 				//Grid grid = new Grid(new Rectangle(CollisionBox.Center.X - 200, CollisionBox.Center.Y - 200, 400, 400), agentMindestBreite); //debug new implementation 
 
 				// Erzeuge Path
-				waypoints = pathfinder.Pathfind(new Point((int)CollisionBox.Center.X / agentMindestBreite, (int)CollisionBox.Center.Y / agentMindestBreite), new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X / agentMindestBreite, (int)GameplayState.PlayerOne.CollisionBox.Center.Y / agentMindestBreite));
+				waypoints = pathfinder.Pathfind
+                (
+                      new Point
+                      (
+                          (int)CollisionBox.Center.X / agentMindestBreite, 
+                          (int)CollisionBox.Center.Y / agentMindestBreite
+                      ), 
+                      new Point
+                      (
+                          (int)GameplayState.PlayerOne.CollisionBox.Center.X / agentMindestBreite, 
+                          (int)GameplayState.PlayerOne.CollisionBox.Center.Y / agentMindestBreite
+                      )
+                );
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
 				MoveToCharacter(gameTime, GameplayState.PlayerOne);

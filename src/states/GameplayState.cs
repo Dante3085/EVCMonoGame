@@ -59,7 +59,7 @@ namespace EVCMonoGame.src.states
 
 			players = new List<Player>();
 
-			playerOne = new Player(100, 99, new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			playerOne = new Player(new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 			players.Add(playerOne);
 			//if : is Zweispiele ausgewählt
 			//playerTwo = new Player(new Rectangle(550, 600, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
