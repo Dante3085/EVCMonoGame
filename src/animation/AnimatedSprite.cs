@@ -299,11 +299,13 @@ namespace EVCMonoGame.src.animation
                 {
                     if (!animation.IsFinished)
                     {
-                        ++frameIndex;
-
                         if (frameIndex + 1 == frameCount)
                         {
                             animation.IsFinished = true;
+                        }
+                        else
+                        {
+                            ++frameIndex;
                         }
                     }
                 }
@@ -344,7 +346,6 @@ namespace EVCMonoGame.src.animation
             animations[name] = new Animation(frames, hurtBounds, attackBounds, frameDelays, frameOffsets, isMirrored, isLooped);
 
             previousAnimation = currentAnimation;
-            currentAnimation = name;
         }
 
         // TODO: Problem bei 2. Überladung von AddAnimation(). Kann erst aufgerufen werden, nachdem LoadContent() aufgerufen wurde,
@@ -403,6 +404,8 @@ namespace EVCMonoGame.src.animation
         {
             AnimationDatasPlusSpriteSheet animDatasPlusSpriteSheet = ConfigFileUtility.ReadAnimationFile(configFilePath);
 
+            animations.Clear();
+
             spritesheetName = animDatasPlusSpriteSheet.spriteSheet;
             foreach (AnimationData aD in animDatasPlusSpriteSheet.animationDatas)
             {
@@ -414,10 +417,10 @@ namespace EVCMonoGame.src.animation
         /// <summary>
         /// If the given Animation is non-looping and is finished
         /// </summary>
-        public void ResetAnimation(String animName)
-        {
+        //public void ResetAnimation(String animName)
+        //{
 
-        }
+        //}
 
         #endregion
     }
