@@ -281,27 +281,31 @@ namespace EVCMonoGame.src.animation
             elapsedMillis += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
             Animation animation = animations[currentAnimation];
+            int frameCount = animation.Frames.Length;
+
             if (elapsedMillis >= animation.FrameDelays[frameIndex])
             {
                 // Reset elapsed time
                 elapsedMillis = 0;
 
-                // Increase frameIndex depending on if the Animation is looped or not
-                int frameCount = animation.Frames.Length;
-                if (!animation.IsLooped && !animation.IsFinished)
-                {
-                    if ((frameIndex + 1) == frameCount)
-                    {
-                        animation.IsFinished = true;
-                    }
-                    else
-                    {
-                        ++frameIndex;
-                    }
-                }
-                else
+                // Aktuelle Animation looped => Einfach auf nächstes Frame gehen.
+                if (animation.IsLooped)
                 {
                     frameIndex = ++frameIndex % frameCount;
+                }
+
+                // Aktuelle Animation looped nicht => Auf nächstes Frame gehen und gucken, ob die Animation vorbei ist.
+                else
+                {
+                    if (!animation.IsFinished)
+                    {
+                        ++frameIndex;
+
+                        if (frameIndex + 1 == frameCount)
+                        {
+                            animation.IsFinished = true;
+                        }
+                    }
                 }
             }
         }
