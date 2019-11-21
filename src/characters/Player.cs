@@ -16,6 +16,7 @@ using EVCMonoGame.src.animation;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.characters
 {
@@ -49,13 +50,21 @@ namespace EVCMonoGame.src.characters
 
         private bool flinching;
 
-        #endregion
-        #region Properties
+		private ItemFinder itemFinder;
+		private Inventory inventory;
 
-        /// <summary>
-        /// ONLY FOR DEBUGGING PURPOSES. REMOVE LATER.
-        /// </summary>
-        public bool DoesUpdateMovement
+		#endregion
+		#region Properties
+		public Inventory PlayerInventory
+		{
+			get { return inventory; }
+			set { inventory = value; }
+		}
+
+		/// <summary>
+		/// ONLY FOR DEBUGGING PURPOSES. REMOVE LATER.
+		/// </summary>
+		public bool DoesUpdateMovement
         {
             get; set;
         }
@@ -64,8 +73,11 @@ namespace EVCMonoGame.src.characters
         #region Constructors
         public Player(int maxHp, int currentHp, Vector2 position, Keys[] controls)
             : base(maxHp, currentHp, position)
-        {
-            isAttacking = false;
+		{
+			inventory = new Inventory(this);
+			itemFinder = new ItemFinder(this);
+
+			isAttacking = false;
             runThreshold = 0.65f;
 
 			movementSpeed = 7.5f;
@@ -99,7 +111,10 @@ namespace EVCMonoGame.src.characters
             base.Draw(gameTime, spriteBatch);
 
             playerPortrait.Draw(gameTime, spriteBatch);
-        }
+
+			PlayerInventory.Draw(gameTime, spriteBatch);
+			itemFinder.Draw(gameTime, spriteBatch);
+		}
 
         public override void LoadContent(ContentManager content)
         {
@@ -139,7 +154,8 @@ namespace EVCMonoGame.src.characters
             }
 
             playerPortrait.Update(gameTime);
-        }
+			itemFinder.Update(gameTime);
+		}
 
         public void UpdateAttacks()
         {

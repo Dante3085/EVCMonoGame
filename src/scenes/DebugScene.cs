@@ -14,6 +14,7 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -55,7 +56,9 @@ namespace EVCMonoGame.src.scenes
 			sceneManager.GlobalDebugTexts.Entries.Add("Debug Draw Mode: Press X");
 
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
-            //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
+			//tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
+
+			Item item = new Consumable(new Rectangle(600, 1600, 100, 100));
 
             updateables.AddRange(new IUpdateable[]
             {

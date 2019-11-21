@@ -111,17 +111,33 @@ namespace EVCMonoGame.src.utility
             return "(" + rectangle.X + ", " + rectangle.Y + ", " + rectangle.Width + ", " + rectangle.Height + ")";
         }
 
-        #region pathModificationfunctions
+		// C# Mod rechnet nicht wie gewünscht
+		public static int Mod(int a, int n)
+		{
+			if (n != 0)
+			{
+				int result = a % n;
+				if ((result < 0 && n > 0) || (result > 0 && n < 0))
+				{
+					result += n;
+				}
+				return result;
+			}
+			else
+				return 0;
+		}
 
-        /// <summary>
-        /// factors needs one Element stating the flatness of the curve
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="current"></param>
-        /// <param name="factors"></param>
-        /// <returns></returns>
-        public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
+		#region pathModificationfunctions
+
+		/// <summary>
+		/// factors needs one Element stating the flatness of the curve
+		/// </summary>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
+		/// <param name="current"></param>
+		/// <param name="factors"></param>
+		/// <returns></returns>
+		public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
         {
             float flatnessFactor = factors.ElementAt(0);
             float radius = (to - from).Length() * 0.5f;
