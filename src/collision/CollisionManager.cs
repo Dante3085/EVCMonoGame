@@ -97,6 +97,7 @@ namespace EVCMonoGame.src.collision
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
         {
             CollisionManager.allCollisionsChannel.Remove(c);
+			collisionChannel.Remove(c);
         }
 
         public static void CleanCollisonManager()
@@ -260,7 +261,7 @@ namespace EVCMonoGame.src.collision
             return intersectingCollidables;
         }
 
-        public static List<Collidable> GetAllCollidablesByPosition(Rectangle area, 
+        public static List<Collidable> GetAllCollidablesInArea(Rectangle area, 
                                                                   List<Collidable> collisionChannel)
         {
             
@@ -276,7 +277,7 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> GetAllCollidablesByPosition(Vector2 WorldPosition, Vector2 size, 
                                                                   List<Collidable> collisionChannel)
         {
-            return GetAllCollidablesByPosition(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
+            return GetAllCollidablesInArea(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
                                                collisionChannel);
         }
 
