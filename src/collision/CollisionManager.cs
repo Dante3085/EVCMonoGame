@@ -82,7 +82,7 @@ namespace EVCMonoGame.src.collision
                 CollisionManager.allCollisionsChannel.Add(c);
                 channel.Add(c);
 
-                if (c is Player && !playerCollisionChannel.Contains(c))
+                if (c is PlayerOne && !playerCollisionChannel.Contains(c))
                     playerCollisionChannel.Add((Collidable)c);
             }
         }
@@ -283,7 +283,7 @@ namespace EVCMonoGame.src.collision
 
         public static bool IsPlayerInArea(Rectangle bounds)
         {
-            foreach (Player player in playerCollisionChannel)
+            foreach (PlayerOne player in playerCollisionChannel)
             {
                 if (bounds.Intersects(player.CollisionBox))
                 {
@@ -295,7 +295,7 @@ namespace EVCMonoGame.src.collision
 
         public static bool IsPlayerInRange(Collidable collidable, float range)
         {
-            foreach(Player player in playerCollisionChannel)
+            foreach(PlayerOne player in playerCollisionChannel)
             {
                 float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), 
                                                   player.CollisionBox.Center.ToVector2());
@@ -306,11 +306,11 @@ namespace EVCMonoGame.src.collision
             return true;
         }
 
-		public static List<Player> GetAllPlayersInArea(Rectangle bounds)
+		public static List<PlayerOne> GetAllPlayersInArea(Rectangle bounds)
 		{
-			List<Player> intersectingPlayers = new List<Player>();
+			List<PlayerOne> intersectingPlayers = new List<PlayerOne>();
 
-			foreach (Player player in playerCollisionChannel)
+			foreach (PlayerOne player in playerCollisionChannel)
 			{
 				if (bounds.Intersects(player.CollisionBox))
 				{
@@ -321,11 +321,11 @@ namespace EVCMonoGame.src.collision
 			return intersectingPlayers;
 		}
 
-		public static List<Player> GetAllPlayersInRange(Collidable collidable, float range)
+		public static List<PlayerOne> GetAllPlayersInRange(Collidable collidable, float range)
 		{
-			List<Player> playersInRange = new List<Player>();
+			List<PlayerOne> playersInRange = new List<PlayerOne>();
 
-			foreach (Player player in playerCollisionChannel)
+			foreach (PlayerOne player in playerCollisionChannel)
 			{
 				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
 												  player.CollisionBox.Center.ToVector2());

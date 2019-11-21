@@ -19,19 +19,7 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters
 {
-    public enum Orientation
-    {
-        LEFT,
-        UP_LEFT,
-        UP,
-        UP_RIGHT,
-        RIGHT,
-        DOWN_RIGHT,
-        DOWN,
-        DOWN_LEFT
-    }
-
-    public class Player : Character, scenes.IDrawable
+    public class PlayerOne : Character, scenes.IDrawable
     {
         #region Fields
 
@@ -62,10 +50,10 @@ namespace EVCMonoGame.src.characters
         #endregion
 
         #region Constructors
-        public Player(Vector2 position, Keys[] controls)
+        public PlayerOne(Vector2 position, Keys[] controls)
              : base
             (
-                  name: "Player",
+                  name: "Sora",
                   maxHp: 800,
                   currentHp: 800,
                   maxMp: 30,
@@ -87,7 +75,7 @@ namespace EVCMonoGame.src.characters
 			CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
 
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
-            sprite.SetAnimation("IDLE_RIGHT");
+            sprite.SetAnimation("RUN_RIGHT");
             playerOrientation = Orientation.RIGHT;
 
             playerPortrait = new AnimatedSprite(Vector2.Zero, 4.0f);
@@ -112,14 +100,14 @@ namespace EVCMonoGame.src.characters
         {
             base.Draw(gameTime, spriteBatch);
 
-            playerPortrait.Draw(gameTime, spriteBatch);
+            // playerPortrait.Draw(gameTime, spriteBatch);
         }
 
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
 
-            playerPortrait.LoadContent(content);
+            // playerPortrait.LoadContent(content);
         }
         #endregion
         #region Updateable
@@ -162,7 +150,7 @@ namespace EVCMonoGame.src.characters
 
             String nextAttackAnimation = "UNKNOWN";
 
-            if (InputManager.OnButtonPressed(Buttons.X)
+            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)
                 || InputManager.OnKeyPressed(Keys.A))
             {
                 HasActiveAttackBounds = true;
@@ -181,7 +169,7 @@ namespace EVCMonoGame.src.characters
 
                 sprite.SetAnimation(nextAttackAnimation);
             }
-            else if (InputManager.OnButtonPressed(Buttons.Y))
+            else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.One))
             {
                 HasActiveAttackBounds = true;
 
@@ -199,7 +187,7 @@ namespace EVCMonoGame.src.characters
 
                 sprite.SetAnimation(nextAttackAnimation);
             }
-            else if (InputManager.OnButtonPressed(Buttons.B))
+            else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.One))
             {
                 HasActiveAttackBounds = true;
 
@@ -247,12 +235,13 @@ namespace EVCMonoGame.src.characters
             }
             else
             {
-                GamePadThumbSticks currentThumbSticks = InputManager.CurrentThumbSticks();
+                GamePadThumbSticks currentThumbSticks = InputManager.CurrentThumbSticks(PlayerIndex.One);
 
                 directionVector.X = currentThumbSticks.Left.X;
                 directionVector.Y = currentThumbSticks.Left.Y * -1;
 
-                movementVector = directionVector * (movementSpeed * (1 + InputManager.CurrentTriggers().Right));
+                movementVector = directionVector * 
+                                 (movementSpeed  * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
             }
 
             WorldPosition += movementVector;

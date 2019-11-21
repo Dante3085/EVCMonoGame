@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using C3.MonoGame;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -23,13 +24,13 @@ namespace EVCMonoGame.src.characters.enemies
                   defense: 4,
                   intelligence: 1,
                   agility: 3,
-                  movementSpeed: 5,
+                  movementSpeed: 12,
                   position: position,
                   exp: 8
             )
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gargoyle.anm.txt");
-            sprite.SetAnimation("FLINCH_RIGHT");
+            sprite.SetAnimation("BATTLE_CRY_LEFT");
 
             collisionBoxOffset = new Vector2(100, 100);
         }
@@ -44,6 +45,10 @@ namespace EVCMonoGame.src.characters.enemies
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
+
+            Color color = Color.DarkRed;
+            color.A = 50;
+            Primitives2D.FillRectangle(spriteBatch, sprite.CurrentAttackBounds, color);
         }
 
         public override void LoadContent(ContentManager content)

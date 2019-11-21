@@ -82,9 +82,9 @@ namespace EVCMonoGame.src.scenes
             debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
-            scenes[EScene.DEBUG] = new DebugScene(this);
-            scenes[EScene.DEBUG_2] = new DebugScreen2(this);
-            currentScene = previousScene = scenes[EScene.DEBUG];
+            scenes[EScene.DEBUG] = new Scene_DesertWithCastles(this);
+            scenes[EScene.DEBUG_2] = new Scene_InsideCastle(this);
+            currentScene = previousScene = scenes[EScene.DEBUG_2];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);

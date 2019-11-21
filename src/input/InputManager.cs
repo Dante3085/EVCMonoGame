@@ -25,8 +25,11 @@ namespace EVCMonoGame.src.input
         private static KeyboardState previousKeyboardState;
         private static List<Keys> buffer = new List<Keys>();
 
-        private static GamePadState currentGamePadState;
-        private static GamePadState previousGamePadState;
+        private static GamePadState currentGamePadStatePlayerOne;
+        private static GamePadState previousGamePadStatePlayerOne;
+
+        private static GamePadState currentGamePadStatePlayerTwo;
+        private static GamePadState previousGamePadStatePlayerTwo;
 
         private static MouseState currentMouseState;
         private static MouseState previousMouseState;
@@ -49,21 +52,21 @@ namespace EVCMonoGame.src.input
 
         public static bool HasLeftGamePadStickMoved
         {
-            get { return currentGamePadState.ThumbSticks.Left.LengthSquared() > 0; }
+            get { return currentGamePadStatePlayerOne.ThumbSticks.Left.LengthSquared() > 0; }
         }
 
         public static bool HasRightGamePadStickMoved
         {
-            get { return currentGamePadState.ThumbSticks.Right.LengthSquared() > 0; }
+            get { return currentGamePadStatePlayerOne.ThumbSticks.Right.LengthSquared() > 0; }
         }
 
-        public static bool OnAnyGamePadFaceButtonPressed
-        {
-            get
-            {
-                return OnAnyButtonPressed(Buttons.X, Buttons.Y, Buttons.B, Buttons.A);
-            }
-        }
+        //public static bool OnAnyGamePadFaceButtonPressed
+        //{
+        //    get
+        //    {
+        //        return OnAnyButtonPressed(Buttons.X, Buttons.Y, Buttons.B, Buttons.A);
+        //    }
+        //}
 
         public static bool HasMouseMoved
         {
@@ -83,8 +86,11 @@ namespace EVCMonoGame.src.input
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
-            previousGamePadState = currentGamePadState;
-            currentGamePadState = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+            previousGamePadStatePlayerOne = currentGamePadStatePlayerOne;
+            currentGamePadStatePlayerOne = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
+
+            previousGamePadStatePlayerTwo = currentGamePadStatePlayerTwo;
+            currentGamePadStatePlayerTwo = GamePad.GetState(PlayerIndex.Two, GamePadDeadZone.Circular);
 
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
@@ -92,7 +98,7 @@ namespace EVCMonoGame.src.input
             // Check if last input was given by keyboard or gamepad.
             if (inputByKeyboard)
             {
-                if (OnAnyButtonPressed(buttonsEnum))
+                if (OnAnyButtonPressed(PlayerIndex.One, buttonsEnum))
                 {
                     inputByKeyboard = false;
                 }
@@ -282,33 +288,63 @@ namespace EVCMonoGame.src.input
         #endregion
         #region GamePad
         #region Buttons
-        public static bool OnButtonPressed(Buttons button)
+        public static bool OnButtonPressed(Buttons button, PlayerIndex playerIndex)
         {
-            return !previousGamePadState.IsButtonDown(button) &&
-                    currentGamePadState.IsButtonDown(button);
+            if (playerIndex == PlayerIndex.One)
+            {
+                return !previousGamePadStatePlayerOne.IsButtonDown(button) &&
+                        currentGamePadStatePlayerOne.IsButtonDown(button);
+            }
+            else
+            {
+                return !previousGamePadStatePlayerTwo.IsButtonDown(button) &&
+                        currentGamePadStatePlayerTwo.IsButtonDown(button);
+            }
         }
 
-        public static bool OnButtonReleased(Buttons button)
+        public static bool OnButtonReleased(Buttons button, PlayerIndex playerIndex)
         {
-            return previousGamePadState.IsButtonDown(button) &&
-                  !currentGamePadState.IsButtonDown(button);
+            if (playerIndex == PlayerIndex.One)
+            {
+                return previousGamePadStatePlayerOne.IsButtonDown(button) &&
+                      !currentGamePadStatePlayerOne.IsButtonDown(button);
+            }
+            else
+            {
+                return previousGamePadStatePlayerTwo.IsButtonDown(button) &&
+                      !currentGamePadStatePlayerTwo.IsButtonDown(button);
+            }
         }
 
-        public static bool IsButtonPressed(Buttons button)
+        public static bool IsButtonPressed(Buttons button, PlayerIndex playerIndex)
         {
-            return currentGamePadState.IsButtonDown(button);
+            if (playerIndex == PlayerIndex.One)
+            {
+                return currentGamePadStatePlayerOne.IsButtonDown(button);
+            }
+            else
+            {
+                return currentGamePadStatePlayerTwo.IsButtonDown(button);
+            }
         }
 
-        public static bool WasButtonPressed(Buttons button)
+        public static bool WasButtonPressed(Buttons button, PlayerIndex playerIndex)
         {
-            return previousGamePadState.IsButtonDown(button);
+            if (playerIndex == PlayerIndex.One)
+            {
+                return previousGamePadStatePlayerOne.IsButtonDown(button);
+            }
+            else
+            {
+                return previousGamePadStatePlayerTwo.IsButtonDown(button);
+            }
         }
 
-        public static bool OnAnyButtonPressed(params Buttons[] buttons)
+        public static bool OnAnyButtonPressed(PlayerIndex playerIndex, params Buttons[] buttons)
         {
             foreach (Buttons b in buttons)
             {
-                if (OnButtonPressed(b))
+                if (OnButtonPressed(b, playerIndex))
                 {
                     return true;
                 }
@@ -316,11 +352,11 @@ namespace EVCMonoGame.src.input
             return false;
         }
 
-        public static bool IsAnyButtonPressed(params Buttons[] buttons)
+        public static bool IsAnyButtonPressed(PlayerIndex playerIndex, params Buttons[] buttons)
         {
             foreach (Buttons b in buttons)
             {
-                if (IsButtonPressed(b))
+                if (IsButtonPressed(b, playerIndex))
                 {
                     return true;
                 }
@@ -328,11 +364,11 @@ namespace EVCMonoGame.src.input
             return false;
         }
 
-        public static bool AreAllButtonsPressed(params Buttons[] buttons)
+        public static bool AreAllButtonsPressed(PlayerIndex playerIndex, params Buttons[] buttons)
         {
             foreach (Buttons b in buttons)
             {
-                if (!IsButtonPressed(b))
+                if (!IsButtonPressed(b, playerIndex))
                 {
                     return false;
                 }
@@ -342,24 +378,28 @@ namespace EVCMonoGame.src.input
 
         #endregion
 
-        public static GamePadThumbSticks CurrentThumbSticks()
+        public static GamePadThumbSticks CurrentThumbSticks(PlayerIndex playerIndex)
         {
-            return currentGamePadState.ThumbSticks;
+            return playerIndex == PlayerIndex.One ? currentGamePadStatePlayerOne.ThumbSticks :
+                                                    currentGamePadStatePlayerTwo.ThumbSticks;
         }
 
-        public static GamePadThumbSticks PreviousThumbSticks()
+        public static GamePadThumbSticks PreviousThumbSticks(PlayerIndex playerIndex)
         {
-            return previousGamePadState.ThumbSticks;
+            return playerIndex == PlayerIndex.One ? previousGamePadStatePlayerOne.ThumbSticks :
+                                                    previousGamePadStatePlayerTwo.ThumbSticks;
         }
 
-        public static GamePadTriggers CurrentTriggers()
+        public static GamePadTriggers CurrentTriggers(PlayerIndex playerIndex)
         {
-            return currentGamePadState.Triggers;
+            return playerIndex == PlayerIndex.One ? currentGamePadStatePlayerOne.Triggers :
+                                                    currentGamePadStatePlayerTwo.Triggers;
         }
 
-        public static GamePadTriggers PreviousTriggers()
+        public static GamePadTriggers PreviousTriggers(PlayerIndex playerIndex)
         {
-            return previousGamePadState.Triggers;
+            return playerIndex == PlayerIndex.One ? previousGamePadStatePlayerOne.Triggers :
+                                                    previousGamePadStatePlayerTwo.Triggers;
         }
         #endregion
         #region Mouse

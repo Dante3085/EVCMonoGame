@@ -20,7 +20,7 @@ namespace EVCMonoGame.src
     /// </summary>
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager graphicsDeviceManager;
         private StateManager stateManager;
 
         private SpriteBatch spriteBatch;
@@ -32,6 +32,12 @@ namespace EVCMonoGame.src
         {
             get;
             set;
+        }
+
+        public static GraphicsDeviceManager GraphicsDeviceManager
+        {
+            get;
+            private set;
         }
 
         // By preloading any assets used by UI rendering, we avoid framerate glitches
@@ -47,16 +53,17 @@ namespace EVCMonoGame.src
             IsMouseVisible = true;
             MouseVisible = true;
 
-            graphics = new GraphicsDeviceManager(this);
+            graphicsDeviceManager = new GraphicsDeviceManager(this);
+            GraphicsDeviceManager = graphicsDeviceManager;
 
-            //graphics.PreferredBackBufferWidth = 3240;
-            //graphics.PreferredBackBufferHeight = 2160;
+            //graphicsDeviceManager.PreferredBackBufferWidth = 3240;
+            //graphicsDeviceManager.PreferredBackBufferHeight = 2160;
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
+            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
 
-            graphics.IsFullScreen = false;
-            graphics.SynchronizeWithVerticalRetrace = true;
+            graphicsDeviceManager.IsFullScreen = false;
+            graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
             IsFixedTimeStep = true;
 
             // Create the screen manager component.
@@ -100,7 +107,7 @@ namespace EVCMonoGame.src
 
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
+            graphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
 
             fpsCounter.Update(gameTime);
 

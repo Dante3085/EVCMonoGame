@@ -45,7 +45,7 @@ namespace EVCMonoGame.src.states
         public override void HandleInput(InputState input)
         {
             if (InputManager.OnKeyPressed(Keys.Escape)
-                || InputManager.OnButtonPressed(Buttons.Start))
+                || InputManager.OnButtonPressed(Buttons.Start, PlayerIndex.One))
             {
                 StateManager.AddState(new PauseMenuState(), ControllingPlayer);
             }

@@ -85,12 +85,12 @@ namespace EVCMonoGame.src.states
             PlayerIndex playerIndex = PlayerIndex.One;
 
             if (InputManager.OnAnyKeyPressed(Keys.Enter, Keys.Space)
-                || InputManager.OnButtonPressed(Buttons.A))
+                || InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
             {
                 OnSelectEntry(selectedEntry, playerIndex);
             }
             else if (InputManager.OnKeyPressed(Keys.Escape)
-                || InputManager.OnAnyButtonPressed(Buttons.Start, Buttons.B))
+                || InputManager.OnAnyButtonPressed(PlayerIndex.One, Buttons.Start, Buttons.B))
             {
                 OnCancel(playerIndex);
             }

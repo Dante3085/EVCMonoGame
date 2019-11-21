@@ -239,7 +239,7 @@ namespace EVCMonoGame.src.scenes
 
             if (InputManager.HasRightGamePadStickMoved)
             {
-                currentYRightThumbStick = InputManager.CurrentThumbSticks().Right.Y;
+                currentYRightThumbStick = InputManager.CurrentThumbSticks(PlayerIndex.One).Right.Y;
 
                 if (currentYRightThumbStick > rightThumbStickMaxZoomRate)
                     currentYRightThumbStick = rightThumbStickMaxZoomRate;
@@ -247,6 +247,8 @@ namespace EVCMonoGame.src.scenes
                     currentYRightThumbStick = -rightThumbStickMaxZoomRate;
 
                 zoom += currentYRightThumbStick;
+
+                Console.Write("Zoom: " + zoom);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.characters
     {
 		#region Field
         
-		private Player target;
+		private PlayerOne target;
 		private int agentMindestBreite;
 		Vector2 movementDirection;
 
@@ -158,7 +158,7 @@ namespace EVCMonoGame.src.characters
 				MoveToCharacter(gameTime, GameplayState.PlayerOne);
 			}
 
-			List<Player> players = CollisionManager.GetAllPlayersInRange(this, aggroRange);
+			List<PlayerOne> players = CollisionManager.GetAllPlayersInRange(this, aggroRange);
 			if (players.Count > 0)
 			{
 				//target = getNearestPlayer()
@@ -227,7 +227,7 @@ namespace EVCMonoGame.src.characters
 			if (CollisionManager.IsCollisionAfterMove(this, true, true))
 			{
 				// Besser wäre eig. eine Attack Range einrichten. To Do
-				List<Player> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
+				List<PlayerOne> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
 				if (players.Count > 0)
 				{
 					//target = getNearestPlayer()

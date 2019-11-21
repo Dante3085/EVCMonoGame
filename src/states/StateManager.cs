@@ -35,6 +35,8 @@ namespace EVCMonoGame.src.states
 
         private bool traceEnabled;
 
+        private Game game;
+
         #endregion Fields
 
         #region Properties
@@ -78,6 +80,8 @@ namespace EVCMonoGame.src.states
         public StateManager(Game game)
             : base(game)
         {
+            this.game = game;
+
             // we must set EnabledGestures before we can query for them, but
             // we don't assume the game wants to read them.
             TouchPanel.EnabledGestures = GestureType.None;
@@ -135,7 +139,7 @@ namespace EVCMonoGame.src.states
         {
             InputManager.UpdateInputStates(gameTime);
 
-            if (InputManager.AreAllButtonsPressed(Buttons.Back, Buttons.Start)
+            if (InputManager.AreAllButtonsPressed(PlayerIndex.One, Buttons.Back, Buttons.Start)
                 || InputManager.AreAllKeysPressed(Keys.Escape, Keys.Delete))
             {
                 Game.Exit();

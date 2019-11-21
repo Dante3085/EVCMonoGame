@@ -25,9 +25,8 @@ namespace EVCMonoGame.src.states
         private ContentManager content;
         private SpriteFont gameFont;
 
-		private static Player playerOne;
-		private static Player playerTwo;
-		private static List<Player> players;
+		private static PlayerOne playerOne;
+		private static PlayerTwo playerTwo;
 		private static bool isTwoPlayer;
 
 		private Random random = new Random();
@@ -37,11 +36,11 @@ namespace EVCMonoGame.src.states
         private SceneManager sceneManager;
 
 		#region Propertie
-		public static Player PlayerOne
+		public static PlayerOne PlayerOne
 		{
 			get { return playerOne; }
 		}
-		public static Player PlayerTwo
+		public static PlayerTwo PlayerTwo
 		{
 			get { return playerTwo; }
 		}
@@ -57,14 +56,9 @@ namespace EVCMonoGame.src.states
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-			players = new List<Player>();
-
-			playerOne = new Player(new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-			players.Add(playerOne);
-			//if : is Zweispiele ausgewählt
-			//playerTwo = new Player(new Rectangle(550, 600, 100, 100), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-			//players.Add(playerTwo);
-			//isTwoPlayer = true;
+			playerOne = new PlayerOne(new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			playerTwo = new PlayerTwo(new Vector2(550, 800), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			isTwoPlayer = true;
 
 		}
 
@@ -128,7 +122,7 @@ namespace EVCMonoGame.src.states
                 throw new ArgumentNullException("input");
 
             if (InputManager.OnKeyPressed(Keys.Escape)
-                || InputManager.OnButtonPressed(Buttons.Start))
+                || InputManager.OnButtonPressed(Buttons.Start, PlayerIndex.One))
             {
                 StateManager.AddState(new PauseMenuState(), ControllingPlayer);
             }

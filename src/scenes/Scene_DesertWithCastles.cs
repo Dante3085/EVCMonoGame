@@ -17,19 +17,19 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
-    class DebugScene : Scene
-    {
-        private Player player;
-        private Player player2;
+    // TODO: Quasi Hub-Scene durch die beide anderen Scenes erreichbar sind.
+    //       Man braucht aber erst Schlüssel aus Scene_Forest, um Scene_InsideCastle 
+    //       betreten zu können.
 
+    class Scene_DesertWithCastles : Scene
+    {
         private Shadow shadow = new Shadow(new Vector2(800, 1000));
         private Defender defender = new Defender(new Vector2(800, 900));
         private Gargoyle gargoyle = new Gargoyle(new Vector2(800, 1300));
 		
-        private SpriteFont randomText;
         private Tilemap tilemap;
 
-        public DebugScene(SceneManager sceneManager)
+        public Scene_DesertWithCastles(SceneManager sceneManager)
             : base(sceneManager)
         {
         }
@@ -38,20 +38,17 @@ namespace EVCMonoGame.src.scenes
         {
 			base.OnEnterScene();
 
-			player = GameplayState.PlayerOne;
-			player.WorldPosition = new Vector2(400, 1000);
+            GameplayState.PlayerOne.WorldPosition = new Vector2(3000, 1000);
 
 			if (GameplayState.IsTwoPlayer)
 			{
-				player2 = GameplayState.PlayerTwo;
-				player2.WorldPosition = new Vector2(200, 500);
-				player2.DoesUpdateMovement = false;
+                GameplayState.PlayerTwo.WorldPosition = new Vector2(200, 500);
 			}
 
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/ff6Level.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/Level_DesertWithCastles.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
             {
@@ -69,8 +66,8 @@ namespace EVCMonoGame.src.scenes
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
 
-            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.Zoom = 1.75f;
+            camera.SetCameraToFocusObject(GameplayState.PlayerOne.Sprite, Screenpoint.CENTER);
+            camera.Zoom = 0.55f;
         }
 
         public override void OnExitScene()
@@ -99,11 +96,11 @@ namespace EVCMonoGame.src.scenes
             }
             if (InputManager.OnKeyPressed(Keys.K))
             {
-                camera.MoveCamera(camera.FocusObject.Position, player.Sprite.Position, 1000);
+                camera.MoveCamera(camera.FocusObject.Position, GameplayState.PlayerOne.Sprite.Position, 1000);
             }
-            if (camera.FocusObject.Position == player.Sprite.Position)
+            if (camera.FocusObject.Position == GameplayState.PlayerOne.Sprite.Position)
             {
-                camera.SetCameraToFocusObject(player.Sprite);
+                camera.SetCameraToFocusObject(GameplayState.PlayerOne.Sprite);
             }
 
             if (InputManager.OnKeyPressed(Keys.Space))
@@ -111,10 +108,20 @@ namespace EVCMonoGame.src.scenes
                 sceneManager.SceneTransition(EScene.DEBUG_2);
             }
 
-            if (InputManager.OnButtonPressed(Buttons.A) &&
-                CollisionManager.IsPlayerInArea(new Rectangle(1480, 1280, 365, 255)))
+            if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
             {
-                sceneManager.SceneTransition(EScene.DEBUG_2);
+                if (CollisionManager.IsPlayerInArea(new Rectangle(1480, 1280, 365, 255)))
+                {
+                    sceneManager.SceneTransition(EScene.DEBUG_2);
+                }
+                else if (CollisionManager.IsPlayerInArea(new Rectangle(7500, 3000, 400, 200)))
+                {
+                    GameplayState.PlayerOne.WorldPosition = new Vector2(7700, 2200);
+                }
+                else if (CollisionManager.IsPlayerInArea(new Rectangle(7640, 2220, 200, 180)))
+                {
+                    GameplayState.PlayerOne.WorldPosition = new Vector2(7630, 3030);
+                }
             }
 			
             base.Update(gameTime);

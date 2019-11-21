@@ -16,16 +16,18 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
-    public class DebugScreen2 : Scene
+    // TODO: Diese Scene ist das letzte Level und ist erst erreichbar, wenn in Scene_Forest
+    //       ein Schlüssel zur Tür am großen Schloss in Scene_DesertWithCastles gefunden wurde.
+
+    public class Scene_InsideCastle : Scene
     {
-        private Player player;
         private SpriteFont randomText;
         private Texture2D background;
 
         private Tilemap tilemap;
 
 
-        public DebugScreen2(SceneManager sceneManager)
+        public Scene_InsideCastle(SceneManager sceneManager)
             : base(sceneManager)
         {
         }
@@ -34,13 +36,17 @@ namespace EVCMonoGame.src.scenes
         {
 			base.OnEnterScene();
 
-			player = GameplayState.PlayerOne;
-			player.WorldPosition = new Vector2(400, 500);
+            GameplayState.PlayerOne.WorldPosition = new Vector2(-150, 100);
+            GameplayState.PlayerTwo.WorldPosition = new Vector2(100, 100);
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/ff6Level2.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/Level_InsideCastle.tm.txt");
             
-            camera.SetCameraToFocusObject(player.Sprite, Screenpoint.CENTER);
-            camera.Zoom = 0.5f;
+            camera.SetCameraToFocusObject(GameplayState.PlayerTwo.Sprite, Screenpoint.CENTER);
+            camera.Zoom = 1.5f;
+
+            sceneManager.GlobalDebugTexts.Entries.Clear();
+            sceneManager.GlobalDebugTexts.Entries.Add("SoraFrameIndex: ");
+            sceneManager.GlobalDebugTexts.Entries.Add("RikuFrameIndex: ");
 
             updateables.AddRange(new IUpdateable[]
             {
@@ -78,17 +84,24 @@ namespace EVCMonoGame.src.scenes
                 sceneManager.SceneTransition(EScene.DEBUG);
             }
 
+            if (InputManager.OnKeyPressed(Keys.L))
+            {
+                GameplayState.PlayerTwo.Sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/riku.anm.txt");
+                GameplayState.PlayerOne.Sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
+            }
+
+            sceneManager.GlobalDebugTexts.Entries[0] = "SoraFrameIndex: " + GameplayState.PlayerOne.Sprite.FrameIndex;
+            sceneManager.GlobalDebugTexts.Entries[1] = "RikuFrameIndex: " + GameplayState.PlayerTwo.Sprite.FrameIndex;
+
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-            tilemap.Draw(gameTime, spriteBatch);
-            // spriteBatch.Draw(background, sceneManager.GraphicsDevice.Viewport.Bounds, Color.White);
-            spriteBatch.DrawString(randomText, "This is random Text inside the DebugScreen.",
-                new Vector2(100, 100), Color.DarkRed);
 
+            tilemap.Draw(gameTime, spriteBatch);
+            
             spriteBatch.End();
 
             base.Draw(gameTime, spriteBatch);

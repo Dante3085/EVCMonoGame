@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using C3.MonoGame;
 
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.scenes;
@@ -99,11 +100,12 @@ namespace EVCMonoGame.src.characters
         {
             set
             {
-                worldPosition.X = (int)value.X;
-                worldPosition.Y = (int)value.Y;
-                collisionBox.X = (int)value.X;
-                collisionBox.Y = (int)value.Y;
+                worldPosition = value;
+
+                collisionBox.Location = value.ToPoint();
                 collisionBox.Location += collisionBoxOffset.ToPoint();
+
+                sprite.Position = value;
             }
 
             get
@@ -154,12 +156,13 @@ namespace EVCMonoGame.src.characters
             this.intelligence = intelligence;
             this.agility = agility;
             this.movementSpeed = movementSpeed;
-            WorldPosition = position;
 
             healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 10));
 			sprite = new AnimatedSprite(position, 5.0f);
 
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
+
+            WorldPosition = position;
         }
 
         public virtual void Update(GameTime gameTime)
