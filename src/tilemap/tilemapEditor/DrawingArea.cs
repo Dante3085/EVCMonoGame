@@ -415,10 +415,17 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             // Select all Tiles with STRG+A
             if (InputManager.OnKeyCombinationPressed(Keys.LeftControl, Keys.A))
             {
-                selection.Clear();
-                selection.AddRange(tiles);
-
-                CalcSelectionMinimalBoundingBox();
+                if (selection.Count == tiles.Count)
+                {
+                    selection.Clear();
+                    minimalBoundingBox = Rectangle.Empty;
+                }
+                else
+                {
+                    selection.Clear();
+                    selection.AddRange(tiles);
+                    CalcSelectionMinimalBoundingBox();
+                }
             }
 
             // One Tile selected.
@@ -818,7 +825,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
             scalingSelection = false;
 
-            if (InputManager.IsKeyPressed(Keys.LeftAlt))
+            if (InputManager.OnKeyPressed(Keys.LeftAlt))
             {
                 scalingSelection = true;
                 if (gridActivated)
