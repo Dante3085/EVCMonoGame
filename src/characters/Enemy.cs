@@ -22,15 +22,14 @@ namespace EVCMonoGame.src.characters
 {
     public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
     {
-		#region Field
-        
-		private Player target;
-		private int agentMindestBreite;
-		Vector2 movementDirection;
+		#region Fields
+		protected Player target;
+		protected int agentMindestBreite;
+		protected Vector2 movementDirection;
 
-		List<Point> waypoints;
-		private Vector2 lastWaypoint;
-		private Vector2 nextWaypoint;
+		protected List<Point> waypoints;
+		protected Vector2 lastWaypoint;
+		protected Vector2 nextWaypoint;
 
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
@@ -112,6 +111,9 @@ namespace EVCMonoGame.src.characters
 						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
 					}
 			}
+
+			if (DebugOptions.ShowAttackRange)
+				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), attackRange, 20, Color.Red);
 		}
 
 		public override void LoadContent(ContentManager content)
@@ -165,6 +167,9 @@ namespace EVCMonoGame.src.characters
 				target = players.ElementAt(0);
 				//MoveToCharacter(gameTime, target);
 			}
+			else
+				target = null;
+
 		}
 		#endregion
 

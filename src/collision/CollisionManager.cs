@@ -99,6 +99,7 @@ namespace EVCMonoGame.src.collision
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
         {
             CollisionManager.allCollisionsChannel.Remove(c);
+			collisionChannel.Remove(c);
         }
 
         public static void CleanCollisonManager()
@@ -106,11 +107,13 @@ namespace EVCMonoGame.src.collision
             allCollisionsChannel.Clear();
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();
+			playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
             playerCollisionChannel.Clear();
 
-            navGrid = null;
-        }
+			navGrid = null;
+			raycasts = null;
+		}
 
         public static bool IsObstacleCollision(Collidable g1)
         {
@@ -261,7 +264,7 @@ namespace EVCMonoGame.src.collision
             return intersectingCollidables;
         }
 
-        public static List<Collidable> GetAllCollidablesByPosition(Rectangle area, 
+        public static List<Collidable> GetAllCollidablesInArea(Rectangle area, 
                                                                   List<Collidable> collisionChannel)
         {
             
@@ -277,7 +280,7 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> GetAllCollidablesByPosition(Vector2 WorldPosition, Vector2 size, 
                                                                   List<Collidable> collisionChannel)
         {
-            return GetAllCollidablesByPosition(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
+            return GetAllCollidablesInArea(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
                                                collisionChannel);
         }
 
