@@ -64,8 +64,6 @@ namespace EVCMonoGame.src.characters
             sprite.spritesheet = PlayerSpriteSheets.RedGlow;
         }
 */
-        #endregion
-        #region Updateable
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
