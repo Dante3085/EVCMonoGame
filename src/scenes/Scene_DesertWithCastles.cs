@@ -29,6 +29,7 @@ namespace EVCMonoGame.src.scenes
 		
         private Tilemap tilemap;
 
+
         public Scene_DesertWithCastles(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -65,8 +66,6 @@ namespace EVCMonoGame.src.scenes
             });
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
-
-            camera.SetCameraToFocusObject(GameplayState.PlayerOne.Sprite, Screenpoint.CENTER);
             camera.Zoom = 0.55f;
         }
 
@@ -85,6 +84,8 @@ namespace EVCMonoGame.src.scenes
         public override void Update(GameTime gameTime)
         {
             sceneManager.GlobalDebugTexts.Entries[0] = "DefenderAnimFrame: " + defender.Sprite.FrameIndex;
+
+            
 
             if (InputManager.OnKeyPressed(Keys.H))
             {

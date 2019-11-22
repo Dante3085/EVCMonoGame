@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.scenes
 		protected bool pauseScene;
 
         protected bool drawCollisionInfo = false;
-
+        private ITranslatablePosition cameraFocus;
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)
@@ -32,14 +32,18 @@ namespace EVCMonoGame.src.scenes
             this.sceneManager = sceneManager;
             updateables = new List<IUpdateable>();
             drawables = new List<IDrawable>();
-            this.camera = new Camera(sceneManager, new ITranslatablePosition(0, 0), Screenpoint.UP_LEFT_EDGE);
 
+            cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
+                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
+            this.camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
         }
         #endregion
         #region Methods
         public virtual void Update(GameTime gameTime)
         {
-			if (!pauseScene)
+            cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
+                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+            if (!pauseScene)
 			{
 				foreach (IUpdateable u in updateables)
 				{

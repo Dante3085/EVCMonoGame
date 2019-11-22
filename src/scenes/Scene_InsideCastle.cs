@@ -41,7 +41,6 @@ namespace EVCMonoGame.src.scenes
 
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_InsideCastle.tm.txt");
             
-            camera.SetCameraToFocusObject(GameplayState.PlayerTwo.Sprite, Screenpoint.CENTER);
             camera.Zoom = 1.5f;
 
             sceneManager.GlobalDebugTexts.Entries.Clear();
