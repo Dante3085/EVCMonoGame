@@ -1,6 +1,16 @@
 SPRITESHEET = rsrc/spritesheets/khcom_riku_transparent
 
 [ANIMATION]
+NAME          = DEAD
+FRAMES        = (45, 1646, 52, 36)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
 NAME          = IDLE_UP
 FRAMES        = (235, 511, 29, 52)
 HURT_BOUNDS   = SAME_AS_FRAME
@@ -155,7 +165,7 @@ NAME          = RUN_LEFT
 FRAMES        = (22, 1419, 39, 43), (66, 1417, 47, 45), (121, 1416, 58, 45), (254, 1413, 39, 47), (311, 1413, 42, 47), (363, 1418, 54, 41)
 HURT_BOUNDS   = SAME_AS_FRAME
 ATTACK_BOUNDS = NONE
-FRAME_DELAYS  = 90@all
+FRAME_DELAYS  = 120@all
 FRAME_OFFSETS = (-20, 0), (-40, 0), (-50, 0), (-40, 0), (-30, 0), (-40, 5)
 IS_MIRRORED   = false
 IS_LOOPED     = true
@@ -165,7 +175,7 @@ NAME          = RUN_RIGHT
 FRAMES        = (22, 1419, 39, 43), (66, 1417, 47, 45), (121, 1416, 58, 45), (254, 1413, 39, 47), (311, 1413, 42, 47), (363, 1418, 54, 41)
 HURT_BOUNDS   = SAME_AS_FRAME
 ATTACK_BOUNDS = NONE
-FRAME_DELAYS  = 90@all
+FRAME_DELAYS  = 120@all
 FRAME_OFFSETS = (-20, -5), (-20, -5), (-50, -5), (-10, -5), (-30, -5), (-40, -5)
 IS_MIRRORED   = true
 IS_LOOPED     = true

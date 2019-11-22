@@ -39,7 +39,7 @@ namespace EVCMonoGame.src.scenes
             GameplayState.PlayerOne.WorldPosition = new Vector2(-150, 100);
             GameplayState.PlayerTwo.WorldPosition = new Vector2(100, 100);
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/Level_InsideCastle.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_InsideCastle.tm.txt");
             
             camera.SetCameraToFocusObject(GameplayState.PlayerTwo.Sprite, Screenpoint.CENTER);
             camera.Zoom = 1.5f;
@@ -81,7 +81,7 @@ namespace EVCMonoGame.src.scenes
         {
             if (InputManager.OnKeyPressed(Keys.Space))
             {
-                sceneManager.SceneTransition(EScene.DEBUG);
+                sceneManager.SceneTransition(EScene.SAND_CASTLES);
             }
 
             if (InputManager.OnKeyPressed(Keys.L))

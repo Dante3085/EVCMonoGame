@@ -18,8 +18,9 @@ namespace EVCMonoGame.src.scenes
     {
         MAIN_MENU,
         OPTIONS,
-        DEBUG,
-        DEBUG_2,
+        SAND_CASTLES,
+        INSIDE_CASTLE,
+        GAME_OVER,
     }
 
     public class SceneManager
@@ -41,6 +42,9 @@ namespace EVCMonoGame.src.scenes
         // Global Updateables/Drawables (They don't belong to a specific Scene)
         private SpriteFont globalFont;
         private DebugTexts debugTexts;
+
+        private StateManager stateManager;
+
         #endregion
         #region Properties
         // Alles was nicht an einzelnen Stellen(Methoden) übergeben werden kann,
@@ -68,9 +72,10 @@ namespace EVCMonoGame.src.scenes
 
         #endregion
         #region Constructors
-        public SceneManager(Game game)
+        public SceneManager(Game game, StateManager stateManager)
         {
             this.game = game;
+            this.stateManager = stateManager;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             nextScene = null;
@@ -82,9 +87,10 @@ namespace EVCMonoGame.src.scenes
             debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
-            scenes[EScene.DEBUG] = new Scene_DesertWithCastles(this);
-            scenes[EScene.DEBUG_2] = new Scene_InsideCastle(this);
-            currentScene = previousScene = scenes[EScene.DEBUG_2];
+            scenes[EScene.SAND_CASTLES] = new Scene_DesertWithCastles(this);
+            scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
+            scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
+            currentScene = previousScene = scenes[EScene.GAME_OVER];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);
@@ -224,6 +230,21 @@ namespace EVCMonoGame.src.scenes
         {
             game.Exit();
         }
+
+        public void GoToMainMenu()
+        {
+            CollisionManager.CleanCollisonManager();
+            LoadingState.Load(stateManager, false, null, new BackgroundState(),
+                                                           new MainMenuState());
+        }
+
+        public void StartNewGame()
+        {
+            CollisionManager.CleanCollisonManager();
+            LoadingState.Load(stateManager, false, null, new BackgroundState(),
+                                                           new GameplayState());
+        }
+
         #endregion
     }
 }

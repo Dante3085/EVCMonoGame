@@ -51,6 +51,11 @@ namespace EVCMonoGame.src.characters
             get; set;
         } = true;
 
+        public bool DrawHealthbar
+        {
+            get; set;
+        } = true;
+
         public Healthbar Healthbar
         {
             get { return healthbar; }
@@ -189,7 +194,11 @@ namespace EVCMonoGame.src.characters
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             sprite.Draw(gameTime, spriteBatch);
-            healthbar.Draw(gameTime, spriteBatch);
+
+            if (DrawHealthbar)
+            {
+                healthbar.Draw(gameTime, spriteBatch);
+            }
         }
 
 		public virtual void Attack(Character target)

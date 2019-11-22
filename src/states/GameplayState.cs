@@ -35,7 +35,7 @@ namespace EVCMonoGame.src.states
 
         private SceneManager sceneManager;
 
-		#region Propertie
+		#region Properties
 		public static PlayerOne PlayerOne
 		{
 			get { return playerOne; }
@@ -69,7 +69,7 @@ namespace EVCMonoGame.src.states
 
             // Aus irgendeinem Grund ist der StateManager im Konstruktor von Gameplaystate noch null.
             // Hier aber nicht mehr.
-            sceneManager = new SceneManager(StateManager.Game);
+            sceneManager = new SceneManager(StateManager.Game, StateManager);
             sceneManager.LoadContent();
 
             gameFont = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");

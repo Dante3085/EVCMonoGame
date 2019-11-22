@@ -48,7 +48,7 @@ namespace EVCMonoGame.src.scenes
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/Level_DesertWithCastles.tm.txt");
+            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
             {
@@ -105,14 +105,14 @@ namespace EVCMonoGame.src.scenes
 
             if (InputManager.OnKeyPressed(Keys.Space))
             {
-                sceneManager.SceneTransition(EScene.DEBUG_2);
+                sceneManager.SceneTransition(EScene.INSIDE_CASTLE);
             }
 
             if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
             {
                 if (CollisionManager.IsPlayerInArea(new Rectangle(1480, 1280, 365, 255)))
                 {
-                    sceneManager.SceneTransition(EScene.DEBUG_2);
+                    sceneManager.SceneTransition(EScene.INSIDE_CASTLE);
                 }
                 else if (CollisionManager.IsPlayerInArea(new Rectangle(7500, 3000, 400, 200)))
                 {

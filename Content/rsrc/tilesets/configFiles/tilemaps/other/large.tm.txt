@@ -1,0 +1,421 @@
+TILESET = rsrc/tilesets/overworld_tileset_grass
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-32, -273, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (82, -181, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (212, -96, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (319, -45, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (372, -148, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (403, -218, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (262, -248, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (974, -192, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1063, -71, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1230, 1, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1337, 52, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1390, -51, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1421, -121, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1280, -151, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1685, -339, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (2061, 371, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1929, -162, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (2036, -111, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (2089, -214, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (2120, -284, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1979, -314, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-487, 699, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-373, 791, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-243, 876, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-137, 927, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-84, 824, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-53, 754, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-193, 724, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (530, 796, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (644, 888, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (774, 973, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (881, 1024, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (934, 921, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (965, 851, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (824, 821, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1229, 633, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1343, 725, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1473, 810, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1580, 861, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1633, 758, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1664, 688, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1523, 658, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-946, -1518, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-832, -1426, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-702, -1341, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-595, -1290, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-542, -1393, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-511, -1463, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-652, -1493, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (71, -1421, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (185, -1329, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (315, -1244, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (422, -1193, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (475, -1296, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (506, -1366, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (365, -1396, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (770, -1584, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (884, -1492, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1014, -1407, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1121, -1356, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1174, -1459, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1205, -1529, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1064, -1559, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-1401, -546, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-1287, -454, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-1157, -369, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-1051, -318, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-998, -421, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-967, -491, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-1107, -521, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-384, -449, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-271, -357, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-141, -272, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-34, -221, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (19, -324, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (50, -394, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (-91, -424, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (314, -612, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (428, -520, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (558, -435, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (665, -384, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (718, -487, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (749, -557, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (608, -587, 100, 100)

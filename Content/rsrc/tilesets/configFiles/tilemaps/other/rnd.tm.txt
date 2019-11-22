@@ -1,0 +1,71 @@
+TILESET = rsrc/tilesets/overworld_tileset_grass
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (492, 747, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (804, 613, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (487, 417, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (537, 307, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (638, 236, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (761, 187, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1182, 154, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1190, 263, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1137, 374, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1121, 487, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1228, 581, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1461, 447, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1542, 347, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1610, 245, 100, 100)

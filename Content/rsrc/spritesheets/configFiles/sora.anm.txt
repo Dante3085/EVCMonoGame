@@ -2,6 +2,27 @@
 SPRITESHEET = rsrc/spritesheets/khcom_sora_transparent
 
 [ANIMATION]
+NAME          = DEAD_OLD
+FRAMES        = (533, 1636, 52, 22), (589, 1639, 55, 19), (648, 1636, 53, 22), (705, 1634, 54, 24)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = DEAD
+FRAMES        = (734, 621, 48, 37)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+
+[ANIMATION]
 NAME          = IDLE_DOWN
 FRAMES        = (2, 2, 28, 52)
 HURT_BOUNDS   = SAME_AS_FRAME

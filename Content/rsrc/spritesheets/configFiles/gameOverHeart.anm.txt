@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_gameOver_transparent
+
+[ANIMATION]
+NAME          = IDLE
+FRAMES        = (315, 91, 32, 36), (354, 90, 33, 36), (393, 89, 32, 35), (432, 88, 32, 35), (471, 88, 32, 34), (510, 88, 32, 35), (549, 89, 32, 35), (588, 90, 32, 36)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 140@all
+FRAME_OFFSETS = (0, 0), (0, -1), (-2, 0), (-1, 2), (0, 4), (0, 0), (0, -2), (0, -3)
+IS_MIRRORED   = false
+IS_LOOPED     = true

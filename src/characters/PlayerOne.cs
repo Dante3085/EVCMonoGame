@@ -47,6 +47,12 @@ namespace EVCMonoGame.src.characters
         {
             get; set;
         }
+
+        public bool BlockInput
+        {
+            get; set;
+        } = false;
+
         #endregion
 
         #region Constructors
@@ -136,8 +142,11 @@ namespace EVCMonoGame.src.characters
             }
             else
             {
-                UpdateMovement();
-                UpdateAttacks();
+                if (!BlockInput)
+                {
+                    UpdateMovement();
+                    UpdateAttacks();
+                }
             }
 
             playerPortrait.Update(gameTime);

@@ -125,6 +125,8 @@ namespace EVCMonoGame.src.scenes
 
         public void SetCameraToFocusObject(ITranslatable focusObject)
         {
+            followsFocusObject = true;
+
             this.focusObject = focusObject;
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
             switch (focusPoint)
@@ -229,7 +231,7 @@ namespace EVCMonoGame.src.scenes
                 if (!moveEaser.IsFinished)
                 {
                     moveEaser.Update(gameTime);
-                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue, 
+                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue,
                         new List<float>()
                         {
                             1

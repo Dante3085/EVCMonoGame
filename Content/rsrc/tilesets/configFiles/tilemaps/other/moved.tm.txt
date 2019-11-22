@@ -1,0 +1,166 @@
+TILESET = rsrc/tilesets/overworld_tileset_grass
+
+[TILE]
+NAME           = Woods_Top_Left
+TEXTURE_BOUNDS = (144, 64, 16, 16)
+SCREEN_BOUNDS  = (1202, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Top_Middle
+TEXTURE_BOUNDS = (160, 64, 16, 16)
+SCREEN_BOUNDS  = (1302, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1202, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1302, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Left
+TEXTURE_BOUNDS = (144, 96, 16, 16)
+SCREEN_BOUNDS  = (1202, 598, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Middle
+TEXTURE_BOUNDS = (160, 96, 16, 16)
+SCREEN_BOUNDS  = (1302, 598, 100, 100)
+
+[TILE]
+NAME           = Woods_Top_Right
+TEXTURE_BOUNDS = (176, 64, 16, 16)
+SCREEN_BOUNDS  = (1402, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Right
+TEXTURE_BOUNDS = (176, 80, 16, 16)
+SCREEN_BOUNDS  = (1402, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Right
+TEXTURE_BOUNDS = (176, 96, 16, 16)
+SCREEN_BOUNDS  = (1402, 598, 100, 100)
+
+[TILE]
+NAME           = Woods_Top_Left
+TEXTURE_BOUNDS = (144, 64, 16, 16)
+SCREEN_BOUNDS  = (1502, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Left
+TEXTURE_BOUNDS = (144, 80, 16, 16)
+SCREEN_BOUNDS  = (1502, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Left
+TEXTURE_BOUNDS = (144, 96, 16, 16)
+SCREEN_BOUNDS  = (1502, 598, 100, 100)
+
+[TILE]
+NAME           = Woods_Top_Middle
+TEXTURE_BOUNDS = (160, 64, 16, 16)
+SCREEN_BOUNDS  = (1602, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle
+TEXTURE_BOUNDS = (160, 80, 16, 16)
+SCREEN_BOUNDS  = (1602, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Middle
+TEXTURE_BOUNDS = (160, 96, 16, 16)
+SCREEN_BOUNDS  = (1602, 598, 100, 100)
+
+[TILE]
+NAME           = Woods_Top_Right
+TEXTURE_BOUNDS = (176, 64, 16, 16)
+SCREEN_BOUNDS  = (1702, 398, 100, 100)
+
+[TILE]
+NAME           = Woods_Middle_Right
+TEXTURE_BOUNDS = (176, 80, 16, 16)
+SCREEN_BOUNDS  = (1702, 498, 100, 100)
+
+[TILE]
+NAME           = Woods_Bottom_Right
+TEXTURE_BOUNDS = (176, 96, 16, 16)
+SCREEN_BOUNDS  = (1702, 598, 100, 100)
+
+[TILE]
+NAME           = Grass_0
+TEXTURE_BOUNDS = (0, 0, 16, 16)
+SCREEN_BOUNDS  = (1202, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_1
+TEXTURE_BOUNDS = (16, 0, 16, 16)
+SCREEN_BOUNDS  = (1302, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_1
+TEXTURE_BOUNDS = (16, 0, 16, 16)
+SCREEN_BOUNDS  = (1402, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_2
+TEXTURE_BOUNDS = (32, 0, 16, 16)
+SCREEN_BOUNDS  = (1502, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_2
+TEXTURE_BOUNDS = (32, 0, 16, 16)
+SCREEN_BOUNDS  = (1602, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_2
+TEXTURE_BOUNDS = (32, 0, 16, 16)
+SCREEN_BOUNDS  = (1702, 698, 100, 100)
+
+[TILE]
+NAME           = Grass_Flower_0
+TEXTURE_BOUNDS = (16, 48, 16, 16)
+SCREEN_BOUNDS  = (1202, 798, 100, 100)
+
+[TILE]
+NAME           = Grass_Flower_0
+TEXTURE_BOUNDS = (16, 48, 16, 16)
+SCREEN_BOUNDS  = (1502, 798, 100, 100)
+
+[TILE]
+NAME           = Grass_3
+TEXTURE_BOUNDS = (32, 0, 16, 16)
+SCREEN_BOUNDS  = (1402, 798, 100, 100)
+
+[TILE]
+NAME           = Grass_0
+TEXTURE_BOUNDS = (0, 0, 16, 16)
+SCREEN_BOUNDS  = (1302, 798, 100, 100)
+
+[TILE]
+NAME           = Grass_0
+TEXTURE_BOUNDS = (0, 0, 16, 16)
+SCREEN_BOUNDS  = (1702, 798, 100, 100)
+
+[TILE]
+NAME           = Grass_2
+TEXTURE_BOUNDS = (32, 0, 16, 16)
+SCREEN_BOUNDS  = (1602, 798, 100, 100)
+
+[TILE]
+NAME           = House_1
+TEXTURE_BOUNDS = (16, 256, 16, 16)
+SCREEN_BOUNDS  = (1350, 763, 100, 100)
+
+[TILE]
+NAME           = House_1
+TEXTURE_BOUNDS = (16, 256, 16, 16)
+SCREEN_BOUNDS  = (1543, 708, 100, 100)
+
+[TILE]
+NAME           = House_1
+TEXTURE_BOUNDS = (16, 256, 16, 16)
+SCREEN_BOUNDS  = (1455, 585, 100, 100)

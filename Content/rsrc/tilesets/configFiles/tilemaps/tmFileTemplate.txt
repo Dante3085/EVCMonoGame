@@ -1,6 +1,0 @@
-TILESET = path/to/tileset/in/pipeline/tool
-
-[TILE]
-NAME           = name_of_tile
-TEXTURE_BOUNDS = (x, y, width, height)
-SCREEN_BOUNDS  = (x, y, width, height)

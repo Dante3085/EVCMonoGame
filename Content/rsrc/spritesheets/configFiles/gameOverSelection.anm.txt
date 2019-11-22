@@ -1,0 +1,22 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_gameOver_transparent
+
+[ANIMATION]
+NAME          = CONTINUE
+FRAMES        = (312, 7, 136, 37)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = RETURN_TO_TITLE
+FRAMES        = (451, 7, 136, 37)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 500@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
