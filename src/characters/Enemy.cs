@@ -30,6 +30,8 @@ namespace EVCMonoGame.src.characters
 		protected List<Point> waypoints;
 		protected Vector2 lastWaypoint;
 		protected Vector2 nextWaypoint;
+		protected float forcePathfindTimer;
+		protected float currentForcePathfindTimer;
 
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
@@ -52,6 +54,8 @@ namespace EVCMonoGame.src.characters
             : base(maxHp, currentHp, position)
         {
             sprite = new AnimatedSprite(position, 5.0f);
+
+			forcePathfindTimer = 5000;
 
 			aggroRange = 600;
 			movementSpeed = 3f;
@@ -79,7 +83,7 @@ namespace EVCMonoGame.src.characters
 				if (waypoints != null)
 					foreach (Point waypoint in waypoints)
 					{
-						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
+						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X, waypoint.Y, agentMindestBreite, agentMindestBreite), Color.Black, 2);
 					}
 			}
 
@@ -113,7 +117,7 @@ namespace EVCMonoGame.src.characters
 				//Grid grid = new Grid(new Rectangle(CollisionBox.Center.X - 200, CollisionBox.Center.Y - 200, 400, 400), agentMindestBreite); //debug new implementation 
 
 				// Erzeuge Path
-				waypoints = pathfinder.Pathfind(new Point((int)CollisionBox.Center.X / agentMindestBreite, (int)CollisionBox.Center.Y / agentMindestBreite), new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X / agentMindestBreite, (int)GameplayState.PlayerOne.CollisionBox.Center.Y / agentMindestBreite));
+				waypoints = pathfinder.Pathfind(CollisionBox.Center, GameplayState.PlayerOne.CollisionBox.Center);
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
 				MoveToCharacter(gameTime, GameplayState.PlayerOne);
@@ -148,19 +152,21 @@ namespace EVCMonoGame.src.characters
 			PreviousWorldPosition = WorldPosition;
 
 
-			if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
+			if (currentForcePathfindTimer > 0.0f || CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
 			{
+				if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
+					currentForcePathfindTimer = forcePathfindTimer;
 
 
 				if (waypoints != null && waypoints.Count() > 1)
 				{
 					if (nextWaypoint == Vector2.Zero)
-						nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;
+						nextWaypoint = waypoints[0].ToVector2();
 
 
 
 					if (nextWaypoint == lastWaypoint)
-						nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
+						nextWaypoint = waypoints[1].ToVector2();
 
 					movementDirection = nextWaypoint - WorldPosition;
 					
@@ -172,6 +178,8 @@ namespace EVCMonoGame.src.characters
 						waypoints.RemoveAt(0);
 					}
 				}
+
+				currentForcePathfindTimer = currentForcePathfindTimer - gameTime.ElapsedGameTime.Milliseconds;
 			}
 			else
 			{
