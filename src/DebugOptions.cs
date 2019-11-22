@@ -23,6 +23,7 @@ namespace EVCMonoGame.src
 		public static bool showPathfinding = false;
 		public static bool showRaycasts = false;
         public static bool showFpsCounter = true;
+        public static bool showAttackRange = false;
 
         public static void Update()
         {
@@ -37,6 +38,7 @@ namespace EVCMonoGame.src
                 showNavgrid = !showNavgrid;
                 showPathfinding = !showPathfinding;
                 showRaycasts = !showRaycasts;
+                showAttackRange = !showAttackRange;
             }
         }
 	}

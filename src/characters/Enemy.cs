@@ -112,7 +112,7 @@ namespace EVCMonoGame.src.characters
 					}
 			}
 
-			if (DebugOptions.ShowAttackRange)
+			if (DebugOptions.showAttackRange)
 				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), attackRange, 20, Color.Red);
 		}
 

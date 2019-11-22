@@ -14,6 +14,7 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -67,6 +68,8 @@ namespace EVCMonoGame.src.scenes
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
             camera.Zoom = 0.55f;
+
+            Item item = new Consumable(new Rectangle(400, 2500, 100, 100));
         }
 
         public override void OnExitScene()

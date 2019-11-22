@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.Items;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.characters
 {
     public abstract class Player : Character, scenes.IDrawable
     {
+        private ItemFinder itemFinder;
+        private Inventory inventory;
+
+        public Inventory PlayerInventory
+        {
+            get { return inventory; }
+            set { inventory = value; }
+        }
 
         public Player
             (
@@ -41,9 +51,23 @@ namespace EVCMonoGame.src.characters
                   position: position
             )
         {
-
+            itemFinder = new ItemFinder(this);
+            inventory = new Inventory(this);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
 
+            itemFinder.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            base.Draw(gameTime, spriteBatch);
+
+            inventory.Draw(gameTime, spriteBatch);
+            itemFinder.Draw(gameTime, spriteBatch);
+        }
     }
 }
