@@ -104,8 +104,9 @@ namespace EVCMonoGame.src.characters
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-
+            PlayerSpriteSheets.Load(content);
             playerPortrait.LoadContent(content);
+            sprite.spritesheet = PlayerSpriteSheets.RedGlow;
         }
         #endregion
         #region Updateable

@@ -31,10 +31,10 @@ namespace EVCMonoGame.src.statemachine
 
         public virtual void Update(GameTime gameTime)
         {
-            if (currentState.transitions.Exists((a) => { return a.checkCondition(); }))// check if transition is necessery
+            if (currentState.transitions.Exists((a) => { return a.checkCondition(); }))// check if transition is necessary
             {
                 currentState.Exit(gameTime);
-                String idNextState = currentState.transitions.Find((a) => { return a.checkCondition(); }).nextStateId; //get next State
+                String idNextState = currentState.transitions.Find((a) => { return a.checkCondition(); }).nextStateId; //get id of next State
                 currentState = states.Find((a) => { return idNextState.Equals(a.stateId); });
                 currentState.Enter(gameTime);
             }

@@ -93,7 +93,7 @@ namespace EVCMonoGame.src.animation
         #region Fields
 
         private String spritesheetName;
-        private Texture2D spritesheet;
+        public Texture2D spritesheet;
         private Dictionary<String, Animation> animations;
         private String currentAnimation;
         private String previousAnimation;
