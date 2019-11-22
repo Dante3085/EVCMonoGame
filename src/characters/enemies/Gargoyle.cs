@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.characters.enemies
                   defense: 4,
                   intelligence: 1,
                   agility: 3,
-                  movementSpeed: 12,
+                  movementSpeed: 6,
                   position: position,
                   exp: 8
             )

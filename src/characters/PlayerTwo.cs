@@ -19,7 +19,7 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters
 {
-    public class PlayerTwo : Character, scenes.IDrawable
+    public class PlayerTwo : Player
     {
         #region Fields
 
@@ -60,11 +60,11 @@ namespace EVCMonoGame.src.characters
              : base
             (
                   name: "Riku",
-                  maxHp: 800,
+                  maxHp: 900,
                   currentHp: 800,
                   maxMp: 30,
                   currentMp: 30,
-                  strength: 5,
+                  strength: 3,
                   defense: 3,
                   intelligence: 5,
                   agility: 4,

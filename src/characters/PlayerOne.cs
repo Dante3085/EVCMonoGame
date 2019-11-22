@@ -19,7 +19,7 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters
 {
-    public class PlayerOne : Character, scenes.IDrawable
+    public class PlayerOne : Player
     {
         #region Fields
 

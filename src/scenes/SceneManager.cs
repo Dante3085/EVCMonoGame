@@ -90,7 +90,7 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.SAND_CASTLES] = new Scene_DesertWithCastles(this);
             scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
             scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
-            currentScene = previousScene = scenes[EScene.GAME_OVER];
+            currentScene = previousScene = scenes[EScene.SAND_CASTLES];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);

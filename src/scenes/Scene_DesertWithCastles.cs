@@ -38,11 +38,11 @@ namespace EVCMonoGame.src.scenes
         {
 			base.OnEnterScene();
 
-            GameplayState.PlayerOne.WorldPosition = new Vector2(3000, 1000);
+            GameplayState.PlayerOne.WorldPosition = new Vector2(600, 2000);
 
 			if (GameplayState.IsTwoPlayer)
 			{
-                GameplayState.PlayerTwo.WorldPosition = new Vector2(200, 500);
+                GameplayState.PlayerTwo.WorldPosition = new Vector2(600, 1500);
 			}
 
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");

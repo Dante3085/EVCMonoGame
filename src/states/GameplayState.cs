@@ -59,7 +59,6 @@ namespace EVCMonoGame.src.states
 			playerOne = new PlayerOne(new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 			playerTwo = new PlayerTwo(new Vector2(550, 800), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
 			isTwoPlayer = true;
-
 		}
 
 		public override void LoadContent()
