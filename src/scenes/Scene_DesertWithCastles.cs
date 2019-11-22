@@ -30,6 +30,7 @@ namespace EVCMonoGame.src.scenes
 		
         private Tilemap tilemap;
 
+        private Item[] items = new Item[30];
 
         public Scene_DesertWithCastles(SceneManager sceneManager)
             : base(sceneManager)
@@ -69,7 +70,10 @@ namespace EVCMonoGame.src.scenes
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
             camera.Zoom = 0.55f;
 
-            Item item = new Consumable(new Rectangle(400, 2500, 100, 100));
+            for (int i = 0; i < items.Length; ++i)
+            {
+                items[i] = new Consumable(new Rectangle(1000, 2500 + 100*i, 50, 50));
+            }
         }
 
         public override void OnExitScene()
