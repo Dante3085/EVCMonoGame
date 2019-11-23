@@ -336,6 +336,25 @@ namespace EVCMonoGame.src.collision
 			return playersInRange;
 		}
 
+		public static Player GetNearestPlayersInRange(Collidable collidable, float range)
+		{
+			Player nearestPlayer = null;
+
+			foreach (Player player in playerCollisionChannel)
+			{
+				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+												  player.CollisionBox.Center.ToVector2());
+
+				if (distance < range)
+					if (nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2()))
+					{
+						nearestPlayer = player;
+					}
+			}
+			return nearestPlayer;
+		}
+
+
 		//public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
 		//{
 		//    bool isCollision = false;
