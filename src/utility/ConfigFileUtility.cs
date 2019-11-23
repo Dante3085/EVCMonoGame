@@ -129,7 +129,7 @@ namespace EVCMonoGame.src.utility
                         // Process AttackBounds.
                         line = Utility.ReplaceWhitespace(file.ReadLine(), "");
                         line = line.Remove(0, 14); // Remove 'ATTACK_BOUNDS='
-                        attackBounds = ReadAttackBounds(line, frames.Count);
+                        attackBounds = ReadAttackBounds(line, frames);
 
                         if (attackBounds.Count != frames.Count)
                         {
@@ -277,14 +277,14 @@ namespace EVCMonoGame.src.utility
             return hurtBounds;
         }
 
-        private static Dictionary<int, Rectangle> ReadAttackBounds(String line, int numFrames)
+        private static Dictionary<int, Rectangle> ReadAttackBounds(String line, List<Rectangle> frames)
         {
             Dictionary<int, Rectangle> attackBounds = new Dictionary<int, Rectangle>();
 
             // No Attackbounds is interpreted as every frame having a basically non-existing AttackBound(no size and at orign).
             if (line == "NONE")
             {
-                for (int i = 0; i < numFrames; ++i)
+                for (int i = 0; i < frames.Count; ++i)
                 {
                     attackBounds.Add(i, new Rectangle(0, 0, 0, 0));
                 }
@@ -305,12 +305,26 @@ namespace EVCMonoGame.src.utility
             // Only one attackBound.
             else
             {
+                // Each frame gets hurtBound (0, 0, frame.width, frame.height).
+                if (line == "SAME_AS_FRAME")
+                {
+                    Rectangle attackBound;
+                    for (int i = 0; i < frames.Count; ++i)
+                    {
+                        attackBound = frames[i];
+                        attackBound.X = 0;
+                        attackBound.Y = 0;
+
+                        attackBounds.Add(i, attackBound);
+                    }
+                }
+
                 // One attackBound for all frames
-                if (line.EndsWith("@all"))
+                else if (line.EndsWith("@all"))
                 {
                     Rectangle attackBound = Utility.StringToRectangle(line.Substring(0, line.IndexOf("@all")));
 
-                    for (int i = 0; i < numFrames; ++i)
+                    for (int i = 0; i < frames.Count; ++i)
                     {
                         attackBounds.Add(i, attackBound);
                     }

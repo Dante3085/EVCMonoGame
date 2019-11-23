@@ -49,7 +49,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = FLINCH_RIGHT
@@ -59,7 +59,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = SHIELD_SPIN_LEFT
@@ -69,7 +69,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0), (-30, -35), (-15, -20), (-5, -25), (-15, -50), (-25, -75), (0, 40), (10, 45), (25, 65), (25, 40), (40, 55)
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = SHIELD_SPIN_RIGHT
@@ -79,7 +79,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0), (-40, -35), (-30, -20), (-25, -25), (-10, -50), (0, -75), (-5, 40), (-5, 45), (0, 65), (-10, 40), (-5, 55)
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = SHIELD_CHARGE_LEFT
@@ -89,7 +89,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0), (-265, 15), (-330, -20), (-300, 0), (-310, 6), (-315, 6), (-225, 0), (-100, -20), (-85, -15), (-65, 10)
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = SHIELD_CHARGE_RIGHT
@@ -99,4 +99,4 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 160@all
 FRAME_OFFSETS = (0, 0), (50, 10), (115, -20), (115, 0), (115, 5), (115, 5), (90, 0), (65, -10), (40, 0), (25, 0),
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
