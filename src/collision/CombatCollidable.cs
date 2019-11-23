@@ -19,7 +19,7 @@ namespace EVCMonoGame.src.collision
 
         bool IsAlive { get; }
 
-        CombatArgs CurrentCombatArgs { get; }
+        CombatArgs CombatArgs { get; }
 
         void OnCombatCollision(CombatArgs combatArgs);
     }

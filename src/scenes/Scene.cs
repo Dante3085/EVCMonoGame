@@ -41,8 +41,9 @@ namespace EVCMonoGame.src.scenes
         #region Methods
         public virtual void Update(GameTime gameTime)
         {
-            cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
-                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+            //cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
+            //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+
             if (!pauseScene)
 			{
 				foreach (IUpdateable u in updateables)
@@ -57,13 +58,14 @@ namespace EVCMonoGame.src.scenes
 		{
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
-            CollisionManager.Draw(gameTime, spriteBatch);
-
 			foreach (IDrawable d in drawables)
 			{
 				d.Draw(gameTime, spriteBatch);
 			}
-			spriteBatch.End();
+
+            CollisionManager.Draw(gameTime, spriteBatch);
+
+            spriteBatch.End();
         }
 
         public virtual void LoadContent(ContentManager contentManager)

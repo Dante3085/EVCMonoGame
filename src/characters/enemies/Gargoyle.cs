@@ -46,9 +46,6 @@ namespace EVCMonoGame.src.characters.enemies
         {
             base.Draw(gameTime, spriteBatch);
 
-            Color color = Color.DarkRed;
-            color.A = 50;
-            Primitives2D.FillRectangle(spriteBatch, sprite.CurrentAttackBounds, color);
         }
 
         public override void LoadContent(ContentManager content)

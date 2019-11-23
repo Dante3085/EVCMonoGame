@@ -97,6 +97,9 @@ namespace EVCMonoGame.src.scenes
 
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+
+            CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
+            CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
         }
         #endregion
         #region Methods

@@ -7,23 +7,19 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.collision
 {
-    public struct CombatArgs
+    public class CombatArgs
     {
-        // Who Attacker and Victim of the CombatCollision was is always provided.
         public CombatCollidable attacker;
         public CombatCollidable victim;
 
-        // Various attributes of a CombatCollision.
-        public int damage;
-        public Vector2 knockBack;
+        public int damage        = 0;
+        public Vector2 knockBack = Vector2.Zero;
+        public bool causesFlinch = false;
 
-        public CombatArgs(CombatCollidable attacker, CombatCollidable victim, Vector2 knockBack, int damage = 0)
+        public CombatArgs(CombatCollidable attacker, CombatCollidable victim)
         {
             this.attacker = attacker;
             this.victim = victim;
-
-            this.knockBack = knockBack;
-            this.damage = damage;
         }
     }
 }

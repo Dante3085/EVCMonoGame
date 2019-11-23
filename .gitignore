@@ -12,7 +12,7 @@ app.manifest
 Icon.ico
 
 #ignore Content/Assets except associated configFiles.
-#Content/**/*.mgcb
+Content/**/*.mgcb
 Content/**/*.png
 Content/**/*.gif
 Content/**/*.mp3

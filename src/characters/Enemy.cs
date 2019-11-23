@@ -90,7 +90,9 @@ namespace EVCMonoGame.src.characters
 			aggroRange = 600;
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
+
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
+            // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
 		}
 
 		#endregion
@@ -231,10 +233,12 @@ namespace EVCMonoGame.src.characters
 				List<Player> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
 				if (players.Count > 0)
 				{
-					//target = getNearestPlayer()
-					// Attack target and set Cooldown
-					if (!isAttackOnCooldown)
-						Attack(players.ElementAt(0));
+                    //target = getNearestPlayer()
+                    // Attack target and set Cooldown
+                    if (!isAttackOnCooldown)
+                    {
+                        // TODO: Attacken. Weiß nicht, ob die hier hinmüssen.
+                    }
 					//else
 					//	Console.WriteLine("Attack on Cooldown!");
 				}
@@ -249,16 +253,5 @@ namespace EVCMonoGame.src.characters
 			OnMove();
 
 		}
-
-		public override void Attack(Character target)
-		{
-
-			Console.WriteLine("Attack!");
-
-			isAttackOnCooldown = true;
-			cooldownOnAttack = attackSpeed;
-			target.OnDamage(attackDmg);
-		}
-
 	}
 }

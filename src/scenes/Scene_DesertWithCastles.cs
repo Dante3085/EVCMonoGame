@@ -68,7 +68,7 @@ namespace EVCMonoGame.src.scenes
             });
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
-            camera.Zoom = 0.55f;
+            camera.Zoom = .75f;
 
             for (int i = 0; i < items.Length; ++i)
             {
@@ -130,6 +130,11 @@ namespace EVCMonoGame.src.scenes
                 {
                     GameplayState.PlayerOne.WorldPosition = new Vector2(7630, 3030);
                 }
+            }
+
+            if (InputManager.OnKeyPressed(Keys.C))
+            {
+                camera.MoveCamera(new Vector2(300, 300), new Vector2(800, 800), 2000);
             }
 			
             base.Update(gameTime);

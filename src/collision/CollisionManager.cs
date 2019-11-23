@@ -29,6 +29,7 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
         public static List<Collidable> itemCollisionChannel = new List<Collidable>();
 		public static List<Collidable> playerCollisionChannel = new List<Collidable>();
+        public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
 		private static byte[,] navGrid;
 		private static int debugGridCellSize;
@@ -45,6 +46,28 @@ namespace EVCMonoGame.src.collision
 					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
 				}
 			}
+
+            if (DebugOptions.showAttackBounds)
+            {
+                Color attackBoundColor = Color.DarkRed;
+                attackBoundColor.A = 50;
+
+                foreach (CombatCollidable c in combatCollisionChannel)
+                {
+                    Primitives2D.FillRectangle(spriteBatch, c.AttackBounds, attackBoundColor);
+                }
+            }
+
+            if (DebugOptions.showHurtBounds)
+            {
+                Color hurtBoundColor = Color.Green;
+                hurtBoundColor.A = 50;
+
+                foreach (CombatCollidable c in combatCollisionChannel)
+                {
+                    Primitives2D.FillRectangle(spriteBatch, c.HurtBounds, hurtBoundColor);
+                }
+            }
 
             if (raycasts != null && DebugOptions.showRaycasts)
             {
@@ -96,6 +119,14 @@ namespace EVCMonoGame.src.collision
                 collisionChannel.Add((Collidable)collidable);
         }
 
+        public static void AddCombatCollidable(CombatCollidable combatCollidable)
+        {
+            if (!combatCollisionChannel.Contains(combatCollidable))
+            {
+                combatCollisionChannel.Add(combatCollidable);
+            }
+        }
+
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
         {
             CollisionManager.allCollisionsChannel.Remove(c);
@@ -110,10 +141,33 @@ namespace EVCMonoGame.src.collision
 			playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
             playerCollisionChannel.Clear();
+            combatCollisionChannel.Clear();
 
 			navGrid = null;
 			raycasts = null;
 		}
+
+        public static void CheckCombatCollisions(CombatCollidable g1)
+        {
+            if (!g1.HasActiveAttackBounds)
+                return;
+
+            foreach (CombatCollidable g2 in combatCollisionChannel)
+            {
+                if (g1 == g2 || !g2.HasActiveHurtBounds)
+                    continue;
+
+                if (g1.AttackBounds.Intersects(g2.HurtBounds))
+                {
+                    CombatArgs combatArgs = g1.CombatArgs;
+                    combatArgs.attacker = g1;
+                    combatArgs.victim = g2;
+
+                    g1.OnCombatCollision(combatArgs);
+                    g2.OnCombatCollision(combatArgs);
+                }
+            }
+        }
 
         public static bool IsObstacleCollision(Collidable g1)
         {
@@ -615,6 +669,4 @@ namespace EVCMonoGame.src.collision
 		}
 
 	} // End of Class
-
-
 }
