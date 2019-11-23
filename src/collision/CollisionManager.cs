@@ -471,23 +471,43 @@ namespace EVCMonoGame.src.collision
 				{
 					Point startPos = new Point((int)(gc.WorldPosition.X / agentMindestBreite), (int)(gc.WorldPosition.Y / agentMindestBreite)); // if in bounce fehlt
 
-					int displacement = 0;
-
-					float collisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
+					// X Achse Displacement
+					int xDisplacement = 0;
+					
+					float xCollisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
 					float collisionGridWidth = agentMindestBreite;
 
 					if (gc.CollisionBox.Width % agentMindestBreite > 0)
 						collisionGridWidth = (gc.CollisionBox.Width / agentMindestBreite) * agentMindestBreite;
 
-					if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
-					{
-						displacement = 1;
-					}
-					//todo für Y
+					else if(xCollisionPositionOffset + gc.CollisionBox.Width > agentMindestBreite)
+						xDisplacement = 1;
 
-					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + displacement; i++)
+					if (xCollisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
 					{
-						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite); j++)
+						xDisplacement = 1;
+					}
+
+					// Y Achse Displacement
+					int yDisplacement = 0;
+
+					float yCollisionPositionOffset = gc.WorldPosition.Y - agentMindestBreite * startPos.Y;
+					float collisionGridHeight = agentMindestBreite;
+
+					if (gc.CollisionBox.Height % agentMindestBreite > 0)
+						collisionGridHeight = (gc.CollisionBox.Height / agentMindestBreite) * agentMindestBreite;
+
+					else if (yCollisionPositionOffset + gc.CollisionBox.Height > agentMindestBreite)
+						yDisplacement = 1;
+
+					if (yCollisionPositionOffset + gc.CollisionBox.Height - collisionGridHeight > agentMindestBreite)
+					{
+						yDisplacement = 1;
+					}
+
+					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + xDisplacement; i++)
+					{
+						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite) + yDisplacement; j++)
 						{
 							navGrid[startPos.X + i, startPos.Y + j] = 1;
 						}
