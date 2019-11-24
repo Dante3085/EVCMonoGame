@@ -255,6 +255,14 @@ namespace EVCMonoGame.src.characters
 
                 movementVector = directionVector * 
                                  (movementSpeed  * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
+
+                // Ignore LeftStickInput Axis Value if it is below 1
+                if (Math.Abs(movementVector.X) < 0.7f)
+                    movementVector.X = 0;
+                if (Math.Abs(movementVector.Y) < 0.7f)
+                    movementVector.Y = 0;
+
+                Console.WriteLine(movementVector);
             }
 
             WorldPosition += movementVector;

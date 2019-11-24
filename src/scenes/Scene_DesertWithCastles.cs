@@ -51,6 +51,8 @@ namespace EVCMonoGame.src.scenes
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
+
+            // Kollisiondaten explizit an CollisionManager geben. Wird nicht einfach in Tilemap gemacht.
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt");
 
             updateables.AddRange(new IUpdateable[]

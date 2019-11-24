@@ -15,7 +15,7 @@ namespace EVCMonoGame.src
 		// Menu
 		public static bool skipMenu             = false;
 		public static bool exitGameOnEscapeKey  = false;
-		public static bool startWithLevelEditor = true;
+		public static bool startWithLevelEditor = false;
 
 		// Draw
 		public static bool showCollision       = false;

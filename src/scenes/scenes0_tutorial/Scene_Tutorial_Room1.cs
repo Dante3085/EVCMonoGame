@@ -64,6 +64,9 @@ namespace EVCMonoGame.src.scenes.tutorial
                 shadow,
                 lever,
             });
+
+            CollisionManager.AddCollidables(
+                CollisionManager.obstacleCollisionChannel, collidables: tilemap.CollisionBoxes.ToArray());
         }
 
         public override void Update(GameTime gameTime)

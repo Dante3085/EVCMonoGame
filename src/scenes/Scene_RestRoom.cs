@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.scenes
 {
+    // TODO: Tilemap vor Enemy initialisieren.
+
     public class Scene_RestRoom : Scene
     {
         private Tilemap tilemap;
@@ -20,6 +23,7 @@ namespace EVCMonoGame.src.scenes
         public Scene_RestRoom(SceneManager sceneManager)
             : base(sceneManager)
         {
+            
         }
 
         public override void OnEnterScene()
@@ -34,6 +38,9 @@ namespace EVCMonoGame.src.scenes
             playerOne.WorldPosition = new Vector2(1150, 3350);
 
             playerTwo.WorldPosition = new Vector2(1400, 3350);
+
+            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel,
+                collidables: tilemap.CollisionBoxes.ToArray());
         }
 
         public override void LoadContent(ContentManager contentManager)

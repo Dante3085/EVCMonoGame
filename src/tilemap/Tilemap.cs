@@ -24,6 +24,11 @@ namespace EVCMonoGame.src.tilemap
         private Vector2 position;
         List<GeometryBox> collisionBoxes = new List<GeometryBox>();
 
+        public List<GeometryBox> CollisionBoxes
+        {
+            get { return collisionBoxes; }
+        }
+
         public Tilemap(Vector2 position, String tilemapFile)
         {
             this.position = position;
@@ -105,8 +110,6 @@ namespace EVCMonoGame.src.tilemap
             this.tiles = tiles;
             this.collisionBoxes = collisionBoxes;
             this.tileSetPath = tileSetPath;
-
-            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel, collidables: collisionBoxes.ToArray());
 
             reader.Close();
         }
