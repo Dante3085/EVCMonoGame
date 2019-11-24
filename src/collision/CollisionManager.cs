@@ -102,11 +102,14 @@ namespace EVCMonoGame.src.collision
                                           params Collidable[] collidables)
         {
             foreach (Collidable c in collidables)
-            {
-                CollisionManager.allCollisionsChannel.Add(c);
-                channel.Add(c);
+			{
+				if (!channel.Contains(c))
+					channel.Add(c);
 
-                if (c is Player && !playerCollisionChannel.Contains(c))
+				if (!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(c))
+					CollisionManager.allCollisionsChannel.Add(c);
+
+				if (c is Player && !playerCollisionChannel.Contains(c))
                     playerCollisionChannel.Add((Collidable)c);
             }
         }

@@ -22,9 +22,9 @@ namespace EVCMonoGame.src.scenes.tutorial
     {
         private Tilemap tilemap;
 
-        private Shadow shadow = new Shadow(new Vector2(4000, 1300));
+        private Shadow shadow;
 
-        private Lever lever = new Lever(new Vector2(3000, 1300));
+        private Lever lever;
 
         public Scene_Tutorial_Room1(SceneManager sceneManager)
             : base(sceneManager)
@@ -35,8 +35,13 @@ namespace EVCMonoGame.src.scenes.tutorial
         {
             base.OnEnterScene();
 
+
 			tilemap = new Tilemap(Vector2.Zero,
 				"Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt");
+
+			shadow = new Shadow(new Vector2(4000, 1300));
+			lever = new Lever(new Vector2(3000, 1300));
+
 			PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
 
