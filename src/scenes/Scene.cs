@@ -15,6 +15,8 @@ using EVCMonoGame.src.tilemap;
 
 namespace EVCMonoGame.src.scenes
 {
+    // TODO: Tilemap vor Enemy initialisieren.
+
     public abstract class Scene
     {
         #region Fields
@@ -45,6 +47,11 @@ namespace EVCMonoGame.src.scenes
         {
             cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
                 (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+
+            if (!GameplayState.PlayerOne.IsAlive && !GameplayState.PlayerTwo.IsAlive)
+            {
+                sceneManager.SceneTransition(EScene.GAME_OVER);
+            }
 
             if (!pauseScene)
 			{
