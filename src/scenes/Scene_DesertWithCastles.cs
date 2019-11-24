@@ -118,15 +118,15 @@ namespace EVCMonoGame.src.scenes
 
             if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
             {
-                if (CollisionManager.IsPlayerInArea(new Rectangle(1480, 1280, 365, 255)))
+                if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(1480, 1280, 365, 255)))
                 {
                     sceneManager.SceneTransition(EScene.INSIDE_CASTLE);
                 }
-                else if (CollisionManager.IsPlayerInArea(new Rectangle(7500, 3000, 400, 200)))
+                else if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(7500, 3000, 400, 200)))
                 {
                     GameplayState.PlayerOne.WorldPosition = new Vector2(7700, 2200);
                 }
-                else if (CollisionManager.IsPlayerInArea(new Rectangle(7640, 2220, 200, 180)))
+                else if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(7640, 2220, 200, 180)))
                 {
                     GameplayState.PlayerOne.WorldPosition = new Vector2(7630, 3030);
                 }

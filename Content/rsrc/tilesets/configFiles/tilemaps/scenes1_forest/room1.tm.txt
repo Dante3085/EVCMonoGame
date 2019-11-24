@@ -1,0 +1,56 @@
+TILESET = rsrc/tilesets/FF6MapTileHills,Rivers,Beach
+
+[TILE]
+NAME           = auto_tile_5
+TEXTURE_BOUNDS = (80, 0, 16, 16)
+SCREEN_BOUNDS  = (576, 320, 128, 128)
+
+[TILE]
+NAME           = auto_tile_6
+TEXTURE_BOUNDS = (96, 0, 16, 16)
+SCREEN_BOUNDS  = (704, 320, 128, 128)
+
+[TILE]
+NAME           = auto_tile_7
+TEXTURE_BOUNDS = (112, 0, 16, 16)
+SCREEN_BOUNDS  = (832, 320, 128, 128)
+
+[TILE]
+NAME           = auto_tile_8
+TEXTURE_BOUNDS = (128, 0, 16, 16)
+SCREEN_BOUNDS  = (960, 320, 128, 128)
+
+[TILE]
+NAME           = auto_tile_9
+TEXTURE_BOUNDS = (144, 0, 16, 16)
+SCREEN_BOUNDS  = (574, 633, 128, 128)
+
+[TILE]
+NAME           = auto_tile_10
+TEXTURE_BOUNDS = (160, 0, 16, 16)
+SCREEN_BOUNDS  = (942, 683, 128, 128)
+
+[TILE]
+NAME           = auto_tile_11
+TEXTURE_BOUNDS = (176, 0, 16, 16)
+SCREEN_BOUNDS  = (790, 661, 128, 128)
+
+[TILE]
+NAME           = auto_tile_12
+TEXTURE_BOUNDS = (192, 0, 16, 16)
+SCREEN_BOUNDS  = (1222, 613, 128, 128)
+
+[TILE]
+NAME           = auto_tile_44
+TEXTURE_BOUNDS = (192, 16, 16, 16)
+SCREEN_BOUNDS  = (1280, 384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 16, 16, 16)
+SCREEN_BOUNDS  = (1423, 566, 128, 128)
+
+[TILE]
+NAME           = auto_tile_44
+TEXTURE_BOUNDS = (192, 16, 16, 16)
+SCREEN_BOUNDS  = (1487, 284, 128, 128)

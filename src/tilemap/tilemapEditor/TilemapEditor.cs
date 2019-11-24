@@ -283,7 +283,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             fontSize = font.MeasureString(infoText);
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
-            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/tileSelections/ff6Tiles_InsideCastle.ts.txt", content);
+            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/tileSelections/scenes0_tutorial/brightForest.ts.txt", content);
 
             tileSelection.LoadContent(content);
             drawingArea.LoadContent(content);

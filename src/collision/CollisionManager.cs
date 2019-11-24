@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using C3.MonoGame;
 
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.input;
-using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.collision
 {
@@ -42,7 +43,7 @@ namespace EVCMonoGame.src.collision
 			{
 				foreach (Collidable c in allCollisionsChannel)
 				{
-					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 2);
+					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 5);
 					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
 				}
 			}
@@ -338,16 +339,25 @@ namespace EVCMonoGame.src.collision
                                                collisionChannel);
         }
 
-        public static bool IsPlayerInArea(Rectangle bounds)
+        public static bool IsPlayerInArea(PlayerIndex playerIndex, Rectangle bounds)
         {
-            foreach (Player player in playerCollisionChannel)
+            //foreach (Player player in playerCollisionChannel)
+            //{
+            //    if (bounds.Intersects(player.CollisionBox))
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
+
+            if (playerIndex == PlayerIndex.One)
             {
-                if (bounds.Intersects(player.CollisionBox))
-                {
-                    return true;
-                }
+                return bounds.Intersects(GameplayState.PlayerOne.CollisionBox);
             }
-            return false;
+            else
+            {
+                return bounds.Intersects(GameplayState.PlayerTwo.CollisionBox);
+            }
         }
 
         public static bool IsPlayerInRange(Collidable collidable, float range)

@@ -27,6 +27,7 @@ namespace EVCMonoGame.src.scenes
         public Scene_GameOver(SceneManager sceneManager)
             : base(sceneManager)
         {
+
         }
 
         public override void OnEnterScene()
@@ -134,18 +135,6 @@ namespace EVCMonoGame.src.scenes
             {
                 heartSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gameOverHeart.anm.txt");
             }
-        }
-
-        public override void LoadContent(ContentManager contentManager)
-        {
-            base.LoadContent(contentManager);
-
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            base.Draw(gameTime, spriteBatch);
-
         }
     }
 }

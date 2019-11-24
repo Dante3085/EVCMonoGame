@@ -228,14 +228,20 @@ namespace EVCMonoGame.src.scenes
             }
             else
             {
+                //if (!moveEaser.IsFinished)
+                //{
+                //    moveEaser.Update(gameTime);
+                //    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue,
+                //        new List<float>()
+                //        {
+                //            1
+                //        }), Screenpoint.CENTER);
+                //}
+
                 if (!moveEaser.IsFinished)
                 {
                     moveEaser.Update(gameTime);
-                    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue,
-                        new List<float>()
-                        {
-                            1
-                        }), Screenpoint.CENTER);
+                    SetCameraToPosition(moveEaser.CurrentValue);
                 }
             }
 

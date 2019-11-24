@@ -224,8 +224,8 @@ namespace EVCMonoGame.src.characters
 
 				if (target != null)
 				{
-					if (!isAttackOnCooldown)
-						Attack(target);
+					//if (!isAttackOnCooldown)
+					//	Attack(target);
 				}
 
 			}
