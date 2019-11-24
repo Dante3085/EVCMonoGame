@@ -29,15 +29,15 @@ namespace EVCMonoGame.src.scenes.tutorial
         public Scene_Tutorial_Room1(SceneManager sceneManager)
             : base(sceneManager)
         {
-            tilemap = new Tilemap(Vector2.Zero, 
-                "Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt");
         }
 
         public override void OnEnterScene()
         {
             base.OnEnterScene();
 
-            PlayerOne playerOne = GameplayState.PlayerOne;
+			tilemap = new Tilemap(Vector2.Zero,
+				"Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt");
+			PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
 
             playerOne.WorldPosition = new Vector2(2300, 1300);

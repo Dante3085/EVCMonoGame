@@ -140,7 +140,7 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
-			target = CollisionManager.GetNearestPlayersInRange(this, aggroRange);
+			target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
 			if (target != null)

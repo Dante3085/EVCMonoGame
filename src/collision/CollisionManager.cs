@@ -403,7 +403,7 @@ namespace EVCMonoGame.src.collision
 			return playersInRange;
 		}
 
-		public static Player GetNearestPlayersInRange(Collidable collidable, float range)
+		public static Player GetNearestPlayerInRange(Collidable collidable, float range)
 		{
 			Player nearestPlayer = null;
 
