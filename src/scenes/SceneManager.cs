@@ -97,10 +97,12 @@ namespace EVCMonoGame.src.scenes
 
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
-
-            CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
-            CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
-        }
+			if (GameplayState.IsTwoPlayer)
+			{
+				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
+				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
+			}
+		}
         #endregion
         #region Methods
         public void LoadContent()
@@ -207,6 +209,11 @@ namespace EVCMonoGame.src.scenes
 					//CollisionManager.AddCollidables(GameplayState.PlayerFour);
 					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+					if (GameplayState.IsTwoPlayer)
+					{
+						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
+						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
+					}
 
 				}
             }

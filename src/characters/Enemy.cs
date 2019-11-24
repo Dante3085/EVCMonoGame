@@ -140,29 +140,21 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
+			target = CollisionManager.GetNearestPlayersInRange(this, aggroRange);
+
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
-			if (CollisionManager.IsPlayerInRange(this, aggroRange))
+			if (target != null)
 			{
 				// Erzeuge Level Grid
 				Pathfinder pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
 				//Grid grid = new Grid(new Rectangle(CollisionBox.Center.X - 200, CollisionBox.Center.Y - 200, 400, 400), agentMindestBreite); //debug new implementation 
 
 				// Erzeuge Path
-				waypoints = pathfinder.Pathfind(CollisionBox.Center, GameplayState.PlayerOne.CollisionBox.Center);
+				waypoints = pathfinder.Pathfind(CollisionBox.Center, target.CollisionBox.Center);
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
-				MoveToCharacter(gameTime, GameplayState.PlayerOne);
+				MoveToCharacter(gameTime, target);
 			}
-
-			List<Player> players = CollisionManager.GetAllPlayersInRange(this, aggroRange);
-			if (players.Count > 0)
-			{
-				//target = getNearestPlayer()
-				target = players.ElementAt(0);
-				//MoveToCharacter(gameTime, target);
-			}
-			else
-				target = null;
 
 		}
 		#endregion
@@ -229,18 +221,11 @@ namespace EVCMonoGame.src.characters
 			// Funktion fixt unsere Position
 			if (CollisionManager.IsCollisionAfterMove(this, true, true))
 			{
-				// Besser wäre eig. eine Attack Range einrichten. To Do
-				List<Player> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
-				if (players.Count > 0)
+
+				if (target != null)
 				{
-                    //target = getNearestPlayer()
-                    // Attack target and set Cooldown
-                    if (!isAttackOnCooldown)
-                    {
-                        // TODO: Attacken. Weiß nicht, ob die hier hinmüssen.
-                    }
-					//else
-					//	Console.WriteLine("Attack on Cooldown!");
+					if (!isAttackOnCooldown)
+						Attack(target);
 				}
 
 			}
