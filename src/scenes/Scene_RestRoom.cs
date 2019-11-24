@@ -20,14 +20,15 @@ namespace EVCMonoGame.src.scenes
         public Scene_RestRoom(SceneManager sceneManager)
             : base(sceneManager)
         {
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
         }
 
         public override void OnEnterScene()
         {
             base.OnEnterScene();
 
-            PlayerOne playerOne = GameplayState.PlayerOne;
+			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
+
+			PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
 
             playerOne.WorldPosition = new Vector2(1150, 3350);

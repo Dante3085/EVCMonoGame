@@ -61,6 +61,21 @@ namespace EVCMonoGame.src.A.I
 			return Pathfind(start, to);
 		}
 
+		public bool IsPositionInNavgrid(Vector2 WorldPosition)
+		{
+			// Convert WorldPosition to Grid coordinate
+			Point gridCoordinate = new Point((int)WorldPosition.X / agentMindestBreite, (int)WorldPosition.Y / agentMindestBreite);
+
+			// Wenn außerhalb vom Navgrid
+			if (gridCoordinate.X < 0 || gridCoordinate.Y < 0 || gridCoordinate.X >= navGrid.GetLength(0) || gridCoordinate.Y >= navGrid.GetLength(1))
+				return false;
+
+			if (navGrid[gridCoordinate.X, gridCoordinate.Y] == 0)
+				return true;
+			else
+				return false;
+		}
+		
 
 		///	<summary>
 		///	A* Algo übernommen und überarbeitet von http://stevephillips.me/blog/implementing-pathfinding-algorithm-xna

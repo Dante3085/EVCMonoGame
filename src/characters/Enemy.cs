@@ -27,6 +27,8 @@ namespace EVCMonoGame.src.characters
 		protected int agentMindestBreite;
 		protected Vector2 movementDirection;
 
+		// Pathfinding
+		protected static Pathfinder pathfinder;
 		protected List<Point> waypoints;
 		protected Vector2 lastWaypoint;
 		protected Vector2 nextWaypoint;
@@ -91,6 +93,10 @@ namespace EVCMonoGame.src.characters
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 
+			// Erzeuge Level Grid einmalig für alle Enemys vom selben Typen (solange keine dynamischen obstacles aktiv werden)
+			if(pathfinder == null)
+				pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
+
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
             // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
 		}
@@ -140,17 +146,13 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
-			target = CollisionManager.GetNearestPlayersInRange(this, aggroRange);
+			target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
 			if (target != null)
 			{
-				// Erzeuge Level Grid
-				Pathfinder pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
 				//Grid grid = new Grid(new Rectangle(CollisionBox.Center.X - 200, CollisionBox.Center.Y - 200, 400, 400), agentMindestBreite); //debug new implementation 
 
-				// Erzeuge Path
-				waypoints = pathfinder.Pathfind(CollisionBox.Center, target.CollisionBox.Center);
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
 				MoveToCharacter(gameTime, target);
@@ -173,10 +175,13 @@ namespace EVCMonoGame.src.characters
 
 
 			PreviousWorldPosition = WorldPosition;
-
-
-			if (currentForcePathfindTimer > 0.0f || CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
+			
+			// TODO: Einfacher und sauberer schreiben
+			if (currentForcePathfindTimer > 0.0f && pathfinder.IsPositionInNavgrid(WorldPosition) || CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel) && pathfinder.IsPositionInNavgrid(WorldPosition))
 			{
+				// Erzeuge Path
+				waypoints = pathfinder.Pathfind(CollisionBox.Center, target.CollisionBox.Center);
+
 				if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
 					currentForcePathfindTimer = forcePathfindTimer;
 
@@ -187,7 +192,6 @@ namespace EVCMonoGame.src.characters
 						nextWaypoint = waypoints[0].ToVector2();
 
 
-
 					if (nextWaypoint == lastWaypoint)
 						nextWaypoint = waypoints[1].ToVector2();
 
@@ -195,7 +199,8 @@ namespace EVCMonoGame.src.characters
 					
 					if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed*2)
 					{
-						movementDirection = nextWaypoint - WorldPosition;
+						movementDirection = Vector2.Zero;
+						WorldPosition = nextWaypoint;
 						lastWaypoint = nextWaypoint;
 						nextWaypoint = Vector2.Zero;
 						waypoints.RemoveAt(0);
