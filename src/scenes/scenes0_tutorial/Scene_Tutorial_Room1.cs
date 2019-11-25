@@ -63,8 +63,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 lever,
             });
 
-            camera.Zoom = 0.55f;
-            // camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
+            camera.Zoom = 0.8f;
         }
 
         public override void Update(GameTime gameTime)
@@ -86,6 +85,15 @@ namespace EVCMonoGame.src.scenes.tutorial
                 {
                     sceneManager.SceneTransition(EScene.GAME_OVER);
                 }
+            }
+
+            if (InputManager.OnKeyPressed(Keys.Space))
+            {
+                camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
+            }
+            else if (InputManager.OnKeyPressed(Keys.P))
+            {
+                camera.FollowPlayers();
             }
         }
 

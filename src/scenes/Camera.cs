@@ -13,6 +13,7 @@ using EVCMonoGame.src;
 using EVCMonoGame.src.gui;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.utility;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -60,6 +61,11 @@ namespace EVCMonoGame.src.scenes
 
         private float currentYRightThumbStick = 0;
         private float rightThumbStickMaxZoomRate = 0.025f;
+
+        private bool isMoving = false;
+
+        ITranslatablePosition playerFocus;
+        private bool followsPlayers = false;
 
         #endregion
 
@@ -191,11 +197,21 @@ namespace EVCMonoGame.src.scenes
         public void MoveCamera(Vector2 from, Vector2 to, int durationInMillis)
         {
             followsFocusObject = false;
+            isMoving = true;
 
             moveEaser.From = from;
             moveEaser.To = to;
             moveEaser.DurationInMillis = durationInMillis;
             moveEaser.Start();
+        }
+
+        public void FollowPlayers()
+        {
+            followsPlayers = true;
+            playerFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
+                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
+
+            SetCameraToFocusObject(playerFocus);
         }
 
         public Vector2 GetCameraPoint(Screenpoint point)
@@ -235,22 +251,27 @@ namespace EVCMonoGame.src.scenes
                      new Vector4(cameraPosition.X, cameraPosition.Y, 0, 1));
         }
 
-        //public void MovePath(params PathPoint[] pathPoints)
-        //{
-        //    // TODO
-        //}
-
         public void Update(GameTime gameTime)
         {
-            if (followsFocusObject)
+            if (followsFocusObject && !isMoving)
             {
+                if (followsPlayers)
+                {
+                    playerFocus.Position = GameplayState.PlayerOne.WorldPosition +
+                    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+                }
+
                 SetCameraToFocusObject(focusObject);
             }
 
-            if (!moveEaser.IsFinished)
+            if (isMoving && !moveEaser.IsFinished)
             {
                 moveEaser.Update(gameTime);
                 SetCameraToPosition(moveEaser.CurrentValue);
+            }
+            else
+            {
+                isMoving = false;
             }
 
             // Zooming
