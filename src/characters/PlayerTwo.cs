@@ -392,8 +392,7 @@ namespace EVCMonoGame.src.characters
                     }
                 }
             }
-
-            OnMove();
+            
         }
 
         #endregion

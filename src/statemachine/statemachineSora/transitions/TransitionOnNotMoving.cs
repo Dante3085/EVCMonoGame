@@ -17,7 +17,8 @@ namespace EVCMonoGame.src.statemachine.sora
         public TransitionOnNotMoving(String nextStateId) : base(nextStateId) { }
         public override bool checkCondition()
         {
-            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero;
+            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero &&
+                !InputManager.IsAnyKeyPressed(Keys.Left, Keys.Up, Keys.Right, Keys.Down);
         }
     }
 }

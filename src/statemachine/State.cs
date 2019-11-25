@@ -23,7 +23,7 @@ namespace EVCMonoGame.src.statemachine
     {
         public String stateId;
         public StateManager stateManager;
-        public List<Transition> transitions;
+        public List<Transition> transitions = new List<Transition>();
         public bool DoUpdate
         {
             get; set;

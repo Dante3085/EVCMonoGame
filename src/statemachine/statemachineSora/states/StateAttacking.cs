@@ -31,15 +31,18 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             base.Enter(gameTime);
 
-            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One))
+            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)||
+                InputManager.OnKeyPressed(Keys.D1))
             {
                 OnXPressed();
             }
-            else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.One))
+            else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.One) ||
+                InputManager.OnKeyPressed(Keys.D2))
             {
                 OnYPressed();
             }
-            else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.One))
+            else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.One) ||
+                InputManager.OnKeyPressed(Keys.D3))
             {
                 OnBPressed();
             }

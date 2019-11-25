@@ -18,7 +18,8 @@ namespace EVCMonoGame.src.statemachine.sora
         }
         public override bool checkCondition()
         {
-            return InputManager.OnAnyButtonPressed(PlayerIndex.One, Buttons.B, Buttons.X, Buttons.Y);
+            return InputManager.OnAnyButtonPressed(PlayerIndex.One, Buttons.B, Buttons.X, Buttons.Y)
+                || InputManager.OnAnyKeyPressed(Keys.D1, Keys.D2, Keys.D3);
         }
     }
 }

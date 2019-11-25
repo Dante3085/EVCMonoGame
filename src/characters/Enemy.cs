@@ -240,7 +240,7 @@ namespace EVCMonoGame.src.characters
 
 
 			// Update Healthbar etc. was sich auf die neue Position bezieht
-			OnMove();
+			
 
 		}
 	}

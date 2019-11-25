@@ -21,9 +21,9 @@ namespace EVCMonoGame.src.statemachine
 {
     public abstract class StateManager : scenes.IUpdateable
     {
-        protected List<State> states;
+        protected List<State> states = new List<State>();
         protected State currentState;
-
+        protected bool firstStateEntered = false;
 
 
         public bool DoUpdate
@@ -33,6 +33,11 @@ namespace EVCMonoGame.src.statemachine
 
         public virtual void Update(GameTime gameTime)
         {
+            if (!firstStateEntered)
+            {
+                firstStateEntered = true;
+                currentState.Enter(gameTime);
+            }
             if (currentState.transitions.Exists((a) => { return a.checkCondition(); }))// check if transition is necessary
             {
                 currentState.Exit(gameTime);

@@ -16,6 +16,7 @@ using EVCMonoGame.src.animation;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.statemachine.sora;
 
 // TODO: Setze flinch boolean flag OnCombatCollision für TransitionOnFlinchAttack.
 
@@ -25,13 +26,14 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        private bool isAttacking;
-        private float runThreshold;
+        public StateManagerSora stateManager;
+        public bool isAttacking;
+        public float runThreshold;
 
-        private Keys[] keyboardControls;
+        public Keys[] keyboardControls;
 
-        private Vector2 movementVector;
-        private Vector2 previousMovementVector;
+        public Vector2 movementVector;
+        public Vector2 previousMovementVector;
 
         #endregion
         #region Properties
@@ -68,7 +70,7 @@ namespace EVCMonoGame.src.characters
                   position: position
             )
         {
-
+            
             isAttacking = false;
             runThreshold = 0.65f;
 
@@ -107,15 +109,16 @@ namespace EVCMonoGame.src.characters
             PlayerSpriteSheets.Load(content);
             sprite.spritesheet = PlayerSpriteSheets.RedGlow;
             // playerPortrait.LoadContent(content);
+            stateManager = new StateManagerSora();
         }
         #endregion
         #region Updateable
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            stateManager.Update(gameTime);
             // flinch = zurückweichen
-            if (flinching)
+            /*if (flinching)
             {
                 if (sprite.AnimationFinished)
                 {
@@ -140,7 +143,7 @@ namespace EVCMonoGame.src.characters
                     UpdateMovement();
                     UpdateAttacks();
                 }
-            }
+            }*/
         }
 
         public void UpdateAttacks()
@@ -394,8 +397,7 @@ namespace EVCMonoGame.src.characters
                     }
                 }
             }
-
-			OnMove();
+            
         }
 
         #endregion

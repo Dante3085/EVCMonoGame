@@ -19,10 +19,35 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.statemachine.sora
 {
-    class StateManagerSora : StateManager
+    public class StateManagerSora : StateManager
     {
         public StateManagerSora()
         {
+            this.states.Add(new StateIdle(
+                    new TransitionOnFlinchAttack("Flinching"),
+                    new TransitionAttackButtonPressed("Attacking"),
+                    new TransitionOnMoving("Moving")
+                )
+            );
+            this.states.Add(new StateMoving(
+                    new TransitionOnFlinchAttack("Flinching"),
+                    new TransitionAttackButtonPressed("Attacking"),
+                    new TransitionOnNotMoving("Idle")
+                )
+            );
+            this.states.Add(new StateFlinching(
+                    new TransitionFinishedWithMoving("Moving"), 
+                    new TransitionFinishedNotMoving("Idle")
+                )
+            );
+            this.states.Add(new StateAttacking(
+                    new TransitionOnFlinchAttack("Flinching"),
+                    new TransitionFinishedWithMoving("Moving"),
+                    new TransitionFinishedNotMoving("Idle")
+                )
+            );
+            currentState = states.Find((a) => { return a.stateId.Equals("Idle"); });
+            
 
         }
 

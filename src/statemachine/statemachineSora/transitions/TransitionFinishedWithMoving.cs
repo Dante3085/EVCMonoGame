@@ -22,7 +22,8 @@ namespace EVCMonoGame.src.statemachine.sora
         public override bool checkCondition()
         {
             if (GameplayState.PlayerOne.Sprite.AnimationFinished &&
-                InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero)
+                (InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero ||
+                InputManager.IsAnyKeyPressed(Keys.Left, Keys.Up, Keys.Right, Keys.Down)))
             {
                 return true;
             }

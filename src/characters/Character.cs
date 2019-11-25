@@ -21,7 +21,7 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        protected Vector2 worldPosition;
+        public Vector2 worldPosition;
         protected Rectangle collisionBox;
 
         // Stats
@@ -34,14 +34,14 @@ namespace EVCMonoGame.src.characters
         protected int defense;
         protected int intelligence;
         protected int agility;
-        protected float movementSpeed = 8;
+        public float movementSpeed = 8;
         private Healthbar healthbar;
 
 
         protected Vector2 collisionBoxOffset = Vector2.Zero;
         protected AnimatedSprite sprite;
         protected CombatArgs combatArgs;
-        protected bool flinching = false;
+        public bool flinching = false;
 
         #endregion
 
@@ -192,11 +192,6 @@ namespace EVCMonoGame.src.characters
 			healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
 
 			// collisionBox = sprite.Bounds;
-		}
-
-		public virtual void OnMove()
-		{
-			healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
 		}
 
         public virtual void LoadContent(ContentManager content)
