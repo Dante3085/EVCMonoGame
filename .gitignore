@@ -12,6 +12,8 @@ app.manifest
 Icon.ico
 
 #ignore Content/Assets except associated configFiles.
+Content/Content.mgcb
+Content/rsrc.rar
 Content/**/*.mgcb
 Content/**/*.png
 Content/**/*.gif
@@ -23,6 +25,7 @@ Content/**/*.ttf
 Content/**/*.flac
 Content/**/*.spritefont
 Content/**/*darkCastle*
+
 
 # User-specific files
 *.suo

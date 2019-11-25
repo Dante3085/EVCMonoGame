@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EVCMonoGame.src.statemachine.statemachinePlayer;
 using EVCMonoGame.src.statemachine.statemachinePlayer.transitions;
+using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.statemachine.statemachinePlayer.states
 {
@@ -17,5 +18,11 @@ namespace EVCMonoGame.src.statemachine.statemachinePlayer.states
             this.transitions.Add(new TransitionFinishedNoMoving(stateManager, "Idle"));
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            // TODO: Angriffslogik
+        }
     }
 }

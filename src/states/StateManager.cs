@@ -137,7 +137,7 @@ namespace EVCMonoGame.src.states
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            InputManager.UpdateInputStates(gameTime);
+            InputManager.Update(gameTime, GraphicsDevice.Viewport);
 
             if (InputManager.AreAllButtonsPressed(PlayerIndex.One, Buttons.Back, Buttons.Start)
                 || InputManager.AreAllKeysPressed(Keys.Escape, Keys.Delete))

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.input
 {
@@ -15,11 +15,6 @@ namespace EVCMonoGame.src.input
     public static class InputManager
     {
         #region StaticFields
-
-        /// <summary>
-        /// InputDelay that all Inputs are valid for.
-        /// </summary>
-        private static int bufferDelayMillis = 1000;
 
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;
@@ -38,7 +33,10 @@ namespace EVCMonoGame.src.input
 
         private static bool inputByKeyboard = true;
 
-        // private static Dictionary<int, bool> keyCombinations;
+        private const int originalWindowWidth = 1920;
+        private const int originalWindowHeight = 1080;
+        private static Vector2 mouseResolutionScale = Vector2.Zero;
+
         #endregion
         #region StaticProperties
         /// <summary>
@@ -81,8 +79,10 @@ namespace EVCMonoGame.src.input
         /// <summary>
         /// Always call before all you'r input operations(First instruction in Update()).
         /// </summary>
-        public static void UpdateInputStates(GameTime gameTime)
+        public static void Update(GameTime gameTime, Viewport viewport)
         {
+            mouseResolutionScale = new Vector2(originalWindowWidth / viewport.Width, originalWindowHeight / viewport.Height);
+
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
 
@@ -405,7 +405,7 @@ namespace EVCMonoGame.src.input
         #region Mouse
         public static Vector2 CurrentMousePosition()
         {
-            return currentMouseState.Position.ToVector2();
+            return currentMouseState.Position.ToVector2() /** mouseResolutionScale*/;
         }
 
         public static Vector2 PreviousMousePosition()
