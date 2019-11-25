@@ -75,6 +75,8 @@ namespace EVCMonoGame.src.scenes
             for (int i = 0; i < items.Length; ++i)
             {
                 items[i] = new Consumable(new Rectangle(1000, 2500 + 100*i, 50, 50));
+                drawables.Add(items[i]);
+                updateables.Add(items[i]);
             }
         }
 

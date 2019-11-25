@@ -10,6 +10,7 @@ using EVCMonoGame.src.scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.Items
 {
@@ -17,6 +18,7 @@ namespace EVCMonoGame.src.Items
 	{
 		public Vector2 worldPosition;
 		public Rectangle geoHitbox;
+        public AnimatedSprite sprite;
 
 		public bool DoUpdate { get; set; }
 
@@ -55,6 +57,9 @@ namespace EVCMonoGame.src.Items
 
 		public Item(Rectangle bounds)
 		{
+            sprite = new AnimatedSprite(worldPosition);
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
+            sprite.SetAnimation("COIN");
 			CollisionBox = bounds;
 			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
 		}
@@ -63,16 +68,18 @@ namespace EVCMonoGame.src.Items
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-
+            sprite.Draw(gameTime, spriteBatch);
 		}
 
 		public virtual void LoadContent(ContentManager content)
 		{
-
+            sprite.LoadContent(content);
 		}
 
 		public virtual void Update(GameTime gameTime)
 		{
+            sprite.WorldPosition = worldPosition;
+            sprite.Update(gameTime);
 		}
 
 	}
