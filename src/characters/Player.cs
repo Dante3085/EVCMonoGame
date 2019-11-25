@@ -16,6 +16,8 @@ namespace EVCMonoGame.src.characters
         private ItemFinder itemFinder;
         private Inventory inventory;
 
+        public Orientation playerOrientation = Orientation.RIGHT;
+
         public Inventory PlayerInventory
         {
             get { return inventory; }

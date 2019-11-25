@@ -8,9 +8,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.input;
-using EVCMonoGame.src.input;
 
-namespace EVCMonoGame.src.statemachine
+namespace EVCMonoGame.src.statemachine.sora
 {
     class TransitionAttackButtonPressed : Transition
     {

@@ -17,13 +17,13 @@ using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 
+// TODO: Setze flinch boolean flag OnCombatCollision für TransitionOnFlinchAttack.
+
 namespace EVCMonoGame.src.characters
 {
     public class PlayerOne : Player
     {
         #region Fields
-
-        private AnimatedSprite playerPortrait;
 
         private bool isAttacking;
         private float runThreshold;
@@ -32,10 +32,6 @@ namespace EVCMonoGame.src.characters
 
         private Vector2 movementVector;
         private Vector2 previousMovementVector;
-
-        private Orientation playerOrientation;
-
-        private bool flinching;
 
         #endregion
         #region Properties
@@ -83,10 +79,6 @@ namespace EVCMonoGame.src.characters
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("RUN_RIGHT");
             playerOrientation = Orientation.RIGHT;
-
-            playerPortrait = new AnimatedSprite(Vector2.Zero, 4.0f);
-            playerPortrait.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora_portrait.anm.txt");
-            playerPortrait.SetAnimation("TALKING_HAPPY_RIGHT");
 
             // Der Parameter controls ist nicht final. Nur, um mehrere Player Instanzen anders steuern zu können.
             if (controls.Length != 4)
@@ -149,8 +141,6 @@ namespace EVCMonoGame.src.characters
                     UpdateAttacks();
                 }
             }
-
-            playerPortrait.Update(gameTime);
         }
 
         public void UpdateAttacks()
