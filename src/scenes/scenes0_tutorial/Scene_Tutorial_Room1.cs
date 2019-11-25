@@ -51,8 +51,6 @@ namespace EVCMonoGame.src.scenes.tutorial
             playerTwo.WorldPosition = new Vector2(2300, 1900);
             playerTwo.Sprite.SetAnimation("IDLE_RIGHT");
 
-            camera.Zoom = 0.55f;
-
             updateables.AddRange(new IUpdateable[]
             {
                 shadow,
@@ -65,7 +63,8 @@ namespace EVCMonoGame.src.scenes.tutorial
                 lever,
             });
 
-            camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
+            camera.Zoom = 0.55f;
+            // camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
         }
 
         public override void Update(GameTime gameTime)
