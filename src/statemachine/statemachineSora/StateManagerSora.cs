@@ -21,6 +21,10 @@ namespace EVCMonoGame.src.statemachine.sora
 {
     class StateManagerSora : StateManager
     {
+        public StateManagerSora()
+        {
+
+        }
 
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
 
-namespace EVCMonoGame.src.statemachine
+namespace EVCMonoGame.src.statemachine.sora
 {
     class TransitionOnFlinchAttack: Transition
     {

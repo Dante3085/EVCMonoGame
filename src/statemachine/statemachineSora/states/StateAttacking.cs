@@ -23,9 +23,8 @@ namespace EVCMonoGame.src.statemachine.sora
         private String nextAttackAnimation = "UNINITIALIZED";
 
         public StateAttacking(params Transition[] transitions) 
-            : base("Attacking")
+            : base("Attacking", transitions)
         {
-            this.stateId = "Attacking";
         }
 
         public override void Enter(GameTime gameTime)

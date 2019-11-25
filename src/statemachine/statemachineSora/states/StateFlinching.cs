@@ -8,6 +8,9 @@ namespace EVCMonoGame.src.statemachine.sora
 {
     class StateFlinching : State
     {
-
+        public StateFlinching(params Transition[] transitions)
+            : base("Flinching", transitions)
+        {
+        }
     }
 }

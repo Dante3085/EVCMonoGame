@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace EVCMonoGame.src.statemachine.sora
 {
-    class StateIdle
+    class StateIdle: State
     {
+        public StateIdle(params Transition[] transitions)
+            : base("Idle", transitions)
+        {
+        }
     }
 }
