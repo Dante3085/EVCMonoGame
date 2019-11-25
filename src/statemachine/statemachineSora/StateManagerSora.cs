@@ -16,23 +16,9 @@ using EVCMonoGame.src.animation;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
-
-using EVCMonoGame.src.statemachine;
-using EVCMonoGame.src.statemachine.statemachinePlayer.states;
-
-namespace EVCMonoGame.src.statemachine.statemachinePlayer
+namespace EVCMonoGame.src.statemachine.statemachineSora
 {
-    class StateManagerPlayer : StateManager
+    class StateManagerSora : StateManager
     {
-        public Player player;
-        public StateManagerPlayer(Player player)
-        {
-            this.player = player;
-            states.Add(new StateAttacking(this));
-        }
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
     }
 }
