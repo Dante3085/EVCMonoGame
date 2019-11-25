@@ -30,6 +30,21 @@ namespace EVCMonoGame.src.scenes
         LEFT,
         CENTER
     }
+
+    public struct PathPoint
+    {
+        public Vector2 p1;
+        public Vector2 p2;
+        public int duration;
+
+        public PathPoint(Vector2 p1, Vector2 p2, int duration)
+        {
+            this.p1 = p1;
+            this.p2 = p2;
+            this.duration = duration;
+        }
+    }
+
     public class Camera : IUpdateable
     {
         #region Fields
@@ -220,31 +235,25 @@ namespace EVCMonoGame.src.scenes
                      new Vector4(cameraPosition.X, cameraPosition.Y, 0, 1));
         }
 
+        //public void MovePath(params PathPoint[] pathPoints)
+        //{
+        //    // TODO
+        //}
+
         public void Update(GameTime gameTime)
         {
             if (followsFocusObject)
             {
                 SetCameraToFocusObject(focusObject);
             }
-            else
-            {
-                //if (!moveEaser.IsFinished)
-                //{
-                //    moveEaser.Update(gameTime);
-                //    SetCameraToPosition(moveEaser.CurrentValue + Utility.HalfCircle(moveEaser.From, moveEaser.To, moveEaser.CurrentValue,
-                //        new List<float>()
-                //        {
-                //            1
-                //        }), Screenpoint.CENTER);
-                //}
 
-                if (!moveEaser.IsFinished)
-                {
-                    moveEaser.Update(gameTime);
-                    SetCameraToPosition(moveEaser.CurrentValue);
-                }
+            if (!moveEaser.IsFinished)
+            {
+                moveEaser.Update(gameTime);
+                SetCameraToPosition(moveEaser.CurrentValue);
             }
 
+            // Zooming
             if (InputManager.HasRightGamePadStickMoved)
             {
                 currentYRightThumbStick = InputManager.CurrentThumbSticks(PlayerIndex.One).Right.Y;

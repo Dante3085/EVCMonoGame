@@ -128,7 +128,7 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
             scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
 
-            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_3];
+            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);

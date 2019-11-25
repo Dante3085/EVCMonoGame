@@ -111,6 +111,9 @@ namespace EVCMonoGame.src.tilemap
             this.collisionBoxes = collisionBoxes;
             this.tileSetPath = tileSetPath;
 
+            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel,
+                collidables: collisionBoxes.ToArray());
+
             reader.Close();
         }
     }

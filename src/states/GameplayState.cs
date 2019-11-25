@@ -57,7 +57,7 @@ namespace EVCMonoGame.src.states
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
 			playerOne = new PlayerOne(new Vector2(550, 600), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
-			playerTwo = new PlayerTwo(new Vector2(550, 800), new Keys[] { Keys.Up, Keys.Down, Keys.Right, Keys.Left });
+			playerTwo = new PlayerTwo(new Vector2(550, 800), new Keys[] { Keys.W, Keys.S, Keys.D, Keys.A });
 			isTwoPlayer = true;
 		}
 

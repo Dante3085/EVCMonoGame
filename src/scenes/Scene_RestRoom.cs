@@ -38,9 +38,6 @@ namespace EVCMonoGame.src.scenes
             playerOne.WorldPosition = new Vector2(1150, 3350);
 
             playerTwo.WorldPosition = new Vector2(1400, 3350);
-
-            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel,
-                collidables: tilemap.CollisionBoxes.ToArray());
         }
 
         public override void LoadContent(ContentManager contentManager)

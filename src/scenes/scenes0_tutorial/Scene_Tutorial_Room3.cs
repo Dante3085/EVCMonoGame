@@ -31,10 +31,8 @@ namespace EVCMonoGame.src.scenes.tutorial
         {
             base.OnEnterScene();
 
-            tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room3.tm.txt");
-            CollisionManager.AddCollidables(
-                CollisionManager.obstacleCollisionChannel, collidables: tilemap.CollisionBoxes.ToArray());
-
+            tilemap = new Tilemap(Vector2.Zero, 
+                "Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room3.tm.txt");
 
             PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
