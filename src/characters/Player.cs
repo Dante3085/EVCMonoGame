@@ -17,6 +17,8 @@ namespace EVCMonoGame.src.characters
         private Inventory inventory;
         public bool flinching = false;
 
+        public Orientation playerOrientation = Orientation.RIGHT;
+
         public Inventory PlayerInventory
         {
             get { return inventory; }

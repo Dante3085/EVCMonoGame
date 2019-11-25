@@ -17,7 +17,7 @@ using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 
-namespace EVCMonoGame.src.statemachine
+namespace EVCMonoGame.src.statemachine.sora
 {
     class StateManagerSora : StateManager
     {
