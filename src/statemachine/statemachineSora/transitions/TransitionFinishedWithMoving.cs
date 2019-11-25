@@ -11,14 +11,25 @@ using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
 
+
 namespace EVCMonoGame.src.statemachine
 {
-    class TransitionOnMoving :Transition
+    class TransitionFinishedWithMoving: Transition
     {
-        public TransitionOnMoving(String nextStateId) : base(nextStateId) { }
+        public TransitionFinishedWithMoving(String nextStateId) : base(nextStateId)
+        {
+        }
         public override bool checkCondition()
         {
-            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero;
+            if (GameplayState.PlayerOne.Sprite.AnimationFinished &&
+                InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

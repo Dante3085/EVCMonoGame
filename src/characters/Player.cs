@@ -15,6 +15,7 @@ namespace EVCMonoGame.src.characters
     {
         private ItemFinder itemFinder;
         private Inventory inventory;
+        public bool flinching = false;
 
         public Inventory PlayerInventory
         {

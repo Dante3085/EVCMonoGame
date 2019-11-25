@@ -29,9 +29,9 @@ namespace EVCMonoGame.src.statemachine
             get; set;
         }
 
-        public State(StateManager stateManager, String stateId)
+        public State(String stateId, params Transition[] transitions)
         {
-            this.stateManager = stateManager;
+            this.transitions.AddRange(transitions.ToList());
             this.stateId = stateId;
         }
 

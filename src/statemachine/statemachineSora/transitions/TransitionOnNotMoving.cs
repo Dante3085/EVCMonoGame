@@ -10,15 +10,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
-
-namespace EVCMonoGame.src.statemachine
+namespace EVCMonoGame.src.statemachine.statemachineSora.transitions
 {
-    class TransitionOnMoving :Transition
+    class TransitionOnNotMoving : Transition
     {
-        public TransitionOnMoving(String nextStateId) : base(nextStateId) { }
+        public TransitionOnNotMoving(String nextStateId) : base(nextStateId) { }
         public override bool checkCondition()
         {
-            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero;
+            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero;
         }
     }
 }

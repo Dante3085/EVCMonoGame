@@ -13,15 +13,10 @@ using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.statemachine
 {
-    class TransitionFinishedNoMoving : Transition
+    class TransitionFinishedNotMoving : Transition
     {
-        State state;
-        StateManagerSora stateManager;
-
-        public TransitionFinishedNoMoving(StateManagerSora stateManager, String nextStateId)
+        public TransitionFinishedNotMoving(String nextStateId) : base(nextStateId)
         {
-            this.stateManager = stateManager;
-            this.nextStateId = nextStateId;
         }
         public override bool checkCondition()
         {

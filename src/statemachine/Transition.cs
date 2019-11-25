@@ -9,6 +9,10 @@ namespace EVCMonoGame.src.statemachine
     public abstract class Transition
     {
         public String nextStateId;
+        public Transition(String nextStateId)
+        {
+            this.nextStateId = nextStateId;
+        }
         public virtual bool checkCondition() { return false; }
     }
 }

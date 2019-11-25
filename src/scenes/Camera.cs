@@ -53,7 +53,7 @@ namespace EVCMonoGame.src.scenes
         private float zoom = 1;
         private SceneManager sceneManager;
         private ITranslatable focusObject;
-        private bool followsFocusObject = false;
+        private bool followsFocusObject = true;
         private Screenpoint focusPoint = Screenpoint.CENTER;
         private Vector2 offset = Vector2.Zero;
         private Easer moveEaser = new Easer(new Vector2(900, -200), new Vector2(900, 700), 5000, Easing.SineEaseInOut);
@@ -247,11 +247,11 @@ namespace EVCMonoGame.src.scenes
                 SetCameraToFocusObject(focusObject);
             }
 
-            if (!moveEaser.IsFinished)
+            /*if (!moveEaser.IsFinished)
             {
                 moveEaser.Update(gameTime);
                 SetCameraToPosition(moveEaser.CurrentValue);
-            }
+            }*/
 
             // Zooming
             if (InputManager.HasRightGamePadStickMoved)

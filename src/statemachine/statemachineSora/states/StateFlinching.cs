@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EVCMonoGame.src.statemachine
 {
-    class StateFlinching
+    class StateFlinching : State
     {
+
     }
 }

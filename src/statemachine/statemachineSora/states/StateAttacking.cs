@@ -9,11 +9,9 @@ namespace EVCMonoGame.src.statemachine
 {
     class StateAttacking : State
     {
-        public StateAttacking(StateManagerSora stateManager, params Transition[] transitions) : base(stateManager, "Attacking")
+        public StateAttacking(params Transition[] transitions) : base("Attacking")
         {
             this.stateId = "Attacking";
-            this.transitions = transitions.ToList();
-            this.transitions.Add(new TransitionFinishedNoMoving(stateManager, "Idle"));
         }
 
         public override void Update(GameTime gameTime)
