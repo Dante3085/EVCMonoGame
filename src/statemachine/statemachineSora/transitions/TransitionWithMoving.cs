@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVCMonoGame.src.statemachine.statemachinePlayer.transitions
+namespace EVCMonoGame.src.statemachine
 {
     class TransitionWithMoving
     {
