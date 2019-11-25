@@ -7,24 +7,25 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using EVCMonoGame.src.input;
-using EVCMonoGame.src.statemachine.statemachinePlayer;
-using EVCMonoGame.src.input;
 
-namespace EVCMonoGame.src.statemachine.statemachinePlayer.transitions
+using EVCMonoGame.src.input;
+using EVCMonoGame.src.states;
+
+namespace EVCMonoGame.src.statemachine
 {
     class TransitionFinishedNoMoving : Transition
     {
         State state;
-        StateManagerPlayer stateManager;
-        public TransitionFinishedNoMoving(StateManagerPlayer stateManager, String nextStateId)
+        StateManagerSora stateManager;
+
+        public TransitionFinishedNoMoving(StateManagerSora stateManager, String nextStateId)
         {
             this.stateManager = stateManager;
             this.nextStateId = nextStateId;
         }
         public override bool checkCondition()
         {
-            if (((StateManagerPlayer)stateManager).player.Sprite.AnimationFinished &&
+            if (GameplayState.PlayerOne.Sprite.AnimationFinished &&
                 InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero)
             {
                 return true;
