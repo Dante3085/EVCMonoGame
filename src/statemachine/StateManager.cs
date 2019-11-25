@@ -24,6 +24,8 @@ namespace EVCMonoGame.src.statemachine
         protected List<State> states;
         protected State currentState;
 
+
+
         public bool DoUpdate
         {
             get; set;
