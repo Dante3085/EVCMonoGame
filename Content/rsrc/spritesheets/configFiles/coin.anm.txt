@@ -1,0 +1,10 @@
+SPRITESHEET = rsrc/spritesheets/turning_coin
+[ANIMATION]
+NAME          = COIN
+FRAMES        = (0, 183, 49, 52), (52, 183, 50, 52), (107, 183, 44, 52), (163, 183, 38, 52), (225, 183, 18, 52), (268, 183, 38, 52), (317, 183, 44, 52), (366, 183, 51, 52)  
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 100@all
+FRAME_OFFSETS = (0, 0), (0,0), (3,0), (6,0), (16,0), (6,0), (3,0), (0,0)
+IS_MIRRORED   = false
+IS_LOOPED     = true

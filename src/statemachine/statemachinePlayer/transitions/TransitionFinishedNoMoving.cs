@@ -25,7 +25,7 @@ namespace EVCMonoGame.src.statemachine.statemachinePlayer.transitions
         public override bool checkCondition()
         {
             if (((StateManagerPlayer)stateManager).player.Sprite.AnimationFinished &&
-                InputManager.CurrentThumbSticks().Left == Vector2.Zero)
+                InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero)
             {
                 return true;
             }
