@@ -108,18 +108,21 @@ namespace EVCMonoGame.src.scenes
             }
 
 
-            if (InputManager.OnButtonPressed(Buttons.DPadUp, PlayerIndex.One))
+            if (InputManager.OnButtonPressed(Buttons.DPadUp, PlayerIndex.One) ||
+                InputManager.OnKeyPressed(Keys.Up))
             {
                 selectionSprite.SetAnimation(selectionSprite.CurrentAnimation == "CONTINUE" ?
                                         "RETURN_TO_TITLE" : "CONTINUE");
             }
-            else if (InputManager.OnButtonPressed(Buttons.DPadDown, PlayerIndex.One))
+            else if (InputManager.OnButtonPressed(Buttons.DPadDown, PlayerIndex.One) ||
+                     InputManager.OnKeyPressed(Keys.Down))
             {
                 selectionSprite.SetAnimation(selectionSprite.CurrentAnimation == "CONTINUE" ?
                                         "RETURN_TO_TITLE" : "CONTINUE");
             }
 
-            if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
+            if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) ||
+                InputManager.OnKeyPressed(Keys.Enter))
             {
                 if (selectionSprite.CurrentAnimation == "CONTINUE")
                 {
