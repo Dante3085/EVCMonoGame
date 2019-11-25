@@ -13,17 +13,20 @@ namespace EVCMonoGame.src
 	{
 
 		// Menu
-		public static bool skipMenu = true;
-		public static bool exitGameOnEscapeKey = false;
+		public static bool skipMenu             = false;
+		public static bool exitGameOnEscapeKey  = false;
 		public static bool startWithLevelEditor = false;
 
 		// Draw
-		public static bool showCollision = false;
-		public static bool showNavgrid = false;
-		public static bool showPathfinding = false;
-		public static bool showRaycasts = false;
-        public static bool showFpsCounter = true;
-        public static bool showAttackRange = false;
+		public static bool showCollision       = false;
+		public static bool showNavgrid         = false;
+		public static bool showPathfinding     = false;
+		public static bool showRaycasts        = false;
+        public static bool showFpsCounter      = true;
+        public static bool showAttackRange     = false;
+        public static bool showAttackBounds    = false;
+        public static bool showHurtBounds      = false;
+        public static bool showItemFinder      = false;
 
         public static void Update()
         {
@@ -34,11 +37,26 @@ namespace EVCMonoGame.src
 
             if (InputManager.OnKeyPressed(Keys.F2))
             {
-                showCollision = !showCollision;
-                showNavgrid = !showNavgrid;
-                showPathfinding = !showPathfinding;
-                showRaycasts = !showRaycasts;
-                showAttackRange = !showAttackRange;
+                showCollision       = !showCollision;
+                showNavgrid         = !showNavgrid;
+                showPathfinding     = !showPathfinding;
+                showRaycasts        = !showRaycasts;
+                showAttackRange     = !showAttackRange;
+            }
+
+            if (InputManager.OnKeyPressed(Keys.F3))
+            {
+                showAttackBounds = !showAttackBounds;
+            }
+
+            if (InputManager.OnKeyPressed(Keys.F4))
+            {
+                showHurtBounds = !showHurtBounds;
+            }
+
+            if (InputManager.OnKeyPressed(Keys.F5))
+            {
+                showItemFinder = !showItemFinder;
             }
         }
 	}

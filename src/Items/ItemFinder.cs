@@ -55,7 +55,10 @@ namespace EVCMonoGame.src.Items
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Primitives2D.DrawRectangle(spriteBatch, CollisionBox, Color.Blue);
+            if (DebugOptions.showItemFinder)
+            {
+                Primitives2D.DrawRectangle(spriteBatch, CollisionBox, Color.Blue);
+            }
         }
 
         public void LoadContent(ContentManager content)

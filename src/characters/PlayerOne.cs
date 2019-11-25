@@ -155,16 +155,23 @@ namespace EVCMonoGame.src.characters
 
         public void UpdateAttacks()
         {
-
-            if (sprite.AnimationFinished) HasActiveAttackBounds = false;
-
             String nextAttackAnimation = "UNKNOWN";
+
+            if (sprite.CurrentAnimation.Contains("ATTACK"))
+            {
+                if (sprite.AnimationFinished)
+                {
+                    HasActiveAttackBounds = true;
+                }
+                else
+                {
+                    CollisionManager.CheckCombatCollisions(this);
+                }
+            }
 
             if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)
                 || InputManager.OnKeyPressed(Keys.A))
             {
-                HasActiveAttackBounds = true;
-
                 switch(playerOrientation)
                 {
                     case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
@@ -181,8 +188,6 @@ namespace EVCMonoGame.src.characters
             }
             else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.One))
             {
-                HasActiveAttackBounds = true;
-
                 switch (playerOrientation)
                 {
                     case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
@@ -199,8 +204,6 @@ namespace EVCMonoGame.src.characters
             }
             else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.One))
             {
-                HasActiveAttackBounds = true;
-
                 switch (playerOrientation)
                 {
                     case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
@@ -252,6 +255,14 @@ namespace EVCMonoGame.src.characters
 
                 movementVector = directionVector * 
                                  (movementSpeed  * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
+
+                // Ignore LeftStickInput Axis Value if it is below 1
+                if (Math.Abs(movementVector.X) < 0.7f)
+                    movementVector.X = 0;
+                if (Math.Abs(movementVector.Y) < 0.7f)
+                    movementVector.Y = 0;
+
+                Console.WriteLine(movementVector);
             }
 
             WorldPosition += movementVector;

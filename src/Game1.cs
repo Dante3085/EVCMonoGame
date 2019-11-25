@@ -103,7 +103,11 @@ namespace EVCMonoGame.src
             IsMouseVisible = MouseVisible;
 
             DebugOptions.Update();
-        }
+
+			if (DebugOptions.exitGameOnEscapeKey && InputManager.OnKeyPressed(Keys.Escape))
+				Exit();
+
+		}
 
         protected override void Draw(GameTime gameTime)
         {

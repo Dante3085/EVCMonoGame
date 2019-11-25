@@ -160,6 +160,18 @@ namespace EVCMonoGame.src.characters
 
             String nextAttackAnimation = "UNKNOWN";
 
+            if (sprite.CurrentAnimation.Contains("ATTACK"))
+            {
+                if (sprite.AnimationFinished)
+                {
+                    HasActiveAttackBounds = true;
+                }
+                else
+                {
+                    CollisionManager.CheckCombatCollisions(this);
+                }
+            }
+
             if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.Two)
                 || InputManager.OnKeyPressed(Keys.A))
             {

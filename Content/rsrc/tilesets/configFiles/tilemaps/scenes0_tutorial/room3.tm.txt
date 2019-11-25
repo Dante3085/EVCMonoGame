@@ -1,0 +1,5942 @@
+TILESET = rsrc/tilesets/FF6MapTileCitiesTown
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9152, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9152, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9152, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9152, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9152, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9280, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9280, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9280, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9280, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9280, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9408, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9408, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9408, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9408, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9408, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9536, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9536, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9536, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9536, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9536, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9664, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9664, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9664, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9664, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9664, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9792, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9792, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9792, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9920, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9920, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9920, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10048, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10048, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10048, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9024, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9024, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9024, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9024, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9024, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9280, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9408, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9536, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9664, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9792, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9920, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10048, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11584, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11712, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11840, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11968, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12096, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12224, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11456, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11584, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11584, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11584, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11584, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11584, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11712, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11712, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11712, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11328, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11712, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11840, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11840, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11840, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11840, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11840, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11968, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11968, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11968, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11968, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11968, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12096, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12096, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12096, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12224, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12224, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12224, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12352, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12352, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12352, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12480, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12480, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12352, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12096, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12352, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12224, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12224, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9152, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9024, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9024, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9024, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (12480, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12480, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12480, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6208, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7616, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 6336, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 7744, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10752, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10624, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10240, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10496, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10368, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10112, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9984, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9856, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9728, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9600, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9472, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10880, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11392, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11136, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11008, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11264, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9792, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9792, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9792, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9920, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9920, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10048, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10048, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9664, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9664, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9664, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9664, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9664, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9536, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9408, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9408, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9408, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9408, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9408, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9536, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9536, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9536, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9536, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9344, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9280, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9152, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9280, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9280, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9280, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9152, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9152, 8448, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9152, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11456, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11456, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11520, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11584, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11648, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11712, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11584, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11584, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11584, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11584, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11712, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11712, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11712, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11712, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8896, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11840, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11968, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11840, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11840, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11840, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11840, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11968, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11968, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (11968, 8448, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11968, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8768, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12096, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12224, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (12352, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12096, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12096, 8448, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12224, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12224, 8448, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12352, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12352, 8448, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12096, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12096, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12096, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12352, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12352, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12352, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (12224, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12224, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12224, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (12224, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (12224, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10176, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10176, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10176, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10176, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11328, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11328, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11328, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11328, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10304, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10304, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10304, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10304, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11200, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11200, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11200, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11200, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 6080, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 5184, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 5056, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 4928, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 5312, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 5696, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 5952, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 5568, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 5440, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 5824, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 6272, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 6528, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 6144, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 6016, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 6400, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 6720, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 6592, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 6464, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 6848, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 7232, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 7488, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 7104, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 6976, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 7360, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 7680, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 7936, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 7552, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 7424, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 7808, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 8000, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 7872, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8384, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 8640, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 8256, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 8128, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8512, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8832, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10752, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10752, 8704, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10752, 8576, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10752, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10688, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10688, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10688, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10816, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10816, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10816, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10432, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10304, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9024, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11328, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10816, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10688, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10688, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10688, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10688, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9408, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10816, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10816, 9280, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10816, 9152, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9536, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10688, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10688, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10688, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10688, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10816, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10816, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (10816, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10816, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9792, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9792, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_14
+TEXTURE_BOUNDS = (224, 0, 16, 16)
+SCREEN_BOUNDS  = (9792, 8960, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9792, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (9920, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10048, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (9920, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (9920, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (9920, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10048, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10048, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10048, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 9088, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 9216, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10112, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10112, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10112, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10240, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10240, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10368, 10048, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10368, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10496, 10048, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10496, 9664, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10624, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10624, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (10944, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (10944, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11072, 10112, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11200, 10112, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11328, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11328, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11328, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11328, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 9344, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9600, 128, 128)
+
+[TILE]
+NAME           = auto_tile_61
+TEXTURE_BOUNDS = (208, 48, 16, 16)
+SCREEN_BOUNDS  = (11456, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11456, 9472, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11456, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10368, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10368, 9920, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10368, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10368, 9920, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10240, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10240, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10176, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10240, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10240, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10112, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10496, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10496, 9920, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10560, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10496, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10496, 9920, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10497, 9793, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10496, 9920, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10624, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10624, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (10944, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (10944, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (10944, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11072, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11072, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11072, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11072, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9984, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_65
+TEXTURE_BOUNDS = (16, 64, 16, 16)
+SCREEN_BOUNDS  = (11200, 9792, 128, 128)
+
+[TILE]
+NAME           = auto_tile_46
+TEXTURE_BOUNDS = (224, 32, 16, 16)
+SCREEN_BOUNDS  = (11200, 9856, 128, 128)
+
+[TILE]
+NAME           = auto_tile_30
+TEXTURE_BOUNDS = (224, 16, 16, 16)
+SCREEN_BOUNDS  = (11200, 9728, 128, 128)
+
+[TILE]
+NAME           = auto_tile_45
+TEXTURE_BOUNDS = (208, 32, 16, 16)
+SCREEN_BOUNDS  = (11200, 9984, 128, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2318, 69, 219, 911)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2179, 62, 106, 941)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1924, 64, 111, 918)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1663, 58, 246, 715)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2045, 69, 115, 682)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4393, 286, 322, 482)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4312, 453, 77, 480)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4125, 418, 152, 436)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3854, 289, 209, 471)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3601, 266, 225, 401)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3469, 509, 98, 413)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3332, 319, 111, 407)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3101, 243, 211, 532)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3023, 590, 88, 348)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2847, 454, 156, 418)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2574, 316, 234, 404)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2565, 707, 117, 114)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (790, 457, 839, 462)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1308, 909, 181, 1302)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1483, 2134, 202, 141)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1891, 2078, 189, 295)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1689, 2175, 195, 266)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2084, 2188, 187, 284)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2280, 2455, 166, 281)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1536, 1600, 1024, 192)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (1728, 1536, 256, 64)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2432, 1792, 128, 64)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4544, 1664, 576, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4672, 1536, 256, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3904, 1664, 512, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4032, 1536, 256, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3328, 1664, 384, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3392, 1536, 256, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2688, 1664, 384, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2752, 1536, 256, 128)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2496, 2688, 1088, 640)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3648, 2880, 1600, 576)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3263, 1832, 571, 136)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2608, 1813, 651, 159)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3835, 1835, 609, 154)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4456, 1842, 1249, 145)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (2566, 1664, 98, 108)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3104, 1713, 194, 89)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (3753, 1714, 123, 66)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4438, 1714, 78, 66)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5149, 1703, 551, 111)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5284, 1641, 323, 53)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5704, 1596, 196, 236)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5906, 1414, 389, 199)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5913, 1294, 373, 93)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5899, 8, 433, 1273)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (5279, 3194, 2063, 437)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (7316, 271, 245, 2908)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4721, 22, 2567, 24)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (4742, 44, 95, 838)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (12491, 6287, 112, 2873)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10752, 4975, 123, 4904)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10413, 9677, 187, 487)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10257, 9597, 95, 489)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10646, 9653, 79, 436)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11112, 9738, 185, 471)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10942, 9642, 111, 420)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11358, 9616, 71, 428)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11485, 8914, 74, 1011)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (12009, 8536, 471, 783)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11623, 8782, 177, 537)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11877, 8655, 63, 537)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9828, 8935, 352, 1011)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9696, 8805, 87, 510)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9430, 8705, 215, 453)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9294, 8610, 92, 445)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9169, 8502, 98, 397)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9010, 6412, 118, 2469)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9171, 6320, 85, 323)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9293, 6178, 95, 340)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9435, 6058, 188, 360)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9685, 5945, 85, 311)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (9825, 5806, 318, 318)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10203, 5742, 83, 230)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (10330, 5607, 75, 262)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (12376, 6347, 80, 281)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (12239, 6203, 85, 294)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (12009, 6073, 181, 289)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11872, 5960, 85, 294)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11479, 5842, 333, 274)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11359, 5747, 80, 249)
+
+[COLLISION_BOX]
+COLLISION_BOUNDS  = (11229, 5629, 66, 242)

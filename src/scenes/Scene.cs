@@ -11,9 +11,12 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
 
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.tilemap;
 
 namespace EVCMonoGame.src.scenes
 {
+    // TODO: Tilemap vor Enemy initialisieren.
+
     public abstract class Scene
     {
         #region Fields
@@ -25,6 +28,7 @@ namespace EVCMonoGame.src.scenes
 
         protected bool drawCollisionInfo = false;
         private ITranslatablePosition cameraFocus;
+
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)
@@ -35,7 +39,7 @@ namespace EVCMonoGame.src.scenes
 
             cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
                 (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
-            this.camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
+            camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
         }
         #endregion
         #region Methods
@@ -43,6 +47,12 @@ namespace EVCMonoGame.src.scenes
         {
             cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
                 (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+
+            if (!GameplayState.PlayerOne.IsAlive && !GameplayState.PlayerTwo.IsAlive)
+            {
+                sceneManager.SceneTransition(EScene.GAME_OVER);
+            }
+
             if (!pauseScene)
 			{
 				foreach (IUpdateable u in updateables)
@@ -57,13 +67,14 @@ namespace EVCMonoGame.src.scenes
 		{
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
-            CollisionManager.Draw(gameTime, spriteBatch);
-
 			foreach (IDrawable d in drawables)
 			{
 				d.Draw(gameTime, spriteBatch);
 			}
-			spriteBatch.End();
+
+            CollisionManager.Draw(gameTime, spriteBatch);
+
+            spriteBatch.End();
         }
 
         public virtual void LoadContent(ContentManager contentManager)

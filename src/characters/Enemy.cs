@@ -27,9 +27,13 @@ namespace EVCMonoGame.src.characters
 		protected int agentMindestBreite;
 		protected Vector2 movementDirection;
 
+		// Pathfinding
+		protected static Pathfinder pathfinder;
 		protected List<Point> waypoints;
 		protected Vector2 lastWaypoint;
 		protected Vector2 nextWaypoint;
+		protected float forcePathfindTimer;
+		protected float currentForcePathfindTimer;
 
 		// Stats
 		protected float attackSpeed = 1000.0f; // in mili
@@ -83,10 +87,18 @@ namespace EVCMonoGame.src.characters
 
             sprite = new AnimatedSprite(position, 5.0f);
 
+			forcePathfindTimer = 5000;
+
 			aggroRange = 600;
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
+
+			// Erzeuge Level Grid einmalig für alle Enemys vom selben Typen (solange keine dynamischen obstacles aktiv werden)
+			if(pathfinder == null)
+				pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
+
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
+            // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
 		}
 
 		#endregion
@@ -108,7 +120,7 @@ namespace EVCMonoGame.src.characters
 				if (waypoints != null)
 					foreach (Point waypoint in waypoints)
 					{
-						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite, agentMindestBreite, agentMindestBreite), Color.Black, 2);
+						Primitives2D.DrawRectangle(spriteBatch, new Rectangle(waypoint.X, waypoint.Y, agentMindestBreite, agentMindestBreite), Color.Black, 2);
 					}
 			}
 
@@ -134,41 +146,17 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
+			target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
+
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
-			if (CollisionManager.IsPlayerInRange(this, aggroRange))
+			if (target != null)
 			{
-				// Erzeuge Level Grid
-				Pathfinder pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
 				//Grid grid = new Grid(new Rectangle(CollisionBox.Center.X - 200, CollisionBox.Center.Y - 200, 400, 400), agentMindestBreite); //debug new implementation 
 
-				// Erzeuge Path
-				waypoints = pathfinder.Pathfind
-                (
-                      new Point
-                      (
-                          (int)CollisionBox.Center.X / agentMindestBreite, 
-                          (int)CollisionBox.Center.Y / agentMindestBreite
-                      ), 
-                      new Point
-                      (
-                          (int)GameplayState.PlayerOne.CollisionBox.Center.X / agentMindestBreite, 
-                          (int)GameplayState.PlayerOne.CollisionBox.Center.Y / agentMindestBreite
-                      )
-                );
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
-				MoveToCharacter(gameTime, GameplayState.PlayerOne);
+				MoveToCharacter(gameTime, target);
 			}
-
-			List<Player> players = CollisionManager.GetAllPlayersInRange(this, aggroRange);
-			if (players.Count > 0)
-			{
-				//target = getNearestPlayer()
-				target = players.ElementAt(0);
-				//MoveToCharacter(gameTime, target);
-			}
-			else
-				target = null;
 
 		}
 		#endregion
@@ -187,32 +175,39 @@ namespace EVCMonoGame.src.characters
 
 
 			PreviousWorldPosition = WorldPosition;
-
-
-			if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
+			
+			// TODO: Einfacher und sauberer schreiben
+			if (currentForcePathfindTimer > 0.0f && pathfinder.IsPositionInNavgrid(WorldPosition) || CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel) && pathfinder.IsPositionInNavgrid(WorldPosition))
 			{
+				// Erzeuge Path
+				waypoints = pathfinder.Pathfind(CollisionBox.Center, target.CollisionBox.Center);
+
+				if (CollisionManager.IsBlockedRaycast(this, character, CollisionManager.obstacleCollisionChannel))
+					currentForcePathfindTimer = forcePathfindTimer;
 
 
 				if (waypoints != null && waypoints.Count() > 1)
 				{
 					if (nextWaypoint == Vector2.Zero)
-						nextWaypoint = waypoints[0].ToVector2() * agentMindestBreite;
-
+						nextWaypoint = waypoints[0].ToVector2();
 
 
 					if (nextWaypoint == lastWaypoint)
-						nextWaypoint = waypoints[1].ToVector2() * agentMindestBreite;
+						nextWaypoint = waypoints[1].ToVector2();
 
 					movementDirection = nextWaypoint - WorldPosition;
 					
 					if (Vector2.Distance(nextWaypoint, WorldPosition) <= movementSpeed*2)
 					{
-						movementDirection = nextWaypoint - WorldPosition;
+						movementDirection = Vector2.Zero;
+						WorldPosition = nextWaypoint;
 						lastWaypoint = nextWaypoint;
 						nextWaypoint = Vector2.Zero;
 						waypoints.RemoveAt(0);
 					}
 				}
+
+				currentForcePathfindTimer = currentForcePathfindTimer - gameTime.ElapsedGameTime.Milliseconds;
 			}
 			else
 			{
@@ -231,16 +226,11 @@ namespace EVCMonoGame.src.characters
 			// Funktion fixt unsere Position
 			if (CollisionManager.IsCollisionAfterMove(this, true, true))
 			{
-				// Besser wäre eig. eine Attack Range einrichten. To Do
-				List<Player> players = CollisionManager.GetAllPlayersInRange(this, attackRange);
-				if (players.Count > 0)
+
+				if (target != null)
 				{
-					//target = getNearestPlayer()
-					// Attack target and set Cooldown
-					if (!isAttackOnCooldown)
-						Attack(players.ElementAt(0));
-					//else
-					//	Console.WriteLine("Attack on Cooldown!");
+					//if (!isAttackOnCooldown)
+					//	Attack(target);
 				}
 
 			}
@@ -253,16 +243,5 @@ namespace EVCMonoGame.src.characters
 			OnMove();
 
 		}
-
-		public override void Attack(Character target)
-		{
-
-			Console.WriteLine("Attack!");
-
-			isAttackOnCooldown = true;
-			cooldownOnAttack = attackSpeed;
-			target.OnDamage(attackDmg);
-		}
-
 	}
 }

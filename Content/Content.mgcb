@@ -464,6 +464,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/1_magicspell_spritesheet.png
 
+#begin rsrc/spritesheets/1_magicspell_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/1_magicspell_spritesheet.png
+
 #begin rsrc/spritesheets/10_weaponhit_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -475,6 +487,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/10_weaponhit_spritesheet.png
+
+#begin rsrc/spritesheets/10_weaponhit_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/10_weaponhit_spritesheet.png
+
+#begin rsrc/spritesheets/11_fire_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/11_fire_spritesheet.png
 
 #begin rsrc/spritesheets/11_fire_spritesheet.png
 /importer:TextureImporter
@@ -500,6 +536,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/12_nebula_spritesheet.png
 
+#begin rsrc/spritesheets/12_nebula_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/12_nebula_spritesheet.png
+
 #begin rsrc/spritesheets/13_vortex_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -511,6 +559,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/13_vortex_spritesheet.png
+
+#begin rsrc/spritesheets/13_vortex_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/13_vortex_spritesheet.png
+
+#begin rsrc/spritesheets/14_phantom_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/14_phantom_spritesheet.png
 
 #begin rsrc/spritesheets/14_phantom_spritesheet.png
 /importer:TextureImporter
@@ -536,6 +608,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/15_loading_spritesheet.png
 
+#begin rsrc/spritesheets/15_loading_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/15_loading_spritesheet.png
+
 #begin rsrc/spritesheets/16_sunburn_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -547,6 +631,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/16_sunburn_spritesheet.png
+
+#begin rsrc/spritesheets/16_sunburn_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/16_sunburn_spritesheet.png
+
+#begin rsrc/spritesheets/17_felspell_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/17_felspell_spritesheet.png
 
 #begin rsrc/spritesheets/17_felspell_spritesheet.png
 /importer:TextureImporter
@@ -572,6 +680,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/18_midnight_spritesheet.png
 
+#begin rsrc/spritesheets/18_midnight_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/18_midnight_spritesheet.png
+
 #begin rsrc/spritesheets/19_freezing_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -583,6 +703,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/19_freezing_spritesheet.png
+
+#begin rsrc/spritesheets/19_freezing_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/19_freezing_spritesheet.png
+
+#begin rsrc/spritesheets/2_magic8_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/2_magic8_spritesheet.png
 
 #begin rsrc/spritesheets/2_magic8_spritesheet.png
 /importer:TextureImporter
@@ -608,6 +752,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/20_magicbubbles_spritesheet.png
 
+#begin rsrc/spritesheets/20_magicbubbles_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/20_magicbubbles_spritesheet.png
+
 #begin rsrc/spritesheets/3_bluefire_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -619,6 +775,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/3_bluefire_spritesheet.png
+
+#begin rsrc/spritesheets/3_bluefire_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/3_bluefire_spritesheet.png
+
+#begin rsrc/spritesheets/4_casting_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/4_casting_spritesheet.png
 
 #begin rsrc/spritesheets/4_casting_spritesheet.png
 /importer:TextureImporter
@@ -644,6 +824,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/5_magickahit_spritesheet.png
 
+#begin rsrc/spritesheets/5_magickahit_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/5_magickahit_spritesheet.png
+
 #begin rsrc/spritesheets/6_flamelash_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -655,6 +847,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/6_flamelash_spritesheet.png
+
+#begin rsrc/spritesheets/6_flamelash_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/6_flamelash_spritesheet.png
+
+#begin rsrc/spritesheets/7_firespin_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/7_firespin_spritesheet.png
 
 #begin rsrc/spritesheets/7_firespin_spritesheet.png
 /importer:TextureImporter
@@ -680,6 +896,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/8_protectioncircle_spritesheet.png
 
+#begin rsrc/spritesheets/8_protectioncircle_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/8_protectioncircle_spritesheet.png
+
 #begin rsrc/spritesheets/9_brightfire_spritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -691,6 +919,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/9_brightfire_spritesheet.png
+
+#begin rsrc/spritesheets/9_brightfire_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/9_brightfire_spritesheet.png
+
+#begin rsrc/spritesheets/adventurer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/adventurer.png
 
 #begin rsrc/spritesheets/adventurer.png
 /importer:TextureImporter
@@ -716,6 +968,30 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/breath-fire.png
 
+#begin rsrc/spritesheets/breath-fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/breath-fire.png
+
+#begin rsrc/spritesheets/coin.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/coin.png
+
 #begin rsrc/spritesheets/coin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -731,6 +1007,21 @@
 #begin rsrc/spritesheets/configFiles/anmFileTemplate.txt
 /copy:rsrc/spritesheets/configFiles/anmFileTemplate.txt
 
+#begin rsrc/spritesheets/configFiles/defender.anm.txt
+/copy:rsrc/spritesheets/configFiles/defender.anm.txt
+
+#begin rsrc/spritesheets/configFiles/gameOverHeart.anm.txt
+/copy:rsrc/spritesheets/configFiles/gameOverHeart.anm.txt
+
+#begin rsrc/spritesheets/configFiles/gameOverSelection.anm.txt
+/copy:rsrc/spritesheets/configFiles/gameOverSelection.anm.txt
+
+#begin rsrc/spritesheets/configFiles/gargoyle.anm.txt
+/copy:rsrc/spritesheets/configFiles/gargoyle.anm.txt
+
+#begin rsrc/spritesheets/configFiles/riku.anm.txt
+/copy:rsrc/spritesheets/configFiles/riku.anm.txt
+
 #begin rsrc/spritesheets/configFiles/shadow.anm.txt
 /copy:rsrc/spritesheets/configFiles/shadow.anm.txt
 
@@ -739,6 +1030,18 @@
 
 #begin rsrc/spritesheets/configFiles/sora_portrait.anm.txt
 /copy:rsrc/spritesheets/configFiles/sora_portrait.anm.txt
+
+#begin rsrc/spritesheets/crono.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/crono.png
 
 #begin rsrc/spritesheets/crono.png
 /importer:TextureImporter
@@ -764,6 +1067,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/CronoTransparentBackground.png
 
+#begin rsrc/spritesheets/CronoTransparentBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/CronoTransparentBackground.png
+
 #begin rsrc/spritesheets/cursor.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -775,6 +1090,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/cursor.png
+
+#begin rsrc/spritesheets/cursor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/cursor.png
+
+#begin rsrc/spritesheets/demon-attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/demon-attack.png
 
 #begin rsrc/spritesheets/demon-attack.png
 /importer:TextureImporter
@@ -800,6 +1139,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/demon-idle.png
 
+#begin rsrc/spritesheets/demon-idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/demon-idle.png
+
 #begin rsrc/spritesheets/enemy-death.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -811,6 +1162,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/enemy-death.png
+
+#begin rsrc/spritesheets/enemy-death.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/enemy-death.png
+
+#begin rsrc/spritesheets/explosion-1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-1.png
 
 #begin rsrc/spritesheets/explosion-1.png
 /importer:TextureImporter
@@ -836,6 +1211,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/explosion-2.png
 
+#begin rsrc/spritesheets/explosion-2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-2.png
+
 #begin rsrc/spritesheets/explosion-3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -847,6 +1234,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/explosion-3.png
+
+#begin rsrc/spritesheets/explosion-3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-3.png
+
+#begin rsrc/spritesheets/explosion-4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-4.png
 
 #begin rsrc/spritesheets/explosion-4.png
 /importer:TextureImporter
@@ -872,6 +1283,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/explosion-5.png
 
+#begin rsrc/spritesheets/explosion-5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-5.png
+
 #begin rsrc/spritesheets/explosion-6.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -883,6 +1306,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/explosion-6.png
+
+#begin rsrc/spritesheets/explosion-6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/explosion-6.png
+
+#begin rsrc/spritesheets/faces.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/faces.PNG
 
 #begin rsrc/spritesheets/faces.PNG
 /importer:TextureImporter
@@ -908,6 +1355,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/floatingrocks_1.png
 
+#begin rsrc/spritesheets/floatingrocks_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/floatingrocks_1.png
+
 #begin rsrc/spritesheets/fox-run.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -919,6 +1378,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/fox-run.png
+
+#begin rsrc/spritesheets/fox-run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/fox-run.png
+
+#begin rsrc/spritesheets/gabe-idle-run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gabe-idle-run.png
 
 #begin rsrc/spritesheets/gabe-idle-run.png
 /importer:TextureImporter
@@ -944,6 +1427,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/gem.png
 
+#begin rsrc/spritesheets/gem.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gem.png
+
 #begin rsrc/spritesheets/ghost-idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -955,6 +1450,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/ghost-idle.png
+
+#begin rsrc/spritesheets/ghost-idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/ghost-idle.png
+
+#begin rsrc/spritesheets/gothic-hero-attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gothic-hero-attack.png
 
 #begin rsrc/spritesheets/gothic-hero-attack.png
 /importer:TextureImporter
@@ -980,6 +1499,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/gothic-hero-idle.png
 
+#begin rsrc/spritesheets/gothic-hero-idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gothic-hero-idle.png
+
 #begin rsrc/spritesheets/gothic-hero-jump.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -991,6 +1522,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/gothic-hero-jump.png
+
+#begin rsrc/spritesheets/gothic-hero-jump.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gothic-hero-jump.png
+
+#begin rsrc/spritesheets/gothic-hero-run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/gothic-hero-run.png
 
 #begin rsrc/spritesheets/gothic-hero-run.png
 /importer:TextureImporter
@@ -1016,6 +1571,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hell-beast-breath.png
 
+#begin rsrc/spritesheets/hell-beast-breath.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hell-beast-breath.png
+
 #begin rsrc/spritesheets/hero-attack-back.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1027,6 +1594,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-attack-back.png
+
+#begin rsrc/spritesheets/hero-attack-back.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-back.png
+
+#begin rsrc/spritesheets/hero-attack-back-weapon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-back-weapon.png
 
 #begin rsrc/spritesheets/hero-attack-back-weapon.png
 /importer:TextureImporter
@@ -1052,6 +1643,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-attack-front.png
 
+#begin rsrc/spritesheets/hero-attack-front.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-front.png
+
 #begin rsrc/spritesheets/hero-attack-front-weapon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1063,6 +1666,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-attack-front-weapon.png
+
+#begin rsrc/spritesheets/hero-attack-front-weapon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-front-weapon.png
+
+#begin rsrc/spritesheets/hero-attack-side.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-side.png
 
 #begin rsrc/spritesheets/hero-attack-side.png
 /importer:TextureImporter
@@ -1088,6 +1715,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-attack-side-weapon.png
 
+#begin rsrc/spritesheets/hero-attack-side-weapon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-attack-side-weapon.png
+
 #begin rsrc/spritesheets/hero-back-walk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1099,6 +1738,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-back-walk.png
+
+#begin rsrc/spritesheets/hero-back-walk.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-back-walk.png
+
+#begin rsrc/spritesheets/hero-walk-front.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-walk-front.png
 
 #begin rsrc/spritesheets/hero-walk-front.png
 /importer:TextureImporter
@@ -1124,6 +1787,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/hero-walk-side.png
 
+#begin rsrc/spritesheets/hero-walk-side.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/hero-walk-side.png
+
 #begin rsrc/spritesheets/khcom_cards.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1135,6 +1810,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_cards.png
+
+#begin rsrc/spritesheets/khcom_cards.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_cards.png
+
+#begin rsrc/spritesheets/khcom_defender.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_defender.png
 
 #begin rsrc/spritesheets/khcom_defender_transparent.png
 /importer:TextureImporter
@@ -1148,6 +1847,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_defender_transparent.png
 
+#begin rsrc/spritesheets/khcom_gameOver.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_gameOver.png
+
 #begin rsrc/spritesheets/khcom_gameOver_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1159,6 +1870,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_gameOver_transparent.png
+
+#begin rsrc/spritesheets/khcom_gargoyle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_gargoyle.png
 
 #begin rsrc/spritesheets/khcom_gargoyle_transparent.png
 /importer:TextureImporter
@@ -1172,6 +1895,42 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_gargoyle_transparent.png
 
+#begin rsrc/spritesheets/khcom_letters.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_letters.png
+
+#begin rsrc/spritesheets/khcom_letters_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_letters_transparent.png
+
+#begin rsrc/spritesheets/khcom_riku.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_riku.png
+
 #begin rsrc/spritesheets/khcom_riku_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1183,6 +1942,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_riku_transparent.png
+
+#begin rsrc/spritesheets/khcom_shadow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_shadow.png
+
+#begin rsrc/spritesheets/khcom_shadow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_shadow.png
 
 #begin rsrc/spritesheets/khcom_shadow_transparent.png
 /importer:TextureImporter
@@ -1196,6 +1979,42 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_shadow_transparent.png
 
+#begin rsrc/spritesheets/khcom_shadow_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_shadow_transparent.png
+
+#begin rsrc/spritesheets/khcom_sora.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_sora.png
+
+#begin rsrc/spritesheets/khcom_sora.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_sora.png
+
 #begin rsrc/spritesheets/khcom_sora_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1207,6 +2026,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/khcom_sora_transparent.png
+
+#begin rsrc/spritesheets/khcom_sora_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_sora_transparent.png
+
+#begin rsrc/spritesheets/khcom_sora_transparent_red.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/khcom_sora_transparent_red.png
+
+#begin rsrc/spritesheets/knight iso char.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight iso char.png
 
 #begin rsrc/spritesheets/knight iso char.png
 /importer:TextureImporter
@@ -1232,6 +2087,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/knight_down_run.png
 
+#begin rsrc/spritesheets/knight_down_run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight_down_run.png
+
 #begin rsrc/spritesheets/knight_idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1243,6 +2110,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/knight_idle.png
+
+#begin rsrc/spritesheets/knight_idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight_idle.png
+
+#begin rsrc/spritesheets/knight_left_run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight_left_run.png
 
 #begin rsrc/spritesheets/knight_left_run.png
 /importer:TextureImporter
@@ -1268,6 +2159,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/knight_right_run.png
 
+#begin rsrc/spritesheets/knight_right_run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight_right_run.png
+
 #begin rsrc/spritesheets/knight_up_run.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1279,6 +2182,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/knight_up_run.png
+
+#begin rsrc/spritesheets/knight_up_run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/knight_up_run.png
+
+#begin rsrc/spritesheets/kobold-idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/kobold-idle.png
 
 #begin rsrc/spritesheets/kobold-idle.png
 /importer:TextureImporter
@@ -1304,6 +2231,30 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/mani-idle-run.png
 
+#begin rsrc/spritesheets/mani-idle-run.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/mani-idle-run.png
+
+#begin rsrc/spritesheets/mole-walk-back.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/mole-walk-back.png
+
 #begin rsrc/spritesheets/mole-walk-back.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1327,6 +2278,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/mole-walk-front.png
+
+#begin rsrc/spritesheets/mole-walk-front.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/mole-walk-front.png
+
+#begin rsrc/spritesheets/mole-walk-side.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/mole-walk-side.png
 
 #begin rsrc/spritesheets/mole-walk-side.png
 /importer:TextureImporter
@@ -2936,6 +3911,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/slime-blue.png
 
+#begin rsrc/spritesheets/slime-blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/slime-blue.png
+
 #begin rsrc/spritesheets/slime-green.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2947,6 +3934,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/slime-green.png
+
+#begin rsrc/spritesheets/slime-green.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/slime-green.png
+
+#begin rsrc/spritesheets/slime-orange.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/slime-orange.png
 
 #begin rsrc/spritesheets/slime-orange.png
 /importer:TextureImporter
@@ -2972,6 +3983,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/swordsman.png
 
+#begin rsrc/spritesheets/swordsman.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/swordsman.png
+
 #begin rsrc/spritesheets/treant-walk-back.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2983,6 +4006,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/treant-walk-back.png
+
+#begin rsrc/spritesheets/treant-walk-back.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/treant-walk-back.png
+
+#begin rsrc/spritesheets/treant-walk-front.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/treant-walk-front.png
 
 #begin rsrc/spritesheets/treant-walk-front.png
 /importer:TextureImporter
@@ -3008,6 +4055,18 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/treant-walk-side.png
 
+#begin rsrc/spritesheets/treant-walk-side.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/treant-walk-side.png
+
 #begin rsrc/spritesheets/windmühle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3019,6 +4078,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/windmühle.png
+
+#begin rsrc/spritesheets/windmühle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/windmühle.png
+
+#begin rsrc/spritesheets/wizard attack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/wizard attack.png
 
 #begin rsrc/spritesheets/wizard attack.png
 /importer:TextureImporter
@@ -3044,6 +4127,30 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/wizard death.png
 
+#begin rsrc/spritesheets/wizard death.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/wizard death.png
+
+#begin rsrc/spritesheets/wizard fly forward.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/wizard fly forward.png
+
 #begin rsrc/spritesheets/wizard fly forward.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3067,6 +4174,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/spritesheets/wizard idle.png
+
+#begin rsrc/spritesheets/wizard idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/wizard idle.png
+
+#begin rsrc/spritesheets/worm-run-idle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rsrc/spritesheets/worm-run-idle.png
 
 #begin rsrc/spritesheets/worm-run-idle.png
 /importer:TextureImporter
@@ -3176,71 +4307,146 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/atlas2.png
 
-#begin rsrc/tilesets/configFiles/carpet.tm.txt
-/copy:rsrc/tilesets/configFiles/carpet.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/bigWoods.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/bigWoods.tm.txt
 
-#begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
-/copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles.ts.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/carpet.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/carpet.tm.txt
 
-#begin rsrc/tilesets/configFiles/chronoTriggerCastleTiles2.ts.txt
-/copy:rsrc/tilesets/configFiles/chronoTriggerCastleTiles2.ts.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/chronoTriggerLevel.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/chronoTriggerLevel.tm.txt
 
-#begin rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt
-/copy:rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/collisiontest.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/collisiontest.tm.txt
 
-#begin rsrc/tilesets/configFiles/collisiontest.tm.txt
-/copy:rsrc/tilesets/configFiles/collisiontest.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/firstTilemapEditorLevel.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/firstTilemapEditorLevel.tm.txt
 
-#begin rsrc/tilesets/configFiles/ff6Level.tm.txt
-/copy:rsrc/tilesets/configFiles/ff6Level.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/forestsWithHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/forestsWithHouses.tm.txt
 
-#begin rsrc/tilesets/configFiles/ff6Tiles.ts.txt
-/copy:rsrc/tilesets/configFiles/ff6Tiles.ts.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/iHopeThisWorks.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/iHopeThisWorks.tm.txt
 
-#begin rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
-/copy:rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/large.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/large.tm.txt
 
-#begin rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
-/copy:rsrc/tilesets/configFiles/forestsWithHouses.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt
 
-#begin rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
-/copy:rsrc/tilesets/configFiles/iHopeThisWorks.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/Level_InsideCastle.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/Level_InsideCastle.tm.txt
 
-#begin rsrc/tilesets/configFiles/kh_beach.txt
-/copy:rsrc/tilesets/configFiles/kh_beach.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/moved.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/moved.tm.txt
 
-#begin rsrc/tilesets/configFiles/kh_castle.txt
-/copy:rsrc/tilesets/configFiles/kh_castle.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/oneForest.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/oneForest.tm.txt
 
-#begin rsrc/tilesets/configFiles/large.tm.txt
-/copy:rsrc/tilesets/configFiles/large.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt
 
-#begin rsrc/tilesets/configFiles/Level1.txt
-/copy:rsrc/tilesets/configFiles/Level1.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/rnd.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/rnd.tm.txt
 
-#begin rsrc/tilesets/configFiles/moved.tm.txt
-/copy:rsrc/tilesets/configFiles/moved.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/tmFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/tmFileTemplate.txt
 
-#begin rsrc/tilesets/configFiles/oneForest.tm.txt
-/copy:rsrc/tilesets/configFiles/oneForest.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/twoForests.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/twoForests.tm.txt
 
-#begin rsrc/tilesets/configFiles/overworld_tiles.ts.txt
-/copy:rsrc/tilesets/configFiles/overworld_tiles.ts.txt
+#begin rsrc/tilesets/configFiles/tilemaps/other/woodsWithGrassAndHouses.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/other/woodsWithGrassAndHouses.tm.txt
 
-#begin rsrc/tilesets/configFiles/rnd.tm.txt
-/copy:rsrc/tilesets/configFiles/rnd.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt
 
-#begin rsrc/tilesets/configFiles/tmFileTemplate.txt
-/copy:rsrc/tilesets/configFiles/tmFileTemplate.txt
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room2.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room2.tm.txt
 
-#begin rsrc/tilesets/configFiles/tsFileTemplate.txt
-/copy:rsrc/tilesets/configFiles/tsFileTemplate.txt
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room3.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room3.tm.txt
 
-#begin rsrc/tilesets/configFiles/twoForests.tm.txt
-/copy:rsrc/tilesets/configFiles/twoForests.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room4.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room4.tm.txt
 
-#begin rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
-/copy:rsrc/tilesets/configFiles/woodsWithGrassAndHouses.tm.txt
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room5.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room5.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/structures.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/structures.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room1.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room1.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room2.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room2.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room3.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room3.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room4.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room4.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room5.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes1_forest/room5.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room1.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room1.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room2.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room2.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room3.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room3.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room4.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room4.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room5.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes2_sand/room5.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room1.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room1.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room2.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room2.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room3.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room3.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room4.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room4.tm.txt
+
+#begin rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt
+/copy:rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/chronoTriggerCastleTiles.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/chronoTriggerCastleTiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/chronoTriggerCastleTiles2.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/chronoTriggerCastleTiles2.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_Hills.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_Hills.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_imperialCastle.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_imperialCastle.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_InsideCastle.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_InsideCastle.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_SandOutsideCastle.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/ff6Tiles_SandOutsideCastle.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/overworld_tiles.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/overworld_tiles.ts.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/other/tsFileTemplate.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/other/tsFileTemplate.txt
+
+#begin rsrc/tilesets/configFiles/tileSelections/scenes0_tutorial/brightForest.ts.txt
+/copy:rsrc/tilesets/configFiles/tileSelections/scenes0_tutorial/brightForest.ts.txt
 
 #begin rsrc/tilesets/FF6MapTileAirship.png
 /importer:TextureImporter
@@ -3506,19 +4712,7 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/objects.png
 
-#begin rsrc/tilesets/objects.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/objects.png
-
-#begin rsrc/tilesets/sfml-tileset.png
+#begin rsrc/tilesets/overworld_tileset_grass.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -3541,7 +4735,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/sfml-tileset.png
-
 
 #begin rsrc/tilesets/SNES - Chrono Trigger - Court Room.gif
 /importer:TextureImporter
@@ -3567,7 +4760,6 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/SNES - Chrono Trigger - Mountains.png
 
-
 #begin rsrc/tilesets/tf_darkdimension_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3580,18 +4772,6 @@
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/tf_darkdimension_sheet.png
 
-#begin rsrc/tilesets/tf_darkdimension_sheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/tf_dd_A5_2.png
-
 #begin rsrc/tilesets/tf_dd_A5_2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3602,7 +4782,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:rsrc/tilesets/tf_dd_A5_3.png
+/build:rsrc/tilesets/tf_dd_A5_2.png
 
 #begin rsrc/tilesets/tf_dd_A5_3.png
 /importer:TextureImporter
@@ -3627,30 +4807,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rsrc/tilesets/tf_dd_B_2.png
-
-#begin rsrc/tilesets/tf_dd_B_2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/tf_dd_B_2.png
-
-#begin rsrc/tilesets/tf_dd_B_3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:rsrc/tilesets/tf_dd_B_3.png
 
 #begin rsrc/tilesets/tf_dd_B_3.png
 /importer:TextureImporter

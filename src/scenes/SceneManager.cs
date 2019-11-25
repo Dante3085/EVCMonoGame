@@ -12,6 +12,11 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.states;
 
+using EVCMonoGame.src.scenes.tutorial;
+using EVCMonoGame.src.scenes.forest;
+using EVCMonoGame.src.scenes.sand;
+using EVCMonoGame.src.scenes.castle;
+
 namespace EVCMonoGame.src.scenes
 {
     public enum EScene
@@ -20,7 +25,33 @@ namespace EVCMonoGame.src.scenes
         OPTIONS,
         SAND_CASTLES,
         INSIDE_CASTLE,
+
         GAME_OVER,
+        REST_ROOM,
+
+        TUTORIAL_ROOM_1,
+        TUTORIAL_ROOM_2,
+        TUTORIAL_ROOM_3,
+        TUTORIAL_ROOM_4,
+        TUTORIAL_ROOM_5,
+
+        FOREST_ROOM_1,
+        FOREST_ROOM_2,
+        FOREST_ROOM_3,
+        FOREST_ROOM_4,
+        FOREST_ROOM_5,
+
+        SAND_ROOM_1,
+        SAND_ROOM_2,
+        SAND_ROOM_3,
+        SAND_ROOM_4,
+        SAND_ROOM_5,
+
+        CASTLE_ROOM_1,
+        CASTLE_ROOM_2,
+        CASTLE_ROOM_3,
+        CASTLE_ROOM_4,
+        CASTLE_ROOM_5,
     }
 
     public class SceneManager
@@ -87,17 +118,29 @@ namespace EVCMonoGame.src.scenes
             debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
+
+            // Diese 2 Scenes sind alt und nicht für das fertige Spiel gedacht.
             scenes[EScene.SAND_CASTLES] = new Scene_DesertWithCastles(this);
             scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
+
             scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
-            currentScene = previousScene = scenes[EScene.SAND_CASTLES];
+            scenes[EScene.REST_ROOM] = new Scene_RestRoom(this);
+            scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
+            scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
+
+            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);
 
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
             CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
-        }
+			if (GameplayState.IsTwoPlayer)
+			{
+				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
+				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
+			}
+		}
         #endregion
         #region Methods
         public void LoadContent()
@@ -204,6 +247,11 @@ namespace EVCMonoGame.src.scenes
 					//CollisionManager.AddCollidables(GameplayState.PlayerFour);
 					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 					CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+					if (GameplayState.IsTwoPlayer)
+					{
+						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
+						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
+					}
 
 				}
             }

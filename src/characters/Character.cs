@@ -17,7 +17,7 @@ namespace EVCMonoGame.src.characters
 {
     // TODO: CombatArgs irgendwie initialisieren.
 
-    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable/* ,CombatCollidable */
+    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable
     {
         #region Fields
 
@@ -41,6 +41,7 @@ namespace EVCMonoGame.src.characters
         protected Vector2 collisionBoxOffset = Vector2.Zero;
         protected AnimatedSprite sprite;
         protected CombatArgs combatArgs;
+        protected bool flinching = false;
 
         #endregion
 
@@ -76,29 +77,9 @@ namespace EVCMonoGame.src.characters
             get { return maxHp; }
         }
 
-        public bool IsAlive
-        {
-            get { return currentHp > 0; }
-        }
-
         public AnimatedSprite Sprite
         {
             get { return sprite; }
-        }
-
-        public CombatArgs CombatArgs
-        {
-            get { return combatArgs; }
-        }
-
-        public bool HasActiveAttackBounds
-        {
-            get; protected set;
-        }
-
-        public bool HasActiveHurtBounds
-        {
-            get; protected set;
         }
 
         public Vector2 WorldPosition
@@ -134,6 +115,36 @@ namespace EVCMonoGame.src.characters
             }
         }
 
+        public Rectangle HurtBounds
+        {
+            get { return sprite.CurrentHurtBounds; }
+        }
+
+        public Rectangle AttackBounds
+        {
+            get { return sprite.CurrentAttackBounds; }
+        }
+
+        public bool HasActiveAttackBounds
+        {
+            get; protected set;
+        } = true;
+
+        public bool HasActiveHurtBounds
+        {
+            get; protected set;
+        } = true;
+
+        public bool IsAlive
+        {
+            get { return currentHp > 0; }
+        }
+
+        public CombatArgs CombatArgs
+        {
+            get { return combatArgs; }
+        }
+
         #endregion
 
         public Character
@@ -166,8 +177,13 @@ namespace EVCMonoGame.src.characters
 			sprite = new AnimatedSprite(position, 5.0f);
 
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
+            CollisionManager.AddCombatCollidable(this);
 
             WorldPosition = position;
+
+            combatArgs = new CombatArgs(null, null);
+            combatArgs.damage = 50;
+            combatArgs.knockBack = new Vector2(50, 0);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -201,23 +217,26 @@ namespace EVCMonoGame.src.characters
             }
         }
 
-		public virtual void Attack(Character target)
-		{
+        public virtual void OnCombatCollision(CombatArgs combatArgs)
+        {
+            //enemyHealthbar.CurrentHp -= combatArgs.damage;
+            //enemySprite.Position += combatArgs.knockBack;
 
-		}
+            if (combatArgs.victim == this)
+            {
+                currentHp -= combatArgs.damage;
+                healthbar.CurrentHp = currentHp;
 
-		public virtual void OnDamage(float ammount)
-		{
-			Healthbar.CurrentHp -= (int)ammount;
-		}
+                sprite.Position += combatArgs.knockBack;
 
-		#region CombatCollidable
-		//public virtual void OnCombatCollision(CombatArgs combatArgs)
-		//{
-		//    enemyHealthbar.CurrentHp -= combatArgs.damage;
-		//    enemySprite.Position += combatArgs.knockBack;
-		//}
-
-		#endregion
-	}
+            }
+            else
+            {
+                // Reset this to true when the attack is over.
+                // This is to prevent one attack be counted
+                // as multiple attacks.
+                HasActiveAttackBounds = false;
+            }
+        }
+    }
 }

@@ -51,6 +51,8 @@ namespace EVCMonoGame.src.scenes
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/firstTilemapEditorLevel.tm.txt");
             //tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/collisiontest.tm.txt");
             // tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/chronoTriggerLevel.tm.txt");
+
+            // Kollisiondaten explizit an CollisionManager geben. Wird nicht einfach in Tilemap gemacht.
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt");
 
             updateables.AddRange(new IUpdateable[]
@@ -68,7 +70,7 @@ namespace EVCMonoGame.src.scenes
             });
 
             sceneManager.GlobalDebugTexts.Entries[0] = "ShadowAnimFrame: ";
-            camera.Zoom = 0.55f;
+            camera.Zoom = .75f;
 
             for (int i = 0; i < items.Length; ++i)
             {
@@ -120,18 +122,23 @@ namespace EVCMonoGame.src.scenes
 
             if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One))
             {
-                if (CollisionManager.IsPlayerInArea(new Rectangle(1480, 1280, 365, 255)))
+                if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(1480, 1280, 365, 255)))
                 {
                     sceneManager.SceneTransition(EScene.INSIDE_CASTLE);
                 }
-                else if (CollisionManager.IsPlayerInArea(new Rectangle(7500, 3000, 400, 200)))
+                else if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(7500, 3000, 400, 200)))
                 {
                     GameplayState.PlayerOne.WorldPosition = new Vector2(7700, 2200);
                 }
-                else if (CollisionManager.IsPlayerInArea(new Rectangle(7640, 2220, 200, 180)))
+                else if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(7640, 2220, 200, 180)))
                 {
                     GameplayState.PlayerOne.WorldPosition = new Vector2(7630, 3030);
                 }
+            }
+
+            if (InputManager.OnKeyPressed(Keys.C))
+            {
+                camera.MoveCamera(new Vector2(300, 300), new Vector2(800, 800), 2000);
             }
 			
             base.Update(gameTime);

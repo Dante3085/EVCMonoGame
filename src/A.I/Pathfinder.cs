@@ -18,7 +18,7 @@ namespace EVCMonoGame.src.A.I
 	{
 		//public Rectangle Size;
 
-		public byte[,] Weight;
+		public byte[,] navGrid;
 		public Rectangle gridBounds;
 		public int agentMindestBreite;
 
@@ -38,7 +38,7 @@ namespace EVCMonoGame.src.A.I
 			this.agentMindestBreite = agentMindestBreite;
 
 			//Weight = CollisionManager.GenerateNavGrid(gridBounds, agentMindestBreite); // neue unfertige implementation
-			Weight = CollisionManager.GenerateLevelNavGrid(gridBounds.Width, gridBounds.Height, agentMindestBreite);
+			navGrid = CollisionManager.GenerateLevelNavGrid(gridBounds.Width, gridBounds.Height, agentMindestBreite);
 		}
 
 		// To do: Implementierung einer Lösung die Relativ zum Agenten ist. Spart immens performance
@@ -61,6 +61,21 @@ namespace EVCMonoGame.src.A.I
 			return Pathfind(start, to);
 		}
 
+		public bool IsPositionInNavgrid(Vector2 WorldPosition)
+		{
+			// Convert WorldPosition to Grid coordinate
+			Point gridCoordinate = new Point((int)WorldPosition.X / agentMindestBreite, (int)WorldPosition.Y / agentMindestBreite);
+
+			// Wenn außerhalb vom Navgrid
+			if (gridCoordinate.X < 0 || gridCoordinate.Y < 0 || gridCoordinate.X >= navGrid.GetLength(0) || gridCoordinate.Y >= navGrid.GetLength(1))
+				return false;
+
+			if (navGrid[gridCoordinate.X, gridCoordinate.Y] == 0)
+				return true;
+			else
+				return false;
+		}
+		
 
 		///	<summary>
 		///	A* Algo übernommen und überarbeitet von http://stevephillips.me/blog/implementing-pathfinding-algorithm-xna
@@ -68,11 +83,30 @@ namespace EVCMonoGame.src.A.I
 		///	</summary>
 		public List<Point> Pathfind(Point start, Point end)
 		{
+
+			// Abstrahiere WorldPosition auf Navgrid
+			Point locStart = new Point((int)start.X / agentMindestBreite, (int)start.Y / agentMindestBreite);
+			Point locEnd = new Point((int)end.X / agentMindestBreite, (int)end.Y / agentMindestBreite);
+
+			// Wenn außerhalb vom Navgrid
+			if (locStart.X < 0 || locStart.Y < 0 || locStart.X >= navGrid.GetLength(0) || locStart.Y >= navGrid.GetLength(1) ||
+				locEnd.X < 0 || locEnd.Y < 0 || locEnd.X >= navGrid.GetLength(0) || locEnd.Y >= navGrid.GetLength(1))
+				return null;
+
+			if (navGrid[locStart.X, locStart.Y] == 1)
+			{
+				return null;
+			}
+			if (navGrid[locEnd.X, locEnd.Y] == 1)
+			{
+				return null;
+			}
+
 			// nodes that have already been analyzed and have a path from the start to them
 			var closedSet = new List<Point>();
 			// nodes that have been identified as a neighbor of an analyzed node, but have 
 			// yet to be fully analyzed
-			var openSet = new List<Point> { start };
+			var openSet = new List<Point> { locStart };
 			// a dictionary identifying the optimal origin point to each node. this is used 
 			// to back-track from the end to find the optimal path
 			var cameFrom = new Dictionary<Point, Point>();
@@ -86,10 +120,10 @@ namespace EVCMonoGame.src.A.I
 			// initialize the start node as having a distance of 0, and an estmated distance 
 			// of y-distance + x-distance, which is the optimal path in a square grid that 
 			// doesn't allow for diagonal movement
-			currentDistance.Add(start, 0);
+			currentDistance.Add(locStart, 0);
 			predictedDistance.Add(
-				start,
-				0 + +Math.Abs(start.X - end.X) + Math.Abs(start.Y - end.Y)
+				locStart,
+				0 + +Math.Abs(locStart.X - locEnd.X) + Math.Abs(locStart.Y - locEnd.Y)
 			);
 
 			int debugCounter = 0;
@@ -104,10 +138,10 @@ namespace EVCMonoGame.src.A.I
 
 
 				// if it is the finish, return the path
-				if (current.X == end.X && current.Y == end.Y)
+				if (current.X == locEnd.X && current.Y == locEnd.Y)
 				{
 					// generate the found path
-					return ReconstructPath(cameFrom, end);
+					return ConvertWaypointsToWorldPosition(ReconstructPath(cameFrom, locEnd));
 				}
 
 				// Optimiertere Variante die Grob die Lösung akzeptiert
@@ -154,8 +188,8 @@ namespace EVCMonoGame.src.A.I
 						currentDistance[neighbor] = tempCurrentDistance;
 						predictedDistance[neighbor] =
 							currentDistance[neighbor]
-							+ Math.Abs(neighbor.X - end.X)
-							+ Math.Abs(neighbor.Y - end.Y);
+							+ Math.Abs(neighbor.X - locEnd.X)
+							+ Math.Abs(neighbor.Y - locEnd.Y);
 
 						// if this is a new node, add it to processing
 						if (!openSet.Contains(neighbor))
@@ -188,25 +222,25 @@ namespace EVCMonoGame.src.A.I
 
 
 			// up
-			if (node.Y != 0 && Weight[node.X, node.Y - 1] == 0)
+			if (node.Y != 0 && navGrid[node.X, node.Y - 1] == 0)
 			{
 				nodes.Add(new Point(node.X, node.Y - 1));
 			}
 
 			// right
-			if (node.X + 1 < Weight.GetLength(0) && Weight[node.X + 1, node.Y] == 0)
+			if (node.X + 1 < navGrid.GetLength(0) && navGrid[node.X + 1, node.Y] == 0)
 			{
 				nodes.Add(new Point(node.X + 1, node.Y));
 			}
 
 			// down
-			if (node.Y + 1 < Weight.GetLength(1) && Weight[node.X, node.Y + 1] == 0)
+			if (node.Y + 1 < navGrid.GetLength(1) && navGrid[node.X, node.Y + 1] == 0)
 			{
 				nodes.Add(new Point(node.X, node.Y + 1));
 			}
 
 			// left
-			if (node.X != 0 && Weight[node.X - 1, node.Y] == 0)
+			if (node.X != 0 && navGrid[node.X - 1, node.Y] == 0)
 			{
 				nodes.Add(new Point(node.X - 1, node.Y));
 			}
@@ -232,6 +266,16 @@ namespace EVCMonoGame.src.A.I
 			var path = ReconstructPath(cameFrom, cameFrom[current]);
 			path.Add(current);
 			return path;
+		}
+
+		private List<Point> ConvertWaypointsToWorldPosition(List<Point> GridWaypoints)
+		{
+			List<Point> waypoints = new List<Point>();
+
+			foreach(Point waypoint in GridWaypoints)
+				waypoints.Add(new Point(waypoint.X * agentMindestBreite, waypoint.Y * agentMindestBreite));
+
+			return waypoints;
 		}
 	}
 }

@@ -24,21 +24,28 @@ namespace EVCMonoGame.src.tilemap
         private Vector2 position;
         List<GeometryBox> collisionBoxes = new List<GeometryBox>();
 
+        public List<GeometryBox> CollisionBoxes
+        {
+            get { return collisionBoxes; }
+        }
+
         public Tilemap(Vector2 position, String tilemapFile)
         {
             this.position = position;
             ReadTilemapFile(tilemapFile);
-            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel, collidables: collisionBoxes.ToArray());
+        }
+
+        public Tilemap(Vector2 position)
+        {
+            this.position = position;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
             foreach (Tile tile in tiles)
             {
                 spriteBatch.Draw(tileSet, tile.screenBounds, tile.textureBounds, Color.White);
             }
-
         }
 
         public void LoadContent(ContentManager content)
@@ -46,7 +53,7 @@ namespace EVCMonoGame.src.tilemap
             tileSet = content.Load<Texture2D>(tileSetPath);
         }
 
-        private void ReadTilemapFile(String path)
+        public void ReadTilemapFile(String path)
         {
             if (!path.EndsWith(".tm.txt"))
             {
@@ -103,6 +110,9 @@ namespace EVCMonoGame.src.tilemap
             this.tiles = tiles;
             this.collisionBoxes = collisionBoxes;
             this.tileSetPath = tileSetPath;
+
+            CollisionManager.AddCollidables(CollisionManager.obstacleCollisionChannel,
+                collidables: collisionBoxes.ToArray());
 
             reader.Close();
         }

@@ -13,7 +13,6 @@ namespace EVCMonoGame.src.characters.enemies
 {
     public class Defender : Enemy
     {
-
         public Defender(Vector2 position)
             : base
             (
@@ -41,7 +40,10 @@ namespace EVCMonoGame.src.characters.enemies
         {
             base.Update(gameTime);
 
-
+            if (sprite.AnimationFinished)
+            {
+                sprite.SetAnimation("IDLE_RIGHT");
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -54,10 +56,14 @@ namespace EVCMonoGame.src.characters.enemies
             base.LoadContent(content);
         }
 
-        //public override void OnCombatCollision(CombatArgs combatArgs)
-        //{
-        //    base.OnCombatCollision(combatArgs);
-        //    enemySprite.SetAnimation("FLINCH_LEFT");
-        //}
+        public override void OnCombatCollision(CombatArgs combatArgs)
+        {
+            base.OnCombatCollision(combatArgs);
+
+            if (combatArgs.victim == this && combatArgs.causesFlinch)
+            {
+                sprite.SetAnimation("FLINCH_RIGHT");
+            }
+        }
     }
 }

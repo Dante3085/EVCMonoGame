@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using C3.MonoGame;
 
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.input;
-using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.collision
 {
@@ -29,6 +30,7 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
         public static List<Collidable> itemCollisionChannel = new List<Collidable>();
 		public static List<Collidable> playerCollisionChannel = new List<Collidable>();
+        public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
 		private static byte[,] navGrid;
 		private static int debugGridCellSize;
@@ -41,10 +43,32 @@ namespace EVCMonoGame.src.collision
 			{
 				foreach (Collidable c in allCollisionsChannel)
 				{
-					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 2);
+					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 5);
 					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
 				}
 			}
+
+            if (DebugOptions.showAttackBounds)
+            {
+                Color attackBoundColor = Color.DarkRed;
+                attackBoundColor.A = 50;
+
+                foreach (CombatCollidable c in combatCollisionChannel)
+                {
+                    Primitives2D.FillRectangle(spriteBatch, c.AttackBounds, attackBoundColor);
+                }
+            }
+
+            if (DebugOptions.showHurtBounds)
+            {
+                Color hurtBoundColor = Color.Green;
+                hurtBoundColor.A = 50;
+
+                foreach (CombatCollidable c in combatCollisionChannel)
+                {
+                    Primitives2D.FillRectangle(spriteBatch, c.HurtBounds, hurtBoundColor);
+                }
+            }
 
             if (raycasts != null && DebugOptions.showRaycasts)
             {
@@ -78,11 +102,14 @@ namespace EVCMonoGame.src.collision
                                           params Collidable[] collidables)
         {
             foreach (Collidable c in collidables)
-            {
-                CollisionManager.allCollisionsChannel.Add(c);
-                channel.Add(c);
+			{
+				if (!channel.Contains(c))
+					channel.Add(c);
 
-                if (c is Player && !playerCollisionChannel.Contains(c))
+				if (!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(c))
+					CollisionManager.allCollisionsChannel.Add(c);
+
+				if (c is Player && !playerCollisionChannel.Contains(c))
                     playerCollisionChannel.Add((Collidable)c);
             }
         }
@@ -94,6 +121,14 @@ namespace EVCMonoGame.src.collision
 
             if (!collisionChannel.Contains(collidable))
                 collisionChannel.Add((Collidable)collidable);
+        }
+
+        public static void AddCombatCollidable(CombatCollidable combatCollidable)
+        {
+            if (!combatCollisionChannel.Contains(combatCollidable))
+            {
+                combatCollisionChannel.Add(combatCollidable);
+            }
         }
 
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
@@ -110,10 +145,33 @@ namespace EVCMonoGame.src.collision
 			playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
             playerCollisionChannel.Clear();
+            combatCollisionChannel.Clear();
 
 			navGrid = null;
 			raycasts = null;
 		}
+
+        public static void CheckCombatCollisions(CombatCollidable g1)
+        {
+            if (!g1.HasActiveAttackBounds)
+                return;
+
+            foreach (CombatCollidable g2 in combatCollisionChannel)
+            {
+                if (g1 == g2 || !g2.HasActiveHurtBounds)
+                    continue;
+
+                if (g1.AttackBounds.Intersects(g2.HurtBounds))
+                {
+                    CombatArgs combatArgs = g1.CombatArgs;
+                    combatArgs.attacker = g1;
+                    combatArgs.victim = g2;
+
+                    g1.OnCombatCollision(combatArgs);
+                    g2.OnCombatCollision(combatArgs);
+                }
+            }
+        }
 
         public static bool IsObstacleCollision(Collidable g1)
         {
@@ -284,16 +342,25 @@ namespace EVCMonoGame.src.collision
                                                collisionChannel);
         }
 
-        public static bool IsPlayerInArea(Rectangle bounds)
+        public static bool IsPlayerInArea(PlayerIndex playerIndex, Rectangle bounds)
         {
-            foreach (Player player in playerCollisionChannel)
+            //foreach (Player player in playerCollisionChannel)
+            //{
+            //    if (bounds.Intersects(player.CollisionBox))
+            //    {
+            //        return true;
+            //    }
+            //}
+            //return false;
+
+            if (playerIndex == PlayerIndex.One)
             {
-                if (bounds.Intersects(player.CollisionBox))
-                {
-                    return true;
-                }
+                return bounds.Intersects(GameplayState.PlayerOne.CollisionBox);
             }
-            return false;
+            else
+            {
+                return bounds.Intersects(GameplayState.PlayerTwo.CollisionBox);
+            }
         }
 
         public static bool IsPlayerInRange(Collidable collidable, float range)
@@ -338,6 +405,25 @@ namespace EVCMonoGame.src.collision
 			}
 			return playersInRange;
 		}
+
+		public static Player GetNearestPlayerInRange(Collidable collidable, float range)
+		{
+			Player nearestPlayer = null;
+
+			foreach (Player player in playerCollisionChannel)
+			{
+				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+												  player.CollisionBox.Center.ToVector2());
+
+				if (distance < range)
+					if (nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2()))
+					{
+						nearestPlayer = player;
+					}
+			}
+			return nearestPlayer;
+		}
+
 
 		//public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
 		//{
@@ -471,23 +557,43 @@ namespace EVCMonoGame.src.collision
 				{
 					Point startPos = new Point((int)(gc.WorldPosition.X / agentMindestBreite), (int)(gc.WorldPosition.Y / agentMindestBreite)); // if in bounce fehlt
 
-					int displacement = 0;
-
-					float collisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
+					// X Achse Displacement
+					int xDisplacement = 0;
+					
+					float xCollisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
 					float collisionGridWidth = agentMindestBreite;
 
 					if (gc.CollisionBox.Width % agentMindestBreite > 0)
 						collisionGridWidth = (gc.CollisionBox.Width / agentMindestBreite) * agentMindestBreite;
 
-					if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
-					{
-						displacement = 1;
-					}
-					//todo für Y
+					else if(xCollisionPositionOffset + gc.CollisionBox.Width > agentMindestBreite)
+						xDisplacement = 1;
 
-					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + displacement; i++)
+					if (xCollisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
 					{
-						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite); j++)
+						xDisplacement = 1;
+					}
+
+					// Y Achse Displacement
+					int yDisplacement = 0;
+
+					float yCollisionPositionOffset = gc.WorldPosition.Y - agentMindestBreite * startPos.Y;
+					float collisionGridHeight = agentMindestBreite;
+
+					if (gc.CollisionBox.Height % agentMindestBreite > 0)
+						collisionGridHeight = (gc.CollisionBox.Height / agentMindestBreite) * agentMindestBreite;
+
+					else if (yCollisionPositionOffset + gc.CollisionBox.Height > agentMindestBreite)
+						yDisplacement = 1;
+
+					if (yCollisionPositionOffset + gc.CollisionBox.Height - collisionGridHeight > agentMindestBreite)
+					{
+						yDisplacement = 1;
+					}
+
+					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + xDisplacement; i++)
+					{
+						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite) + yDisplacement; j++)
 						{
 							navGrid[startPos.X + i, startPos.Y + j] = 1;
 						}
@@ -595,6 +701,4 @@ namespace EVCMonoGame.src.collision
 		}
 
 	} // End of Class
-
-
 }

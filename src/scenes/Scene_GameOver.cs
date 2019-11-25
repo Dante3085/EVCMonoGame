@@ -12,6 +12,7 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.animation;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -26,6 +27,7 @@ namespace EVCMonoGame.src.scenes
         public Scene_GameOver(SceneManager sceneManager)
             : base(sceneManager)
         {
+
         }
 
         public override void OnEnterScene()
@@ -77,7 +79,6 @@ namespace EVCMonoGame.src.scenes
             easerPlayerTwo.Start();
 
             sceneManager.GlobalDebugTexts.Entries.Clear();
-            sceneManager.GlobalDebugTexts.Entries.Add("HerzIndex");
         }
 
         public override void OnExitScene()
@@ -106,6 +107,7 @@ namespace EVCMonoGame.src.scenes
                 easerPlayerTwo.Start();
             }
 
+
             if (InputManager.OnButtonPressed(Buttons.DPadUp, PlayerIndex.One))
             {
                 selectionSprite.SetAnimation(selectionSprite.CurrentAnimation == "CONTINUE" ?
@@ -133,20 +135,6 @@ namespace EVCMonoGame.src.scenes
             {
                 heartSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gameOverHeart.anm.txt");
             }
-
-            sceneManager.GlobalDebugTexts.Entries[0] = "HeartIndex: " + heartSprite.FrameIndex;
-        }
-
-        public override void LoadContent(ContentManager contentManager)
-        {
-            base.LoadContent(contentManager);
-
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            base.Draw(gameTime, spriteBatch);
-
         }
     }
 }

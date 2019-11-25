@@ -51,8 +51,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         private ContentManager content;
 
-        private StateManager stateManager;
-
         #endregion
 
         #region Properties
@@ -66,7 +64,6 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
 
         public TilemapEditor()
         {
-            this.stateManager = stateManager;
             tileSelection = new TileSelection(new Vector2(0, 0), new Vector2(64, 64), 5, new Vector2(1, 1));
         }
 
@@ -286,7 +283,7 @@ namespace EVCMonoGame.src.tilemap.tilemapEditor
             fontSize = font.MeasureString(infoText);
 
             drawingArea = new DrawingArea(viewport.Bounds, tileSelection);
-            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/tileSelections/ff6Tiles_InsideCastle.ts.txt", content);
+            tileSelection.ReadTilesFromFile("Content/rsrc/tilesets/configFiles/tileSelections/scenes0_tutorial/brightForest.ts.txt", content);
 
             tileSelection.LoadContent(content);
             drawingArea.LoadContent(content);
