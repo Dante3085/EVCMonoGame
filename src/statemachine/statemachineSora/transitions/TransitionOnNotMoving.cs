@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
-namespace EVCMonoGame.src.statemachine.statemachineSora.transitions
+namespace EVCMonoGame.src.statemachine.sora
 {
     class TransitionOnNotMoving : Transition
     {

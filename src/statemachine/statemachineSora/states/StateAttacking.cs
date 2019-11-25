@@ -22,8 +22,8 @@ namespace EVCMonoGame.src.statemachine.sora
 
         private String nextAttackAnimation = "UNINITIALIZED";
 
-        public StateAttacking(StateManagerSora stateManager, params Transition[] transitions) 
-            : base(stateManager, "Attacking")
+        public StateAttacking(params Transition[] transitions) 
+            : base("Attacking")
         {
             this.stateId = "Attacking";
         }
