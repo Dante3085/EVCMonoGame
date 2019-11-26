@@ -17,6 +17,7 @@ using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
+using EVCMonoGame.src.projectiles;
 
 // TODO: Setze flinch boolean flag OnCombatCollision für TransitionOnFlinchAttack.
 
@@ -34,6 +35,8 @@ namespace EVCMonoGame.src.characters
 
         public Vector2 movementVector;
         public Vector2 previousMovementVector;
+
+        public List<MagicMissileRed> missiletest = new List<MagicMissileRed>();
 
         #endregion
         #region Properties
@@ -70,13 +73,13 @@ namespace EVCMonoGame.src.characters
                   position: position
             )
         {
-            
+
             isAttacking = false;
             runThreshold = 0.65f;
 
-			movementSpeed = 7.5f;
+            movementSpeed = 7.5f;
 
-			CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
+            CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
 
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("RUN_RIGHT");
@@ -93,19 +96,23 @@ namespace EVCMonoGame.src.characters
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
             flinching = false;
-		}
+        }
         #endregion
         #region IDrawable
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-
+            foreach (MagicMissileRed m in missiletest)
+            {
+                m.Draw(gameTime, spriteBatch);
+            }
             // playerPortrait.Draw(gameTime, spriteBatch);
         }
 
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
+            MagicMissileRed.content = content;
             PlayerSpriteSheets.Load(content);
             sprite.spritesheet = PlayerSpriteSheets.RedGlow;
             // playerPortrait.LoadContent(content);
@@ -116,6 +123,11 @@ namespace EVCMonoGame.src.characters
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            foreach(MagicMissileRed m in missiletest)
+            {
+                m.Update(gameTime);
+            }
+            missiletest.RemoveAll((a) => { return a.FlaggedForRemove; });
             stateManager.Update(gameTime);
             // flinch = zurückweichen
             /*if (flinching)
@@ -165,16 +177,16 @@ namespace EVCMonoGame.src.characters
             if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)
                 || InputManager.OnKeyPressed(Keys.A))
             {
-                switch(playerOrientation)
+                switch (playerOrientation)
                 {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0"; break;
+                    case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
+                    case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0"; break;
                     case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
+                    case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
 
                 sprite.SetAnimation(nextAttackAnimation);
@@ -183,14 +195,14 @@ namespace EVCMonoGame.src.characters
             {
                 switch (playerOrientation)
                 {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_1"; break;
+                    case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
+                    case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_1"; break;
                     case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
+                    case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
 
                 sprite.SetAnimation(nextAttackAnimation);
@@ -199,14 +211,14 @@ namespace EVCMonoGame.src.characters
             {
                 switch (playerOrientation)
                 {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2"; break;
+                    case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
+                    case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT"; break;
+                    case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
+                    case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
+                    case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2"; break;
                     case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
+                    case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN"; break;
+                    case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
                 }
 
                 sprite.SetAnimation(nextAttackAnimation);
@@ -246,8 +258,8 @@ namespace EVCMonoGame.src.characters
                 directionVector.X = currentThumbSticks.Left.X;
                 directionVector.Y = currentThumbSticks.Left.Y * -1;
 
-                movementVector = directionVector * 
-                                 (movementSpeed  * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
+                movementVector = directionVector *
+                                 (movementSpeed * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
 
                 // Ignore LeftStickInput Axis Value if it is below 1
                 if (Math.Abs(movementVector.X) < 0.7f)
@@ -397,18 +409,18 @@ namespace EVCMonoGame.src.characters
                     }
                 }
             }
-            
+
         }
 
         #endregion
         #region CombatCollidable
-        
+
 
         public /* override */ void OnCombatCollision(CombatArgs combatArgs)
         {
             sprite.Position += combatArgs.knockBack;
 
-            switch(playerOrientation)
+            switch (playerOrientation)
             {
                 case Orientation.DOWN: sprite.SetAnimation("FLINCH_LEFT"); break;
                 case Orientation.DOWN_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;

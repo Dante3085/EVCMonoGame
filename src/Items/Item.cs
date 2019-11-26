@@ -22,9 +22,15 @@ namespace EVCMonoGame.src.Items
 
 		public bool DoUpdate { get; set; }
 
-		// GeometryCollidable
-		#region Properties
-		public Vector2 WorldPosition
+        // GeometryCollidable
+        #region Properties
+
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
+
+        public Vector2 WorldPosition
 		{
 			set
 			{

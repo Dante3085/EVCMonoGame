@@ -61,6 +61,7 @@ namespace EVCMonoGame.src.scenes
 				}
 				camera.Update(gameTime);
 			}
+            CollisionManager.Update(gameTime);
         }
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -47,6 +47,11 @@ namespace EVCMonoGame.src.characters
 
         #region Properties
 
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
+
         public bool DoUpdate
         {
             get; set;

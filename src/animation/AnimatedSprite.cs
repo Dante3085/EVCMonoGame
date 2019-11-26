@@ -19,8 +19,9 @@ namespace EVCMonoGame.src.animation
 
     public class AnimatedSprite : scenes.IUpdateable, scenes.IDrawable, Collidable, ITranslatable
     {
-        class  Animation
+        class Animation
         {
+
             public Rectangle[] Frames
             {
                 get; set;
@@ -71,12 +72,12 @@ namespace EVCMonoGame.src.animation
 
             public Animation
             (
-                Rectangle[] frames, 
-                Dictionary<int, Rectangle> hurtBounds, 
+                Rectangle[] frames,
+                Dictionary<int, Rectangle> hurtBounds,
                 Dictionary<int, Rectangle> attackBounds,
-                Dictionary<int, int> frameDelays, 
-                Dictionary<int, Vector2> frameOffsets, 
-                bool isMirrored, 
+                Dictionary<int, int> frameDelays,
+                Dictionary<int, Vector2> frameOffsets,
+                bool isMirrored,
                 bool isLooped)
             {
                 Frames = frames;
@@ -108,6 +109,13 @@ namespace EVCMonoGame.src.animation
 
         #endregion
         #region Properties
+
+        public float Scale { get { return scale; } }
+
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
 
         public bool DoUpdate
         {
@@ -400,7 +408,7 @@ namespace EVCMonoGame.src.animation
             frameIndex = 0;
         }
 
-        public void LoadAnimationsFromFile(String configFilePath)
+        public void LoadAnimationsFromFile(String configFilePath, bool scaleOffsets = false)
         {
             AnimationDatasPlusSpriteSheet animDatasPlusSpriteSheet = ConfigFileUtility.ReadAnimationFile(configFilePath);
 
@@ -411,6 +419,35 @@ namespace EVCMonoGame.src.animation
             {
                 AddAnimation(aD.animationName, aD.frames, aD.hurtBounds, aD.attackBounds,
                              aD.frameDelays, aD.frameOffsets, aD.isMirrored, aD.isLooped);
+            }
+            if (scaleOffsets)
+            {
+                List<String> animationNames = new List<string>();
+                foreach (String animName in animations.Keys)
+                {
+                    animationNames.Add(animName);
+                }
+                for(int animationIndex=0; animationIndex< animationNames.Count(); animationIndex++)
+                {
+                    for(int offsetIndex =0;
+                        offsetIndex < animations[animationNames[animationIndex]].FrameOffsets.Count();
+                        offsetIndex++)
+                    {
+                        animations[animationNames[animationIndex]].FrameOffsets[offsetIndex] *= this.scale;
+                    }
+                }
+                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
+                {
+                    for (int offsetIndex = 0;
+                        offsetIndex < animations[animationNames[animationIndex]].AttackBounds.Count();
+                        offsetIndex++)
+                    {
+                        Rectangle r = animations[animationNames[animationIndex]].AttackBounds[offsetIndex];
+                        Vector2 v = r.Location.ToVector2() * this.scale;
+                        r.Location = v.ToPoint();
+                        animations[animationNames[animationIndex]].AttackBounds[offsetIndex]= r;
+                    }
+                }
             }
         }
 
