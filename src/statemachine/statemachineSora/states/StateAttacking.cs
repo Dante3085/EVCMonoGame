@@ -75,7 +75,7 @@ namespace EVCMonoGame.src.statemachine.sora
                 case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
                 case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
                 case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
-                    MagicMissileRed m = new MagicMissileRed(sora.WorldPosition+ new Vector2(sora.CollisionBox.Width+2),Orientation.UP_RIGHT);
+                    MagicMissileRed m = new MagicMissileRed(sora.WorldPosition+ new Vector2(sora.CollisionBox.Width+2),Orientation.DOWN, 10);
                     m.LoadContent(MagicMissileRed.content);
                     GameplayState.PlayerOne.missiletest.Add(m);
                     break;

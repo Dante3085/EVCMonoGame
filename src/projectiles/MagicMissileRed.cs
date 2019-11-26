@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.projectiles
 {
     public class MagicMissileRed : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
     {
+        Vector2 collisionBoxOffset;
         public static ContentManager content;
         private Vector2 movementVector;
         public Vector2 WorldPosition { get; set; }
@@ -52,8 +53,9 @@ namespace EVCMonoGame.src.projectiles
             WorldPosition = position;
             sprite = new AnimatedSprite(position, 3);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_red.anm.txt", true);
-            sprite.SetAnimation("MAGIC_MISSILE_RED_RIGHT");
-            CollisionBox = new Rectangle((sprite.WorldPosition + (new Vector2(44, 11) * sprite.Scale)).ToPoint(),
+            sprite.SetAnimation("MAGIC_MISSILE_RED_DOWN");// orientation case
+            setCollisionBoxOffset(orientation);
+            CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.AddCombatCollidable(this);
@@ -91,6 +93,32 @@ namespace EVCMonoGame.src.projectiles
             }
             movementVector = Utility.ScaleVectorTo(movementVector, movementSpeed);
         }
+        public void setCollisionBoxOffset(Orientation orientation)
+        {
+            collisionBoxOffset = new Vector2(44, 11)*sprite.Scale;
+            switch (orientation)
+            {
+                case Orientation.LEFT:
+                    
+                    break;
+                case Orientation.UP_LEFT:
+                    break;
+                case Orientation.UP:
+                    break;
+                case Orientation.UP_RIGHT:
+                    break;
+                case Orientation.RIGHT:
+                    collisionBoxOffset = new Vector2(44, 11)*sprite.Scale;
+                    break;
+                case Orientation.DOWN_RIGHT:
+                    break;
+                case Orientation.DOWN:
+                    collisionBoxOffset = new Vector2(17, 20) * sprite.Scale;
+                    break;
+                case Orientation.DOWN_LEFT:
+                    break;
+            }
+        }
 
         public void LoadContent(ContentManager content)
         {
@@ -105,7 +133,7 @@ namespace EVCMonoGame.src.projectiles
             PreviousWorldPosition = WorldPosition;
             WorldPosition += movementVector;
             sprite.WorldPosition = WorldPosition;
-            collisionBox.Location = (WorldPosition + new Vector2(44, 11) * sprite.Scale).ToPoint();
+            collisionBox.Location = (WorldPosition + collisionBoxOffset).ToPoint();
             sprite.Update(gameTime);
             if (CollisionManager.IsCollisionAfterMove(this, false, false))
             {
