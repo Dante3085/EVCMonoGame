@@ -19,7 +19,8 @@ namespace EVCMonoGame.src.scenes.tutorial
 {
     public class Scene_Tutorial_Room3 : Scene
     {
-        private Tilemap tilemap;
+        private Shadow shadow1;
+        private Shadow shadow2;
 
         public Scene_Tutorial_Room3(SceneManager sceneManager)
             : base(sceneManager)
@@ -29,17 +30,50 @@ namespace EVCMonoGame.src.scenes.tutorial
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
-
             tilemap = new Tilemap(Vector2.Zero, 
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room3.tm.txt");
 
             PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
 
-            playerOne.WorldPosition = new Vector2(10300, 8900);
+            playerOne.WorldPosition = new Vector2(1356, 4265);
 
-            playerTwo.WorldPosition = new Vector2(11101, 9070);
+            playerTwo.WorldPosition = new Vector2(2069, 4376);
+
+            shadow1 = new Shadow(new Vector2(1330, 3000));
+            shadow2 = new Shadow(new Vector2(2100, 3000));
+
+            doorPlayerOne = new Door(new Vector2(1550, 801));
+            doorPlayerTwo = new Door(new Vector2(2000, 805));
+
+            updateables.AddRange(new IUpdateable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+                shadow1,
+                shadow2,
+            });
+
+            drawables.AddRange(new IDrawable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+                shadow1,
+                shadow2,
+            });
+
+            base.OnEnterScene();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (doorPlayerOne.Open && doorPlayerTwo.Open /* &&
+                !shadow1.IsAlive && !shadow2.IsAlive */)
+            {
+                sceneManager.SceneTransition(EScene.TUTORIAL_ROOM_4);
+            }
         }
 
         public override void LoadContent(ContentManager contentManager)

@@ -15,8 +15,6 @@ namespace EVCMonoGame.src.scenes.castle
 {
     public class Scene_Castle_Room1 : Scene
     {
-        private Tilemap tilemap;
-
         private PlayerOne sora = GameplayState.PlayerOne;
         private PlayerTwo riku = GameplayState.PlayerTwo;
 

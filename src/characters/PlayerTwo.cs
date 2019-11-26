@@ -107,6 +107,9 @@ namespace EVCMonoGame.src.characters
         #region Updateable
         public override void Update(GameTime gameTime)
         {
+            if (BlockInput)
+                return;
+
             base.Update(gameTime);
 
             // flinch = zurückweichen

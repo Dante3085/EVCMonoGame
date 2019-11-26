@@ -29,6 +29,11 @@ namespace EVCMonoGame.src.scenes
         protected bool drawCollisionInfo = false;
         private ITranslatablePosition cameraFocus;
 
+        protected Door doorPlayerOne;
+        protected Door doorPlayerTwo;
+
+        protected Tilemap tilemap;
+
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)

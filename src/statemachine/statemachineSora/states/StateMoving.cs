@@ -38,12 +38,7 @@ namespace EVCMonoGame.src.statemachine.sora
                 if (InputManager.IsKeyPressed(sora.keyboardControls[3])) directionVector.X -= 100; //left
 
                 sora.movementVector = Utility.ScaleVectorTo(directionVector, sora.movementSpeed);
-                if (InputManager.IsAnyKeyPressed(Keys.Up)&&
-                    InputManager.IsAnyKeyPressed(Keys.Down)&&
-                    InputManager.IsAnyKeyPressed(Keys.Left))
-                {
-                    int a = 0; 
-                }
+                
                 if (InputManager.IsKeyPressed(Keys.LeftShift) || InputManager.IsKeyPressed(Keys.RightShift))
                 {
                     sora.movementVector *= 2;
@@ -64,8 +59,6 @@ namespace EVCMonoGame.src.statemachine.sora
                     sora.movementVector.X = 0;
                 if (Math.Abs(sora.movementVector.Y) < 0.7f)
                     sora.movementVector.Y = 0;
-
-                Console.WriteLine(sora.movementVector);
             }
 
             sora.WorldPosition += sora.movementVector;
@@ -79,6 +72,12 @@ namespace EVCMonoGame.src.statemachine.sora
 
             float mvAngle = Utility.GetAngleOfVectorInDegrees(sora.movementVector);
             float directionVectorLength = directionVector.Length();
+
+            // Soll verhindern, dass linker Stick 
+            if (directionVectorLength < 0.15f)
+                return;
+
+            Console.WriteLine(directionVectorLength);
 
             if (mvAngle > (-22.5) && mvAngle <= (22.5))
             {
@@ -148,9 +147,6 @@ namespace EVCMonoGame.src.statemachine.sora
                 }
                 sora.playerOrientation = Orientation.DOWN_RIGHT;
             }
-
-
-
         }
     }
 }

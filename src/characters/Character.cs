@@ -47,6 +47,18 @@ namespace EVCMonoGame.src.characters
 
         #region Properties
 
+        public int MaxHp { get { return maxHp; } }
+        public int CurrentHp { get { return currentHp; } }
+        public int MaxMp { get { return maxMp; } }
+        public int CurrentMp { get { return currentMp; } }
+        public int Strength { get { return strength; } }
+        public int Defense { get { return defense; } }
+        public int Intelligence { get { return intelligence; } }
+        public int Agility { get { return agility; } }
+        public float MovementSpeed { get { return movementSpeed; } }
+
+
+
         public bool DoUpdate
         {
             get; set;
@@ -60,21 +72,6 @@ namespace EVCMonoGame.src.characters
         public Healthbar Healthbar
         {
             get { return healthbar; }
-        }
-
-        public int CurrentHp
-        {
-            get { return currentHp; }
-            set
-            {
-                currentHp = value;
-                Healthbar.CurrentHp = value;
-            }
-        }
-
-        public int MaxHp
-        {
-            get { return maxHp; }
         }
 
         public AnimatedSprite Sprite
@@ -127,12 +124,12 @@ namespace EVCMonoGame.src.characters
 
         public bool HasActiveAttackBounds
         {
-            get; protected set;
+            get; set;
         } = true;
 
         public bool HasActiveHurtBounds
         {
-            get; protected set;
+            get; set;
         } = true;
 
         public bool IsAlive
@@ -143,6 +140,7 @@ namespace EVCMonoGame.src.characters
         public CombatArgs CombatArgs
         {
             get { return combatArgs; }
+            set { combatArgs = value; }
         }
 
         #endregion

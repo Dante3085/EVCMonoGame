@@ -25,6 +25,11 @@ namespace EVCMonoGame.src.characters
             set { inventory = value; }
         }
 
+        public bool BlockInput
+        {
+            get; set;
+        } = false;
+
         public Player
             (
                 String name, 

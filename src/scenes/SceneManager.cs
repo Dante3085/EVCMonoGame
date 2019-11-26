@@ -13,8 +13,8 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.states;
 
 using EVCMonoGame.src.scenes.tutorial;
-using EVCMonoGame.src.scenes.forest;
-using EVCMonoGame.src.scenes.sand;
+using EVCMonoGame.src.scenes.desert;
+using EVCMonoGame.src.scenes.mountains;
 using EVCMonoGame.src.scenes.castle;
 
 namespace EVCMonoGame.src.scenes
@@ -35,17 +35,17 @@ namespace EVCMonoGame.src.scenes
         TUTORIAL_ROOM_4,
         TUTORIAL_ROOM_5,
 
-        FOREST_ROOM_1,
-        FOREST_ROOM_2,
-        FOREST_ROOM_3,
-        FOREST_ROOM_4,
-        FOREST_ROOM_5,
+        DESERT_ROOM_1,
+        DESERT_ROOM_2,
+        DESERT_ROOM_3,
+        DESERT_ROOM_4,
+        DESERT_ROOM_5,
 
-        SAND_ROOM_1,
-        SAND_ROOM_2,
-        SAND_ROOM_3,
-        SAND_ROOM_4,
-        SAND_ROOM_5,
+        MOUNTAINS_ROOM_1,
+        MOUNTAINS_ROOM_2,
+        MOUNTAINS_ROOM_3,
+        MOUNTAINS_ROOM_4,
+        MOUNTAINS_ROOM_5,
 
         CASTLE_ROOM_1,
         CASTLE_ROOM_2,
@@ -125,8 +125,14 @@ namespace EVCMonoGame.src.scenes
 
             scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
             scenes[EScene.REST_ROOM] = new Scene_RestRoom(this);
+
             scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
+            scenes[EScene.TUTORIAL_ROOM_2] = new Scene_Tutorial_Room2(this);
             scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
+            scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
+            scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
+
+            scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
 
             currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
 

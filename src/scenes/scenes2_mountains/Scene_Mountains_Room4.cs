@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVCMonoGame.src.scenes.forest
+namespace EVCMonoGame.src.scenes.mountains
 {
-    class Scene_Forest_Room4
+    class Scene_Mountains_Room4
     {
     }
 }

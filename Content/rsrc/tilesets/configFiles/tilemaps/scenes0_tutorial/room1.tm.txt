@@ -10856,16 +10856,6 @@ TEXTURE_BOUNDS = (16, 64, 16, 16)
 SCREEN_BOUNDS  = (7168, 576, 128, 128)
 
 [TILE]
-NAME           = auto_tile_5
-TEXTURE_BOUNDS = (80, 0, 16, 16)
-SCREEN_BOUNDS  = (6848, 0, 128, 128)
-
-[TILE]
-NAME           = auto_tile_21
-TEXTURE_BOUNDS = (80, 16, 16, 16)
-SCREEN_BOUNDS  = (6848, 128, 128, 128)
-
-[TILE]
 NAME           = auto_tile_65
 TEXTURE_BOUNDS = (16, 64, 16, 16)
 SCREEN_BOUNDS  = (5248, 448, 128, 128)
@@ -11884,16 +11874,6 @@ SCREEN_BOUNDS  = (7424, 2304, 128, 128)
 NAME           = auto_tile_14
 TEXTURE_BOUNDS = (224, 0, 16, 16)
 SCREEN_BOUNDS  = (7424, 2176, 128, 128)
-
-[TILE]
-NAME           = auto_tile_5
-TEXTURE_BOUNDS = (80, 0, 16, 16)
-SCREEN_BOUNDS  = (5312, 0, 128, 128)
-
-[TILE]
-NAME           = auto_tile_21
-TEXTURE_BOUNDS = (80, 16, 16, 16)
-SCREEN_BOUNDS  = (5312, 128, 128, 128)
 
 [TILE]
 NAME           = auto_tile_65

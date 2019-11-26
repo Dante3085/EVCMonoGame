@@ -26,12 +26,24 @@ namespace EVCMonoGame.src
 
         private Rectangle interactionArea;
 
+        private Rectangle screenBounds;
+
         private bool activated = false;
 
         public bool Activated
         {
             get { return activated; }
             set { activated = value; }
+        }
+
+        public bool BlockPlayerInteraction
+        {
+            get; set;
+        } = false;
+
+        public Rectangle Bounds
+        {
+            get { return screenBounds; }
         }
 
         public bool DoUpdate
@@ -45,10 +57,15 @@ namespace EVCMonoGame.src
 
             interactionArea = new Rectangle(position.ToPoint(), new Point(128, 128));
             interactionArea.Inflate(100, 100);
+
+            screenBounds = new Rectangle((int)position.X, (int)position.Y, 128, 128);
         }
 
         public void Update(GameTime gamTime)
         {
+            if (BlockPlayerInteraction)
+                return;
+
             if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) &&
                  CollisionManager.IsPlayerInArea(PlayerIndex.One, interactionArea)) ||
 
@@ -68,11 +85,11 @@ namespace EVCMonoGame.src
         {
             if (activated)
             {
-                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, 128, 128), activatedTextureRec, Color.White);
+                spriteBatch.Draw(texture, screenBounds, activatedTextureRec, Color.White);
             }
             else
             {
-                spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, 128, 128), deactivatedTextureRec, Color.White);
+                spriteBatch.Draw(texture, screenBounds, deactivatedTextureRec, Color.White);
             }
 
             //Color color = Color.RosyBrown;

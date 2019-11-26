@@ -20,12 +20,6 @@ namespace EVCMonoGame.src.scenes.tutorial
 {
     public class Scene_Tutorial_Room1 : Scene
     {
-        private Tilemap tilemap;
-
-        private Shadow shadow;
-
-        private Lever lever;
-
         public Scene_Tutorial_Room1(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -33,14 +27,8 @@ namespace EVCMonoGame.src.scenes.tutorial
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
-
-
 			tilemap = new Tilemap(Vector2.Zero,
 				"Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room1.tm.txt");
-
-			shadow = new Shadow(new Vector2(4000, 1300));
-			lever = new Lever(new Vector2(3000, 1300));
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
@@ -51,17 +39,22 @@ namespace EVCMonoGame.src.scenes.tutorial
             playerTwo.WorldPosition = new Vector2(2300, 1900);
             playerTwo.Sprite.SetAnimation("IDLE_RIGHT");
 
+            doorPlayerOne = new Door(new Vector2(5300, 7));
+            doorPlayerTwo = new Door(new Vector2(6847, 3));
+
             updateables.AddRange(new IUpdateable[]
             {
-                shadow,
-                lever,
+                doorPlayerOne,
+                doorPlayerTwo,
             });
 
             drawables.AddRange(new IDrawable[]
             {
-                shadow,
-                lever,
+                doorPlayerOne,
+                doorPlayerTwo,
             });
+
+            base.OnEnterScene();
 
             camera.Zoom = 0.8f;
         }
@@ -70,31 +63,19 @@ namespace EVCMonoGame.src.scenes.tutorial
         {
             base.Update(gameTime);
 
-            if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) &&
-                CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(5200, 67, 400, 213)))
+            if (doorPlayerOne.Open && doorPlayerTwo.Open)
             {
-                if (CollisionManager.IsPlayerInArea(PlayerIndex.Two, new Rectangle(6700, 75, 400, 215)))
-                {
-                    sceneManager.SceneTransition(EScene.GAME_OVER);
-                }
-            }
-            else if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) &&
-                CollisionManager.IsPlayerInArea(PlayerIndex.Two, new Rectangle(6700, 75, 400, 215)))
-            {
-                if (CollisionManager.IsPlayerInArea(PlayerIndex.One, new Rectangle(5200, 67, 400, 213)))
-                {
-                    sceneManager.SceneTransition(EScene.GAME_OVER);
-                }
+                sceneManager.SceneTransition(EScene.TUTORIAL_ROOM_2);
             }
 
-            if (InputManager.OnKeyPressed(Keys.Space))
-            {
-                camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
-            }
-            else if (InputManager.OnKeyPressed(Keys.P))
-            {
-                camera.FollowPlayers();
-            }
+            //if (InputManager.OnKeyPressed(Keys.Space))
+            //{
+            //    camera.MoveCamera(Vector2.Zero, new Vector2(6000, 1500), 5000);
+            //}
+            //else if (InputManager.OnKeyPressed(Keys.P))
+            //{
+            //    camera.FollowPlayers();
+            //}
         }
 
         public override void LoadContent(ContentManager contentManager)

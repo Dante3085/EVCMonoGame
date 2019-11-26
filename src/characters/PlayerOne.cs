@@ -46,14 +46,8 @@ namespace EVCMonoGame.src.characters
             get; set;
         }
 
-        public bool BlockInput
-        {
-            get; set;
-        } = false;
-
         #endregion
 
-        #region Constructors
         public PlayerOne(Vector2 position, Keys[] controls)
              : base
             (
@@ -94,8 +88,7 @@ namespace EVCMonoGame.src.characters
             DoesUpdateMovement = true;
             flinching = false;
 		}
-        #endregion
-        #region IDrawable
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
@@ -111,298 +104,17 @@ namespace EVCMonoGame.src.characters
             // playerPortrait.LoadContent(content);
             stateManager = new StateManagerSora();
         }
-        #endregion
-        #region Updateable
+
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            stateManager.Update(gameTime);
-            // flinch = zurückweichen
-            /*if (flinching)
-            {
-                if (sprite.AnimationFinished)
-                {
-                    flinching = false;
-                    switch(playerOrientation)
-                    {
-                        case Orientation.LEFT: sprite.SetAnimation("IDLE_LEFT"); break;
-                        case Orientation.UP_LEFT: sprite.SetAnimation("IDLE_UP_LEFT"); break;
-                        case Orientation.UP: sprite.SetAnimation("IDLE_UP"); break;
-                        case Orientation.UP_RIGHT: sprite.SetAnimation("IDLE_UP_RIGHT"); break;
-                        case Orientation.RIGHT: sprite.SetAnimation("IDLE_RIGHT"); break;
-                        case Orientation.DOWN_RIGHT: sprite.SetAnimation("IDLE_DOWN_RIGHT"); break;
-                        case Orientation.DOWN: sprite.SetAnimation("IDLE_DOWN"); break;
-                        case Orientation.DOWN_LEFT: sprite.SetAnimation("IDLE_DOWN_LEFT"); break;
-                    }
-                }
-            }
-            else
-            {
-                if (!BlockInput)
-                {
-                    UpdateMovement();
-                    UpdateAttacks();
-                }
-            }*/
-        }
-
-        public void UpdateAttacks()
-        {
-            String nextAttackAnimation = "UNKNOWN";
-
-            if (sprite.CurrentAnimation.Contains("ATTACK"))
-            {
-                if (sprite.AnimationFinished)
-                {
-                    HasActiveAttackBounds = true;
-                }
-                else
-                {
-                    CollisionManager.CheckCombatCollisions(this);
-                }
-            }
-
-            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)
-                || InputManager.OnKeyPressed(Keys.A))
-            {
-                switch(playerOrientation)
-                {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0"; break;
-                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
-                }
-
-                sprite.SetAnimation(nextAttackAnimation);
-            }
-            else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.One))
-            {
-                switch (playerOrientation)
-                {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_1"; break;
-                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
-                }
-
-                sprite.SetAnimation(nextAttackAnimation);
-            }
-            else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.One))
-            {
-                switch (playerOrientation)
-                {
-                    case Orientation.LEFT:       nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
-                    case Orientation.UP_LEFT:    nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                    case Orientation.UP:         nextAttackAnimation = "ATTACK_UP"; break;
-                    case Orientation.UP_RIGHT:   nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                    case Orientation.RIGHT:      nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2"; break;
-                    case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                    case Orientation.DOWN:       nextAttackAnimation = "ATTACK_DOWN"; break;
-                    case Orientation.DOWN_LEFT:  nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
-                }
-
-                sprite.SetAnimation(nextAttackAnimation);
-            }
-        }
-
-        public void UpdateMovement()
-        {
-            // TODO: Check for collision after moving.
-            // TODO: Tidy up this method.
-
-            if (!DoesUpdateMovement)
+            if (BlockInput)
                 return;
 
-            Vector2 directionVector = Vector2.Zero;
-            previousMovementVector = movementVector;
-            PreviousWorldPosition = WorldPosition;
+            base.Update(gameTime);
+            stateManager.Update(gameTime);
 
-            // Differentiate between Keyboard and GamePad controls.
-            if (InputManager.InputByKeyboard)
-            {
-                if (InputManager.IsKeyPressed(keyboardControls[0])) directionVector.Y -= 100; //up
-                if (InputManager.IsKeyPressed(keyboardControls[2])) directionVector.X += 100; //right
-                if (InputManager.IsKeyPressed(keyboardControls[1])) directionVector.Y += 100; //down
-                if (InputManager.IsKeyPressed(keyboardControls[3])) directionVector.X -= 100; //left
-
-                movementVector = Utility.ScaleVectorTo(directionVector, movementSpeed);
-                if (InputManager.IsKeyPressed(Keys.LeftShift) || InputManager.IsKeyPressed(Keys.RightShift))
-                {
-                    movementVector *= 2;
-                }
-            }
-            else
-            {
-                GamePadThumbSticks currentThumbSticks = InputManager.CurrentThumbSticks(PlayerIndex.One);
-
-                directionVector.X = currentThumbSticks.Left.X;
-                directionVector.Y = currentThumbSticks.Left.Y * -1;
-
-                movementVector = directionVector * 
-                                 (movementSpeed  * (1 + InputManager.CurrentTriggers(PlayerIndex.One).Right));
-
-                // Ignore LeftStickInput Axis Value if it is below 1
-                if (Math.Abs(movementVector.X) < 0.7f)
-                    movementVector.X = 0;
-                if (Math.Abs(movementVector.Y) < 0.7f)
-                    movementVector.Y = 0;
-
-                Console.WriteLine(movementVector);
-            }
-
-            WorldPosition += movementVector;
-
-            CollisionManager.IsCollisionAfterMove(this, true, true);
-
-            sprite.Position = WorldPosition;
-
-            // Has a movement happened ?
-            if (movementVector != previousMovementVector)
-            {
-                // Has the moving stopped ?
-                if (movementVector == Vector2.Zero)
-                {
-                    String currentAnimation = sprite.CurrentAnimation;
-
-                    if (currentAnimation == "WALK_DOWN_LEFT" || currentAnimation == "RUN_DOWN_LEFT"
-                        || currentAnimation == "IDLE_DOWN_LEFT")
-                    {
-                        sprite.SetAnimation("IDLE_DOWN_LEFT");
-                        playerOrientation = Orientation.DOWN_LEFT;
-                    }
-                    else if (currentAnimation == "RUN_DOWN" || currentAnimation == "IDLE_DOWN")
-                    {
-                        sprite.SetAnimation("IDLE_DOWN");
-                        playerOrientation = Orientation.DOWN;
-                    }
-                    else if (currentAnimation == "WALK_DOWN_RIGHT" || currentAnimation == "RUN_DOWN_RIGHT"
-                        || currentAnimation == "IDLE_DOWN_RIGHT")
-                    {
-                        sprite.SetAnimation("IDLE_DOWN_RIGHT");
-                        playerOrientation = Orientation.DOWN_RIGHT;
-                    }
-                    else if (currentAnimation == "WALK_UP_LEFT" || currentAnimation == "RUN_UP_LEFT"
-                        || currentAnimation == "IDLE_UP_LEFT")
-                    {
-                        sprite.SetAnimation("IDLE_UP_LEFT");
-                        playerOrientation = Orientation.UP_LEFT;
-                    }
-                    else if (currentAnimation == "RUN_UP" || currentAnimation == "IDLE_UP")
-                    {
-                        sprite.SetAnimation("IDLE_UP");
-                        playerOrientation = Orientation.UP;
-                    }
-                    else if (currentAnimation == "WALK_UP_RIGHT" || currentAnimation == "RUN_UP_RIGHT"
-                        || currentAnimation == "IDLE_UP_RIGHT")
-                    {
-                        sprite.SetAnimation("IDLE_UP_RIGHT");
-                        playerOrientation = Orientation.UP_RIGHT;
-                    }
-                    else if (currentAnimation == "RUN_LEFT" || currentAnimation == "IDLE_LEFT")
-                    {
-                        sprite.SetAnimation("IDLE_LEFT");
-                        playerOrientation = Orientation.LEFT;
-                    }
-                    else if (currentAnimation == "RUN_RIGHT" || currentAnimation == "IDLE_RIGHT")
-                    {
-                        sprite.SetAnimation("IDLE_RIGHT");
-                        playerOrientation = Orientation.RIGHT;
-                    }
-                    else
-                    {
-                        sprite.SetAnimation("IDLE_UP");
-                        playerOrientation = Orientation.UP;
-                    }
-                }
-                else
-                {
-                    float mvAngle = Utility.GetAngleOfVectorInDegrees(movementVector);
-                    float directionVectorLength = directionVector.Length();
-
-                    if (mvAngle > (-22.5) && mvAngle <= (22.5))
-                    {
-                        sprite.SetAnimation("RUN_RIGHT");
-                        playerOrientation = Orientation.RIGHT;
-                    }
-                    if (mvAngle > (22.5) && mvAngle <= (77.5))
-                    {
-                        if (directionVectorLength <= runThreshold)
-                        {
-                            sprite.SetAnimation("WALK_UP_RIGHT");
-                        }
-                        else
-                        {
-                            sprite.SetAnimation("RUN_UP_RIGHT");
-                        }
-                        playerOrientation = Orientation.UP_RIGHT;
-                    }
-                    if (mvAngle > (77.5) && mvAngle <= (112.5))
-                    {
-                        sprite.SetAnimation("RUN_UP");
-                        playerOrientation = Orientation.UP;
-                    }
-                    if (mvAngle > (112.5) && mvAngle <= (157.5))
-                    {
-                        if (directionVectorLength <= runThreshold)
-                        {
-                            sprite.SetAnimation("WALK_UP_LEFT");
-                        }
-                        else
-                        {
-                            sprite.SetAnimation("RUN_UP_LEFT");
-                        }
-                        playerOrientation = Orientation.UP_LEFT;
-                    }
-                    if ((mvAngle > (157.5) && mvAngle <= (180)) || (mvAngle >= (-180) && mvAngle <= (-157.5)))
-                    {
-                        sprite.SetAnimation("RUN_LEFT");
-                        playerOrientation = Orientation.LEFT;
-                    }
-                    if (mvAngle > (-157.5) && mvAngle <= (-112.5))
-                    {
-                        if (directionVectorLength <= runThreshold)
-                        {
-                            sprite.SetAnimation("WALK_DOWN_LEFT");
-                        }
-                        else
-                        {
-                            sprite.SetAnimation("RUN_DOWN_LEFT");
-                        }
-                        playerOrientation = Orientation.DOWN_LEFT;
-                    }
-                    if (mvAngle > (-112.5) && mvAngle <= (-77.5))
-                    {
-                        sprite.SetAnimation("RUN_DOWN");
-                        playerOrientation = Orientation.DOWN;
-                    }
-                    if (mvAngle > (-77.5) && mvAngle <= (-22.5))
-                    {
-                        if (directionVectorLength <= runThreshold)
-                        {
-                            sprite.SetAnimation("WALK_DOWN_RIGHT");
-                        }
-                        else
-                        {
-                            sprite.SetAnimation("RUN_DOWN_RIGHT");
-                        }
-                        playerOrientation = Orientation.DOWN_RIGHT;
-                    }
-                }
-            }
-            
+            Console.WriteLine(sprite.CurrentAnimation);
         }
-
-        #endregion
-        #region CombatCollidable
-        
 
         public /* override */ void OnCombatCollision(CombatArgs combatArgs)
         {
@@ -422,6 +134,5 @@ namespace EVCMonoGame.src.characters
             }
             flinching = true;
         }
-        #endregion
     }
 }

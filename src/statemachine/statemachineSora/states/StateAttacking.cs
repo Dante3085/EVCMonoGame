@@ -9,17 +9,13 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.statemachine.sora
 {
     class StateAttacking : State
     {
         private PlayerOne sora = GameplayState.PlayerOne;
-
-        private bool xPressed = false;
-        private bool yPressed = false;
-        private bool bPressed = false;
-
         private String nextAttackAnimation = "UNINITIALIZED";
 
         public StateAttacking(params Transition[] transitions) 
@@ -54,28 +50,55 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             base.Update(gameTime);
 
-
+            CollisionManager.CheckCombatCollisions(sora);
         }
 
         public override void Exit(GameTime gameTime)
         {
             base.Exit(gameTime);
 
-
+            sora.HasActiveAttackBounds = true;
         }
 
         private void OnXPressed()
         {
+            CombatArgs combatArgs = sora.CombatArgs;
+            combatArgs.causesFlinch = false;
+            combatArgs.damage = sora.Strength + 5;
+
             switch (sora.playerOrientation)
             {
-                case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0"; break;
-                case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
-                case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0"; break;
-                case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN"; break;
-                case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
+                case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
+                    combatArgs.knockBack = new Vector2(-10, 0);
+                    break;
+
+                case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT";
+                    combatArgs.knockBack = new Vector2(-10, -10);
+                    break;
+
+                case Orientation.UP: nextAttackAnimation = "ATTACK_UP";
+                    combatArgs.knockBack = new Vector2(0, -200);
+                    break;
+
+                case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT";
+                    combatArgs.knockBack = new Vector2(10, -10);
+                    break;
+
+                case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
+                    combatArgs.knockBack = new Vector2(10, 0);
+                    break;
+
+                case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";
+                    combatArgs.knockBack = new Vector2(10, 10);
+                    break;
+
+                case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN";
+                    combatArgs.knockBack = new Vector2(0, 10);
+                    break;
+
+                case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT";
+                    combatArgs.knockBack = new Vector2(-10, 10);
+                    break;
             }
         }
 
