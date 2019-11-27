@@ -32,26 +32,11 @@ namespace EVCMonoGame.src.scenes
         CENTER
     }
 
-    public struct PathPoint
-    {
-        public Vector2 p1;
-        public Vector2 p2;
-        public int duration;
-
-        public PathPoint(Vector2 p1, Vector2 p2, int duration)
-        {
-            this.p1 = p1;
-            this.p2 = p2;
-            this.duration = duration;
-        }
-    }
-
     public class Camera : IUpdateable
     {
         #region Fields
 
         private Vector2 cameraPosition;
-        private float zoom = 1;
         private SceneManager sceneManager;
         private ITranslatable focusObject;
         private bool followsFocusObject = true;
@@ -66,6 +51,14 @@ namespace EVCMonoGame.src.scenes
 
         ITranslatablePosition playerFocus;
         private bool followsPlayers = false;
+
+        private const float closeZoom = 0.8f;
+        private const float wideZoom = 0.4f;
+        private float zoom = closeZoom;
+        private Easer zoomEaser;
+        private float distanceBetweenPlayers = 0;
+        private float previousDistanceBetweenPlayers = 0;
+        private const float zoomIntervalPlayerDistance = 1500;
 
         #endregion
 
@@ -83,7 +76,10 @@ namespace EVCMonoGame.src.scenes
         public float Zoom
         {
             get { return zoom; }
-            set { zoom = value; }
+            set 
+            { 
+                zoom = value; 
+            }
         }
 
         #endregion
@@ -97,6 +93,8 @@ namespace EVCMonoGame.src.scenes
             Viewport viewport = sceneManager.GraphicsDevice.Viewport;
             cameraPosition = focusObject.Position + new Vector2(viewport.Width * 0.5f, viewport.Height * 0.5f);
             SetCameraToFocusObject(focusObject);
+
+            zoomEaser = new Easer(new Vector2(closeZoom, 0), new Vector2(wideZoom, 0), 1000, Easing.SineEaseInOut);
         }
 
         //public Camera(SceneManager manager, ITranslatable focusObject, Screenpoint focusPoint)
@@ -189,11 +187,6 @@ namespace EVCMonoGame.src.scenes
             SetCameraToPosition(position);
         }
 
-        //public void SetZoom(float zoom)
-        //{
-        //    this.zoom = zoom;
-        //}
-
         public void MoveCamera(Vector2 from, Vector2 to, int durationInMillis)
         {
             followsFocusObject = false;
@@ -259,6 +252,40 @@ namespace EVCMonoGame.src.scenes
                 {
                     playerFocus.Position = GameplayState.PlayerOne.WorldPosition +
                     (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+
+
+                    previousDistanceBetweenPlayers = distanceBetweenPlayers;
+                    distanceBetweenPlayers = (GameplayState.PlayerTwo.WorldPosition - 
+                                                   GameplayState.PlayerOne.WorldPosition).Length();
+
+                    Console.WriteLine("distanceBetweenPlayers: " + distanceBetweenPlayers);
+
+                    // Wide Zoom
+                    if (distanceBetweenPlayers > zoomIntervalPlayerDistance && 
+                        previousDistanceBetweenPlayers < zoomIntervalPlayerDistance)
+                    {
+                        zoomEaser.From = new Vector2(zoom, 0);
+                        zoomEaser.To = new Vector2(wideZoom, 0);
+                        zoomEaser.DurationInMillis = 1000;
+                        zoomEaser.Start();
+                    }
+                    // Normal Zoom.
+                    else if (distanceBetweenPlayers < zoomIntervalPlayerDistance && 
+                             previousDistanceBetweenPlayers > zoomIntervalPlayerDistance)
+                    {
+                        zoomEaser.From = new Vector2(zoom, 0);
+                        zoomEaser.To = new Vector2(closeZoom, 0);
+                        zoomEaser.DurationInMillis = 1000;
+                        zoomEaser.Start();
+                    }
+
+                    if (!zoomEaser.IsFinished)
+                    {
+                        zoomEaser.Update(gameTime);
+                        zoom = zoomEaser.CurrentValue.X;
+
+                        Console.WriteLine("Easing zoom");
+                    }
                 }
 
                 SetCameraToFocusObject(focusObject);
@@ -274,6 +301,11 @@ namespace EVCMonoGame.src.scenes
                 isMoving = false;
             }
 
+            UpdateZoomWithRightStick();
+        }
+
+        private void UpdateZoomWithRightStick()
+        {
             // Zooming
             if (InputManager.HasRightGamePadStickMoved)
             {
@@ -285,8 +317,6 @@ namespace EVCMonoGame.src.scenes
                     currentYRightThumbStick = -rightThumbStickMaxZoomRate;
 
                 zoom += currentYRightThumbStick;
-
-                Console.Write("Zoom: " + zoom);
             }
             if (InputManager.IsKeyPressed(Keys.OemMinus))
             {

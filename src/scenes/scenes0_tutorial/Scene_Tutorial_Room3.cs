@@ -62,6 +62,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 shadow2,
             });
 
+            camera.Zoom = 0.7f;
             base.OnEnterScene();
         }
 

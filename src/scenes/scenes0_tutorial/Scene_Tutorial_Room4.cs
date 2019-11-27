@@ -58,6 +58,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 defender,
             });
 
+            camera.Zoom = 0.7f;
             base.OnEnterScene();
         }
 

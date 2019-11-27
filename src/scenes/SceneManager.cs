@@ -132,9 +132,25 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
             scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
 
-            scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
+            //  scenes[EScene.MOUNTAINS_ROOM_1] = new Scene_Mountains_Room1(this);
+            //  scenes[EScene.MOUNTAINS_ROOM_2] = new Scene_Mountains_Room2(this);
+            //  scenes[EScene.MOUNTAINS_ROOM_3] = new Scene_Mountains_Room3(this);
+            //  scenes[EScene.MOUNTAINS_ROOM_4] = new Scene_Mountains_Room4(this);
+            //  scenes[EScene.MOUNTAINS_ROOM_5] = new Scene_Mountains_Room5(this);
 
-            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
+            // scenes[EScene.DESERT_ROOM_1] = new Scene_Desert_Room1(this);
+            // scenes[EScene.DESERT_ROOM_2] = new Scene_Desert_Room2(this);
+            // scenes[EScene.DESERT_ROOM_3] = new Scene_Desert_Room3(this);
+            // scenes[EScene.DESERT_ROOM_4] = new Scene_Desert_Room4(this);
+            scenes[EScene.DESERT_ROOM_5] = new Scene_Desert_Room5(this);
+
+            scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
+            // scenes[EScene.CASTLE_ROOM_2] = new Scene_Castle_Room2(this);
+            // scenes[EScene.CASTLE_ROOM_3] = new Scene_Castle_Room3(this);
+            // scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
+            // scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
+
+            currentScene = previousScene = scenes[EScene.CASTLE_ROOM_1];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);

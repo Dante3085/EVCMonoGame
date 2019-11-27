@@ -42,16 +42,19 @@ namespace EVCMonoGame.src.scenes
             updateables = new List<IUpdateable>();
             drawables = new List<IDrawable>();
 
-            cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
-                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
-            camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
+            //cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
+            //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
+            //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
+
+            camera = new Camera(sceneManager, Vector2.Zero);
+            camera.FollowPlayers();
         }
         #endregion
         #region Methods
         public virtual void Update(GameTime gameTime)
         {
-            cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
-                (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
+            //cameraFocus.Position = GameplayState.PlayerOne.WorldPosition +
+            //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
 
             if (!GameplayState.PlayerOne.IsAlive && !GameplayState.PlayerTwo.IsAlive)
             {

@@ -95,6 +95,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 leverManagerPlayerTwo,
             });
 
+            camera.Zoom = 0.7f;
             base.OnEnterScene();
         }
 

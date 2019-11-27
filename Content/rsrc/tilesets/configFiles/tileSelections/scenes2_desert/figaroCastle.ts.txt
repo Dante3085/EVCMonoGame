@@ -1,0 +1,6 @@
+
+TILESET = rsrc/tilesets/ff6FigaroCastle
+
+[TILE]
+NAME           = FIGARO_CASTLE 
+TEXTURE_BOUNDS = (0, 0, 1024, 1024)
