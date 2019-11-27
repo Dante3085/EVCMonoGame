@@ -21,6 +21,8 @@ namespace EVCMonoGame.src.collision
 
         CombatArgs CombatArgs { get; }
 
+        bool FlaggedForRemove { get; set; }
+
         void OnCombatCollision(CombatArgs combatArgs);
     }
 }

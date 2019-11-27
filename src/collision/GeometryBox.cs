@@ -15,6 +15,11 @@ namespace EVCMonoGame.src.collision
         private Rectangle bounds;
         private Vector2 previousPosition;
 
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
+
         public Rectangle Bounds
         {
             get { return bounds; }

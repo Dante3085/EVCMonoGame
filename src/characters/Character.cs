@@ -59,6 +59,11 @@ namespace EVCMonoGame.src.characters
 
 
 
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
+
         public bool DoUpdate
         {
             get; set;

@@ -25,28 +25,29 @@ namespace EVCMonoGame.src.collision
 
     public static class CollisionManager
     {
-        public static List<Collidable> allCollisionsChannel = new List<Collidable>();
-        public static List<Collidable> obstacleCollisionChannel = new List<Collidable>();
-        public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
-        public static List<Collidable> itemCollisionChannel = new List<Collidable>();
-		public static List<Collidable> playerCollisionChannel = new List<Collidable>();
-        public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
+        public static List<Collidable>          allCollisionsChannel        = new List<Collidable>();
+        public static List<Collidable>          obstacleCollisionChannel    = new List<Collidable>();
+        public static List<Collidable>          enemyCollisionChannel       = new List<Collidable>();
+        public static List<Collidable>          itemCollisionChannel        = new List<Collidable>();
+        public static List<Collidable>          playerCollisionChannel      = new List<Collidable>();
+        public static List<CombatCollidable>    combatCollisionChannel      = new List<CombatCollidable>();
 
-		private static byte[,] navGrid;
-		private static int debugGridCellSize;
+        private static byte[,] navGrid;
+        private static int debugGridCellSize;
+        private static int removeIntervall = 0;
 
-		private static List<Rectangle> raycasts;
+        private static List<Rectangle> raycasts;
 
-		public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-			if (DebugOptions.showCollision)
-			{
-				foreach (Collidable c in allCollisionsChannel)
-				{
-					Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 5);
-					Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
-				}
-			}
+            if (DebugOptions.showCollision)
+            {
+                foreach (Collidable c in allCollisionsChannel)
+                {
+                    Primitives2D.DrawRectangle(spriteBatch, c.CollisionBox, Color.BlanchedAlmond, 5);
+                    Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
+                }
+            }
 
             if (DebugOptions.showAttackBounds)
             {
@@ -77,46 +78,56 @@ namespace EVCMonoGame.src.collision
             }
 
 
-			// Draw Grid
-			if (navGrid != null && DebugOptions.showNavgrid)
-			{
-				for (var i = 0; i < navGrid.GetLength(0); i++)
-				{
-					for (var j = 0; j < navGrid.GetLength(1); j++)
-					{
-						if (navGrid[i, j] == 1)
-							Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red, 2);
-						//else
-						//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Green, 2);
-					}
-				}
-			}
-		}
+            // Draw Grid
+            if (navGrid != null && DebugOptions.showNavgrid)
+            {
+                for (var i = 0; i < navGrid.GetLength(0); i++)
+                {
+                    for (var j = 0; j < navGrid.GetLength(1); j++)
+                    {
+                        if (navGrid[i, j] == 1)
+                            Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Red, 2);
+                        //else
+                        //	Primitives2D.DrawRectangle(spriteBatch, new Rectangle(i * debugGridCellSize, j * debugGridCellSize, debugGridCellSize, debugGridCellSize), Color.Green, 2);
+                    }
+                }
+            }
+        }
 
         public static void Update(GameTime gameTime)
         {
-            
+            removeIntervall++;
+            if (removeIntervall > 10)
+            {
+                removeIntervall = 0;
+                allCollisionsChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+                obstacleCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+                enemyCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+                itemCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+                playerCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+                combatCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            }
         }
 
         public static void AddCollidables(List<Collidable> channel, bool excludeFromAllCollisonChannel = false,
                                           params Collidable[] collidables)
         {
             foreach (Collidable c in collidables)
-			{
-				if (!channel.Contains(c))
-					channel.Add(c);
+            {
+                if (!channel.Contains(c))
+                    channel.Add(c);
 
-				if (!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(c))
-					CollisionManager.allCollisionsChannel.Add(c);
+                if (!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(c))
+                    CollisionManager.allCollisionsChannel.Add(c);
 
-				if (c is Player && !playerCollisionChannel.Contains(c))
+                if (c is Player && !playerCollisionChannel.Contains(c))
                     playerCollisionChannel.Add((Collidable)c);
             }
         }
 
         public static void AddCollidable(Collidable collidable, List<Collidable> collisionChannel, bool excludeFromAllCollisonChannel = false)
         {
-            if(!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(collidable))
+            if (!excludeFromAllCollisonChannel && !allCollisionsChannel.Contains(collidable))
                 allCollisionsChannel.Add(collidable);
 
             if (!collisionChannel.Contains(collidable))
@@ -134,7 +145,7 @@ namespace EVCMonoGame.src.collision
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)
         {
             CollisionManager.allCollisionsChannel.Remove(c);
-			collisionChannel.Remove(c);
+            collisionChannel.Remove(c);
         }
 
         public static void CleanCollisonManager()
@@ -142,14 +153,14 @@ namespace EVCMonoGame.src.collision
             allCollisionsChannel.Clear();
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();
-			playerCollisionChannel.Clear();
+            playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
             playerCollisionChannel.Clear();
             combatCollisionChannel.Clear();
 
-			navGrid = null;
-			raycasts = null;
-		}
+            navGrid = null;
+            raycasts = null;
+        }
 
         public static void CheckCombatCollisions(CombatCollidable g1)
         {
@@ -187,22 +198,22 @@ namespace EVCMonoGame.src.collision
             return false;
         }
 
-		public static bool IsCollisionInArea(Rectangle area, List<Collidable> collisionChannel)
-		{
-			foreach (Collidable obstacle in collisionChannel)
-			{
-				if (area.Intersects(obstacle.CollisionBox))
-					return true;
-			}
+        public static bool IsCollisionInArea(Rectangle area, List<Collidable> collisionChannel)
+        {
+            foreach (Collidable obstacle in collisionChannel)
+            {
+                if (area.Intersects(obstacle.CollisionBox))
+                    return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
+        public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
         {
             Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
             Vector2 g2Shift = g2.WorldPosition - g2.PreviousWorldPosition;
-         
+
             Vector2 g1CollisionPosition = g1.WorldPosition;
             Vector2 g2CollisionPosition = g2.WorldPosition;
             if (g1Shift == Vector2.Zero && g2Shift == Vector2.Zero) return;
@@ -251,7 +262,7 @@ namespace EVCMonoGame.src.collision
                 Vector2 g2CollisionSolution;
                 float g1CollisionSolutionLength = 0;
                 float g2CollisionSolutionLength = 0;
-                
+
                 //g1 Collision Solution
                 float length = 0.5f;
                 Vector2 backShift = g1Shift * (-1);
@@ -270,7 +281,7 @@ namespace EVCMonoGame.src.collision
                 g1.WorldPosition = g1StartPosition;
                 g1.WorldPosition = g1CollisionPosition;
                 g1CollisionSolutionLength = (g1CollisionSolution - g1CollisionPosition).Length();
-               
+
                 //g2 Collision Solution
                 length = 0.5f;
                 backShift = g2Shift * (-1);
@@ -322,10 +333,10 @@ namespace EVCMonoGame.src.collision
             return intersectingCollidables;
         }
 
-        public static List<Collidable> GetAllCollidablesInArea(Rectangle area, 
+        public static List<Collidable> GetAllCollidablesInArea(Rectangle area,
                                                                   List<Collidable> collisionChannel)
         {
-            
+
             List<Collidable> collidableList = new List<Collidable>();
             foreach (Collidable collidable in collisionChannel)
             {
@@ -335,7 +346,7 @@ namespace EVCMonoGame.src.collision
             return collidableList;
         }
 
-        public static List<Collidable> GetAllCollidablesByPosition(Vector2 WorldPosition, Vector2 size, 
+        public static List<Collidable> GetAllCollidablesByPosition(Vector2 WorldPosition, Vector2 size,
                                                                   List<Collidable> collisionChannel)
         {
             return GetAllCollidablesInArea(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
@@ -365,9 +376,9 @@ namespace EVCMonoGame.src.collision
 
         public static bool IsPlayerInRange(Collidable collidable, float range)
         {
-            foreach(Player player in playerCollisionChannel)
+            foreach (Player player in playerCollisionChannel)
             {
-                float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), 
+                float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
                                                   player.CollisionBox.Center.ToVector2());
 
                 if (distance >= range)
@@ -376,78 +387,78 @@ namespace EVCMonoGame.src.collision
             return true;
         }
 
-		public static List<Player> GetAllPlayersInArea(Rectangle bounds)
-		{
-			List<Player> intersectingPlayers = new List<Player>();
+        public static List<Player> GetAllPlayersInArea(Rectangle bounds)
+        {
+            List<Player> intersectingPlayers = new List<Player>();
 
-			foreach (Player player in playerCollisionChannel)
-			{
-				if (bounds.Intersects(player.CollisionBox))
-				{
-					intersectingPlayers.Add(player);
-				}
-			}
+            foreach (Player player in playerCollisionChannel)
+            {
+                if (bounds.Intersects(player.CollisionBox))
+                {
+                    intersectingPlayers.Add(player);
+                }
+            }
 
-			return intersectingPlayers;
-		}
+            return intersectingPlayers;
+        }
 
-		public static List<Player> GetAllPlayersInRange(Collidable collidable, float range)
-		{
-			List<Player> playersInRange = new List<Player>();
+        public static List<Player> GetAllPlayersInRange(Collidable collidable, float range)
+        {
+            List<Player> playersInRange = new List<Player>();
 
-			foreach (Player player in playerCollisionChannel)
-			{
-				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
-												  player.CollisionBox.Center.ToVector2());
+            foreach (Player player in playerCollisionChannel)
+            {
+                float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                  player.CollisionBox.Center.ToVector2());
 
-				if (distance < range)
-					playersInRange.Add(player);
-			}
-			return playersInRange;
-		}
+                if (distance < range)
+                    playersInRange.Add(player);
+            }
+            return playersInRange;
+        }
 
-		public static Player GetNearestPlayerInRange(Collidable collidable, float range)
-		{
-			Player nearestPlayer = null;
+        public static Player GetNearestPlayerInRange(Collidable collidable, float range)
+        {
+            Player nearestPlayer = null;
 
-			foreach (Player player in playerCollisionChannel)
-			{
-				float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
-												  player.CollisionBox.Center.ToVector2());
+            foreach (Player player in playerCollisionChannel)
+            {
+                float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                  player.CollisionBox.Center.ToVector2());
 
-				if (distance < range)
-					if (nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2()))
-					{
-						nearestPlayer = player;
-					}
-			}
-			return nearestPlayer;
-		}
+                if (distance < range)
+                    if (nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2()))
+                    {
+                        nearestPlayer = player;
+                    }
+            }
+            return nearestPlayer;
+        }
 
 
-		//public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
-		//{
-		//    bool isCollision = false;
+        //public static bool IsCollisionAfterMove(Collidable g1, bool fixCollision)
+        //{
+        //    bool isCollision = false;
 
-		//    foreach (Collidable g2 in allCollisionsChannel)
-		//    {
-		//        if (g1 != g2)
-		//        {
-		//            if (g1.CollisionBox.Intersects(g2.CollisionBox))
-		//            {
-		//                isCollision = true;
+        //    foreach (Collidable g2 in allCollisionsChannel)
+        //    {
+        //        if (g1 != g2)
+        //        {
+        //            if (g1.CollisionBox.Intersects(g2.CollisionBox))
+        //            {
+        //                isCollision = true;
 
-		//                if (fixCollision && IsObstacleCollision(g1))
-		//                {
-		//                    ResolveGeometryCollision(g1, g2);
-		//                }
-		//            }
-		//        }
-		//    }
-		//    return isCollision;
-		//}
+        //                if (fixCollision && IsObstacleCollision(g1))
+        //                {
+        //                    ResolveGeometryCollision(g1, g2);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return isCollision;
+        //}
 
-		public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+        public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
         {
             bool isCollision = false;
             foreach (Collidable g2 in allCollisionsChannel)
@@ -539,166 +550,166 @@ namespace EVCMonoGame.src.collision
 
 
 
-		///	<summary>
-		///	Generiert ein 2D-Grid worin sämtliche Kollisionen auftreten
-		///	</summary>
-		///	<param name="levelWidth">Höhe des Grids</param>
-		/// <param name="levelHeight">Breite des Grids</param>
-		/// <param name="gridCellSize">Agent navigations breite. Bestimmt die größe der einzelnen Gridzellen.</param>
-		public static byte[,] GenerateLevelNavGrid(int levelWidth, int levelHeight, int agentMindestBreite = 10)
-		{
-			debugGridCellSize = agentMindestBreite;
+        ///	<summary>
+        ///	Generiert ein 2D-Grid worin sämtliche Kollisionen auftreten
+        ///	</summary>
+        ///	<param name="levelWidth">Höhe des Grids</param>
+        /// <param name="levelHeight">Breite des Grids</param>
+        /// <param name="gridCellSize">Agent navigations breite. Bestimmt die größe der einzelnen Gridzellen.</param>
+        public static byte[,] GenerateLevelNavGrid(int levelWidth, int levelHeight, int agentMindestBreite = 10)
+        {
+            debugGridCellSize = agentMindestBreite;
 
-			navGrid = new byte[levelWidth, levelHeight];
+            navGrid = new byte[levelWidth, levelHeight];
 
-			foreach (Collidable gc in obstacleCollisionChannel)
-			{
-				if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
-				{
-					Point startPos = new Point((int)(gc.WorldPosition.X / agentMindestBreite), (int)(gc.WorldPosition.Y / agentMindestBreite)); // if in bounce fehlt
+            foreach (Collidable gc in obstacleCollisionChannel)
+            {
+                if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
+                {
+                    Point startPos = new Point((int)(gc.WorldPosition.X / agentMindestBreite), (int)(gc.WorldPosition.Y / agentMindestBreite)); // if in bounce fehlt
 
-					// X Achse Displacement
-					int xDisplacement = 0;
-					
-					float xCollisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
-					float collisionGridWidth = agentMindestBreite;
+                    // X Achse Displacement
+                    int xDisplacement = 0;
 
-					if (gc.CollisionBox.Width % agentMindestBreite > 0)
-						collisionGridWidth = (gc.CollisionBox.Width / agentMindestBreite) * agentMindestBreite;
+                    float xCollisionPositionOffset = gc.WorldPosition.X - agentMindestBreite * startPos.X;
+                    float collisionGridWidth = agentMindestBreite;
 
-					else if(xCollisionPositionOffset + gc.CollisionBox.Width > agentMindestBreite)
-						xDisplacement = 1;
+                    if (gc.CollisionBox.Width % agentMindestBreite > 0)
+                        collisionGridWidth = (gc.CollisionBox.Width / agentMindestBreite) * agentMindestBreite;
 
-					if (xCollisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
-					{
-						xDisplacement = 1;
-					}
+                    else if (xCollisionPositionOffset + gc.CollisionBox.Width > agentMindestBreite)
+                        xDisplacement = 1;
 
-					// Y Achse Displacement
-					int yDisplacement = 0;
+                    if (xCollisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > agentMindestBreite)
+                    {
+                        xDisplacement = 1;
+                    }
 
-					float yCollisionPositionOffset = gc.WorldPosition.Y - agentMindestBreite * startPos.Y;
-					float collisionGridHeight = agentMindestBreite;
+                    // Y Achse Displacement
+                    int yDisplacement = 0;
 
-					if (gc.CollisionBox.Height % agentMindestBreite > 0)
-						collisionGridHeight = (gc.CollisionBox.Height / agentMindestBreite) * agentMindestBreite;
+                    float yCollisionPositionOffset = gc.WorldPosition.Y - agentMindestBreite * startPos.Y;
+                    float collisionGridHeight = agentMindestBreite;
 
-					else if (yCollisionPositionOffset + gc.CollisionBox.Height > agentMindestBreite)
-						yDisplacement = 1;
+                    if (gc.CollisionBox.Height % agentMindestBreite > 0)
+                        collisionGridHeight = (gc.CollisionBox.Height / agentMindestBreite) * agentMindestBreite;
 
-					if (yCollisionPositionOffset + gc.CollisionBox.Height - collisionGridHeight > agentMindestBreite)
-					{
-						yDisplacement = 1;
-					}
+                    else if (yCollisionPositionOffset + gc.CollisionBox.Height > agentMindestBreite)
+                        yDisplacement = 1;
 
-					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + xDisplacement; i++)
-					{
-						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite) + yDisplacement; j++)
-						{
-							navGrid[startPos.X + i, startPos.Y + j] = 1;
-						}
-					}
-				}
+                    if (yCollisionPositionOffset + gc.CollisionBox.Height - collisionGridHeight > agentMindestBreite)
+                    {
+                        yDisplacement = 1;
+                    }
 
-
-			}
-
-			return navGrid;
-		}
-
-		///	<summary>
-		///	Generiert ein 2D-Grid innerhalb einer Bounds worin sämtliche Kollisionen auftreten
-		///	</summary>
-		///	<param name="gridBounds">Bounds in der das Grid augezogen und in Gridzellen unterteilt wird. WorldPosition wird beachtet!</param>
-		/// <param name="gridCellSize">Bestimmt die Breite der Zellen in dem die GridBounds unterteilt wird.</param>
-		public static byte[,] GenerateNavGrid(Rectangle gridBounds, int gridCellSize = 10)
-		{
-			debugGridCellSize = gridCellSize;
-
-			// Grid aufgeteilt in Zellen
-			navGrid = new byte[gridBounds.Width / gridCellSize, gridBounds.Height / gridCellSize];
+                    for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / agentMindestBreite) + xDisplacement; i++)
+                    {
+                        for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / agentMindestBreite) + yDisplacement; j++)
+                        {
+                            navGrid[startPos.X + i, startPos.Y + j] = 1;
+                        }
+                    }
+                }
 
 
+            }
 
-			List<Collidable> obstacles = GetAllCollidablesByPosition(gridBounds.Location.ToVector2(), gridBounds.Size.ToVector2(), obstacleCollisionChannel);
+            return navGrid;
+        }
 
-			foreach (Collidable gc in obstacles)
-			{
-				if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
-				{
+        ///	<summary>
+        ///	Generiert ein 2D-Grid innerhalb einer Bounds worin sämtliche Kollisionen auftreten
+        ///	</summary>
+        ///	<param name="gridBounds">Bounds in der das Grid augezogen und in Gridzellen unterteilt wird. WorldPosition wird beachtet!</param>
+        /// <param name="gridCellSize">Bestimmt die Breite der Zellen in dem die GridBounds unterteilt wird.</param>
+        public static byte[,] GenerateNavGrid(Rectangle gridBounds, int gridCellSize = 10)
+        {
+            debugGridCellSize = gridCellSize;
+
+            // Grid aufgeteilt in Zellen
+            navGrid = new byte[gridBounds.Width / gridCellSize, gridBounds.Height / gridCellSize];
 
 
 
-					Point startPos = new Point((int)(gc.WorldPosition.X / gridCellSize), (int)(gc.WorldPosition.Y / gridCellSize)); // if in bounce fehlt
+            List<Collidable> obstacles = GetAllCollidablesByPosition(gridBounds.Location.ToVector2(), gridBounds.Size.ToVector2(), obstacleCollisionChannel);
 
-					int displacement = 0;
-
-					float collisionPositionOffset = gc.WorldPosition.X - gridCellSize * startPos.X;
-					float collisionGridWidth = gridCellSize;
-
-					if (gc.CollisionBox.Width % gridCellSize > 0)
-						collisionGridWidth = (gc.CollisionBox.Width / gridCellSize) * gridCellSize;
-
-					if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > gridCellSize)
-					{
-						displacement = 1;
-					}
-					//todo für Y
-
-					for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / gridCellSize) + displacement; i++)
-					{
-						for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / gridCellSize); j++)
-						{
-							navGrid[startPos.X + i, startPos.Y + j] = 1;
-						}
-					}
-				}
+            foreach (Collidable gc in obstacles)
+            {
+                if (!playerCollisionChannel.Contains(gc) && !enemyCollisionChannel.Contains(gc))
+                {
 
 
-			}
 
-			return navGrid;
-		}
+                    Point startPos = new Point((int)(gc.WorldPosition.X / gridCellSize), (int)(gc.WorldPosition.Y / gridCellSize)); // if in bounce fehlt
 
-		// Zieht eine Box Zwischen 2 Collidables auf und meldet ob eine Kollision mit Obstakles stattgefunden hat.
-		public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel)
-		{
+                    int displacement = 0;
 
-			raycasts = new List<Rectangle>();
+                    float collisionPositionOffset = gc.WorldPosition.X - gridCellSize * startPos.X;
+                    float collisionGridWidth = gridCellSize;
 
-			int posX = fromCollidable.CollisionBox.X;
-			int posY = fromCollidable.CollisionBox.Y;
+                    if (gc.CollisionBox.Width % gridCellSize > 0)
+                        collisionGridWidth = (gc.CollisionBox.Width / gridCellSize) * gridCellSize;
 
-			int agentWidth = fromCollidable.CollisionBox.Width;
+                    if (collisionPositionOffset + gc.CollisionBox.Width - collisionGridWidth > gridCellSize)
+                    {
+                        displacement = 1;
+                    }
+                    //todo für Y
+
+                    for (int i = 0; i < Math.Ceiling((decimal)gc.CollisionBox.Width / gridCellSize) + displacement; i++)
+                    {
+                        for (int j = 0; j < Math.Ceiling((decimal)gc.CollisionBox.Height / gridCellSize); j++)
+                        {
+                            navGrid[startPos.X + i, startPos.Y + j] = 1;
+                        }
+                    }
+                }
 
 
-			Vector2 distance = toCollidable.CollisionBox.Center.ToVector2() - fromCollidable.CollisionBox.Center.ToVector2();
-			Vector2 unitDirection = distance;
-			unitDirection.Normalize();
+            }
 
-			int iterations = (int) distance.Length() / agentWidth;
+            return navGrid;
+        }
 
-			
+        // Zieht eine Box Zwischen 2 Collidables auf und meldet ob eine Kollision mit Obstakles stattgefunden hat.
+        public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel)
+        {
 
-			for (int i = 0; i < iterations; i++)
-			{
-				raycasts.Add(new Rectangle((int)(unitDirection.X * 5) + posX + (int)(distance.X / iterations) * i, (int)(unitDirection.Y * 5) + posY + (int)(distance.Y / iterations) * i, fromCollidable.CollisionBox.Width, fromCollidable.CollisionBox.Height));
-			}
+            raycasts = new List<Rectangle>();
 
-			foreach (Rectangle ray in raycasts)
-			{
-				foreach (Collidable obstacle in obstacleCollisionChannel.Except<Collidable>(enemyCollisionChannel))
-				{
-					if (fromCollidable != obstacle && toCollidable != obstacle)
-					{
-						if (ray.Intersects(obstacle.CollisionBox))
-							return true;
-					}
-				}
-			}
-			
-			return false;
-		}
+            int posX = fromCollidable.CollisionBox.X;
+            int posY = fromCollidable.CollisionBox.Y;
 
-	} // End of Class
+            int agentWidth = fromCollidable.CollisionBox.Width;
+
+
+            Vector2 distance = toCollidable.CollisionBox.Center.ToVector2() - fromCollidable.CollisionBox.Center.ToVector2();
+            Vector2 unitDirection = distance;
+            unitDirection.Normalize();
+
+            int iterations = (int)distance.Length() / agentWidth;
+
+
+
+            for (int i = 0; i < iterations; i++)
+            {
+                raycasts.Add(new Rectangle((int)(unitDirection.X * 5) + posX + (int)(distance.X / iterations) * i, (int)(unitDirection.Y * 5) + posY + (int)(distance.Y / iterations) * i, fromCollidable.CollisionBox.Width, fromCollidable.CollisionBox.Height));
+            }
+
+            foreach (Rectangle ray in raycasts)
+            {
+                foreach (Collidable obstacle in obstacleCollisionChannel.Except<Collidable>(enemyCollisionChannel))
+                {
+                    if (fromCollidable != obstacle && toCollidable != obstacle)
+                    {
+                        if (ray.Intersects(obstacle.CollisionBox))
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+    } // End of Class
 }

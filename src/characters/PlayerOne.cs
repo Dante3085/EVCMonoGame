@@ -17,6 +17,7 @@ using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
+using EVCMonoGame.src.projectiles;
 
 // TODO: Setze flinch boolean flag OnCombatCollision für TransitionOnFlinchAttack.
 
@@ -34,6 +35,8 @@ namespace EVCMonoGame.src.characters
 
         public Vector2 movementVector;
         public Vector2 previousMovementVector;
+
+        public List<MagicMissileRed> missiletest = new List<MagicMissileRed>();
 
         #endregion
         #region Properties
@@ -64,13 +67,13 @@ namespace EVCMonoGame.src.characters
                   position: position
             )
         {
-            
+
             isAttacking = false;
             runThreshold = 0.65f;
 
-			movementSpeed = 7.5f;
+            movementSpeed = 7.5f;
 
-			CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
+            CollisionBox = new Rectangle(position.ToPoint(), new Point(140, 230));
 
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/sora.anm.txt");
             sprite.SetAnimation("RUN_RIGHT");
@@ -92,13 +95,17 @@ namespace EVCMonoGame.src.characters
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-
+            foreach (MagicMissileRed m in missiletest)
+            {
+                m.Draw(gameTime, spriteBatch);
+            }
             // playerPortrait.Draw(gameTime, spriteBatch);
         }
 
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
+            MagicMissileRed.content = content;
             PlayerSpriteSheets.Load(content);
             sprite.spritesheet = PlayerSpriteSheets.RedGlow;
             // playerPortrait.LoadContent(content);
@@ -111,16 +118,21 @@ namespace EVCMonoGame.src.characters
                 return;
 
             base.Update(gameTime);
+            foreach(MagicMissileRed m in missiletest)
+            {
+                m.Update(gameTime);
+            }
+            missiletest.RemoveAll((a) => { return a.FlaggedForRemove; });
             stateManager.Update(gameTime);
 
-            Console.WriteLine(sprite.CurrentAnimation);
+
         }
 
         public /* override */ void OnCombatCollision(CombatArgs combatArgs)
         {
             sprite.Position += combatArgs.knockBack;
 
-            switch(playerOrientation)
+            switch (playerOrientation)
             {
                 case Orientation.DOWN: sprite.SetAnimation("FLINCH_LEFT"); break;
                 case Orientation.DOWN_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;

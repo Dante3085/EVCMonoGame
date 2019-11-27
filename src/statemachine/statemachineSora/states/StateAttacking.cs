@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.projectiles;
 using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.statemachine.sora
@@ -86,6 +87,9 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
                     combatArgs.knockBack = new Vector2(10, 0);
+                    MagicMissileRed m = new MagicMissileRed(sora.WorldPosition+ new Vector2(sora.CollisionBox.Width+2),Orientation.DOWN, 10);
+                    m.LoadContent(MagicMissileRed.content);
+                    GameplayState.PlayerOne.missiletest.Add(m);
                     break;
 
                 case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";

@@ -12,5 +12,6 @@ namespace EVCMonoGame.src.collision
         Vector2 WorldPosition { get; set; }
         Vector2 PreviousWorldPosition { get; }
         Rectangle CollisionBox { get; }
+        bool FlaggedForRemove { get; set; }
     }
 }

@@ -19,6 +19,11 @@ namespace EVCMonoGame.src.Items
         private Player owner;
         private Inventory playerInventory;
 
+        public bool FlaggedForRemove
+        {
+            get; set;
+        } = false;
+
         public Vector2 WorldPosition { get => owner.WorldPosition; set { } }
 
         public Vector2 PreviousWorldPosition { get => owner.WorldPosition; set { } }
