@@ -53,7 +53,7 @@ namespace EVCMonoGame.src.projectiles
             WorldPosition = position;
             sprite = new AnimatedSprite(position, 3);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_red.anm.txt", true);
-            sprite.SetAnimation("MAGIC_MISSILE_RED_DOWN");// orientation case
+            sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");// orientation case
             setCollisionBoxOffset(orientation);
             CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
@@ -99,7 +99,7 @@ namespace EVCMonoGame.src.projectiles
             switch (orientation)
             {
                 case Orientation.LEFT:
-                    
+                    collisionBoxOffset = new Vector2(20, 11) * sprite.Scale;
                     break;
                 case Orientation.UP_LEFT:
                     break;
@@ -108,7 +108,7 @@ namespace EVCMonoGame.src.projectiles
                 case Orientation.UP_RIGHT:
                     break;
                 case Orientation.RIGHT:
-                    collisionBoxOffset = new Vector2(44, 11)*sprite.Scale;
+                    collisionBoxOffset = new Vector2(44, 11) * sprite.Scale;
                     break;
                 case Orientation.DOWN_RIGHT:
                     break;
@@ -143,7 +143,7 @@ namespace EVCMonoGame.src.projectiles
 
         public void OnCombatCollision(CombatArgs combatArgs)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
