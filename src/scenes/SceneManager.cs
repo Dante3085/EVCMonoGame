@@ -148,9 +148,9 @@ namespace EVCMonoGame.src.scenes
             // scenes[EScene.CASTLE_ROOM_2] = new Scene_Castle_Room2(this);
             // scenes[EScene.CASTLE_ROOM_3] = new Scene_Castle_Room3(this);
             // scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
-            // scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
+            scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
 
-            currentScene = previousScene = scenes[EScene.DESERT_ROOM_5];
+            currentScene = previousScene = scenes[EScene.CASTLE_ROOM_5];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);
