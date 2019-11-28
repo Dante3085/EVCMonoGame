@@ -9,6 +9,8 @@ namespace EVCMonoGame.src.collision
 {
     public class CombatArgs
     {
+        private static long uniqueId = 0;
+        public long id;
         public CombatCollidable attacker;
         public CombatCollidable victim;
 
@@ -20,6 +22,25 @@ namespace EVCMonoGame.src.collision
         {
             this.attacker = attacker;
             this.victim = victim;
+
+            this.id = uniqueId++;
+        }
+
+        public CombatArgs(CombatArgs combatArgs)
+        {
+            this.attacker = combatArgs.attacker;
+            this.victim = combatArgs.victim;
+            this.damage = combatArgs.damage;
+            this.knockBack = combatArgs.knockBack;
+            this.causesFlinch = combatArgs.causesFlinch;
+            this.id = uniqueId++;
+
+            Console.WriteLine("KonstruktorId: " + id);
+        }
+
+        public void NewId()
+        {
+            this.id = uniqueId++;
         }
     }
 }

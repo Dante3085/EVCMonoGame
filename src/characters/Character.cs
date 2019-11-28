@@ -43,6 +43,8 @@ namespace EVCMonoGame.src.characters
         protected CombatArgs combatArgs;
         public bool flinching = false;
 
+        private List<long> receivedAttackIds = new List<long>();
+
         #endregion
 
         #region Properties
@@ -220,12 +222,16 @@ namespace EVCMonoGame.src.characters
             //enemyHealthbar.CurrentHp -= combatArgs.damage;
             //enemySprite.Position += combatArgs.knockBack;
 
-            if (combatArgs.victim == this)
+            Console.WriteLine("id: " +  combatArgs.id);
+
+            if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
             {
                 currentHp -= combatArgs.damage;
                 healthbar.CurrentHp = currentHp;
 
                 sprite.Position += combatArgs.knockBack;
+
+                receivedAttackIds.Add(combatArgs.id);
 
             }
             else

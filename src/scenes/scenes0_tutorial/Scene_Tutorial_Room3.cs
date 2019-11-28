@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.scenes.tutorial
     {
         private Shadow shadow1;
         private Shadow shadow2;
+        private Shadow shadow3;
 
         public Scene_Tutorial_Room3(SceneManager sceneManager)
             : base(sceneManager)
@@ -42,6 +43,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             shadow1 = new Shadow(new Vector2(1330, 3000));
             shadow2 = new Shadow(new Vector2(2100, 3000));
+            shadow3 = new Shadow(new Vector2(1200, 2500));
 
             doorPlayerOne = new Door(new Vector2(1550, 801));
             doorPlayerTwo = new Door(new Vector2(2000, 805));
@@ -52,6 +54,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 doorPlayerTwo,
                 shadow1,
                 shadow2,
+                shadow3,
             });
 
             drawables.AddRange(new IDrawable[]
@@ -60,6 +63,7 @@ namespace EVCMonoGame.src.scenes.tutorial
                 doorPlayerTwo,
                 shadow1,
                 shadow2,
+                shadow3,
             });
 
             camera.Zoom = 0.7f;
