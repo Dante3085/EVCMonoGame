@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.projectiles
 {
     public class MagicMissileRed : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
     {
+        private CombatArgs combatArgs;
         Vector2 collisionBoxOffset;
         public static ContentManager content;
         private Vector2 movementVector;
@@ -44,7 +45,10 @@ namespace EVCMonoGame.src.projectiles
 
         public bool IsAlive => throw new NotImplementedException();
 
-        public CombatArgs CombatArgs => throw new NotImplementedException();
+        public CombatArgs CombatArgs
+        {
+            get { return combatArgs; }
+        }
 
         AnimatedSprite sprite;
 
@@ -57,9 +61,14 @@ namespace EVCMonoGame.src.projectiles
             setCollisionBoxOffset(orientation);
             CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
+
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.AddCombatCollidable(this);
+
             setMovementVector(orientation, movementSpeed);
+
+            combatArgs = new CombatArgs(this, this);
+            combatArgs.damage = 10;
         }
 
         public void setMovementVector(Orientation orientation, int movementSpeed)
@@ -135,9 +144,15 @@ namespace EVCMonoGame.src.projectiles
             sprite.WorldPosition = WorldPosition;
             collisionBox.Location = (WorldPosition + collisionBoxOffset).ToPoint();
             sprite.Update(gameTime);
+
+            CollisionManager.CheckCombatCollisions(this);
+
             if (CollisionManager.IsCollisionAfterMove(this, false, false))
             {
                 FlaggedForRemove = true;
+
+                CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+                CollisionManager.RemoveCombatCollidable(this);
             }
         }
 

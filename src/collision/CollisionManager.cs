@@ -96,17 +96,17 @@ namespace EVCMonoGame.src.collision
 
         public static void Update(GameTime gameTime)
         {
-            removeIntervall++;
-            if (removeIntervall > 10)
-            {
-                removeIntervall = 0;
-                allCollisionsChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-                obstacleCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-                enemyCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-                itemCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-                playerCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-                combatCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
-            }
+            //removeIntervall++;
+            //if (removeIntervall > 10)
+            //{
+            //    removeIntervall = 0;
+            //    allCollisionsChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //    obstacleCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //    enemyCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //    itemCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //    playerCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //    combatCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
+            //}
         }
 
         public static void AddCollidables(List<Collidable> channel, bool excludeFromAllCollisonChannel = false,
@@ -140,6 +140,11 @@ namespace EVCMonoGame.src.collision
             {
                 combatCollisionChannel.Add(combatCollidable);
             }
+        }
+
+        public static void RemoveCombatCollidable(CombatCollidable combatCollidable)
+        {
+            combatCollisionChannel.Remove(combatCollidable);
         }
 
         public static void RemoveCollidable(Collidable c, List<Collidable> collisionChannel)

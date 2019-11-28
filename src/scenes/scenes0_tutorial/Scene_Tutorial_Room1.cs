@@ -23,6 +23,7 @@ namespace EVCMonoGame.src.scenes.tutorial
         public Scene_Tutorial_Room1(SceneManager sceneManager)
             : base(sceneManager)
         {
+
         }
 
         public override void OnEnterScene()

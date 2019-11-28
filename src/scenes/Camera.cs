@@ -58,7 +58,7 @@ namespace EVCMonoGame.src.scenes
         private Easer zoomEaser;
         private float distanceBetweenPlayers = 0;
         private float previousDistanceBetweenPlayers = 0;
-        private const float zoomIntervalPlayerDistance = 1500;
+        private const float zoomIntervalPlayerDistance = 1000;
 
         #endregion
 
@@ -258,7 +258,6 @@ namespace EVCMonoGame.src.scenes
                     distanceBetweenPlayers = (GameplayState.PlayerTwo.WorldPosition - 
                                                    GameplayState.PlayerOne.WorldPosition).Length();
 
-                    Console.WriteLine("distanceBetweenPlayers: " + distanceBetweenPlayers);
 
                     // Wide Zoom
                     if (distanceBetweenPlayers > zoomIntervalPlayerDistance && 
@@ -284,7 +283,6 @@ namespace EVCMonoGame.src.scenes
                         zoomEaser.Update(gameTime);
                         zoom = zoomEaser.CurrentValue.X;
 
-                        Console.WriteLine("Easing zoom");
                     }
                 }
 
