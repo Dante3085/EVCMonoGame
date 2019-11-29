@@ -24,11 +24,9 @@ namespace EVCMonoGame.src.scenes
 
     class Scene_DesertWithCastles : Scene
     {
-        private Shadow shadow = new Shadow(new Vector2(800, 1000));
-        private Defender defender = new Defender(new Vector2(800, 900));
-        private Gargoyle gargoyle = new Gargoyle(new Vector2(800, 1300));
-		
-        private Tilemap tilemap;
+        private Shadow shadow;
+        private Defender defender;
+        private Gargoyle gargoyle;
 
         private Item[] items = new Item[30];
 
@@ -55,7 +53,11 @@ namespace EVCMonoGame.src.scenes
             // Kollisiondaten explizit an CollisionManager geben. Wird nicht einfach in Tilemap gemacht.
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt");
 
-            updateables.AddRange(new IUpdateable[]
+            shadow = new Shadow(new Vector2(800, 1000), this);
+            defender = new Defender(new Vector2(800, 900), this);
+            gargoyle = new Gargoyle(new Vector2(800, 1300), this);
+
+        updateables.AddRange(new IUpdateable[]
             {
                 defender, 
                 shadow,
@@ -74,7 +76,7 @@ namespace EVCMonoGame.src.scenes
 
             for (int i = 0; i < items.Length; ++i)
             {
-                items[i] = new Consumable(new Rectangle(1000, 2500 + 100*i, 50, 50));
+                items[i] = new InstantConsumable(new Vector2(1000, 2500 + 100*i));
                 drawables.Add(items[i]);
                 updateables.Add(items[i]);
             }
