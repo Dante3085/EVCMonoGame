@@ -260,7 +260,7 @@ namespace EVCMonoGame.src.scenes
 
 
                     // Wide Zoom
-                    if (distanceBetweenPlayers > zoomIntervalPlayerDistance && 
+                    if (distanceBetweenPlayers >= zoomIntervalPlayerDistance && 
                         previousDistanceBetweenPlayers < zoomIntervalPlayerDistance)
                     {
                         zoomEaser.From = new Vector2(zoom, 0);
@@ -269,7 +269,7 @@ namespace EVCMonoGame.src.scenes
                         zoomEaser.Start();
                     }
                     // Normal Zoom.
-                    else if (distanceBetweenPlayers < zoomIntervalPlayerDistance && 
+                    else if (distanceBetweenPlayers <= zoomIntervalPlayerDistance && 
                              previousDistanceBetweenPlayers > zoomIntervalPlayerDistance)
                     {
                         zoomEaser.From = new Vector2(zoom, 0);
