@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EVCMonoGame.src.characters;
 
 
 namespace EVCMonoGame.src.utility
@@ -62,8 +63,8 @@ namespace EVCMonoGame.src.utility
         }
 
         public static float GetAngleOfVectorInDegrees(Vector2 originalVector)//noch nicht sicher ob es funktioniert
-        {   
-            float phi = (float)(180*(1/(Math.PI/Math.Atan2(-originalVector.Y, originalVector.X))));// -Y um berechnung in normales mathematisches Koordinatensystem umzusetzen
+        {
+            float phi = (float)(180 * (1 / (Math.PI / Math.Atan2(-originalVector.Y, originalVector.X))));// -Y um berechnung in normales mathematisches Koordinatensystem umzusetzen
             //Console.WriteLine(phi);
             return phi;
         }
@@ -111,33 +112,76 @@ namespace EVCMonoGame.src.utility
             return "(" + rectangle.X + ", " + rectangle.Y + ", " + rectangle.Width + ", " + rectangle.Height + ")";
         }
 
-		// C# Mod rechnet nicht wie gewünscht
-		public static int Mod(int a, int n)
-		{
-			if (n != 0)
-			{
-				int result = a % n;
-				if ((result < 0 && n > 0) || (result > 0 && n < 0))
-				{
-					result += n;
-				}
-				return result;
-			}
-			else
-				return 0;
-		}
+        // C# Mod rechnet nicht wie gewünscht
+        public static int Mod(int a, int n)
+        {
+            if (n != 0)
+            {
+                int result = a % n;
+                if ((result < 0 && n > 0) || (result > 0 && n < 0))
+                {
+                    result += n;
+                }
+                return result;
+            }
+            else
+                return 0;
+        }
 
-		#region pathModificationfunctions
+        /// <summary>
+        /// Takes a directionVector and returns the Orientation.
+        /// If the directionVector equals Vector.zero it returns Orientation.NONE
+        /// </summary>
+        public static Orientation GetOrientation(Vector2 directionVector)
+        {
+            if (directionVector == Vector2.Zero) return Orientation.NONE;
+            float vectorAngle = GetAngleOfVectorInDegrees(directionVector);
+            if (vectorAngle > (-22.5) && vectorAngle <= (22.5))
+            {
+                return Orientation.RIGHT;
+            }
+            if (vectorAngle > (22.5) && vectorAngle <= (77.5))
+            {
+                return Orientation.UP_RIGHT;
+            }
+            if (vectorAngle > (77.5) && vectorAngle <= (112.5))
+            {
+                return Orientation.UP;
+            }
+            if (vectorAngle > (112.5) && vectorAngle <= (157.5))
+            {
+                return Orientation.UP_LEFT;
+            }
+            if ((vectorAngle > (157.5) && vectorAngle <= (180)) || (vectorAngle >= (-180) && vectorAngle <= (-157.5)))
+            {
+                return Orientation.LEFT;
+            }
+            if (vectorAngle > (-157.5) && vectorAngle <= (-112.5))
+            {
+                return Orientation.DOWN_LEFT;
+            }
+            if (vectorAngle > (-112.5) && vectorAngle <= (-77.5))
+            {
+                return Orientation.DOWN;
+            }
+            if (vectorAngle > (-77.5) && vectorAngle <= (-22.5))
+            {
+                return Orientation.DOWN_RIGHT;
+            }
+            return Orientation.NONE;
+        }
 
-		/// <summary>
-		/// factors needs one Element stating the flatness of the curve
-		/// </summary>
-		/// <param name="from"></param>
-		/// <param name="to"></param>
-		/// <param name="current"></param>
-		/// <param name="factors"></param>
-		/// <returns></returns>
-		public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
+        #region pathModificationfunctions
+
+        /// <summary>
+        /// factors needs one Element stating the flatness of the curve
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="current"></param>
+        /// <param name="factors"></param>
+        /// <returns></returns>
+        public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
         {
             float flatnessFactor = factors.ElementAt(0);
             float radius = (to - from).Length() * 0.5f;

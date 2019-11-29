@@ -25,12 +25,13 @@ namespace EVCMonoGame.src.collision
 
     public static class CollisionManager
     {
-        public static List<Collidable>          allCollisionsChannel        = new List<Collidable>();
-        public static List<Collidable>          obstacleCollisionChannel    = new List<Collidable>();
-        public static List<Collidable>          enemyCollisionChannel       = new List<Collidable>();
-        public static List<Collidable>          itemCollisionChannel        = new List<Collidable>();
-        public static List<Collidable>          playerCollisionChannel      = new List<Collidable>();
-        public static List<CombatCollidable>    combatCollisionChannel      = new List<CombatCollidable>();
+        public static List<Collidable> allCollisionsChannel = new List<Collidable>();
+        public static List<Collidable> obstacleCollisionChannel = new List<Collidable>();
+        public static List<Collidable> enemyCollisionChannel = new List<Collidable>();
+        public static List<Collidable> itemCollisionChannel = new List<Collidable>();
+        public static List<Collidable> playerCollisionChannel = new List<Collidable>();
+        public static List<Collidable> projectileCollisionChannel = new List<Collidable>();
+        public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
         private static byte[,] navGrid;
         private static int debugGridCellSize;
@@ -162,6 +163,7 @@ namespace EVCMonoGame.src.collision
             itemCollisionChannel.Clear();
             playerCollisionChannel.Clear();
             combatCollisionChannel.Clear();
+            projectileCollisionChannel.Clear();
 
             navGrid = null;
             raycasts = null;
@@ -177,12 +179,11 @@ namespace EVCMonoGame.src.collision
                 if (g1 == g2 || !g2.HasActiveHurtBounds)
                     continue;
 
-                if (g1.AttackBounds.Intersects(g2.HurtBounds))
+                if (g1.AttackBounds.Intersects(g2.HurtBounds) && g1.CombatArgs.targetType == g2.Combatant)
                 {
                     CombatArgs combatArgs = g1.CombatArgs;
                     combatArgs.attacker = g1;
                     combatArgs.victim = g2;
-
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);
                 }
@@ -462,6 +463,39 @@ namespace EVCMonoGame.src.collision
         //    }
         //    return isCollision;
         //}
+
+        public static bool IsCollisionInChannel(Collidable g1, List<Collidable> channel)
+        {
+            return channel.Any((g2) => { return g1.CollisionBox.Intersects(g2.CollisionBox) && g1 != g2; });
+        }
+
+        public static bool IsCollisionWithWall(Collidable g1)
+        {
+            if (IsCollisionInChannel(g1, playerCollisionChannel)) return false;
+            if (IsCollisionInChannel(g1, enemyCollisionChannel)) return false;
+            return IsCollisionInChannel(g1, obstacleCollisionChannel);
+        }
+
+
+        /// <summary>
+        /// returns the first Wall in obstacleChannel with which g1 is colliding, 
+        /// returns rectangle.empty if g1 doesn't collides with any wall
+        /// </summary>
+        public static Rectangle GetCollidingWall(Collidable g1)
+        {
+            if (IsCollisionWithWall(g1))
+            {
+                return obstacleCollisionChannel.Find((g2) =>
+                    {
+                        return g1.CollisionBox.Intersects(g2.CollisionBox) && g1 != g2;
+                    }).CollisionBox;
+            }
+            else
+            {
+                return Rectangle.Empty;
+            }
+        }
+
 
         public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
         {

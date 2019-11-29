@@ -80,7 +80,8 @@ namespace EVCMonoGame.src.characters
                   intelligence,
                   agility,
                   movementSpeed,
-                  position
+                  position,
+                  CombatantType.ENEMY
             )
         {
             this.exp = exp;
@@ -99,6 +100,9 @@ namespace EVCMonoGame.src.characters
 
 			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
             // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
+            this.combatArgs.attacker = this;
+            this.combatArgs.targetType = CombatantType.PLAYER;
+            this.combatant = CombatantType.ENEMY;
 		}
 
 		#endregion

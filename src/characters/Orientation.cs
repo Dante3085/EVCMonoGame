@@ -15,6 +15,7 @@ namespace EVCMonoGame.src.characters
         RIGHT,
         DOWN_RIGHT,
         DOWN,
-        DOWN_LEFT
+        DOWN_LEFT,
+        NONE
     }
 }

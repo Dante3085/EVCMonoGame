@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.collision
 {
@@ -24,5 +25,7 @@ namespace EVCMonoGame.src.collision
         bool FlaggedForRemove { get; set; }
 
         void OnCombatCollision(CombatArgs combatArgs);
+
+        CombatantType Combatant{ get; }
     }
 }

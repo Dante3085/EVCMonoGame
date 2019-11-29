@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.collision
 {
@@ -13,16 +14,17 @@ namespace EVCMonoGame.src.collision
         public long id;
         public CombatCollidable attacker;
         public CombatCollidable victim;
+        public CombatantType targetType;
 
         public int damage        = 0;
         public Vector2 knockBack = Vector2.Zero;
         public bool causesFlinch = false;
 
-        public CombatArgs(CombatCollidable attacker, CombatCollidable victim)
+        public CombatArgs(CombatCollidable attacker, CombatCollidable victim, CombatantType targetType)
         {
             this.attacker = attacker;
             this.victim = victim;
-
+            this.targetType = targetType;
             this.id = uniqueId++;
         }
 

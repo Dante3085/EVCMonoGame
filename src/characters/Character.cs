@@ -16,9 +16,18 @@ using EVCMonoGame.src.collision;
 namespace EVCMonoGame.src.characters
 {
     // TODO: CombatArgs irgendwie initialisieren.
+        public enum CombatantType
+        {
+            PLAYER,
+            ENEMY,
+            MISSILE,
+            UNDEFINED
+        }
 
     public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable
     {
+
+
         #region Fields
 
         public Vector2 worldPosition;
@@ -36,6 +45,7 @@ namespace EVCMonoGame.src.characters
         protected int agility;
         public float movementSpeed = 8;
         private Healthbar healthbar;
+        public CombatantType combatant;
 
 
         protected Vector2 collisionBoxOffset = Vector2.Zero;
@@ -58,6 +68,7 @@ namespace EVCMonoGame.src.characters
         public int Intelligence { get { return intelligence; } }
         public int Agility { get { return agility; } }
         public float MovementSpeed { get { return movementSpeed; } }
+        public CombatantType Combatant{ get { return combatant; } }
 
 
 
@@ -164,7 +175,8 @@ namespace EVCMonoGame.src.characters
             int intelligence,
             int agility,
             float movementSpeed,
-            Vector2 position
+            Vector2 position,
+            CombatantType characterType
         )
         {
             this.name = name;
@@ -177,16 +189,16 @@ namespace EVCMonoGame.src.characters
             this.intelligence = intelligence;
             this.agility = agility;
             this.movementSpeed = movementSpeed;
-
-            healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(100, 10));
-			sprite = new AnimatedSprite(position, 5.0f);
+            this.combatant = characterType;
+            healthbar = new Healthbar(maxHp, currentHp, Vector2.Zero, new Vector2(150, 10));
+            sprite = new AnimatedSprite(position, 5.0f);
 
             CollisionManager.AddCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.AddCombatCollidable(this);
 
             WorldPosition = position;
 
-            combatArgs = new CombatArgs(null, null);
+            combatArgs = new CombatArgs(this, null, CombatantType.UNDEFINED);
             combatArgs.damage = 50;
             combatArgs.knockBack = new Vector2(50, 0);
         }
@@ -194,10 +206,9 @@ namespace EVCMonoGame.src.characters
         public virtual void Update(GameTime gameTime)
         {
             sprite.Update(gameTime);
-			healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
-
-			// collisionBox = sprite.Bounds;
-		}
+            healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
+            // collisionBox = sprite.Bounds;
+        }
 
         public virtual void LoadContent(ContentManager content)
         {
@@ -222,9 +233,9 @@ namespace EVCMonoGame.src.characters
             //enemyHealthbar.CurrentHp -= combatArgs.damage;
             //enemySprite.Position += combatArgs.knockBack;
 
-            Console.WriteLine("id: " +  combatArgs.id);
+            Console.WriteLine("id: " + combatArgs.id);
 
-            if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
+            if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this && combatArgs.targetType==this.combatant)
             {
                 currentHp -= combatArgs.damage;
                 healthbar.CurrentHp = currentHp;
