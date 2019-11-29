@@ -56,11 +56,14 @@ namespace EVCMonoGame.src.characters
                   intelligence: intelligence,
                   agility: agility,
                   movementSpeed: movementSpeed,
-                  position: position
+                  position: position,
+                  characterType: CombatantType.PLAYER
             )
         {
             itemFinder = new ItemFinder(this);
             inventory = new Inventory(this);
+            this.combatant = CombatantType.PLAYER;
+            this.combatArgs.targetType = CombatantType.ENEMY;
         }
 
 /*

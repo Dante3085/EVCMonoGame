@@ -65,11 +65,15 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             CombatArgs combatArgs = sora.CombatArgs;
             combatArgs.NewId();
-
+            MagicMissileRed missile = new MagicMissileRed(Vector2.Zero, Orientation.DOWN);
             switch (sora.playerOrientation)
             {
                 case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
                     combatArgs.knockBack = new Vector2(-10, 0);
+                    missile = new MagicMissileRed(sora.CollisionBox.Location.ToVector2() + 
+                        new Vector2(-(missile.CollisionBox.Width+1), sora.CollisionBox.Height / 2 - missile.CollisionBox.Height / 2), Orientation.LEFT);
+                    missile.LoadContent(MagicMissileRed.content);
+                    GameplayState.PlayerOne.missiletest.Add(missile);
                     break;
 
                 case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT";
@@ -78,6 +82,10 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.UP: nextAttackAnimation = "ATTACK_UP";
                     combatArgs.knockBack = new Vector2(0, -200);
+                    missile = new MagicMissileRed(sora.WorldPosition + 
+                        new Vector2(sora.CollisionBox.Width/2 - missile.CollisionBox.Width / 2, -(missile.CollisionBox.Height+1)), Orientation.UP);
+                    missile.LoadContent(MagicMissileRed.content);
+                    GameplayState.PlayerOne.missiletest.Add(missile);
                     break;
 
                 case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT";
@@ -86,9 +94,10 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
                     combatArgs.knockBack = new Vector2(10, 0);
-                    MagicMissileRed m = new MagicMissileRed(sora.WorldPosition+ new Vector2(sora.CollisionBox.Width+2),Orientation.DOWN, 10);
-                    m.LoadContent(MagicMissileRed.content);
-                    GameplayState.PlayerOne.missiletest.Add(m);
+                    missile = new MagicMissileRed(sora.WorldPosition + 
+                        new Vector2(sora.CollisionBox.Width+1, sora.CollisionBox.Height/2 - missile.CollisionBox.Height/2),Orientation.RIGHT);
+                    missile.LoadContent(MagicMissileRed.content);
+                    GameplayState.PlayerOne.missiletest.Add(missile);
                     break;
 
                 case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";
@@ -97,6 +106,10 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN";
                     combatArgs.knockBack = new Vector2(0, 10);
+                    missile = new MagicMissileRed(sora.WorldPosition + 
+                        new Vector2(sora.CollisionBox.Width / 2 - missile.CollisionBox.Width / 2, sora.CollisionBox.Height + 1), Orientation.DOWN);
+                    missile.LoadContent(MagicMissileRed.content);
+                    GameplayState.PlayerOne.missiletest.Add(missile);
                     break;
 
                 case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT";
