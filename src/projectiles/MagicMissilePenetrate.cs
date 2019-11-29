@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,48 +19,17 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
 namespace EVCMonoGame.src.projectiles
 {
-    public class MagicMissileRed : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
+    public class MagicMissilePenetrate : MagicMissile
     {
-        private int bounceCounter = 0;
-        Orientation orientation;
-        private CombatArgs combatArgs;
-        Vector2 collisionBoxOffset;
-        public static ContentManager content;
-        private Vector2 movementVector;
-        private float movementSpeed;
-        public Vector2 WorldPosition { get; set; }
-        public Vector2 PreviousWorldPosition { get; set; }
-        public Rectangle collisionBox;
-        public CombatantType combatant = CombatantType.MISSILE;
-        public Rectangle CollisionBox { get { return collisionBox; } set { collisionBox = value; } }
-        public bool DoUpdate { get; set; }
-        public CombatantType Combatant { get { return combatant; } }
-        public bool FlaggedForRemove
+
+        private int penetrationCounter = 0;
+        private int maxPenetrations;
+        private List<CombatCollidable> hittedVictims = new List<CombatCollidable>();
+
+        public MagicMissilePenetrate(Vector2 position, Orientation orientation, 
+            float movementSpeed = 10, int maxPenetrations = 3)
         {
-            get; set;
-        } = false;
-
-
-
-        public Rectangle HurtBounds { get { return Rectangle.Empty; } }
-
-        public Rectangle AttackBounds { get { return sprite.CurrentAttackBounds; } }
-
-        public bool HasActiveAttackBounds { get { return true; } }
-
-        public bool HasActiveHurtBounds { get { return false; } }
-
-        public bool IsAlive => throw new NotImplementedException();
-
-        public CombatArgs CombatArgs
-        {
-            get { return combatArgs; }
-        }
-
-        AnimatedSprite sprite;
-
-        public MagicMissileRed(Vector2 position, Orientation orientation, float movementSpeed = 10)
-        {
+            this.maxPenetrations = maxPenetrations;
             this.movementSpeed = movementSpeed;
             this.orientation = orientation;
             sprite = new AnimatedSprite(position, 3);
@@ -79,6 +48,10 @@ namespace EVCMonoGame.src.projectiles
 
             combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
+            if (CollisionManager.IsCollisionWithWall(this))
+            {
+                FlaggedForRemove = true;
+            }
         }
 
         public void setMovementVector(float movementSpeed, Orientation orientation)
@@ -143,44 +116,43 @@ namespace EVCMonoGame.src.projectiles
 
         public void setAnimation()
         {
-            sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+            sprite.SetAnimation("MAGIC_MISSILE_LEFT");
             switch (orientation)
             {
                 case Orientation.LEFT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+                    sprite.SetAnimation("MAGIC_MISSILE_LEFT");
                     break;
                 case Orientation.UP_LEFT:
                     break;
                 case Orientation.UP:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_UP");
+                    sprite.SetAnimation("MAGIC_MISSILE_UP");
                     break;
                 case Orientation.UP_RIGHT:
                     sprite.SetAnimation("MAGIC_MISSILE_UP_RIGHT");
                     break;
                 case Orientation.RIGHT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_RIGHT");
+                    sprite.SetAnimation("MAGIC_MISSILE_RIGHT");
                     break;
                 case Orientation.DOWN_RIGHT:
                     break;
                 case Orientation.DOWN:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_DOWN");
+                    sprite.SetAnimation("MAGIC_MISSILE_DOWN");
                     break;
                 case Orientation.DOWN_LEFT:
                     break;
             }
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             sprite.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            PreviousWorldPosition = WorldPosition;
             WorldPosition += movementVector;
             sprite.WorldPosition = WorldPosition;
             collisionBox.Location = (WorldPosition + collisionBoxOffset).ToPoint();
@@ -189,67 +161,25 @@ namespace EVCMonoGame.src.projectiles
             CollisionManager.CheckCombatCollisions(this);
 
 
-            if (CollisionManager.IsCollisionOnlyWithWall(this) || FlaggedForRemove|| CollisionManager.IsCollisionInChannel(this, CollisionManager.enemyCollisionChannel))
+            if (CollisionManager.IsCollisionWithWall(this) || FlaggedForRemove || 
+                penetrationCounter>=maxPenetrations)
             {
-               // CollisionManager.IsCollisionAfterMove(this, true, false);
-               // this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
-               // setMovementVector(movementSpeed, orientation);
-               // setAnimation();
-               // setCollisionBoxOffset();
-               // this.combatArgs.NewId();
-               // if (++bounceCounter >= 10)
-               // {
-                    FlaggedForRemove = true;
-                    CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
-                    CollisionManager.RemoveCombatCollidable(this);
-                //}
+                FlaggedForRemove = true;
+                CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
+                CollisionManager.RemoveCombatCollidable(this);
             }
         }
 
-        public Orientation GetBounceOrientation(Rectangle bounceOff)
-        {
-            float distanceVertical;
-            float distanceHorizontal;
-            switch (orientation)
-            {
-                case Orientation.LEFT:
-                    return Orientation.RIGHT;
-                    break;
-                case Orientation.UP_LEFT:
-                    distanceVertical = Math.Abs(this.CollisionBox.Left - bounceOff.Right);
-                    distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
-                    if (distanceVertical < distanceHorizontal)
-                    {
-                        return Orientation.UP_RIGHT; 
-                    }else if(distanceHorizontal < distanceVertical)
-                    {
-                        return Orientation.DOWN_LEFT;
-                    }
-                    return Orientation.DOWN_RIGHT;
-                    break;
-                case Orientation.UP:
-                   
-                    break;
-                case Orientation.UP_RIGHT:
-                    break;
-                case Orientation.RIGHT:
-                    break;
-                case Orientation.DOWN_RIGHT:
-                    break;
-                case Orientation.DOWN:
-                    break;
-                case Orientation.DOWN_LEFT:
-                    break;
-            }
-            return Orientation.LEFT;
-        }
 
-        public void OnCombatCollision(CombatArgs combatArgs)
+        public override void OnCombatCollision(CombatArgs combatArgs)
         {
             Console.WriteLine("Combat args id:" + combatArgs.id);
-
-            //FlaggedForRemove = true;
-
+            if(!hittedVictims.Exists((a)=> { return a == combatArgs.victim; }))
+            {
+                hittedVictims.Add(combatArgs.victim);
+                penetrationCounter++;
+            }
+            
         }
     }
 }

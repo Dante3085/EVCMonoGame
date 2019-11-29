@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,47 +19,11 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
 namespace EVCMonoGame.src.projectiles
 {
-    public class MagicMissileRed : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
+    public class MagicMissileSplit : MagicMissile
     {
-        private int bounceCounter = 0;
-        Orientation orientation;
-        private CombatArgs combatArgs;
-        Vector2 collisionBoxOffset;
-        public static ContentManager content;
-        private Vector2 movementVector;
-        private float movementSpeed;
-        public Vector2 WorldPosition { get; set; }
-        public Vector2 PreviousWorldPosition { get; set; }
-        public Rectangle collisionBox;
-        public CombatantType combatant = CombatantType.MISSILE;
-        public Rectangle CollisionBox { get { return collisionBox; } set { collisionBox = value; } }
-        public bool DoUpdate { get; set; }
-        public CombatantType Combatant { get { return combatant; } }
-        public bool FlaggedForRemove
-        {
-            get; set;
-        } = false;
 
-
-
-        public Rectangle HurtBounds { get { return Rectangle.Empty; } }
-
-        public Rectangle AttackBounds { get { return sprite.CurrentAttackBounds; } }
-
-        public bool HasActiveAttackBounds { get { return true; } }
-
-        public bool HasActiveHurtBounds { get { return false; } }
-
-        public bool IsAlive => throw new NotImplementedException();
-
-        public CombatArgs CombatArgs
-        {
-            get { return combatArgs; }
-        }
-
-        AnimatedSprite sprite;
-
-        public MagicMissileRed(Vector2 position, Orientation orientation, float movementSpeed = 10)
+        public bool doDraw = true;
+        public MagicMissileSplit(Vector2 position, Orientation orientation, float movementSpeed = 10)
         {
             this.movementSpeed = movementSpeed;
             this.orientation = orientation;
@@ -79,6 +43,10 @@ namespace EVCMonoGame.src.projectiles
 
             combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
+            if (CollisionManager.IsCollisionWithWall(this))
+            {
+                FlaggedForRemove=true;
+            }
         }
 
         public void setMovementVector(float movementSpeed, Orientation orientation)
@@ -143,44 +111,43 @@ namespace EVCMonoGame.src.projectiles
 
         public void setAnimation()
         {
-            sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+            sprite.SetAnimation("MAGIC_MISSILE_LEFT");
             switch (orientation)
             {
                 case Orientation.LEFT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+                    sprite.SetAnimation("MAGIC_MISSILE_LEFT");
                     break;
                 case Orientation.UP_LEFT:
                     break;
                 case Orientation.UP:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_UP");
+                    sprite.SetAnimation("MAGIC_MISSILE_UP");
                     break;
                 case Orientation.UP_RIGHT:
                     sprite.SetAnimation("MAGIC_MISSILE_UP_RIGHT");
                     break;
                 case Orientation.RIGHT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_RIGHT");
+                    sprite.SetAnimation("MAGIC_MISSILE_RIGHT");
                     break;
                 case Orientation.DOWN_RIGHT:
                     break;
                 case Orientation.DOWN:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_DOWN");
+                    sprite.SetAnimation("MAGIC_MISSILE_DOWN");
                     break;
                 case Orientation.DOWN_LEFT:
                     break;
             }
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            sprite.Draw(gameTime, spriteBatch);
+            if (doDraw) sprite.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            PreviousWorldPosition = WorldPosition;
             WorldPosition += movementVector;
             sprite.WorldPosition = WorldPosition;
             collisionBox.Location = (WorldPosition + collisionBoxOffset).ToPoint();
@@ -189,67 +156,73 @@ namespace EVCMonoGame.src.projectiles
             CollisionManager.CheckCombatCollisions(this);
 
 
-            if (CollisionManager.IsCollisionOnlyWithWall(this) || FlaggedForRemove|| CollisionManager.IsCollisionInChannel(this, CollisionManager.enemyCollisionChannel))
+            if (CollisionManager.IsCollisionWithWall(this) || FlaggedForRemove)
             {
-               // CollisionManager.IsCollisionAfterMove(this, true, false);
-               // this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
-               // setMovementVector(movementSpeed, orientation);
-               // setAnimation();
-               // setCollisionBoxOffset();
-               // this.combatArgs.NewId();
-               // if (++bounceCounter >= 10)
-               // {
-                    FlaggedForRemove = true;
-                    CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
-                    CollisionManager.RemoveCombatCollidable(this);
-                //}
+                WorldPosition = PreviousWorldPosition;
+                FlaggedForRemove = true;
+                doDraw = false;
+                spawnNormalMissiles();
+                CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
+                CollisionManager.RemoveCombatCollidable(this);
             }
         }
 
-        public Orientation GetBounceOrientation(Rectangle bounceOff)
-        {
-            float distanceVertical;
-            float distanceHorizontal;
-            switch (orientation)
-            {
-                case Orientation.LEFT:
-                    return Orientation.RIGHT;
-                    break;
-                case Orientation.UP_LEFT:
-                    distanceVertical = Math.Abs(this.CollisionBox.Left - bounceOff.Right);
-                    distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
-                    if (distanceVertical < distanceHorizontal)
-                    {
-                        return Orientation.UP_RIGHT; 
-                    }else if(distanceHorizontal < distanceVertical)
-                    {
-                        return Orientation.DOWN_LEFT;
-                    }
-                    return Orientation.DOWN_RIGHT;
-                    break;
-                case Orientation.UP:
-                   
-                    break;
-                case Orientation.UP_RIGHT:
-                    break;
-                case Orientation.RIGHT:
-                    break;
-                case Orientation.DOWN_RIGHT:
-                    break;
-                case Orientation.DOWN:
-                    break;
-                case Orientation.DOWN_LEFT:
-                    break;
-            }
-            return Orientation.LEFT;
-        }
 
-        public void OnCombatCollision(CombatArgs combatArgs)
+        public override void OnCombatCollision(CombatArgs combatArgs)
         {
             Console.WriteLine("Combat args id:" + combatArgs.id);
+            FlaggedForRemove = true;
+        }
 
-            //FlaggedForRemove = true;
-
+        private void spawnNormalMissiles()
+        {
+            List<MagicMissileNormal> missiles = new List<MagicMissileNormal>();
+            //UP
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(0, -(collisionBox.Height + 1)),
+                Orientation.UP));
+            //UP_RIGHT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(collisionBox.Width + 1, -(collisionBox.Height + 1)),
+                Orientation.UP_RIGHT));
+            //RIGHT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(collisionBox.Width + 1, 0),
+                Orientation.RIGHT));
+            //DOWN_RIGHT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(collisionBox.Width + 1, collisionBox.Height + 1),
+                Orientation.DOWN_RIGHT));
+            //DOWN
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(0, collisionBox.Height + 1),
+                Orientation.DOWN));
+            //DOWN_LEFT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(-(collisionBox.Width + 1), collisionBox.Height + 1),
+                Orientation.DOWN_LEFT));
+            //LEFT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(-(collisionBox.Width + 1), 0),
+                Orientation.LEFT));
+            //UP_LEFT
+            missiles.Add(
+                new MagicMissileNormal(collisionBox.Location.ToVector2() +
+                new Vector2(-(collisionBox.Width + 1), -(collisionBox.Height + 1)),
+                Orientation.UP_LEFT));
+            foreach (MagicMissileNormal m in missiles)
+            {
+                m.LoadContent(MagicMissile.content);
+                GameplayState.PlayerOne.missilesToBeAdded.Add(m);
+            }
+            collisionBox = Rectangle.Empty;
         }
     }
 }
