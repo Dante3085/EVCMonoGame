@@ -24,6 +24,8 @@ namespace EVCMonoGame.src.scenes.castle
         private Shadow shadow;
         private Shadow shadow2;
 
+        private Hades hades;
+
         public Scene_Castle_Room5(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -42,20 +44,24 @@ namespace EVCMonoGame.src.scenes.castle
 
             shadow = new Shadow(new Vector2(2000, 3000));
             shadow2 = new Shadow(new Vector2(2500, 3000));
+            hades = new Hades(new Vector2(2000, 2000));
 
             updateables.AddRange(new IUpdateable[]
             {
                 shadow,
                 shadow2,
+                hades,
             });
 
             drawables.AddRange(new IDrawable[]
             {
                 shadow,
-                shadow2
+                shadow2,
+                hades,
             });
 
-            camera.FollowFocusObjects(GameplayState.PlayerOne, GameplayState.PlayerTwo, shadow);
+            camera.SetCameraToFocusObject(hades);
+            camera.Zoom = 1.2f;
         }
 
         public override void Update(GameTime gameTime)

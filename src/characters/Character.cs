@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.characters
             UNDEFINED
         }
 
-    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable
+    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable, ITranslatable
     {
 
 
@@ -70,7 +70,11 @@ namespace EVCMonoGame.src.characters
         public float MovementSpeed { get { return movementSpeed; } }
         public CombatantType Combatant{ get { return combatant; } }
 
-
+        public Vector2 Position
+        {
+            get { return worldPosition; }
+            set { worldPosition = value; }
+        }
 
         public bool FlaggedForRemove
         {

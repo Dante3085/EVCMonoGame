@@ -47,7 +47,7 @@ namespace EVCMonoGame.src.scenes
             //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
 
             camera = new Camera(sceneManager, Vector2.Zero);
-            camera.FollowPlayers();
+            // camera.FollowPlayers();
         }
         #endregion
         #region Methods
