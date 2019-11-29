@@ -215,6 +215,25 @@ namespace EVCMonoGame.src.collision
             return false;
         }
 
+        public static bool IsCollidableInRange(Collidable collidable, float range,
+                                                        List<Collidable> collisionChannel)
+        {
+            List<Collidable> collidablesInRange = new List<Collidable>();
+
+            foreach (Collidable c in collisionChannel)
+            {
+                if (collidable != c)
+                {
+                    float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                      c.CollisionBox.Center.ToVector2());
+
+                    if (distance < range)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public static void ResolveGeometryCollision(Collidable g1, Collidable g2)
         {
             Vector2 g1Shift = g1.WorldPosition - g1.PreviousWorldPosition;
@@ -357,6 +376,25 @@ namespace EVCMonoGame.src.collision
         {
             return GetAllCollidablesInArea(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
                                                collisionChannel);
+        }
+
+        public static List<Collidable> GetAllCollidablesInRange(Collidable collidable, float range,
+                                                                List<Collidable> collisionChannel)
+        {
+            List<Collidable> collidablesInRange = new List<Collidable>();
+
+            foreach (Collidable c in collisionChannel)
+            {
+                if(collidable != c)
+                {
+                    float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                      c.CollisionBox.Center.ToVector2());
+
+                    if (distance < range)
+                        collidablesInRange.Add(c);
+                }
+            }
+            return collidablesInRange;
         }
 
         public static bool IsPlayerInArea(PlayerIndex playerIndex, Rectangle bounds)

@@ -17,6 +17,7 @@ using EVCMonoGame.src.states;
 using C3.MonoGame;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.characters
 {
@@ -43,6 +44,8 @@ namespace EVCMonoGame.src.characters
 		protected bool isAttackOnCooldown = false;
 		protected float aggroRange;
 
+
+        // Drops
         protected int exp;
 
 		#endregion
@@ -112,6 +115,8 @@ namespace EVCMonoGame.src.characters
 		{
 			base.Draw(gameTime, spriteBatch);
 
+            if (!IsAlive) //Draw Death Anim
+                return;
 			//Debug
 
 			if (DebugOptions.showPathfinding)
@@ -142,6 +147,9 @@ namespace EVCMonoGame.src.characters
 		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (!IsAlive)
+                return;
 
 			if (isAttackOnCooldown)
 			{
@@ -247,5 +255,26 @@ namespace EVCMonoGame.src.characters
 			
 
 		}
-	}
+
+        public override void OnDeath()
+        {
+            base.OnDeath();
+
+            DropLoot();
+        }
+
+        public void DropLoot()
+        {
+            Random random = new Random();
+
+            for(int i = 0; i < 10; i++)
+            {
+
+                Vector2 randomPosition = WorldPosition + new Vector2(random.Next(250), random.Next(250));
+                Item item = new InstantConsumable(randomPosition);
+                Scene.drawablesToAdd.Add(item);
+                Scene.updateablesToAdd.Add(item);
+            }
+        }
+    }
 }

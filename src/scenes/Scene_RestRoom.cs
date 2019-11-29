@@ -11,6 +11,8 @@ using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Items;
+using EVCMonoGame.src.characters.enemies;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -36,8 +38,23 @@ namespace EVCMonoGame.src.scenes
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
 
             playerOne.WorldPosition = new Vector2(1150, 3350);
-
             playerTwo.WorldPosition = new Vector2(1400, 3350);
+
+            Item potion = new InstantConsumable(new Vector2(1200, 3800));
+            Item potion_2 = new InstantConsumable(new Vector2(1250, 3800));
+            Item potion_3 = new InstantConsumable(new Vector2(1300, 3800));
+
+            Enemy shadow = new Shadow(new Vector2(1300, 4150));
+
+            drawables.Add(potion);
+            drawables.Add(potion_2);
+            drawables.Add(potion_3);
+            drawables.Add(shadow);
+
+            updateables.Add(potion);
+            updateables.Add(potion_2);
+            updateables.Add(potion_3);
+            updateables.Add(shadow);
         }
 
         public override void LoadContent(ContentManager contentManager)

@@ -121,16 +121,16 @@ namespace EVCMonoGame.src.scenes
 
             // Diese 2 Scenes sind alt und nicht für das fertige Spiel gedacht.
             scenes[EScene.SAND_CASTLES] = new Scene_DesertWithCastles(this);
-            scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
+            //scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
 
-            scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
+            //scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
             scenes[EScene.REST_ROOM] = new Scene_RestRoom(this);
 
-            scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
-            scenes[EScene.TUTORIAL_ROOM_2] = new Scene_Tutorial_Room2(this);
-            scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
-            scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
-            scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
+            //scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
+           //scenes[EScene.TUTORIAL_ROOM_2] = new Scene_Tutorial_Room2(this);
+            //scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
+            //scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
+            //scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
 
             //  scenes[EScene.MOUNTAINS_ROOM_1] = new Scene_Mountains_Room1(this);
             //  scenes[EScene.MOUNTAINS_ROOM_2] = new Scene_Mountains_Room2(this);
@@ -142,15 +142,15 @@ namespace EVCMonoGame.src.scenes
             // scenes[EScene.DESERT_ROOM_2] = new Scene_Desert_Room2(this);
             // scenes[EScene.DESERT_ROOM_3] = new Scene_Desert_Room3(this);
             // scenes[EScene.DESERT_ROOM_4] = new Scene_Desert_Room4(this);
-            scenes[EScene.DESERT_ROOM_5] = new Scene_Desert_Room5(this);
+            //scenes[EScene.DESERT_ROOM_5] = new Scene_Desert_Room5(this);
 
-            scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
+            //scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
             // scenes[EScene.CASTLE_ROOM_2] = new Scene_Castle_Room2(this);
             // scenes[EScene.CASTLE_ROOM_3] = new Scene_Castle_Room3(this);
             // scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
-            scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
+            //scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
 
-            currentScene = previousScene = scenes[EScene.CASTLE_ROOM_5];
+            currentScene = previousScene = scenes[EScene.REST_ROOM];
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);

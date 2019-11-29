@@ -248,6 +248,8 @@ namespace EVCMonoGame.src.characters
 
                 receivedAttackIds.Add(combatArgs.id);
 
+                if (currentHp <= 0.0f)
+                    OnDeath();
             }
             else
             {
@@ -256,6 +258,11 @@ namespace EVCMonoGame.src.characters
                 // as multiple attacks.
                 HasActiveAttackBounds = false;
             }
+        }
+
+        public virtual void OnDeath()
+        {
+
         }
     }
 }

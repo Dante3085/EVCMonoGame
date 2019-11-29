@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Consumable : Item
+	public class InstantConsumable : Item
 	{
 		public struct ItemStats
 		{
@@ -20,7 +20,7 @@ namespace EVCMonoGame.src.Items
 		public ItemStats stats;
 		public bool permaStats;
 
-		public Consumable(Rectangle bounds) : base(bounds)
+		public InstantConsumable(Vector2 position) : base(position)
 		{
 		}
 
@@ -28,7 +28,6 @@ namespace EVCMonoGame.src.Items
 		{
 			//Player Update Stats
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
-			player.PlayerInventory.AddItem(this);
 		}
 	}
 }

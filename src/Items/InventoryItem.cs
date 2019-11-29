@@ -11,10 +11,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Equipable : Item, scenes.IUpdateable, scenes.IDrawable
+	public class InventoryItem : Item, scenes.IUpdateable, scenes.IDrawable
 	{
 
-		public Equipable(Rectangle bounds) : base(bounds)
+		public InventoryItem(Vector2 position) : base(position)
 		{
 
 		}
@@ -30,9 +30,9 @@ namespace EVCMonoGame.src.Items
 		}
 
 		public override void PickUp(Player player)
-		{
-			throw new NotImplementedException();
-		}
+        {
+            player.PlayerInventory.AddItem(this);
+        }
 
 		public override void Update(GameTime gameTime)
 		{

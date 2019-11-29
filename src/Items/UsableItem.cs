@@ -13,9 +13,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Armor : Equipable
+	public class UsableItem : InventoryItem
 	{
-		public Armor(Rectangle bounds) : base(bounds)
+		public UsableItem(Vector2 position) : base(position)
 		{
 		}
 	}
