@@ -189,60 +189,61 @@ namespace EVCMonoGame.src.projectiles
 
             if (CollisionManager.IsCollisionWithWall(this) || FlaggedForRemove|| CollisionManager.IsCollisionInChannel(this, CollisionManager.enemyCollisionChannel))
             {
-                CollisionManager.IsCollisionAfterMove(this, true, false);
-                this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
-                setMovementVector(movementSpeed, orientation);
-                setAnimation();
-                setCollisionBoxOffset();
-                this.combatArgs.NewId();
-                if (++bounceCounter >= 10)
-                {
-                    FlaggedForRemove = true;
-                    CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
-                    CollisionManager.RemoveCombatCollidable(this);
-                }
+                //CollisionManager.IsCollisionAfterMove(this, true, false);
+                //this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
+                //setMovementVector(movementSpeed, orientation);
+                //setAnimation();
+                //setCollisionBoxOffset();
+                //this.combatArgs.NewId();
+                //if (++bounceCounter >= 10)
+                //{
+                //    FlaggedForRemove = true;
+                //    CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
+                //    CollisionManager.RemoveCombatCollidable(this);
+                //}
             }
         }
 
-        public Orientation GetBounceOrientation(Rectangle bounceOff)
-        {
-            float distanceVertical;
-            float distanceHorizontal;
-            switch (orientation)
-            {
-                case Orientation.LEFT:
-                    return Orientation.RIGHT;
-                    break;
-                case Orientation.UP_LEFT:
-                    distanceVertical = Math.Abs(this.CollisionBox.Left - bounceOff.Right);
-                    distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
-                    if (distanceVertical < distanceHorizontal)
-                    {
-                        return Orientation.UP_RIGHT; 
-                    }else if(distanceHorizontal < distanceVertical)
-                    {
-                        return Orientation.DOWN_LEFT;
-                    }
-                    return Orientation.DOWN_RIGHT;
-                    break;
-                case Orientation.UP:
-                    return movementVector * (-1);
-                    break;
-                case Orientation.UP_RIGHT:
-                    break;
-                case Orientation.RIGHT:
-                    return movementVector * (-1);
-                    break;
-                case Orientation.DOWN_RIGHT:
-                    break;
-                case Orientation.DOWN:
-                    return movementVector * (-1);
-                    break;
-                case Orientation.DOWN_LEFT:
-                    break;
-            }
-            return Vector2.Zero;
-        }
+        //public Orientation GetBounceOrientation(Rectangle bounceOff)
+        //{
+        //    float distanceVertical;
+        //    float distanceHorizontal;
+        //    switch (orientation)
+        //    {
+        //        case Orientation.LEFT:
+        //            return Orientation.RIGHT;
+        //            break;
+        //        case Orientation.UP_LEFT:
+        //            distanceVertical = Math.Abs(this.CollisionBox.Left - bounceOff.Right);
+        //            distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
+        //            if (distanceVertical < distanceHorizontal)
+        //            {
+        //                return Orientation.UP_RIGHT;
+        //            }
+        //            else if (distanceHorizontal < distanceVertical)
+        //            {
+        //                return Orientation.DOWN_LEFT;
+        //            }
+        //            return Orientation.DOWN_RIGHT;
+        //            break;
+        //        case Orientation.UP:
+        //            return movementVector * (-1);
+        //            break;
+        //        case Orientation.UP_RIGHT:
+        //            break;
+        //        case Orientation.RIGHT:
+        //            return movementVector * (-1);
+        //            break;
+        //        case Orientation.DOWN_RIGHT:
+        //            break;
+        //        case Orientation.DOWN:
+        //            return movementVector * (-1);
+        //            break;
+        //        case Orientation.DOWN_LEFT:
+        //            break;
+        //    }
+        //    return Vector2.Zero;
+        //}
 
         public void OnCombatCollision(CombatArgs combatArgs)
         {
