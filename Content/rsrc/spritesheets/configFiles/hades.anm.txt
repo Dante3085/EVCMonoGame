@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_hades_transparent
+
+[ANIMATION]
+NAME          = IDLE_DOWN_LEFT
+FRAMES        = (11, 3, 41, 94), (58, 3, 41, 94), (103, 2, 41, 95), (148, 2, 41, 95), (192, 3, 41, 94), (235, 3, 41, 94)
+HURT_BOUNDS   = SAME_AS_FRAME
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 200@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
