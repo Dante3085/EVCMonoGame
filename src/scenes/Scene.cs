@@ -27,12 +27,12 @@ namespace EVCMonoGame.src.scenes
 		protected bool pauseScene;
 
         protected bool drawCollisionInfo = false;
-        private ITranslatablePosition cameraFocus;
 
         protected Door doorPlayerOne;
         protected Door doorPlayerTwo;
 
         protected Tilemap tilemap;
+
 
         #endregion
         #region Constructors
@@ -47,7 +47,7 @@ namespace EVCMonoGame.src.scenes
             //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
 
             camera = new Camera(sceneManager, Vector2.Zero);
-            // camera.FollowPlayers();
+            camera.FollowPlayers();
         }
         #endregion
         #region Methods

@@ -30,7 +30,7 @@ namespace EVCMonoGame.src.characters.enemies
             )
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
-            sprite.SetAnimation("IDLE_DOWN_LEFT");
+            sprite.SetAnimation("RAGE_STRIKE_LEFT");
 
             collisionBox.Size = new Point(120, 120);
             collisionBoxOffset = new Vector2(50, 110);

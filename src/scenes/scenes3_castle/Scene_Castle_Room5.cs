@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.characters.enemies;
+using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -39,8 +41,8 @@ namespace EVCMonoGame.src.scenes.castle
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt");
 
-            sora.WorldPosition = new Vector2(1782, 4000);
-            riku.WorldPosition = new Vector2(2180, 4000);
+            sora.WorldPosition = new Vector2(1700, 2000);
+            riku.WorldPosition = new Vector2(2500, 2000);
 
             shadow = new Shadow(new Vector2(2000, 3000));
             shadow2 = new Shadow(new Vector2(2500, 3000));
@@ -60,14 +62,22 @@ namespace EVCMonoGame.src.scenes.castle
                 hades,
             });
 
-            camera.SetCameraToFocusObject(hades);
-            camera.Zoom = 1.2f;
+            //camera.SetCameraToFocusObject(hades);
+            //camera.Zoom = 1.2f;
+
+            sceneManager.GlobalDebugTexts.Entries.Add("d");
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            sceneManager.GlobalDebugTexts.Entries[0] = "HadesFrame: " + hades.Sprite.FrameIndex;
+
+            if (InputManager.OnKeyPressed(Keys.L))
+            {
+                hades.Sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
+            }
         }
 
         public override void LoadContent(ContentManager contentManager)
