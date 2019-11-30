@@ -60,7 +60,7 @@ namespace EVCMonoGame.src.characters
         #region Properties
 
         public int MaxHp { get { return maxHp; } }
-        public int CurrentHp { get { return currentHp; } }
+        public int CurrentHp { get { return currentHp; } set { currentHp = value; healthbar.CurrentHp = value; } }
         public int MaxMp { get { return maxMp; } }
         public int CurrentMp { get { return currentMp; } }
         public int Strength { get { return strength; } }
@@ -226,7 +226,7 @@ namespace EVCMonoGame.src.characters
         {
             sprite.Draw(gameTime, spriteBatch);
 
-            if (DrawHealthbar)
+            if (DrawHealthbar && IsAlive)
             {
                 healthbar.Draw(gameTime, spriteBatch);
             }
@@ -262,6 +262,9 @@ namespace EVCMonoGame.src.characters
 
         public virtual void OnDeath()
         {
+			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+			CollisionManager.combatCollidableMarkAsRemove.Add(this);
+			Scene.updateablesToRemove.Add(this);
 
         }
     }

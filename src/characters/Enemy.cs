@@ -115,7 +115,7 @@ namespace EVCMonoGame.src.characters
 		{
 			base.Draw(gameTime, spriteBatch);
 
-            if (!IsAlive) //Draw Death Anim
+            if (!IsAlive) //Draw Death Anim //Danach aus Drawable entfernen
                 return;
 			//Debug
 
@@ -271,9 +271,9 @@ namespace EVCMonoGame.src.characters
             {
 
                 Vector2 randomPosition = WorldPosition + new Vector2(random.Next(250), random.Next(250));
-                Item item = new InstantConsumable(randomPosition);
-                Scene.drawablesToAdd.Add(item);
-                Scene.updateablesToAdd.Add(item);
+				Item coin = new InstantConsumable(randomPosition) { gold = 1 };
+                Scene.drawablesToAdd.Add(coin);
+                Scene.updateablesToAdd.Add(coin);
             }
         }
     }
