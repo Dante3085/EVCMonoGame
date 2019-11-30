@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src.characters.enemies
 {

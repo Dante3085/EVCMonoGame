@@ -14,26 +14,20 @@ using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.Items
 {
-    public class ItemFinder : scenes.IUpdateable, Collidable, scenes.IDrawable
+    public class ItemFinder : scenes.IUpdateable, scenes.IDrawable
     {
         private Player owner;
         private Inventory playerInventory;
+        private float finderRange;
+
+        private List<Item> itemsToPullList;
+        private float itemDraggingSpeed = 4.0f;
 
         public bool FlaggedForRemove
         {
             get; set;
         } = false;
-
-        public Vector2 WorldPosition { get => owner.WorldPosition; set { } }
-
-        public Vector2 PreviousWorldPosition { get => owner.WorldPosition; set { } }
-
-        public Rectangle CollisionBox {
-            get {
-                return owner.CollisionBox;
-            }
-            set { }
-        }
+        
 
 		public bool DoUpdate { get; set; }
 
@@ -41,17 +35,53 @@ namespace EVCMonoGame.src.Items
 		{
 			this.owner = owner;
 			playerInventory = owner.PlayerInventory;
+
+            finderRange = 300f;
+
+            itemDraggingSpeed += owner.MovementSpeed; 
+
+            itemsToPullList = new List<Item>();
 		}
 
 		public void Update(GameTime gameTime)
 		{
-			if(CollisionManager.IsCollisionInArea(owner.CollisionBox, CollisionManager.itemCollisionChannel)); //TODO: ItemFinder Bounds die größer ist als PlayerBounds
-			List<Collidable> foundItems = CollisionManager.GetAllCollidablesInArea(owner.CollisionBox, CollisionManager.itemCollisionChannel);
+            if (CollisionManager.IsCollidableInRange(owner, finderRange, CollisionManager.itemCollisionChannel));
+			List<Collidable> foundItems = CollisionManager.GetAllCollidablesInRange(owner, finderRange, CollisionManager.itemCollisionChannel);
 			foreach (Item item in foundItems)
 			{
+                itemsToPullList.Add(item);
 				item.PickUp(owner);
 			}
-		}
+
+            PullItemsNearPlayer();
+        }
+
+        public void PullItemsNearPlayer()
+        {
+            List<Item> removeFromPulling = new List<Item>();
+
+            foreach(Item item in itemsToPullList)
+            {
+                if (Vector2.Distance(owner.CollisionBox.Center.ToVector2(), item.WorldPosition) < 25)
+                {
+                    removeFromPulling.Add(item);
+                    item.isPickedUp = true;
+                } else
+                {
+                    Vector2 direction = owner.CollisionBox.Center.ToVector2() - item.WorldPosition;
+
+
+                    direction.Normalize();
+                    direction = new Vector2(direction.X * itemDraggingSpeed, direction.Y * itemDraggingSpeed);
+
+                    item.WorldPosition += direction;
+                }
+                
+            }
+
+            itemsToPullList = itemsToPullList.Except(removeFromPulling).ToList<Item>();
+            removeFromPulling.Clear();
+        }
 
 		public Item[] SearchItems()
 		{
@@ -62,7 +92,7 @@ namespace EVCMonoGame.src.Items
         {
             if (DebugOptions.showItemFinder)
             {
-                Primitives2D.DrawRectangle(spriteBatch, CollisionBox, Color.Blue);
+                Primitives2D.DrawCircle(spriteBatch, owner.CollisionBox.Center.ToVector2(), finderRange, 12, Color.Blue);
             }
         }
 

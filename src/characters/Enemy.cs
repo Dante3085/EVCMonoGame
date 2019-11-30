@@ -17,6 +17,7 @@ using EVCMonoGame.src.states;
 using C3.MonoGame;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.characters
 {
@@ -43,6 +44,8 @@ namespace EVCMonoGame.src.characters
 		protected bool isAttackOnCooldown = false;
 		protected float aggroRange;
 
+
+        // Drops
         protected int exp;
 
 		#endregion
@@ -94,12 +97,13 @@ namespace EVCMonoGame.src.characters
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 
+			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
+
 			// Erzeuge Level Grid einmalig für alle Enemys vom selben Typen (solange keine dynamischen obstacles aktiv werden)
-			if(pathfinder == null)
+			if (pathfinder == null)
 				pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
 
-			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
-            // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
+
             this.combatArgs.attacker = this;
             this.combatArgs.targetType = CombatantType.PLAYER;
             this.combatant = CombatantType.ENEMY;
@@ -112,6 +116,8 @@ namespace EVCMonoGame.src.characters
 		{
 			base.Draw(gameTime, spriteBatch);
 
+            if (!IsAlive) //Draw Death Anim //Danach aus Drawable entfernen
+                return;
 			//Debug
 
 			if (DebugOptions.showPathfinding)
@@ -143,6 +149,9 @@ namespace EVCMonoGame.src.characters
         {
             base.Update(gameTime);
 
+            if (!IsAlive)
+                return;
+
 			if (isAttackOnCooldown)
 			{
 				cooldownOnAttack -= gameTime.ElapsedGameTime.Milliseconds;
@@ -150,7 +159,6 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
-			target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
 			if (target != null)
@@ -160,7 +168,8 @@ namespace EVCMonoGame.src.characters
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
 				MoveToCharacter(gameTime, target);
-			}
+			} else
+				target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 		}
 		#endregion
@@ -247,5 +256,36 @@ namespace EVCMonoGame.src.characters
 			
 
 		}
-	}
+
+		public override void OnCombatCollision(CombatArgs combatArgs)
+		{
+			base.OnCombatCollision(combatArgs);
+
+			if (combatArgs.attacker != null && combatArgs.attacker is Player)
+				target = (Player)combatArgs.attacker;
+			else
+				Console.WriteLine("Nicht Player");
+		}
+
+		public override void OnDeath()
+        {
+            base.OnDeath();
+
+            DropLoot();
+        }
+
+        public void DropLoot()
+        {
+            Random random = new Random();
+
+            for(int i = 0; i < 10; i++)
+            {
+
+                Vector2 randomPosition = WorldPosition + new Vector2(random.Next(250), random.Next(250));
+				Item coin = new InstantConsumable(randomPosition) { gold = 1 };
+                Scene.drawablesToAdd.Add(coin);
+                Scene.updateablesToAdd.Add(coin);
+            }
+        }
+    }
 }

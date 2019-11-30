@@ -9,26 +9,30 @@ using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Consumable : Item
+	public class InstantConsumable : Item
 	{
-		public struct ItemStats
-		{
-			public int heal;
-			public int speed;
-		}
-
-		public ItemStats stats;
+	
+		public int heal = 0;
+		public int speed = 0;
+		public int exp = 0;
+		public int gold = 0;
+		
 		public bool permaStats;
 
-		public Consumable(Rectangle bounds) : base(bounds)
+		public InstantConsumable(Vector2 position) : base(position)
 		{
 		}
 
 		public override void PickUp(Player player)
 		{
 			//Player Update Stats
+			player.CurrentHp += heal;
+			player.movementSpeed += speed;
+			player.exp += exp;
+			player.gold += gold;
+
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
-			player.PlayerInventory.AddItem(this);
+
 		}
 	}
 }

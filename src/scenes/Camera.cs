@@ -258,6 +258,9 @@ namespace EVCMonoGame.src.scenes
                     distanceBetweenPlayers = (GameplayState.PlayerTwo.WorldPosition - 
                                                    GameplayState.PlayerOne.WorldPosition).Length();
 
+                    Console.WriteLine("Prev: " + previousDistanceBetweenPlayers);
+
+                    Console.WriteLine("Dist: " + distanceBetweenPlayers);
 
                     // Wide Zoom
                     if (distanceBetweenPlayers >= zoomIntervalPlayerDistance && 

@@ -53,9 +53,9 @@ namespace EVCMonoGame.src.scenes
             // Kollisiondaten explizit an CollisionManager geben. Wird nicht einfach in Tilemap gemacht.
             tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/Level_DesertWithCastles.tm.txt");
 
-            shadow = new Shadow(new Vector2(800, 1000), this);
-            defender = new Defender(new Vector2(800, 900), this);
-            gargoyle = new Gargoyle(new Vector2(800, 1300), this);
+            shadow = new Shadow(new Vector2(800, 1000));
+            defender = new Defender(new Vector2(800, 900));
+            gargoyle = new Gargoyle(new Vector2(800, 1300));
 
         updateables.AddRange(new IUpdateable[]
             {

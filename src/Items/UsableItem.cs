@@ -13,10 +13,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Armor : Equipable
+	public class UsableItem : InventoryItem
 	{
-		public Armor(Rectangle bounds) : base(bounds)
+		public UsableItem(Vector2 position, String inventoryIconPath) : base(position, inventoryIconPath)
 		{
+		}
+
+		public override void PickUp(Player player)
+		{
+			base.PickUp(player);
+
+			player.PlayerInventory.AddUsableItem(this);
 		}
 	}
 }

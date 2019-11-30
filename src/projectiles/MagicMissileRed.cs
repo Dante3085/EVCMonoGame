@@ -59,7 +59,7 @@ namespace EVCMonoGame.src.projectiles
 
         AnimatedSprite sprite;
 
-        public MagicMissileRed(Vector2 position, Orientation orientation, float movementSpeed = 10)
+        public MagicMissileRed(Character instigator, Vector2 position, Orientation orientation, float movementSpeed = 10)
         {
             this.movementSpeed = movementSpeed;
             this.orientation = orientation;
@@ -77,7 +77,7 @@ namespace EVCMonoGame.src.projectiles
 
             setMovementVector(movementSpeed, this.orientation);
 
-            combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
+            combatArgs = new CombatArgs(instigator, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
         }
 

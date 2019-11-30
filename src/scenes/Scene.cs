@@ -20,8 +20,14 @@ namespace EVCMonoGame.src.scenes
     public abstract class Scene
     {
         #region Fields
-        protected List<IUpdateable> updateables;
-        protected List<IDrawable> drawables;
+        public List<IUpdateable> updateables;
+        public List<IDrawable> drawables;
+        public static List<IUpdateable> updateablesToAdd;
+        public static List<IDrawable> drawablesToAdd;
+        public static List<IUpdateable> updateablesToRemove;
+        public static List<IDrawable> drawablesToRemove;
+
+
         protected SceneManager sceneManager;
         protected Camera camera;
 		protected bool pauseScene;
@@ -41,10 +47,15 @@ namespace EVCMonoGame.src.scenes
             this.sceneManager = sceneManager;
             updateables = new List<IUpdateable>();
             drawables = new List<IDrawable>();
+            updateablesToAdd = new List<IUpdateable>();
+            drawablesToAdd = new List<IDrawable>();
+            updateablesToRemove = new List<IUpdateable>();
+            drawablesToRemove = new List<IDrawable>();
 
-            //cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
-            //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
-            //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
+
+        //cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
+        //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
+        //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
 
             camera = new Camera(sceneManager, Vector2.Zero);
             camera.FollowPlayers();
@@ -63,12 +74,20 @@ namespace EVCMonoGame.src.scenes
 
             if (!pauseScene)
 			{
-				foreach (IUpdateable u in updateables)
+                foreach (IUpdateable u in updateables)
 				{
 					u.Update(gameTime);
 				}
 				camera.Update(gameTime);
-			}
+
+                foreach (IUpdateable u in updateablesToAdd)
+                    updateables.Add(u);
+                updateablesToAdd.Clear();
+
+                foreach (IUpdateable u in updateablesToRemove)
+                    updateables.Remove(u);
+                updateablesToRemove.Clear();
+            }
             CollisionManager.Update(gameTime);
         }
 
@@ -80,6 +99,19 @@ namespace EVCMonoGame.src.scenes
 			{
 				d.Draw(gameTime, spriteBatch);
 			}
+
+
+            foreach (IDrawable d in drawablesToAdd)
+            {
+                drawables.Add(d);
+                d.LoadContent(sceneManager.Content);
+                
+            }
+            drawablesToAdd.Clear();
+
+            foreach (IDrawable d in drawablesToRemove)
+                drawables.Remove(d);
+            drawablesToRemove.Clear();
 
             CollisionManager.Draw(gameTime, spriteBatch);
 
@@ -109,6 +141,10 @@ namespace EVCMonoGame.src.scenes
         {
             updateables.Clear();
             drawables.Clear();
+            updateablesToAdd.Clear();
+            updateablesToRemove.Clear();
+            drawablesToAdd.Clear();
+            drawablesToRemove.Clear();
 		}
 
 		public void Pause()
