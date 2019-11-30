@@ -34,13 +34,14 @@ namespace EVCMonoGame.src
 			RIGHT = 1,
 		}
 
-		// Items Inventory
-		private List<Item> items;
-		private Item activeItem;
 
 		// Weapons Inventory
 		private List<Weapon> weapons;
-		private Item activeWeapon;
+		private Weapon activeWeapon;
+
+		// Items Inventory
+		private List<UsableItem> usableItems;
+		private UsableItem activeUsableItem;
 
 		// GUI
 		private Vector2 inventoryPosition;
@@ -71,7 +72,7 @@ namespace EVCMonoGame.src
 		public Inventory(Player owner)
 		{
 			this.owner = owner;
-			items = new List<Item>();
+			usableItems = new List<UsableItem>();
 			weapons = new List<Weapon>();
 
 			screenPosition = new Vector2(200, 200);	// todo: window resolutions beachten. ankerpunkte
@@ -87,22 +88,22 @@ namespace EVCMonoGame.src
 
 		}
 
-		public void AddItem(Item item)
+		public void AddUsableItem(UsableItem item)
 		{
-			if (activeItem == null)
+			if (activeUsableItem == null)
 			{
-				activeItem = item;
+				activeUsableItem = item;
 			}
-			items.Add(item);
+			usableItems.Add(item);
 		}
 
-		public void RemoveItem(Item item)
+		public void RemoveUsableItem(UsableItem item)
 		{
-			if (activeItem == item)
+			if (activeUsableItem == item)
 			{
-				activeItem = items.ElementAt<Item>(0);
+				activeUsableItem = usableItems.ElementAt<UsableItem>(0);
 			}
-			items.Remove(item);
+			usableItems.Remove(item);
 		}
 
 		public void AddWeapon(Weapon weapon)
@@ -119,12 +120,12 @@ namespace EVCMonoGame.src
 		{
 			// Basic Values für Schleifenverarbeitung
 			int posActiveItem = 0;
-			int anzItems = items.Count();
+			int anzItems = usableItems.Count();
 
 
-			if (activeItem != null)
+			if (activeUsableItem != null)
 			{
-				posActiveItem = items.IndexOf(activeItem);
+				posActiveItem = usableItems.IndexOf(activeUsableItem);
 			}
 
 			if (isAnimating)
@@ -154,9 +155,14 @@ namespace EVCMonoGame.src
 			for (int i = 0; i < anzItems; i++)
 			{
 
-				//items.ElementAt<Item>(i).getThumbnail();
+				//Draw Icon
+				Texture2D icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+				spriteBatch.Draw(icon, new Rectangle(new Point((int)InventoryPosition.X + i * (int)itemSize.X + i * itemSpacing, (int)InventoryPosition.Y), itemSize.ToPoint()), Color.White);
+
+				// Draw Debug Inventory Grid
 				Primitives2D.DrawRectangle(spriteBatch, InventoryPosition + new Vector2(i * itemSize.X + i * itemSpacing, 0), itemSize, Color.White);
 
+				//Draw Selection Highlighter
 				if (isAnimating)
 				{
 					animEaser.Update(gameTime);
@@ -178,19 +184,19 @@ namespace EVCMonoGame.src
 		public Item NavigateItems(GameTime gameTime, Direction direction)
 		{
 
-			if (items.Count() != 0)
+			if (usableItems.Count() != 0)
 			{
 				if (IsGUIBusy(gameTime))
-					return activeItem;
+					return activeUsableItem;
 
 				StartAnimation(direction);
 
-				int currentPos = items.IndexOf(activeItem);
-				currentPos = Utility.Mod(currentPos + (int)direction, items.Count());
-				activeItem = items.ElementAt<Item>(currentPos);
+				int currentPos = usableItems.IndexOf(activeUsableItem);
+				currentPos = Utility.Mod(currentPos + (int)direction, usableItems.Count());
+				activeUsableItem = usableItems.ElementAt<UsableItem>(currentPos);
 
 
-				return activeItem;
+				return activeUsableItem;
 			}
 			else
 				return null;
@@ -201,9 +207,9 @@ namespace EVCMonoGame.src
 			//Todo enum verarbeitung
 			if (!isAnimating)
 			{
-				int posActiveItem = items.IndexOf(activeItem);
+				int posActiveItem = usableItems.IndexOf(activeUsableItem);
 				animPrevPos = new Vector2(posActiveItem * itemSize.X + posActiveItem * itemSpacing, 0);
-				int posAfterNavigation = Utility.Mod(posActiveItem + (int)direction, items.Count());
+				int posAfterNavigation = Utility.Mod(posActiveItem + (int)direction, usableItems.Count());
 				animGoalPos = new Vector2(posAfterNavigation * itemSize.X + posAfterNavigation * itemSpacing, 0);
 				isAnimating = true;
 				animationElapsedTime = 0.0d;

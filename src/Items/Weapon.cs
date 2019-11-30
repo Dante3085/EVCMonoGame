@@ -15,8 +15,15 @@ namespace EVCMonoGame.src.Items
 {
 	public class Weapon : InventoryItem
 	{
-		public Weapon(Vector2 position) : base(position)
+		public Weapon(Vector2 position, String inventoryIconPath) : base(position, inventoryIconPath)
 		{
+		}
+
+		public override void PickUp(Player player)
+		{
+			base.PickUp(player);
+
+			player.PlayerInventory.AddWeapon(this);
 		}
 	}
 }

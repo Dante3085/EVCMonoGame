@@ -20,7 +20,6 @@ namespace EVCMonoGame.src.scenes
 
     public class Scene_RestRoom : Scene
     {
-        private Tilemap tilemap;
 
         public Scene_RestRoom(SceneManager sceneManager)
             : base(sceneManager)
@@ -42,20 +41,28 @@ namespace EVCMonoGame.src.scenes
 
             Item potion = new InstantConsumable(new Vector2(1200, 3800));
             Item potion_2 = new InstantConsumable(new Vector2(1250, 3800));
-            Item potion_3 = new InstantConsumable(new Vector2(1300, 3800));
+            Item inventoryItem = new UsableItem(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/boss_bee");
+			Item inventoryItem_2 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
 
-            Enemy shadow = new Shadow(new Vector2(1300, 4150));
+			Enemy shadow = new Shadow(new Vector2(1350, 4150));
+			Enemy shadow_2 = new Shadow(new Vector2(1300, 4150));
 
-            drawables.Add(potion);
+			drawables.Add(potion);
             drawables.Add(potion_2);
-            drawables.Add(potion_3);
-            drawables.Add(shadow);
+            drawables.Add(inventoryItem);
+			drawables.Add(inventoryItem_2);
 
-            updateables.Add(potion);
+			drawables.Add(shadow);
+			drawables.Add(shadow_2);
+
+			updateables.Add(potion);
             updateables.Add(potion_2);
-            updateables.Add(potion_3);
-            updateables.Add(shadow);
-        }
+            updateables.Add(inventoryItem);
+			updateables.Add(inventoryItem_2);
+
+			updateables.Add(shadow);
+			updateables.Add(shadow_2);
+		}
 
         public override void LoadContent(ContentManager contentManager)
         {
