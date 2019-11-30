@@ -171,10 +171,10 @@ namespace EVCMonoGame.src.collision
             raycasts = null;
         }
 
-        public static void CheckCombatCollisions(CombatCollidable g1)
+        public static bool CheckCombatCollisions(CombatCollidable g1)
         {
             if (!g1.HasActiveAttackBounds)
-                return;
+                return false;
 
             foreach (CombatCollidable g2 in combatCollisionChannel)
             {
@@ -188,13 +188,10 @@ namespace EVCMonoGame.src.collision
                     combatArgs.victim = g2;
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);
+                    return true;
                 }
             }
-
-			foreach (CombatCollidable markedAsRemove in combatCollidableMarkAsRemove)
-				combatCollisionChannel.Remove(markedAsRemove);
-
-			combatCollidableMarkAsRemove.Clear();
+            return false;
         }
 
         public static bool IsObstacleCollision(Collidable g1)
@@ -516,10 +513,10 @@ namespace EVCMonoGame.src.collision
 
         public static bool IsCollisionWithWall(Collidable g1)
         {
-            if (IsCollisionInChannel(g1, playerCollisionChannel)) return false;
-            if (IsCollisionInChannel(g1, enemyCollisionChannel)) return false;
-            return IsCollisionInChannel(g1, obstacleCollisionChannel);
+            return IsCollisionInChannel(g1,
+                obstacleCollisionChannel.Except(playerCollisionChannel).ToList().Except(enemyCollisionChannel).ToList());
         }
+
 
 
         /// <summary>
@@ -530,10 +527,11 @@ namespace EVCMonoGame.src.collision
         {
             if (IsCollisionWithWall(g1))
             {
-                return obstacleCollisionChannel.Find((g2) =>
-                    {
-                        return g1.CollisionBox.Intersects(g2.CollisionBox) && g1 != g2;
-                    }).CollisionBox;
+                return obstacleCollisionChannel.Except(playerCollisionChannel).ToList().Except(enemyCollisionChannel).ToList().Find((g2) =>
+                {
+                    return g1.CollisionBox.Intersects(g2.CollisionBox)&&
+                           g1 != g2;
+                }).CollisionBox;
             }
             else
             {
@@ -541,6 +539,34 @@ namespace EVCMonoGame.src.collision
             }
         }
 
+        public static List<Collidable> GetAllCollidingWalls(Collidable g1)
+        {
+            if (IsCollisionWithWall(g1))
+            {
+                return obstacleCollisionChannel.Except(playerCollisionChannel).ToList().Except(enemyCollisionChannel).ToList();
+            }
+            else
+            {
+                return new List<Collidable>();
+            }
+        }
+
+
+        public static void ResolveCollisionWithWall(Collidable g1)
+        {
+            Vector2 startPosition = g1.PreviousWorldPosition;
+            Vector2 endPosition = g1.WorldPosition;
+            Vector2 backShift = Utility.ScaleVectorTo((g1.WorldPosition - g1.PreviousWorldPosition), 1) * (-1);
+            while (IsCollisionWithWall(g1))
+            {
+                g1.WorldPosition += backShift;
+                endPosition = g1.WorldPosition;
+                Console.WriteLine("Position missile" + g1.WorldPosition);
+            }
+            g1.WorldPosition = startPosition;
+            g1.WorldPosition = endPosition;
+
+        }
 
         public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
         {

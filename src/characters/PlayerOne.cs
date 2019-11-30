@@ -36,7 +36,8 @@ namespace EVCMonoGame.src.characters
         public Vector2 movementVector;
         public Vector2 previousMovementVector;
 
-        public List<MagicMissileRed> missiletest = new List<MagicMissileRed>();
+        public List<MagicMissile> missiles = new List<MagicMissile>();
+        public List<MagicMissile> missilesToBeAdded = new List<MagicMissile>();
 
         #endregion
         #region Properties
@@ -95,7 +96,7 @@ namespace EVCMonoGame.src.characters
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-            foreach (MagicMissileRed m in missiletest)
+            foreach (MagicMissile m in missiles)
             {
                 m.Draw(gameTime, spriteBatch);
             }
@@ -105,7 +106,7 @@ namespace EVCMonoGame.src.characters
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-            MagicMissileRed.content = content;
+            MagicMissile.content = content;
             PlayerSpriteSheets.Load(content);
             sprite.spritesheet = PlayerSpriteSheets.RedGlow;
             // playerPortrait.LoadContent(content);
@@ -118,11 +119,13 @@ namespace EVCMonoGame.src.characters
                 return;
 
             base.Update(gameTime);
-            foreach(MagicMissileRed m in missiletest)
+            foreach(MagicMissile m in missiles)
             {
                 m.Update(gameTime);
             }
-            missiletest.RemoveAll((a) => { return a.FlaggedForRemove; });
+            missiles.AddRange(missilesToBeAdded);
+            missilesToBeAdded.Clear();
+            missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
             stateManager.Update(gameTime);
 
 

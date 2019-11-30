@@ -19,48 +19,14 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
 namespace EVCMonoGame.src.projectiles
 {
-    public class MagicMissileRed : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
+    public class MagicMissileBounce : MagicMissile
     {
         private int bounceCounter = 0;
-        Orientation orientation;
-        private CombatArgs combatArgs;
-        Vector2 collisionBoxOffset;
-        public static ContentManager content;
-        private Vector2 movementVector;
-        private float movementSpeed;
-        public Vector2 WorldPosition { get; set; }
-        public Vector2 PreviousWorldPosition { get; set; }
-        public Rectangle collisionBox;
-        public CombatantType combatant = CombatantType.MISSILE;
-        public Rectangle CollisionBox { get { return collisionBox; } set { collisionBox = value; } }
-        public bool DoUpdate { get; set; }
-        public CombatantType Combatant { get { return combatant; } }
-        public bool FlaggedForRemove
+        private int maxBounces;
+
+        public MagicMissileBounce(Vector2 position, Orientation orientation, float movementSpeed = 10, int maxBounces = 10)
         {
-            get; set;
-        } = false;
-
-
-
-        public Rectangle HurtBounds { get { return Rectangle.Empty; } }
-
-        public Rectangle AttackBounds { get { return sprite.CurrentAttackBounds; } }
-
-        public bool HasActiveAttackBounds { get { return true; } }
-
-        public bool HasActiveHurtBounds { get { return false; } }
-
-        public bool IsAlive => throw new NotImplementedException();
-
-        public CombatArgs CombatArgs
-        {
-            get { return combatArgs; }
-        }
-
-        AnimatedSprite sprite;
-
-        public MagicMissileRed(Character instigator, Vector2 position, Orientation orientation, float movementSpeed = 10)
-        {
+            this.maxBounces = maxBounces;
             this.movementSpeed = movementSpeed;
             this.orientation = orientation;
             sprite = new AnimatedSprite(position, 3);
@@ -77,8 +43,12 @@ namespace EVCMonoGame.src.projectiles
 
             setMovementVector(movementSpeed, this.orientation);
 
-            combatArgs = new CombatArgs(instigator, null, CombatantType.ENEMY);
+            combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
+            if (CollisionManager.IsCollisionWithWall(this))
+            {
+                FlaggedForRemove = true;
+            }
         }
 
         public void setMovementVector(float movementSpeed, Orientation orientation)
@@ -143,42 +113,42 @@ namespace EVCMonoGame.src.projectiles
 
         public void setAnimation()
         {
-            sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+            sprite.SetAnimation("MAGIC_MISSILE_RIGHT");
             switch (orientation)
             {
                 case Orientation.LEFT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_LEFT");
+                    sprite.SetAnimation("MAGIC_MISSILE_LEFT");
                     break;
                 case Orientation.UP_LEFT:
                     break;
                 case Orientation.UP:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_UP");
+                    sprite.SetAnimation("MAGIC_MISSILE_UP");
                     break;
                 case Orientation.UP_RIGHT:
                     sprite.SetAnimation("MAGIC_MISSILE_UP_RIGHT");
                     break;
                 case Orientation.RIGHT:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_RIGHT");
+                    sprite.SetAnimation("MAGIC_MISSILE_RIGHT");
                     break;
                 case Orientation.DOWN_RIGHT:
                     break;
                 case Orientation.DOWN:
-                    sprite.SetAnimation("MAGIC_MISSILE_RED_DOWN");
+                    sprite.SetAnimation("MAGIC_MISSILE_DOWN");
                     break;
                 case Orientation.DOWN_LEFT:
                     break;
             }
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
         }
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             sprite.Draw(gameTime, spriteBatch);
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             PreviousWorldPosition = WorldPosition;
             WorldPosition += movementVector;
@@ -189,20 +159,27 @@ namespace EVCMonoGame.src.projectiles
             CollisionManager.CheckCombatCollisions(this);
 
 
-            if (CollisionManager.IsCollisionOnlyWithWall(this) || FlaggedForRemove|| CollisionManager.IsCollisionInChannel(this, CollisionManager.enemyCollisionChannel))
+            if (CollisionManager.IsCollisionWithWall(this))
             {
-               // CollisionManager.IsCollisionAfterMove(this, true, false);
-               // this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
-               // setMovementVector(movementSpeed, orientation);
-               // setAnimation();
-               // setCollisionBoxOffset();
-               // this.combatArgs.NewId();
-               // if (++bounceCounter >= 10)
-               // {
-                    FlaggedForRemove = true;
-                    CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
-                    CollisionManager.RemoveCombatCollidable(this);
-                //}
+                
+                bounceCounter++;
+                this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
+                setMovementVector(movementSpeed, orientation);
+                setAnimation();
+                Vector2 previousCollisionBoxPosition = collisionBox.Location.ToVector2();
+                Vector2 prevToNowWorldPosi = worldPosition - PreviousWorldPosition;
+                setCollisionBoxOffset();
+                collisionBox.Location = (worldPosition + collisionBoxOffset).ToPoint();
+                WorldPosition += (previousCollisionBoxPosition-collisionBox.Location.ToVector2());
+                WorldPosition -= prevToNowWorldPosi;
+                WorldPosition += prevToNowWorldPosi;
+                CollisionManager.ResolveCollisionWithWall(this);                
+            }
+            if (bounceCounter >= maxBounces || FlaggedForRemove)
+            {
+                FlaggedForRemove = true;
+                CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
+                CollisionManager.RemoveCombatCollidable(this);
             }
         }
 
@@ -220,35 +197,71 @@ namespace EVCMonoGame.src.projectiles
                     distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
                     if (distanceVertical < distanceHorizontal)
                     {
-                        return Orientation.UP_RIGHT; 
-                    }else if(distanceHorizontal < distanceVertical)
+                        return Orientation.UP_RIGHT;
+                    }
+                    else if (distanceHorizontal < distanceVertical)
                     {
                         return Orientation.DOWN_LEFT;
                     }
                     return Orientation.DOWN_RIGHT;
                     break;
                 case Orientation.UP:
-                   
+                    return Orientation.DOWN;
                     break;
                 case Orientation.UP_RIGHT:
+                    distanceVertical = Math.Abs(this.CollisionBox.Right - bounceOff.Left);
+                    distanceHorizontal = Math.Abs(this.CollisionBox.Top - bounceOff.Bottom);
+                    if (distanceVertical < distanceHorizontal)
+                    {
+                        return Orientation.UP_LEFT;
+                    }
+                    else if (distanceHorizontal < distanceVertical)
+                    {
+                        return Orientation.DOWN_RIGHT;
+                    }
+                    return Orientation.DOWN_LEFT;
                     break;
                 case Orientation.RIGHT:
+                    return Orientation.LEFT;
                     break;
                 case Orientation.DOWN_RIGHT:
+                    distanceVertical = Math.Abs(this.CollisionBox.Right - bounceOff.Left);
+                    distanceHorizontal = Math.Abs(this.CollisionBox.Bottom - bounceOff.Top);
+                    if (distanceVertical < distanceHorizontal)
+                    {
+                        return Orientation.DOWN_LEFT;
+                    }
+                    else if (distanceHorizontal < distanceVertical)
+                    {
+                        return Orientation.UP_RIGHT;
+                    }
+                    return Orientation.UP_LEFT;
                     break;
                 case Orientation.DOWN:
+                    return Orientation.UP;
                     break;
                 case Orientation.DOWN_LEFT:
+                    distanceVertical = Math.Abs(this.CollisionBox.Left - bounceOff.Right);
+                    distanceHorizontal = Math.Abs(this.CollisionBox.Bottom - bounceOff.Top);
+                    if (distanceVertical < distanceHorizontal)
+                    {
+                        return Orientation.DOWN_RIGHT;
+                    }
+                    else if (distanceHorizontal < distanceVertical)
+                    {
+                        return Orientation.UP_LEFT;
+                    }
+                    return Orientation.UP_RIGHT;
                     break;
             }
             return Orientation.LEFT;
         }
 
-        public void OnCombatCollision(CombatArgs combatArgs)
+        public override void OnCombatCollision(CombatArgs combatArgs)
         {
             Console.WriteLine("Combat args id:" + combatArgs.id);
 
-            //FlaggedForRemove = true;
+            FlaggedForRemove = true;
 
         }
     }
