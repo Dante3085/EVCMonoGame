@@ -184,7 +184,7 @@ namespace EVCMonoGame.src.collision
                 if (g1.AttackBounds.Intersects(g2.HurtBounds) && g1.CombatArgs.targetType == g2.Combatant)
                 {
                     CombatArgs combatArgs = g1.CombatArgs;
-                    combatArgs.attacker = g1;
+                    //combatArgs.attacker = g1;
                     combatArgs.victim = g2;
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);

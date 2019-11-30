@@ -159,7 +159,6 @@ namespace EVCMonoGame.src.characters
 					isAttackOnCooldown = false;
 			}
 
-			target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 			// Behaviour Tree replacement - todo: behaviour tree, der in Player range ein Grid anfordert und alle paar Ticks ein Path generiert
 			if (target != null)
@@ -169,7 +168,8 @@ namespace EVCMonoGame.src.characters
 				//waypoints = debugGrid.PathfindTo(new Point((int)GameplayState.PlayerOne.CollisionBox.Center.X, (int)GameplayState.PlayerOne.CollisionBox.Center.Y) ); //debug new implementation 
 
 				MoveToCharacter(gameTime, target);
-			}
+			} else
+				target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
 
 		}
 		#endregion
@@ -257,7 +257,17 @@ namespace EVCMonoGame.src.characters
 
 		}
 
-        public override void OnDeath()
+		public override void OnCombatCollision(CombatArgs combatArgs)
+		{
+			base.OnCombatCollision(combatArgs);
+
+			if (combatArgs.attacker != null && combatArgs.attacker is Player)
+				target = (Player)combatArgs.attacker;
+			else
+				Console.WriteLine("Nicht Player");
+		}
+
+		public override void OnDeath()
         {
             base.OnDeath();
 
