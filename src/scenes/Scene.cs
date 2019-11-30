@@ -57,7 +57,7 @@ namespace EVCMonoGame.src.scenes
         //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
         //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
 
-        camera = new Camera(sceneManager, Vector2.Zero);
+			camera = new Camera(sceneManager, Vector2.Zero);
             camera.FollowPlayers();
         }
         #endregion

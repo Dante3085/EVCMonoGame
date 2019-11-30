@@ -97,12 +97,13 @@ namespace EVCMonoGame.src.characters
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 
+			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
+
 			// Erzeuge Level Grid einmalig für alle Enemys vom selben Typen (solange keine dynamischen obstacles aktiv werden)
-			if(pathfinder == null)
+			if (pathfinder == null)
 				pathfinder = new Pathfinder(new Rectangle(0, 0, 400, 400), agentMindestBreite);
 
-			CollisionManager.AddCollidable(this, CollisionManager.enemyCollisionChannel);
-            // CollisionManager.AddCollidable(this, CollisionManager.combatCollisionChannel);
+
             this.combatArgs.attacker = this;
             this.combatArgs.targetType = CombatantType.PLAYER;
             this.combatant = CombatantType.ENEMY;

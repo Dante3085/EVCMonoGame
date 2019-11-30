@@ -163,7 +163,6 @@ namespace EVCMonoGame.src.collision
             enemyCollisionChannel.Clear();
             playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
-            playerCollisionChannel.Clear();
             combatCollisionChannel.Clear();
 			combatCollidableMarkAsRemove.Clear();
             projectileCollisionChannel.Clear();

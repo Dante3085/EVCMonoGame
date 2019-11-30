@@ -152,16 +152,17 @@ namespace EVCMonoGame.src.scenes
 
             currentScene = previousScene = scenes[EScene.REST_ROOM];
 
-			currentScene.OnEnterScene();
-			currentScene.LoadContent(game.Content);
-
-            CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
-            CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
+			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
+			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
 			if (GameplayState.IsTwoPlayer)
 			{
 				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
 				CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
 			}
+
+			currentScene.OnEnterScene();
+			currentScene.LoadContent(game.Content);
+
 		}
         #endregion
         #region Methods
@@ -259,10 +260,6 @@ namespace EVCMonoGame.src.scenes
                     easer.Start();
                     reverseTransitionFinished = true;
 
-
-					nextScene.OnEnterScene();
-					nextScene.LoadContent(game.Content);
-
 					// Kollision für Players setzen
 					//CollisionManager.AddCollidables(GameplayState.PlayerTwo);
 					//CollisionManager.AddCollidables(GameplayState.PlayerThree);
@@ -274,6 +271,10 @@ namespace EVCMonoGame.src.scenes
 						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.playerCollisionChannel);
 						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
 					}
+
+					nextScene.OnEnterScene();
+					nextScene.LoadContent(game.Content);
+
 
 				}
             }
