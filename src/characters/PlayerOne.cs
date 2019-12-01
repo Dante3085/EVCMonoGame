@@ -64,7 +64,8 @@ namespace EVCMonoGame.src.characters
                   intelligence: 5,
                   agility: 4,
                   movementSpeed: 7,
-                  position: position
+                  position: position,
+				  playerIndex: PlayerIndex.One
             )
         {
 

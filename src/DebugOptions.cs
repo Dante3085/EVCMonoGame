@@ -13,20 +13,23 @@ namespace EVCMonoGame.src
 	{
 
 		// Menu
-		public static bool skipMenu             = false;
-		public static bool exitGameOnEscapeKey  = false;
+		public static bool skipMenu             = true;
+		public static bool exitGameOnEscapeKey  = true;
 		public static bool startWithLevelEditor = false;
 
 		// Draw
-		public static bool showCollision       = false;
-		public static bool showNavgrid         = false;
-		public static bool showPathfinding     = false;
-		public static bool showRaycasts        = false;
+		public static bool showCollision       = true;
+		public static bool showNavgrid         = true;
+		public static bool showPathfinding     = true;
+		public static bool showRaycasts        = true;
         public static bool showFpsCounter      = true;
         public static bool showAttackRange     = false;
         public static bool showAttackBounds    = false;
         public static bool showHurtBounds      = false;
-        public static bool showItemFinder      = false;
+        public static bool showItemFinder      = true;
+
+		//Gameplay
+		public static bool spawnWithStarterItems = true;
 
         public static void Update()
         {

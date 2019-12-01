@@ -105,7 +105,6 @@ namespace EVCMonoGame.src.scenes
             {
                 drawables.Add(d);
                 d.LoadContent(sceneManager.Content);
-                
             }
             drawablesToAdd.Clear();
 
@@ -116,7 +115,13 @@ namespace EVCMonoGame.src.scenes
             CollisionManager.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
-        }
+
+			// Draw Inventory independent from Camera Transformation
+			spriteBatch.Begin();
+				GameplayState.PlayerOne.PlayerInventory.Draw(gameTime, spriteBatch);
+				GameplayState.PlayerTwo.PlayerInventory.Draw(gameTime, spriteBatch);
+			spriteBatch.End();
+		}
 
         public virtual void LoadContent(ContentManager contentManager)
         {
