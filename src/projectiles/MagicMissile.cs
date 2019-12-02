@@ -22,6 +22,7 @@ namespace EVCMonoGame.src.projectiles
 {
     public abstract class MagicMissile : Collidable, scenes.IDrawable, scenes.IUpdateable, CombatCollidable
     {
+        protected bool doDraw = true;
         protected Orientation orientation;
         protected CombatArgs combatArgs;
         protected Vector2 collisionBoxOffset;
