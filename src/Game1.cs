@@ -59,8 +59,8 @@ namespace EVCMonoGame.src
             //graphicsDeviceManager.PreferredBackBufferWidth = 3240;
             //graphicsDeviceManager.PreferredBackBufferHeight = 2160;
 
-            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
-            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
+            graphicsDeviceManager.PreferredBackBufferWidth = 1366;
+            graphicsDeviceManager.PreferredBackBufferHeight = 748;
 
             graphicsDeviceManager.IsFullScreen = false;
             graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
