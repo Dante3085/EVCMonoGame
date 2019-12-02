@@ -18,11 +18,11 @@ namespace EVCMonoGame.src.scenes
 {
     public class Scene_GameOver : Scene
     {
-        private Easer easerPlayerOne = new Easer(Vector2.Zero, Vector2.Zero, 1500, Easing.SineEaseInOut);
-        private Easer easerPlayerTwo = new Easer(Vector2.Zero, Vector2.Zero, 1500, Easing.SineEaseInOut);
+        private Easer easerPlayerOne;
+        private Easer easerPlayerTwo;
 
-        private AnimatedSprite selectionSprite = new AnimatedSprite(new Vector2(650, 100), 4);
-        private AnimatedSprite heartSprite = new AnimatedSprite(new Vector2(860, 300), 4);
+        private AnimatedSprite selectionSprite;
+        private AnimatedSprite heartSprite;
 
         public Scene_GameOver(SceneManager sceneManager)
             : base(sceneManager)
@@ -34,6 +34,9 @@ namespace EVCMonoGame.src.scenes
         {
             base.OnEnterScene();
 
+            selectionSprite = new AnimatedSprite(new Vector2(650, 100), 4);
+            heartSprite     = new AnimatedSprite(new Vector2(860, 300), 4);
+
             selectionSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gameOverSelection.anm.txt");
             selectionSprite.SetAnimation("CONTINUE");
 
@@ -42,6 +45,9 @@ namespace EVCMonoGame.src.scenes
 
             PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
+
+            easerPlayerOne = new Easer(Vector2.Zero, Vector2.Zero, 1500, Easing.SineEaseInOut);
+            easerPlayerTwo = new Easer(Vector2.Zero, Vector2.Zero, 1500, Easing.SineEaseInOut);
 
             playerOne.Sprite.SetAnimation("DEAD");
             playerOne.DrawHealthbar = false;

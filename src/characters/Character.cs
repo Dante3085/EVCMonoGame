@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.characters
             UNDEFINED
         }
 
-    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable
+    public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable, ITranslatable
     {
 
 
@@ -60,7 +60,7 @@ namespace EVCMonoGame.src.characters
         #region Properties
 
         public int MaxHp { get { return maxHp; } }
-        public int CurrentHp { get { return currentHp; } }
+        public int CurrentHp { get { return currentHp; } set { currentHp = value; healthbar.CurrentHp = value; } }
         public int MaxMp { get { return maxMp; } }
         public int CurrentMp { get { return currentMp; } }
         public int Strength { get { return strength; } }
@@ -70,7 +70,11 @@ namespace EVCMonoGame.src.characters
         public float MovementSpeed { get { return movementSpeed; } }
         public CombatantType Combatant{ get { return combatant; } }
 
-
+        public Vector2 Position
+        {
+            get { return worldPosition; }
+            set { worldPosition = value; }
+        }
 
         public bool FlaggedForRemove
         {
@@ -222,7 +226,7 @@ namespace EVCMonoGame.src.characters
         {
             sprite.Draw(gameTime, spriteBatch);
 
-            if (DrawHealthbar)
+            if (DrawHealthbar && IsAlive)
             {
                 healthbar.Draw(gameTime, spriteBatch);
             }
@@ -244,6 +248,8 @@ namespace EVCMonoGame.src.characters
 
                 receivedAttackIds.Add(combatArgs.id);
 
+                if (currentHp <= 0.0f)
+                    OnDeath();
             }
             else
             {
@@ -252,6 +258,14 @@ namespace EVCMonoGame.src.characters
                 // as multiple attacks.
                 HasActiveAttackBounds = false;
             }
+        }
+
+        public virtual void OnDeath()
+        {
+			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+			CollisionManager.combatCollidableMarkAsRemove.Add(this);
+			Scene.updateablesToRemove.Add(this);
+
         }
     }
 }

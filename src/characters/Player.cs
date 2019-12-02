@@ -15,9 +15,12 @@ namespace EVCMonoGame.src.characters
     {
         private ItemFinder itemFinder;
         private Inventory inventory;
-        
 
-        public Orientation playerOrientation = Orientation.RIGHT;
+		public int gold;
+		public int exp;
+
+
+		public Orientation playerOrientation = Orientation.RIGHT;
 
         public Inventory PlayerInventory
         {

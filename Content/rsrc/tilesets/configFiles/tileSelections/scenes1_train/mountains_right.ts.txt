@@ -1,0 +1,3 @@
+
+TILESET = rsrc/tilesets/FF6MapTileHills,Rivers,Beach
+AUTO_TILES = (16, 16)@(256, 0, 256, 256)

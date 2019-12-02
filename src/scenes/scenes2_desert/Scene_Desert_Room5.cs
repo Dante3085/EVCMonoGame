@@ -19,9 +19,6 @@ namespace EVCMonoGame.src.scenes.desert
 {
     public class Scene_Desert_Room5 : Scene
     {
-        private PlayerOne playerOne = GameplayState.PlayerOne;
-        private PlayerTwo playerTwo = GameplayState.PlayerTwo;
-
         private Rectangle bigDoor1InteractionArea = new Rectangle(3616, 4517, 515, 257);
         private Rectangle bigDoor2InteractionArea = new Rectangle(3724, 1517, 407, 259);
 
@@ -35,11 +32,11 @@ namespace EVCMonoGame.src.scenes.desert
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room5.tm.txt");
 
-            playerOne.WorldPosition = new Vector2(3500, 6800);
-            playerOne.Sprite.SetAnimation("IDLE_RIGHT");
+            sora.WorldPosition = new Vector2(3500, 6800);
+            sora.Sprite.SetAnimation("IDLE_RIGHT");
 
-            playerTwo.WorldPosition = new Vector2(4000, 6800);
-            playerTwo.Sprite.SetAnimation("IDLE_RIGHT");
+            riku.WorldPosition = new Vector2(4000, 6800);
+            riku.Sprite.SetAnimation("IDLE_RIGHT");
 
             doorPlayerOne = new Door(new Vector2(5300, 7));
             doorPlayerTwo = new Door(new Vector2(6847, 3));
@@ -69,12 +66,12 @@ namespace EVCMonoGame.src.scenes.desert
             if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) && 
                 CollisionManager.IsPlayerInArea(PlayerIndex.One, bigDoor1InteractionArea))
             {
-                playerOne.WorldPosition = new Vector2(3781, 3257);
+                sora.WorldPosition = new Vector2(3781, 3257);
             }
             else if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) &&
                 CollisionManager.IsPlayerInArea(PlayerIndex.Two, bigDoor1InteractionArea))
             {
-                playerTwo.WorldPosition = new Vector2(3996, 3265);
+                riku.WorldPosition = new Vector2(3996, 3265);
             }
 
             // bigDoor2
@@ -88,24 +85,6 @@ namespace EVCMonoGame.src.scenes.desert
             {
                 sceneManager.SceneTransition(EScene.CASTLE_ROOM_1);
             }
-        }
-
-        public override void LoadContent(ContentManager contentManager)
-        {
-            base.LoadContent(contentManager);
-
-            tilemap.LoadContent(contentManager);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-
-            tilemap.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime, spriteBatch);
         }
     }
 }

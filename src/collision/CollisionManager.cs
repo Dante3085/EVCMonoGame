@@ -33,6 +33,8 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> projectileCollisionChannel = new List<Collidable>();
         public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
+		public static List<CombatCollidable> combatCollidableMarkAsRemove = new List<CombatCollidable>();
+
         private static byte[,] navGrid;
         private static int debugGridCellSize;
         private static int removeIntervall = 0;
@@ -161,8 +163,8 @@ namespace EVCMonoGame.src.collision
             enemyCollisionChannel.Clear();
             playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
-            playerCollisionChannel.Clear();
             combatCollisionChannel.Clear();
+			combatCollidableMarkAsRemove.Clear();
             projectileCollisionChannel.Clear();
 
             navGrid = null;
@@ -182,7 +184,7 @@ namespace EVCMonoGame.src.collision
                 if (g1.AttackBounds.Intersects(g2.HurtBounds) && g1.CombatArgs.targetType == g2.Combatant)
                 {
                     CombatArgs combatArgs = g1.CombatArgs;
-                    combatArgs.attacker = g1;
+                    //combatArgs.attacker = g1;
                     combatArgs.victim = g2;
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);
@@ -214,6 +216,25 @@ namespace EVCMonoGame.src.collision
                     return true;
             }
 
+            return false;
+        }
+
+        public static bool IsCollidableInRange(Collidable collidable, float range,
+                                                        List<Collidable> collisionChannel)
+        {
+            List<Collidable> collidablesInRange = new List<Collidable>();
+
+            foreach (Collidable c in collisionChannel)
+            {
+                if (collidable != c)
+                {
+                    float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                      c.CollisionBox.Center.ToVector2());
+
+                    if (distance < range)
+                        return true;
+                }
+            }
             return false;
         }
 
@@ -359,6 +380,25 @@ namespace EVCMonoGame.src.collision
         {
             return GetAllCollidablesInArea(new Rectangle(WorldPosition.ToPoint(), size.ToPoint()),
                                                collisionChannel);
+        }
+
+        public static List<Collidable> GetAllCollidablesInRange(Collidable collidable, float range,
+                                                                List<Collidable> collisionChannel)
+        {
+            List<Collidable> collidablesInRange = new List<Collidable>();
+
+            foreach (Collidable c in collisionChannel)
+            {
+                if(collidable != c)
+                {
+                    float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
+                                                      c.CollisionBox.Center.ToVector2());
+
+                    if (distance < range)
+                        collidablesInRange.Add(c);
+                }
+            }
+            return collidablesInRange;
         }
 
         public static bool IsPlayerInArea(PlayerIndex playerIndex, Rectangle bounds)

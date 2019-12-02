@@ -35,26 +35,16 @@ namespace EVCMonoGame.src
         {
             this.horizontalSelection = horizontalSelection;
 
-            Vector2 upperLeft = new Vector2(float.MaxValue, float.MaxValue);
-            Vector2 lowerRight = new Vector2(float.MinValue, float.MinValue);
-
             foreach (Lever lever in levers)
             {
-                this.levers.Add(lever);
                 lever.BlockPlayerInteraction = true;
-
-                if (lever.Bounds.Left < upperLeft.X)
-                    upperLeft.X = lever.Bounds.Left;
-                if (lever.Bounds.Top < upperLeft.Y)
-                    upperLeft.Y = lever.Bounds.Top;
-
-                if (lever.Bounds.Right > lowerRight.X)
-                    lowerRight.X = lever.Bounds.Right;
-                if (lever.Bounds.Bottom > lowerRight.Y)
-                    lowerRight.Y = lever.Bounds.Bottom;
+                this.levers.Add(lever);
             }
 
-            interactionArea = new Rectangle(upperLeft.ToPoint(), (lowerRight - upperLeft).ToPoint());
+
+
+            interactionArea = Utility.CalcMinimalBoundingBox(levers.Select(o => o.Bounds.Location.ToVector2()).Union
+                                                            (levers.Select(o => new Vector2(o.Bounds.Right, o.Bounds.Bottom))).ToList());
             interactionArea.Inflate(50, 50);
 
             currentLeverIndex = 0;

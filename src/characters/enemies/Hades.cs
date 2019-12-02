@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,37 +6,35 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using EVCMonoGame.src.Items;
-
-using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src.characters.enemies
 {
-    public class Shadow : Enemy
+    public class Hades : Enemy
     {
-        public Shadow(Vector2 position)
+
+        public Hades(Vector2 position)
             : base
             (
-                  name: "Shadow",
-                  maxHp: 300,
-                  currentHp: 300,
-                  maxMp: 0,
-                  currentMp: 0,
-                  strength: 5,
-                  defense: 3,
-                  intelligence: 0,
+                  name: "Hades",
+                  maxHp: 2450,
+                  currentHp: 2450,
+                  maxMp: 100,
+                  currentMp: 100,
+                  strength: 15,
+                  defense: 12,
+                  intelligence: 9,
                   agility: 8,
-                  movementSpeed: 4,
+                  movementSpeed: 6,
                   position: position,
-                  exp: 50
+                  exp: 3000
             )
         {
-            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
-            sprite.SetAnimation("WALK_DOWN_RIGHT");
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
+            sprite.SetAnimation("RAGE_STRIKE_LEFT");
 
-            collisionBox.Size = new Point(50, 50);
-            collisionBoxOffset = new Vector2(30, 30);
+            collisionBox.Size = new Point(120, 120);
+            collisionBoxOffset = new Vector2(50, 110);
         }
 
         public override void Update(GameTime gameTime)

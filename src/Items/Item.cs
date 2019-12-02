@@ -19,6 +19,7 @@ namespace EVCMonoGame.src.Items
 		public Vector2 worldPosition;
 		public Rectangle geoHitbox;
         public AnimatedSprite sprite;
+        public bool isPickedUp = false;
 
 		public bool DoUpdate { get; set; }
 
@@ -61,12 +62,12 @@ namespace EVCMonoGame.src.Items
 		}
 		#endregion
 
-		public Item(Rectangle bounds)
+		public Item(Vector2 position)
 		{
             sprite = new AnimatedSprite(worldPosition);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
             sprite.SetAnimation("COIN");
-			CollisionBox = bounds;
+            CollisionBox = new Rectangle(position.ToPoint(), new Point(50, 50));
 			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
 		}
 		public abstract void PickUp(Player player);
@@ -74,7 +75,8 @@ namespace EVCMonoGame.src.Items
 
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
-            sprite.Draw(gameTime, spriteBatch);
+            if(!isPickedUp)
+                sprite.Draw(gameTime, spriteBatch);
 		}
 
 		public virtual void LoadContent(ContentManager content)

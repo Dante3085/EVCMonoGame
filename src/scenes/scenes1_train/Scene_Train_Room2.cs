@@ -15,13 +15,14 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 
-namespace EVCMonoGame.src.scenes.desert
+namespace EVCMonoGame.src.scenes.train
 {
-    public class Scene_Desert_Room3 : Scene
+    public class Scene_Train_Room2 : Scene
     {
+        private Shadow[] shadows;
 
-        public Scene_Desert_Room3(SceneManager sceneManager)
-           : base(sceneManager)
+        public Scene_Train_Room2(SceneManager sceneManager)
+            : base(sceneManager)
         {
 
         }
@@ -31,34 +32,29 @@ namespace EVCMonoGame.src.scenes.desert
             base.OnEnterScene();
 
             tilemap = new Tilemap(Vector2.Zero,
-                "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room3.tm.txt");
+                "Content/rsrc/tilesets/configFiles/tilemaps/scenes1_train/room2.tm.txt");
 
-            sora.WorldPosition = new Vector2(900, 2000);
-            riku.WorldPosition = new Vector2(2500, 2000);
+            sora.WorldPosition = new Vector2(13000, 2650);
+            riku.WorldPosition = new Vector2(12000, 2650);
 
-            doorPlayerOne = new Door(new Vector2(765, 0));
-            doorPlayerTwo = new Door(new Vector2(2431, 0));
-
-            updateables.AddRange(new IUpdateable[]
+            shadows = new Shadow[10];
+            for (int i = 0; i < shadows.Length; ++i)
             {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
+                shadows[i] = new Shadow(new Vector2(14000 + i * 100, 2650));
 
-            drawables.AddRange(new IDrawable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
+                updateables.Add(shadows[i]);
+                drawables.Add(shadows[i]);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            if (shadows.All((s) => !s.IsAlive))
             {
                 sceneManager.SceneTransitionNextRoom();
+                // sceneManager.SceneTransition(EScene.TRAIN_ROOM_3);
             }
         }
     }

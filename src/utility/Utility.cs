@@ -17,6 +17,8 @@ namespace EVCMonoGame.src.utility
         // RegularExpression for ReplaceWhitespace()
         private static readonly Regex sWhitespace = new Regex(@"\s+");
 
+        private static Random random = new Random();
+
         /// <summary>
         /// Returns a new string which is equal to input except that all occurences of whitespace
         /// are replaced with replacement.
@@ -171,17 +173,43 @@ namespace EVCMonoGame.src.utility
             return Orientation.NONE;
         }
 
-        #region pathModificationfunctions
+        public static Rectangle CalcMinimalBoundingBox(List<Vector2> points)
+        {
+            Vector2 upperLeft = new Vector2(float.MaxValue, float.MaxValue);
+            Vector2 lowerRight = new Vector2(float.MinValue, float.MinValue);
 
-        /// <summary>
-        /// factors needs one Element stating the flatness of the curve
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="current"></param>
-        /// <param name="factors"></param>
-        /// <returns></returns>
-        public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
+            foreach (Vector2 point in points)
+            {
+                // upperLeft
+                if (point.X < upperLeft.X)
+                    upperLeft.X = point.X;
+                if (point.Y < upperLeft.Y)
+                    upperLeft.Y = point.Y;
+
+                // lowerRight
+                if (point.X > lowerRight.X)
+                    lowerRight.X = point.X;
+                if (point.Y > lowerRight.Y)
+                    lowerRight.Y = point.Y;
+            }
+
+            return new Rectangle(upperLeft.ToPoint(), (lowerRight - upperLeft).ToPoint());
+        }
+
+        public static float CalcSurfaceArea(Rectangle rectangle)
+        {
+            return rectangle.Width * rectangle.Height;
+        }
+
+		/// <summary>
+		/// factors needs one Element stating the flatness of the curve
+		/// </summary>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
+		/// <param name="current"></param>
+		/// <param name="factors"></param>
+		/// <returns></returns>
+		public static Vector2 HalfCircle(Vector2 from, Vector2 to, Vector2 current, List<float> factors)//Vector2 from, Vector2 to, Vector2 current, float flatnessFactor
         {
             float flatnessFactor = factors.ElementAt(0);
             float radius = (to - from).Length() * 0.5f;
@@ -199,6 +227,23 @@ namespace EVCMonoGame.src.utility
         {
             return Vector2.Zero;
         }
-        #endregion
+
+        public static void RandomizeList<T>(List<T> list, int startIndex, int endIndex)
+        {
+            if (startIndex < 0 || endIndex >= list.Count)
+            {
+                throw new ArgumentException("StartIndex was smaller 0 or endIndex was bigger,equal list.Count.");
+            }
+
+            int n = endIndex;
+            while (n > startIndex)
+            {
+                n--;
+                int k = random.Next(startIndex, n + 2);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
     }
 }
