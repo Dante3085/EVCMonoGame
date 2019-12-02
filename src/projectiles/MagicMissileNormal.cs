@@ -25,13 +25,13 @@ namespace EVCMonoGame.src.projectiles
 
         public MagicMissileNormal(Vector2 position, Orientation orientation, float movementSpeed = 10)
         {
-            this.movementSpeed = 0;//movementSpeed;
+            this.movementSpeed = movementSpeed;
             this.orientation = orientation;
             sprite = new AnimatedSprite(position, 3);
             setCollisionBoxOffset();
             WorldPosition = position - collisionBoxOffset;
             sprite.Position = (WorldPosition);
-            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_yellow.anm.txt", true);
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_red.anm.txt", true);
             setAnimation();
             CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
