@@ -7,11 +7,12 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
-
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.tilemap;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -39,6 +40,8 @@ namespace EVCMonoGame.src.scenes
 
         protected Tilemap tilemap;
 
+        protected PlayerOne sora = GameplayState.PlayerOne;
+        protected PlayerTwo riku = GameplayState.PlayerTwo;
 
         #endregion
         #region Constructors
@@ -51,11 +54,6 @@ namespace EVCMonoGame.src.scenes
             drawablesToAdd = new List<IDrawable>();
             updateablesToRemove = new List<IUpdateable>();
             drawablesToRemove = new List<IDrawable>();
-
-
-        //cameraFocus = new ITranslatablePosition(GameplayState.PlayerOne.WorldPosition +
-        //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2);
-        //camera = new Camera(sceneManager, cameraFocus, Screenpoint.CENTER);
 
             camera = new Camera(sceneManager, Vector2.Zero);
             camera.FollowPlayers();
@@ -95,22 +93,27 @@ namespace EVCMonoGame.src.scenes
 		{
 			spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
 
+            if (tilemap != null)
+            {
+                tilemap.Draw(gameTime, spriteBatch);
+            }
+
 			foreach (IDrawable d in drawables)
 			{
 				d.Draw(gameTime, spriteBatch);
 			}
 
-
             foreach (IDrawable d in drawablesToAdd)
             {
                 drawables.Add(d);
                 d.LoadContent(sceneManager.Content);
-                
             }
             drawablesToAdd.Clear();
 
             foreach (IDrawable d in drawablesToRemove)
+            {
                 drawables.Remove(d);
+            }
             drawablesToRemove.Clear();
 
             CollisionManager.Draw(gameTime, spriteBatch);
@@ -123,6 +126,11 @@ namespace EVCMonoGame.src.scenes
             foreach (IDrawable d in drawables)
             {
                 d.LoadContent(contentManager);
+            }
+
+            if (tilemap != null)
+            {
+                tilemap.LoadContent(contentManager);
             }
         }
 

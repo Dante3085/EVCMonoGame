@@ -20,13 +20,16 @@ namespace EVCMonoGame.src.scenes.castle
 
     class Scene_Castle_Room5 : Scene
     {
-        private PlayerOne sora = GameplayState.PlayerOne;
-        private PlayerTwo riku = GameplayState.PlayerTwo;
-
         private Shadow shadow;
         private Shadow shadow2;
 
         private Hades hades;
+
+        private Rectangle roomTopHalf = new Rectangle(0, 0, 4092, 2382);
+        private Vector2 roomTopHalfPosition = new Vector2();
+
+        private Rectangle roomBottomHalf = new Rectangle(0, 2383, 3717, 2268);
+        private Vector2 roomBottomHalfPosition = new Vector2();
 
         public Scene_Castle_Room5(SceneManager sceneManager)
             : base(sceneManager)
@@ -61,41 +64,38 @@ namespace EVCMonoGame.src.scenes.castle
                 shadow2,
                 hades,
             });
-
-            //camera.SetCameraToFocusObject(hades);
-            //camera.Zoom = 1.2f;
-
-            sceneManager.GlobalDebugTexts.Entries.Add("d");
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            sceneManager.GlobalDebugTexts.Entries[0] = "HadesFrame: " + hades.Sprite.FrameIndex;
 
-            if (InputManager.OnKeyPressed(Keys.L))
+            if (InputManager.OnKeyPressed(Keys.M))
             {
-                hades.Sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
+                camera.MoveCamera(camera.GetCameraPoint(Screenpoint.CENTER), new Vector2(2000, 4000), 3000);
             }
+            else if (InputManager.OnKeyPressed(Keys.N))
+            {
+                camera.MoveCamera(camera.GetCameraPoint(Screenpoint.CENTER), new Vector2(2000, 1300), 3000);
+            }
+
+            UpdateCamera();
         }
 
-        public override void LoadContent(ContentManager contentManager)
+        private void UpdateCamera()
         {
-            base.LoadContent(contentManager);
+            //// RoomTopHalf
+            //if (roomTopHalf.Contains(sora.WorldPosition) && !roomTopHalf.Contains(sora.PreviousWorldPosition))
+            //{
+            //    camera.MoveCamera(roomBottomHalfPosition, roomTopHalfPosition, 1000);
+            //}
 
-            tilemap.LoadContent(contentManager);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-
-            tilemap.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime, spriteBatch);
+            //// RoomBottomHalf
+            //else if (roomBottomHalf.Contains(sora.WorldPosition) && !roomBottomHalf.Contains(sora.PreviousWorldPosition))
+            //{
+            //    camera.MoveCamera(roomTopHalfPosition, roomBottomHalfPosition, 1000);
+            //}
         }
     }
 }

@@ -57,7 +57,7 @@ namespace EVCMonoGame.src.scenes
             defender = new Defender(new Vector2(800, 900));
             gargoyle = new Gargoyle(new Vector2(800, 1300));
 
-        updateables.AddRange(new IUpdateable[]
+            updateables.AddRange(new IUpdateable[]
             {
                 defender, 
                 shadow,
@@ -76,7 +76,7 @@ namespace EVCMonoGame.src.scenes
 
             for (int i = 0; i < items.Length; ++i)
             {
-                items[i] = new InstantConsumable(new Vector2(1000, 2500 + 100*i));
+                items[i] = new InstantConsumable(Vector2.Zero);
                 drawables.Add(items[i]);
                 updateables.Add(items[i]);
             }

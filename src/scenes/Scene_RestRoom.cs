@@ -16,7 +16,8 @@ using EVCMonoGame.src.characters.enemies;
 
 namespace EVCMonoGame.src.scenes
 {
-    // TODO: Tilemap vor Enemy initialisieren.
+    // TODO: Zwischen jeder Karte in RestRoom.
+    // TODO: Wie bekommt RestRoom mitgeteilt in welchen Raum er überleiten soll.
 
     public class Scene_RestRoom : Scene
     {
@@ -30,6 +31,8 @@ namespace EVCMonoGame.src.scenes
         public override void OnEnterScene()
         {
             base.OnEnterScene();
+
+            camera.FollowPlayers();
 
 			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
 

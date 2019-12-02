@@ -53,12 +53,14 @@ namespace EVCMonoGame.src.scenes
         private bool followsPlayers = false;
 
         private const float closeZoom = 0.8f;
-        private const float wideZoom = 0.4f;
+        private const float wideZoom = 0.5f;
+        private const float veryWideZoom = 0.25f;
         private float zoom = closeZoom;
         private Easer zoomEaser;
         private float distanceBetweenPlayers = 0;
         private float previousDistanceBetweenPlayers = 0;
-        private const float zoomIntervalPlayerDistance = 1000;
+        private const float zoomBorderCloseWide = 1500;
+        private const float zoomBorderWideVeryWide = 2500;
 
         #endregion
 
@@ -81,6 +83,15 @@ namespace EVCMonoGame.src.scenes
                 zoom = value; 
             }
         }
+
+        public float CloseZoom => closeZoom;
+        public float WideZoom => wideZoom;
+        public float VeryWideZoom => veryWideZoom;
+
+        public bool DynamicZoomActivated
+        {
+            get; set;
+        } = true;
 
         #endregion
 
@@ -258,37 +269,52 @@ namespace EVCMonoGame.src.scenes
                     distanceBetweenPlayers = (GameplayState.PlayerTwo.WorldPosition - 
                                                    GameplayState.PlayerOne.WorldPosition).Length();
 
-                    Console.WriteLine("Prev: " + previousDistanceBetweenPlayers);
-
-                    Console.WriteLine("Dist: " + distanceBetweenPlayers);
-
-                    // Wide Zoom
-                    if (distanceBetweenPlayers >= zoomIntervalPlayerDistance && 
-                        previousDistanceBetweenPlayers < zoomIntervalPlayerDistance)
+                    if (DynamicZoomActivated)
                     {
-                        zoomEaser.From = new Vector2(zoom, 0);
-                        zoomEaser.To = new Vector2(wideZoom, 0);
-                        zoomEaser.DurationInMillis = 1000;
-                        zoomEaser.Start();
-                    }
-                    // Normal Zoom.
-                    else if (distanceBetweenPlayers <= zoomIntervalPlayerDistance && 
-                             previousDistanceBetweenPlayers > zoomIntervalPlayerDistance)
-                    {
-                        zoomEaser.From = new Vector2(zoom, 0);
-                        zoomEaser.To = new Vector2(closeZoom, 0);
-                        zoomEaser.DurationInMillis = 1000;
-                        zoomEaser.Start();
-                    }
+                        // Zoom: closeZoom -> wideZoom
+                        if (distanceBetweenPlayers >= zoomBorderCloseWide &&
+                            previousDistanceBetweenPlayers < zoomBorderCloseWide)
+                        {
+                            zoomEaser.From = new Vector2(zoom, 0);
+                            zoomEaser.To = new Vector2(wideZoom, 0);
+                            zoomEaser.DurationInMillis = 1000;
+                            zoomEaser.Start();
+                        }
+                        // Zoom: wideZoom -> closeZoom
+                        else if (distanceBetweenPlayers <= zoomBorderCloseWide &&
+                                 previousDistanceBetweenPlayers > zoomBorderCloseWide)
+                        {
+                            zoomEaser.From = new Vector2(zoom, 0);
+                            zoomEaser.To = new Vector2(closeZoom, 0);
+                            zoomEaser.DurationInMillis = 1000;
+                            zoomEaser.Start();
+                        }
+                        // Zoom: wideZoom -> veryWideZoom
+                        else if (distanceBetweenPlayers >= zoomBorderWideVeryWide &&
+                                 previousDistanceBetweenPlayers < zoomBorderWideVeryWide)
+                        {
+                            zoomEaser.From = new Vector2(zoom, 0);
+                            zoomEaser.To = new Vector2(veryWideZoom, 0);
+                            zoomEaser.DurationInMillis = 1000;
+                            zoomEaser.Start();
+                        }
+                        // veryWideZoom -> wideZoom
+                        else if (distanceBetweenPlayers <= zoomBorderWideVeryWide &&
+                                 previousDistanceBetweenPlayers > zoomBorderWideVeryWide)
+                        {
+                            zoomEaser.From = new Vector2(zoom, 0);
+                            zoomEaser.To = new Vector2(wideZoom, 0);
+                            zoomEaser.DurationInMillis = 1000;
+                            zoomEaser.Start();
+                        }
 
-                    if (!zoomEaser.IsFinished)
-                    {
-                        zoomEaser.Update(gameTime);
-                        zoom = zoomEaser.CurrentValue.X;
-
+                        if (!zoomEaser.IsFinished)
+                        {
+                            zoomEaser.Update(gameTime);
+                            zoom = zoomEaser.CurrentValue.X;
+                        }
                     }
                 }
-
                 SetCameraToFocusObject(focusObject);
             }
 

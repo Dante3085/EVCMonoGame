@@ -17,6 +17,8 @@ namespace EVCMonoGame.src.utility
         // RegularExpression for ReplaceWhitespace()
         private static readonly Regex sWhitespace = new Regex(@"\s+");
 
+        private static Random random = new Random();
+
         /// <summary>
         /// Returns a new string which is equal to input except that all occurences of whitespace
         /// are replaced with replacement.
@@ -224,6 +226,24 @@ namespace EVCMonoGame.src.utility
         public static Vector2 None(Vector2 from, Vector2 to, Vector2 current, List<float> factors)
         {
             return Vector2.Zero;
+        }
+
+        public static void RandomizeList<T>(List<T> list, int startIndex, int endIndex)
+        {
+            if (startIndex < 0 || endIndex >= list.Count)
+            {
+                throw new ArgumentException("StartIndex was smaller 0 or endIndex was bigger,equal list.Count.");
+            }
+
+            int n = endIndex;
+            while (n > startIndex)
+            {
+                n--;
+                int k = random.Next(startIndex, n + 2);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
     }
 }

@@ -15,14 +15,14 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
 
-namespace EVCMonoGame.src.scenes.desert
+namespace EVCMonoGame.src.scenes.train
 {
-    public class Scene_Desert_Room2 : Scene
+    public class Scene_Train_Room5 : Scene
     {
         private Shadow shadow1;
         private Shadow shadow2;
 
-        public Scene_Desert_Room2(SceneManager sceneManager)
+        public Scene_Train_Room5(SceneManager sceneManager)
             : base(sceneManager)
         {
 
@@ -33,31 +33,27 @@ namespace EVCMonoGame.src.scenes.desert
             base.OnEnterScene();
 
             tilemap = new Tilemap(Vector2.Zero,
-                "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room2.tm.txt");
+                "Content/rsrc/tilesets/configFiles/tilemaps/scenes1_train/room5.tm.txt");
 
-            sora.WorldPosition = new Vector2(2000, 5200);
-            riku.WorldPosition = new Vector2(5000, 3700);
+            sora.WorldPosition = new Vector2(323, 896);
+            riku.WorldPosition = new Vector2(330, 2600);
 
-            shadow1 = new Shadow(new Vector2(2200, 5200));
-            shadow2 = new Shadow(new Vector2(5200, 3700));
+            // camera.DynamicZoomActivated = false;
+            // camera.Zoom = camera.WideZoom;
 
-            doorPlayerOne = new Door(new Vector2(1794, 3000));
-            doorPlayerTwo = new Door(new Vector2(4415, 2177));
+            shadow1 = new Shadow(new Vector2(400, 896));
+            shadow2 = new Shadow(new Vector2(400, 2600));
 
             updateables.AddRange(new IUpdateable[]
             {
                 shadow1,
                 shadow2,
-                doorPlayerOne,
-                doorPlayerTwo,
             });
 
             drawables.AddRange(new IDrawable[]
             {
                 shadow1,
                 shadow2,
-                doorPlayerOne,
-                doorPlayerTwo,
             });
         }
 
@@ -65,8 +61,7 @@ namespace EVCMonoGame.src.scenes.desert
         {
             base.Update(gameTime);
 
-            if (!shadow1.IsAlive && !shadow2.IsAlive &&
-                doorPlayerOne.Open && doorPlayerTwo.Open)
+            if (!shadow1.IsAlive && !shadow2.IsAlive)
             {
                 sceneManager.SceneTransitionNextRoom();
             }

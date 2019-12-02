@@ -15,9 +15,6 @@ namespace EVCMonoGame.src.scenes.castle
 {
     public class Scene_Castle_Room1 : Scene
     {
-        private PlayerOne sora = GameplayState.PlayerOne;
-        private PlayerTwo riku = GameplayState.PlayerTwo;
-
         public Scene_Castle_Room1(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -33,24 +30,6 @@ namespace EVCMonoGame.src.scenes.castle
 
             sora.WorldPosition = new Vector2(1540, 3315);
             riku.WorldPosition = new Vector2(2278, 3256);
-        }
-
-        public override void LoadContent(ContentManager contentManager)
-        {
-            base.LoadContent(contentManager);
-
-            tilemap.LoadContent(contentManager);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-
-            tilemap.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime, spriteBatch);
         }
     }
 }

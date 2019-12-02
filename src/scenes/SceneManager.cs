@@ -14,8 +14,9 @@ using EVCMonoGame.src.states;
 
 using EVCMonoGame.src.scenes.tutorial;
 using EVCMonoGame.src.scenes.desert;
-using EVCMonoGame.src.scenes.mountains;
+using EVCMonoGame.src.scenes.train;
 using EVCMonoGame.src.scenes.castle;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -41,11 +42,11 @@ namespace EVCMonoGame.src.scenes
         DESERT_ROOM_4,
         DESERT_ROOM_5,
 
-        MOUNTAINS_ROOM_1,
-        MOUNTAINS_ROOM_2,
-        MOUNTAINS_ROOM_3,
-        MOUNTAINS_ROOM_4,
-        MOUNTAINS_ROOM_5,
+        TRAIN_ROOM_1,
+        TRAIN_ROOM_2,
+        TRAIN_ROOM_3,
+        TRAIN_ROOM_4,
+        TRAIN_ROOM_5,
 
         CASTLE_ROOM_1,
         CASTLE_ROOM_2,
@@ -75,6 +76,8 @@ namespace EVCMonoGame.src.scenes
         private DebugTexts debugTexts;
 
         private StateManager stateManager;
+
+        private static List<EScene> roomSeqence;
 
         #endregion
         #region Properties
@@ -123,34 +126,74 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.SAND_CASTLES] = new Scene_DesertWithCastles(this);
             //scenes[EScene.INSIDE_CASTLE] = new Scene_InsideCastle(this);
 
-            //scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
+            scenes[EScene.GAME_OVER] = new Scene_GameOver(this);
             scenes[EScene.REST_ROOM] = new Scene_RestRoom(this);
 
-            //scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
-           //scenes[EScene.TUTORIAL_ROOM_2] = new Scene_Tutorial_Room2(this);
-            //scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
-            //scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
-            //scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
+            scenes[EScene.TUTORIAL_ROOM_1] = new Scene_Tutorial_Room1(this);
+            scenes[EScene.TUTORIAL_ROOM_2] = new Scene_Tutorial_Room2(this);
+            scenes[EScene.TUTORIAL_ROOM_3] = new Scene_Tutorial_Room3(this);
+            scenes[EScene.TUTORIAL_ROOM_4] = new Scene_Tutorial_Room4(this);
+            scenes[EScene.TUTORIAL_ROOM_5] = new Scene_Tutorial_Room5(this);
 
-            //  scenes[EScene.MOUNTAINS_ROOM_1] = new Scene_Mountains_Room1(this);
-            //  scenes[EScene.MOUNTAINS_ROOM_2] = new Scene_Mountains_Room2(this);
-            //  scenes[EScene.MOUNTAINS_ROOM_3] = new Scene_Mountains_Room3(this);
-            //  scenes[EScene.MOUNTAINS_ROOM_4] = new Scene_Mountains_Room4(this);
-            //  scenes[EScene.MOUNTAINS_ROOM_5] = new Scene_Mountains_Room5(this);
+            scenes[EScene.TRAIN_ROOM_1] = new Scene_Train_Room1(this);
+            scenes[EScene.TRAIN_ROOM_2] = new Scene_Train_Room2(this);
+            scenes[EScene.TRAIN_ROOM_3] = new Scene_Train_Room3(this);
+            scenes[EScene.TRAIN_ROOM_4] = new Scene_Train_Room4(this);
+            scenes[EScene.TRAIN_ROOM_5] = new Scene_Train_Room5(this);
 
-            // scenes[EScene.DESERT_ROOM_1] = new Scene_Desert_Room1(this);
-            // scenes[EScene.DESERT_ROOM_2] = new Scene_Desert_Room2(this);
-            // scenes[EScene.DESERT_ROOM_3] = new Scene_Desert_Room3(this);
-            // scenes[EScene.DESERT_ROOM_4] = new Scene_Desert_Room4(this);
-            //scenes[EScene.DESERT_ROOM_5] = new Scene_Desert_Room5(this);
+            scenes[EScene.DESERT_ROOM_1] = new Scene_Desert_Room1(this);
+            scenes[EScene.DESERT_ROOM_2] = new Scene_Desert_Room2(this);
+            scenes[EScene.DESERT_ROOM_3] = new Scene_Desert_Room3(this);
+            scenes[EScene.DESERT_ROOM_4] = new Scene_Desert_Room4(this);
+            scenes[EScene.DESERT_ROOM_5] = new Scene_Desert_Room5(this);
 
-            //scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
-            // scenes[EScene.CASTLE_ROOM_2] = new Scene_Castle_Room2(this);
-            // scenes[EScene.CASTLE_ROOM_3] = new Scene_Castle_Room3(this);
-            // scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
-            //scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
+            scenes[EScene.CASTLE_ROOM_1] = new Scene_Castle_Room1(this);
+            scenes[EScene.CASTLE_ROOM_2] = new Scene_Castle_Room2(this);
+            scenes[EScene.CASTLE_ROOM_3] = new Scene_Castle_Room3(this);
+            scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
+            scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
 
-            currentScene = previousScene = scenes[EScene.REST_ROOM];
+            roomSeqence = new List<EScene>();
+
+            roomSeqence.AddRange(new EScene[]
+            {
+                EScene.TUTORIAL_ROOM_1,
+                EScene.TUTORIAL_ROOM_2,
+                EScene.TUTORIAL_ROOM_3,
+                EScene.TUTORIAL_ROOM_4,
+                EScene.TUTORIAL_ROOM_5,
+
+                EScene.TRAIN_ROOM_1,
+                EScene.TRAIN_ROOM_2,
+                EScene.TRAIN_ROOM_3,
+                EScene.TRAIN_ROOM_4,
+                EScene.TRAIN_ROOM_5,
+
+                EScene.DESERT_ROOM_1,
+                EScene.DESERT_ROOM_2,
+                EScene.DESERT_ROOM_3,
+                EScene.DESERT_ROOM_4,
+                EScene.DESERT_ROOM_5,
+
+                EScene.CASTLE_ROOM_1,
+                EScene.CASTLE_ROOM_2,
+                EScene.CASTLE_ROOM_3,
+                EScene.CASTLE_ROOM_4,
+                EScene.CASTLE_ROOM_5,
+            });
+
+            // Tutorial is not random.
+
+            // Randomize Train Rooms 3 to 5.
+            Utility.RandomizeList<EScene>(roomSeqence, 7, 9);
+
+            // Randomize Desert Rooms 1 to 4.
+            Utility.RandomizeList<EScene>(roomSeqence, 10, 13);
+
+            // Randomize Castle Rooms 1 to 4.
+            Utility.RandomizeList<EScene>(roomSeqence, 15, 18);
+
+            currentScene = previousScene = scenes[EScene.DESERT_ROOM_3];
 
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
@@ -205,7 +248,6 @@ namespace EVCMonoGame.src.scenes
 
         public void SceneTransition(EScene to)
         {
-
 			if (!transitioning && currentScene != scenes[to])
 			{
 				if (!scenes.ContainsKey(to))
@@ -230,6 +272,16 @@ namespace EVCMonoGame.src.scenes
 
 			}
 		}
+
+        public void SceneTransitionNextRoom()
+        {
+            if (!transitioning)
+            {
+                EScene nextRoom = roomSeqence[0];
+                roomSeqence.RemoveAt(0);
+                SceneTransition(nextRoom);
+            }
+        }
 
 		public void TransitionToPreviousScreen()
         {

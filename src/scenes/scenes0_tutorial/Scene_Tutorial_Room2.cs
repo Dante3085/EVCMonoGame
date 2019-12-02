@@ -30,14 +30,11 @@ namespace EVCMonoGame.src.scenes.tutorial
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes0_tutorial/room2.tm.txt");
 
-            PlayerOne playerOne = GameplayState.PlayerOne;
-            PlayerTwo playerTwo = GameplayState.PlayerTwo;
+            sora.WorldPosition = new Vector2(1400, 4600);
+            sora.Sprite.SetAnimation("IDLE_UP");
 
-            playerOne.WorldPosition = new Vector2(1400, 4600);
-            playerOne.Sprite.SetAnimation("IDLE_UP");
-
-            playerTwo.WorldPosition = new Vector2(3300, 4500);
-            playerTwo.Sprite.SetAnimation("IDLE_UP");
+            riku.WorldPosition = new Vector2(3300, 4500);
+            riku.Sprite.SetAnimation("IDLE_UP");
 
             doorPlayerOne = new Door(new Vector2(4548, 577));
             doorPlayerTwo = new Door(new Vector2(5568, 1537));
@@ -65,26 +62,8 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             if (doorPlayerOne.Open && doorPlayerTwo.Open)
             {
-                sceneManager.SceneTransition(EScene.TUTORIAL_ROOM_3);
+                sceneManager.SceneTransitionNextRoom();
             }
-        }
-
-        public override void LoadContent(ContentManager contentManager)
-        {
-            base.LoadContent(contentManager);
-
-            tilemap.LoadContent(contentManager);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin(sortMode: SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformationMatrix());
-
-            tilemap.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime, spriteBatch);
         }
     }
 }

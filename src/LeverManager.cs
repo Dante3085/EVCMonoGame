@@ -108,9 +108,9 @@ namespace EVCMonoGame.src
                 Primitives2D.DrawRectangle(spriteBatch, levers[currentLeverIndex].Bounds, Color.DarkRed, 10);
             }
 
-            Color blue = Color.Blue;
-            blue.A = 10;
-            Primitives2D.FillRectangle(spriteBatch, interactionArea, blue);
+            //Color blue = Color.Blue;
+            //blue.A = 10;
+            //Primitives2D.FillRectangle(spriteBatch, interactionArea, blue);
         }
     }
 }
