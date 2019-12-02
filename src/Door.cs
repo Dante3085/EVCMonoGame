@@ -55,12 +55,12 @@ namespace EVCMonoGame.src
             if (BlockPlayerInteraction)
                 return;
 
-            if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) &&
+            if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One)||InputManager.OnKeyPressed(Keys.I)) &&
                 GameplayState.PlayerOne.CollisionBox.Intersects(interactionArea))
             {
                 open = !open;
             }
-            else if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) &&
+            else if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) || InputManager.OnKeyPressed(Keys.O)) &&
                      GameplayState.PlayerTwo.CollisionBox.Intersects(interactionArea))
             {
                 open = !open;
