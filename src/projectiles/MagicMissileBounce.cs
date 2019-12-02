@@ -91,6 +91,7 @@ namespace EVCMonoGame.src.projectiles
                     collisionBoxOffset = new Vector2(20, 11) * sprite.Scale;
                     break;
                 case Orientation.UP_LEFT:
+                    collisionBoxOffset = new Vector2(25, 19) * sprite.Scale;
                     break;
                 case Orientation.UP:
                     collisionBoxOffset = new Vector2(10, 10) * sprite.Scale;
@@ -102,11 +103,13 @@ namespace EVCMonoGame.src.projectiles
                     collisionBoxOffset = new Vector2(44, 11) * sprite.Scale;
                     break;
                 case Orientation.DOWN_RIGHT:
+                    collisionBoxOffset = new Vector2(16, 20) * sprite.Scale;
                     break;
                 case Orientation.DOWN:
                     collisionBoxOffset = new Vector2(17, 20) * sprite.Scale;
                     break;
                 case Orientation.DOWN_LEFT:
+                    collisionBoxOffset = new Vector2(19, 19) * sprite.Scale;
                     break;
             }
         }
@@ -120,6 +123,7 @@ namespace EVCMonoGame.src.projectiles
                     sprite.SetAnimation("MAGIC_MISSILE_LEFT");
                     break;
                 case Orientation.UP_LEFT:
+                    sprite.SetAnimation("MAGIC_MISSILE_UP_LEFT");
                     break;
                 case Orientation.UP:
                     sprite.SetAnimation("MAGIC_MISSILE_UP");
@@ -131,11 +135,13 @@ namespace EVCMonoGame.src.projectiles
                     sprite.SetAnimation("MAGIC_MISSILE_RIGHT");
                     break;
                 case Orientation.DOWN_RIGHT:
+                    sprite.SetAnimation("MAGIC_MISSILE_DOWN_RIGHT");
                     break;
                 case Orientation.DOWN:
                     sprite.SetAnimation("MAGIC_MISSILE_DOWN");
                     break;
                 case Orientation.DOWN_LEFT:
+                    sprite.SetAnimation("MAGIC_MISSILE_DOWN_LEFT");
                     break;
             }
         }
