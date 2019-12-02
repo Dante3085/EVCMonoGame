@@ -18,7 +18,7 @@ namespace EVCMonoGame.src.statemachine.sora
         public override bool checkCondition()
         {
             return InputManager.CurrentThumbSticks(PlayerIndex.One).Left == Vector2.Zero &&
-                !InputManager.IsAnyKeyPressed(Keys.Left, Keys.Up, Keys.Right, Keys.Down);
+                !InputManager.IsAnyKeyPressed(GameplayState.PlayerOne.keyboardControls);
         }
     }
 }

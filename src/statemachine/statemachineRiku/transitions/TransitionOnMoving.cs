@@ -11,15 +11,15 @@ using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
 
-namespace EVCMonoGame.src.statemachine.sora
+namespace EVCMonoGame.src.statemachine.riku
 {
     class TransitionOnMoving :Transition
     {
         public TransitionOnMoving(String nextStateId) : base(nextStateId) { }
         public override bool checkCondition()
         {
-            return InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero ||
-                InputManager.IsAnyKeyPressed(GameplayState.PlayerOne.keyboardControls);
+            return InputManager.CurrentThumbSticks(PlayerIndex.Two).Left != Vector2.Zero ||
+                InputManager.IsAnyKeyPressed(GameplayState.PlayerTwo.keyboardControls);
         }
     }
 }

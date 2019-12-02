@@ -234,7 +234,7 @@ namespace EVCMonoGame.src.projectiles
             foreach (MagicMissileNormal m in missiles)
             {
                 m.LoadContent(MagicMissile.content);
-                GameplayState.PlayerOne.missilesToBeAdded.Add(m);
+                GameplayState.PlayerTwo.missilesToBeAdded.Add(m);
             }
             collisionBox = Rectangle.Empty;
         }

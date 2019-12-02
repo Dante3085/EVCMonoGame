@@ -23,7 +23,7 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             if (GameplayState.PlayerOne.Sprite.AnimationFinished &&
                 (InputManager.CurrentThumbSticks(PlayerIndex.One).Left != Vector2.Zero ||
-                InputManager.IsAnyKeyPressed(Keys.Left, Keys.Up, Keys.Right, Keys.Down)))
+                InputManager.IsAnyKeyPressed(GameplayState.PlayerOne.keyboardControls)))
             {
                 return true;
             }
