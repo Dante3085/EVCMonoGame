@@ -47,6 +47,11 @@ namespace EVCMonoGame.src.statemachine.riku
             {
                 OnRightShoulderPressed();
             }
+            else if (InputManager.OnButtonPressed(Buttons.LeftShoulder, PlayerIndex.Two) ||
+               InputManager.OnKeyPressed(Keys.D5))
+            {
+                OnRightShoulderPressed();
+            }
 
             riku.Sprite.SetAnimation(nextAttackAnimation);
         }
@@ -374,6 +379,86 @@ namespace EVCMonoGame.src.statemachine.riku
                     nextAttackAnimation = "ATTACK_DOWN_LEFT";
                     combatArgs.knockBack = new Vector2(-10, 10);
                     missile = new MagicMissileSplit(riku.WorldPosition +
+                        new Vector2(-(missile.CollisionBox.Width + 1), riku.CollisionBox.Height + 1), Orientation.DOWN_LEFT, 10);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+            }
+        }
+        private void OnLeftShoulderPressed()
+        {
+            CombatArgs combatArgs = riku.CombatArgs;
+            combatArgs.NewId();
+            MagicMissileGodImperator missile = new MagicMissileGodImperator(Vector2.Zero, Orientation.DOWN);
+            switch (riku.playerOrientation)
+            {
+                case Orientation.LEFT:
+                    nextAttackAnimation = "ATTACK_LEFT";
+                    combatArgs.knockBack = new Vector2(-10, 0);
+                    missile = new MagicMissileGodImperator(riku.CollisionBox.Location.ToVector2() +
+                        new Vector2(-(missile.CollisionBox.Width + 1), riku.CollisionBox.Height / 2 - missile.CollisionBox.Height / 2), Orientation.LEFT);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.UP_LEFT:
+                    nextAttackAnimation = "ATTACK_UP_LEFT";
+                    combatArgs.knockBack = new Vector2(-10, -10);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(-(missile.CollisionBox.Width + 1), -(missile.CollisionBox.Height + 1)), Orientation.UP_LEFT, 10);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.UP:
+                    nextAttackAnimation = "ATTACK_UP";
+                    combatArgs.knockBack = new Vector2(0, -200);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(riku.CollisionBox.Width / 2 - missile.CollisionBox.Width / 2, -(missile.CollisionBox.Height + 1)), Orientation.UP);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.UP_RIGHT:
+                    nextAttackAnimation = "ATTACK_UP_RIGHT";
+                    combatArgs.knockBack = new Vector2(10, -10);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(riku.CollisionBox.Width + 1, -(missile.CollisionBox.Height + 1)), Orientation.UP_RIGHT, 10);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.RIGHT:
+                    nextAttackAnimation = "ATTACK_RIGHT";
+                    combatArgs.knockBack = new Vector2(10, 0);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(riku.CollisionBox.Width + 1, riku.CollisionBox.Height / 2 - missile.CollisionBox.Height / 2), Orientation.RIGHT);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.DOWN_RIGHT:
+                    nextAttackAnimation = "ATTACK_DOWN_RIGHT";
+                    combatArgs.knockBack = new Vector2(10, 10);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(riku.CollisionBox.Width + 1, riku.CollisionBox.Height + 1), Orientation.DOWN_RIGHT, 10);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.DOWN:
+                    nextAttackAnimation = "ATTACK_DOWN";
+                    combatArgs.knockBack = new Vector2(0, 10);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
+                        new Vector2(riku.CollisionBox.Width / 2 - missile.CollisionBox.Width / 2, riku.CollisionBox.Height + 1), Orientation.DOWN);
+                    missile.LoadContent(MagicMissile.content);
+                    GameplayState.PlayerTwo.missiles.Add(missile);
+                    break;
+
+                case Orientation.DOWN_LEFT:
+                    nextAttackAnimation = "ATTACK_DOWN_LEFT";
+                    combatArgs.knockBack = new Vector2(-10, 10);
+                    missile = new MagicMissileGodImperator(riku.WorldPosition +
                         new Vector2(-(missile.CollisionBox.Width + 1), riku.CollisionBox.Height + 1), Orientation.DOWN_LEFT, 10);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerTwo.missiles.Add(missile);

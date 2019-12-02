@@ -18,8 +18,8 @@ namespace EVCMonoGame.src.statemachine.riku
         }
         public override bool checkCondition()
         {
-            return InputManager.OnAnyButtonPressed(PlayerIndex.Two, Buttons.B, Buttons.X, Buttons.Y, Buttons.RightShoulder)
-                || InputManager.OnAnyKeyPressed(Keys.D1, Keys.D2, Keys.D3, Keys.D4);
+            return InputManager.OnAnyButtonPressed(PlayerIndex.Two, Buttons.B, Buttons.X, Buttons.Y, Buttons.RightShoulder, Buttons.LeftShoulder)
+                || InputManager.OnAnyKeyPressed(Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5);
         }
     }
 }
