@@ -28,7 +28,6 @@ namespace EVCMonoGame.src.scenes.desert
 
         public override void OnEnterScene()
         {
-
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room3.tm.txt");
 

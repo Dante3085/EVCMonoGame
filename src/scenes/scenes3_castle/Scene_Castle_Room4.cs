@@ -25,13 +25,40 @@ namespace EVCMonoGame.src.scenes.castle
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
-
             tilemap = new Tilemap(Vector2.Zero,
                "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room4.tm.txt");
 
             sora.WorldPosition = new Vector2(565, 6400);
             riku.WorldPosition = new Vector2(1900, 6400);
+
+            doorPlayerOne = new Door(new Vector2(577, 384));
+            doorPlayerTwo = new Door(new Vector2(1920, 383));
+
+            updateables.AddRange(new IUpdateable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+            });
+
+            drawables.AddRange(new IDrawable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+            });
+
+            camera.FollowPlayers();
+
+            base.OnEnterScene();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            {
+                sceneManager.SceneTransitionNextRoom();
+            }
         }
     }
 }

@@ -30,8 +30,6 @@ namespace EVCMonoGame.src.scenes.desert
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
-
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room2.tm.txt");
 
@@ -59,6 +57,8 @@ namespace EVCMonoGame.src.scenes.desert
                 doorPlayerOne,
                 doorPlayerTwo,
             });
+
+            base.OnEnterScene();
         }
 
         public override void Update(GameTime gameTime)
