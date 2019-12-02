@@ -50,7 +50,7 @@ namespace EVCMonoGame.src.statemachine.riku
             else if (InputManager.OnButtonPressed(Buttons.LeftShoulder, PlayerIndex.Two) ||
                InputManager.OnKeyPressed(Keys.D5))
             {
-                OnRightShoulderPressed();
+                OnLeftShoulderPressed();
             }
 
             riku.Sprite.SetAnimation(nextAttackAnimation);
