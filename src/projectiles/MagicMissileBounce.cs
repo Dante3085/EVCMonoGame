@@ -24,7 +24,7 @@ namespace EVCMonoGame.src.projectiles
         private int bounceCounter = 0;
         private int maxBounces;
 
-        public MagicMissileBounce(Vector2 position, Orientation orientation, float movementSpeed = 10, int maxBounces = 10)
+        public MagicMissileBounce(Vector2 position, Orientation orientation, float movementSpeed = 10, int maxBounces = 5)
         {
             this.maxBounces = maxBounces;
             this.movementSpeed = movementSpeed;
