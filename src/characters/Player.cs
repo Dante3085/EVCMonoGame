@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.Items;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+using EVCMonoGame.src.input;
+using Microsoft.Xna.Framework.Input;
 
 namespace EVCMonoGame.src.characters
 {
@@ -21,31 +24,38 @@ namespace EVCMonoGame.src.characters
 
 
 		public Orientation playerOrientation = Orientation.RIGHT;
+		private PlayerIndex playerIndex;
 
-        public Inventory PlayerInventory
+		public Inventory PlayerInventory
         {
             get { return inventory; }
-            set { inventory = value; }
+            set { }
         }
+		public PlayerIndex PlayerIndex
+		{
+			get { return playerIndex; }
+			set { }
+		}
 
-        public bool BlockInput
+		public bool BlockInput
         {
             get; set;
         } = false;
 
-        public Player
-            (
-                String name, 
-                int maxHp, 
-                int currentHp,
-                int maxMp,
-                int currentMp,
-                int strength,
-                int defense,
-                int intelligence,
-                int agility,
-                int movementSpeed,
-                Vector2 position
+		public Player
+			(
+				String name,
+				int maxHp,
+				int currentHp,
+				int maxMp,
+				int currentMp,
+				int strength,
+				int defense,
+				int intelligence,
+				int agility,
+				int movementSpeed,
+				Vector2 position,
+				PlayerIndex playerIndex
             )
             : base
             (
@@ -62,34 +72,46 @@ namespace EVCMonoGame.src.characters
                   position: position,
                   characterType: CombatantType.PLAYER
             )
-        {
-            itemFinder = new ItemFinder(this);
-            inventory = new Inventory(this);
+		{
+			this.playerIndex = playerIndex;
             this.combatant = CombatantType.PLAYER;
             this.combatArgs.targetType = CombatantType.ENEMY;
-        }
+			inventory = new Inventory(this);
+			itemFinder = new ItemFinder(this);
+		}
 
-/*
-        public override void LoadContent(ContentManager content)
-        {
-            base.LoadContent(content);
-            PlayerSpriteSheets.Load(content);
-            playerPortrait.LoadContent(content);
-            sprite.spritesheet = PlayerSpriteSheets.RedGlow;
-        }
-*/
-        public override void Update(GameTime gameTime)
+		public override void LoadContent(ContentManager content)
+		{
+			base.LoadContent(content);
+			inventory.LoadContent(content);
+		}
+
+		/*
+				public override void LoadContent(ContentManager content)
+				{
+					base.LoadContent(content);
+					PlayerSpriteSheets.Load(content);
+					playerPortrait.LoadContent(content);
+					sprite.spritesheet = PlayerSpriteSheets.RedGlow;
+				}
+		*/
+		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
             itemFinder.Update(gameTime);
-        }
+
+			if (InputManager.IsKeyPressed(Keys.Q))
+				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+			if (InputManager.IsKeyPressed(Keys.E))
+				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+
+		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
 
-            inventory.Draw(gameTime, spriteBatch);
             itemFinder.Draw(gameTime, spriteBatch);
         }
     }
