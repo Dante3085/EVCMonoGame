@@ -65,12 +65,12 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             CombatArgs combatArgs = sora.CombatArgs;
             combatArgs.NewId();
-            MagicMissileNormal missile = new MagicMissileNormal(Vector2.Zero, Orientation.DOWN);
+            MagicMissileSplit missile = new MagicMissileSplit(Vector2.Zero, Orientation.DOWN);
             switch (sora.playerOrientation)
             {
                 case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
                     combatArgs.knockBack = new Vector2(-10, 0);
-                    missile = new MagicMissileNormal(sora.CollisionBox.Location.ToVector2() + 
+                    missile = new MagicMissileSplit(sora.CollisionBox.Location.ToVector2() + 
                         new Vector2(-(missile.CollisionBox.Width+1), sora.CollisionBox.Height / 2 - missile.CollisionBox.Height / 2), Orientation.LEFT);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -78,7 +78,7 @@ namespace EVCMonoGame.src.statemachine.sora
                     
                 case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT";
                     combatArgs.knockBack = new Vector2(-10, -10);
-                    missile = new MagicMissileNormal(sora.WorldPosition +
+                    missile = new MagicMissileSplit(sora.WorldPosition +
                         new Vector2(-(missile.CollisionBox.Width + 1), -(missile.CollisionBox.Height + 1)), Orientation.UP_LEFT, 10);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -86,7 +86,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.UP: nextAttackAnimation = "ATTACK_UP";
                     combatArgs.knockBack = new Vector2(0, -200);
-                    missile = new MagicMissileNormal(sora.WorldPosition + 
+                    missile = new MagicMissileSplit(sora.WorldPosition + 
                         new Vector2(sora.CollisionBox.Width/2 - missile.CollisionBox.Width / 2, -(missile.CollisionBox.Height+1)), Orientation.UP);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -94,7 +94,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT";
                     combatArgs.knockBack = new Vector2(10, -10);
-                    missile = new MagicMissileNormal(sora.WorldPosition +
+                    missile = new MagicMissileSplit(sora.WorldPosition +
                         new Vector2(sora.CollisionBox.Width + 1, -(missile.CollisionBox.Height + 1)), Orientation.UP_RIGHT, 10);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -102,7 +102,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
                     combatArgs.knockBack = new Vector2(10, 0);
-                    missile = new MagicMissileNormal(sora.WorldPosition + 
+                    missile = new MagicMissileSplit(sora.WorldPosition + 
                         new Vector2(sora.CollisionBox.Width+1, sora.CollisionBox.Height/2 - missile.CollisionBox.Height/2),Orientation.RIGHT);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -110,7 +110,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";
                     combatArgs.knockBack = new Vector2(10, 10);
-                    missile = new MagicMissileNormal(sora.WorldPosition +
+                    missile = new MagicMissileSplit(sora.WorldPosition +
                         new Vector2(sora.CollisionBox.Width + 1, sora.CollisionBox.Height + 1), Orientation.DOWN_RIGHT, 10);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -118,7 +118,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN";
                     combatArgs.knockBack = new Vector2(0, 10);
-                    missile = new MagicMissileNormal(sora.WorldPosition + 
+                    missile = new MagicMissileSplit(sora.WorldPosition + 
                         new Vector2(sora.CollisionBox.Width / 2 - missile.CollisionBox.Width / 2, sora.CollisionBox.Height + 1), Orientation.DOWN);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);
@@ -126,7 +126,7 @@ namespace EVCMonoGame.src.statemachine.sora
 
                 case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT";
                     combatArgs.knockBack = new Vector2(-10, 10);
-                    missile = new MagicMissileNormal(sora.WorldPosition +
+                    missile = new MagicMissileSplit(sora.WorldPosition +
                         new Vector2(-(missile.CollisionBox.Width + 1), sora.CollisionBox.Height + 1), Orientation.DOWN_LEFT, 10);
                     missile.LoadContent(MagicMissile.content);
                     GameplayState.PlayerOne.missiles.Add(missile);

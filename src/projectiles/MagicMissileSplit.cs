@@ -31,13 +31,11 @@ namespace EVCMonoGame.src.projectiles
             setCollisionBoxOffset();
             WorldPosition = position - collisionBoxOffset;
             sprite.Position = (WorldPosition);
-            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_red.anm.txt", true);
+            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/magic_missile_yellow.anm.txt", true);
             setAnimation();
             CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
 
-            CollisionManager.AddCollidable(this, CollisionManager.projectileCollisionChannel);
-            CollisionManager.AddCombatCollidable(this);
 
             setMovementVector(movementSpeed, this.orientation);
 
@@ -45,7 +43,13 @@ namespace EVCMonoGame.src.projectiles
             combatArgs.damage = 50;
             if (CollisionManager.IsCollisionWithWall(this))
             {
-                FlaggedForRemove=true;
+                FlaggedForRemove = true;
+                doDraw = false;
+            }
+            else
+            {
+                CollisionManager.AddCollidable(this, CollisionManager.projectileCollisionChannel);
+                CollisionManager.AddCombatCollidable(this);
             }
         }
 
@@ -146,7 +150,10 @@ namespace EVCMonoGame.src.projectiles
 
         public override void LoadContent(ContentManager content)
         {
-            sprite.LoadContent(content);
+            if (doDraw)
+            {
+                sprite.LoadContent(content);
+            }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -164,10 +171,11 @@ namespace EVCMonoGame.src.projectiles
 
             if (CollisionManager.IsCollisionWithWall(this) || FlaggedForRemove)
             {
-                WorldPosition = PreviousWorldPosition;
+                CollisionManager.ResolveCollisionWithWall(this);
                 FlaggedForRemove = true;
                 doDraw = false;
                 spawnNormalMissiles();
+
                 CollisionManager.RemoveCollidable(this, CollisionManager.projectileCollisionChannel);
                 CollisionManager.RemoveCombatCollidable(this);
             }

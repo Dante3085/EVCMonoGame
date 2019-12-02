@@ -36,8 +36,7 @@ namespace EVCMonoGame.src.projectiles
             CollisionBox = new Rectangle((sprite.WorldPosition + (collisionBoxOffset)).ToPoint(),
                 new Point(20 * (int)sprite.Scale, 20 * (int)sprite.Scale));
 
-            CollisionManager.AddCollidable(this, CollisionManager.projectileCollisionChannel);
-            CollisionManager.AddCombatCollidable(this);
+            
 
             setMovementVector(this.movementSpeed, this.orientation);
             
@@ -47,6 +46,11 @@ namespace EVCMonoGame.src.projectiles
             {
                 FlaggedForRemove = true;
                 doDraw = false;
+            }
+            else
+            {
+                CollisionManager.AddCollidable(this, CollisionManager.projectileCollisionChannel);
+                CollisionManager.AddCombatCollidable(this);
             }
         }
 
