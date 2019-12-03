@@ -19,7 +19,7 @@ namespace EVCMonoGame.src.animation
 
     public class AnimatedSprite : scenes.IUpdateable, scenes.IDrawable, Collidable, ITranslatable
     {
-        class Animation
+        public class Animation
         {
 
             public Rectangle[] Frames
@@ -109,6 +109,14 @@ namespace EVCMonoGame.src.animation
 
         #endregion
         #region Properties
+
+        public Dictionary<String, Animation> Animations
+        {
+            get
+            {
+                return animations;
+            }
+        }
 
         public float Scale { get { return scale; } }
 
