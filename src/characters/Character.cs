@@ -239,7 +239,7 @@ namespace EVCMonoGame.src.characters
 
             Console.WriteLine("id: " + combatArgs.id);
 
-            if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this && combatArgs.targetType==this.combatant)
+            if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
             {
                 currentHp -= combatArgs.damage;
                 healthbar.CurrentHp = currentHp;
@@ -250,6 +250,7 @@ namespace EVCMonoGame.src.characters
 
                 if (currentHp <= 0.0f)
                     OnDeath();
+                    
             }
             else
             {
@@ -263,6 +264,7 @@ namespace EVCMonoGame.src.characters
         public virtual void OnDeath()
         {
 			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+            CollisionManager.RemoveCombatCollidable(this);
 			CollisionManager.combatCollidableMarkAsRemove.Add(this);
 			Scene.updateablesToRemove.Add(this);
 

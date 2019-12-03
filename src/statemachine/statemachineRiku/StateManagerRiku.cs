@@ -25,13 +25,13 @@ namespace EVCMonoGame.src.statemachine.riku
         {
             this.states.Add(new StateIdle(
                     new TransitionOnFlinchAttack("Flinching"),
-                    new TransitionAttackButtonPressed("Attacking"),
+                    new TransitionAttackButtonPressed("Attacking", this),
                     new TransitionOnMoving("Moving")
                 )
             );
             this.states.Add(new statemachine.riku.StateMoving(
                     new TransitionOnFlinchAttack("Flinching"),
-                    new TransitionAttackButtonPressed("Attacking"),
+                    new TransitionAttackButtonPressed("Attacking", this),
                     new TransitionOnNotMoving("Idle")
                 )
             );

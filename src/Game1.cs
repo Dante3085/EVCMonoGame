@@ -21,6 +21,7 @@ namespace EVCMonoGame.src
     /// </summary>
     public class Game1 : Game
     {
+        public static TimeSpan totalGametime = new TimeSpan();
         private GraphicsDeviceManager graphicsDeviceManager;
         private StateManager stateManager;
 
@@ -105,6 +106,7 @@ namespace EVCMonoGame.src
 
         protected override void Update(GameTime gameTime)
         {
+            totalGametime = gameTime.TotalGameTime;
             base.Update(gameTime);
             IsMouseVisible = MouseVisible;
 

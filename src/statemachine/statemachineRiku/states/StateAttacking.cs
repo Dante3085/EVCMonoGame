@@ -18,6 +18,8 @@ namespace EVCMonoGame.src.statemachine.riku
     {
         private PlayerTwo riku = GameplayState.PlayerTwo;
         private String nextAttackAnimation = "UNINITIALIZED";
+        public TimeSpan lastAttack = new TimeSpan(0,0,0);
+        public TimeSpan cooldown = new TimeSpan(0, 0, 3);
 
         public StateAttacking(params Transition[] transitions) 
             : base("Attacking", transitions)
@@ -27,7 +29,6 @@ namespace EVCMonoGame.src.statemachine.riku
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-
             if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.Two)||
                 InputManager.OnKeyPressed(Keys.D1))
             {
@@ -66,7 +67,7 @@ namespace EVCMonoGame.src.statemachine.riku
         public override void Exit(GameTime gameTime)
         {
             base.Exit(gameTime);
-
+            lastAttack = gameTime.TotalGameTime;
             riku.HasActiveAttackBounds = true;
         }
 

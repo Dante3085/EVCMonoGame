@@ -21,9 +21,10 @@ namespace EVCMonoGame.src.statemachine
 {
     public abstract class StateManager : scenes.IUpdateable
     {
-        protected List<State> states = new List<State>();
-        protected State currentState;
-        protected bool firstStateEntered = false;
+        public TimeSpan totalGameTime = new TimeSpan();
+        public List<State> states = new List<State>();
+        public State currentState;
+        public bool firstStateEntered = false;
 
 
         public bool DoUpdate
@@ -33,6 +34,7 @@ namespace EVCMonoGame.src.statemachine
 
         public virtual void Update(GameTime gameTime)
         {
+            totalGameTime = gameTime.TotalGameTime;
             if (!firstStateEntered)
             {
                 firstStateEntered = true;
