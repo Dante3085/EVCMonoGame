@@ -105,7 +105,8 @@ namespace EVCMonoGame.src.characters
 				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			if (InputManager.IsKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
-
+			if (InputManager.IsKeyPressed(Keys.F))
+				inventory.UseActiveUsableItem(gameTime);
 		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -23,8 +23,10 @@ namespace EVCMonoGame.src
 		private Player owner;
 
 		// Inventory Allgemeine Settings
-		private int inputTimeThreshold = 160; //in milliseconds
-		private double lastInputTime;
+		private int navigateTimeThreshold = 160; //in milliseconds
+		private double lastNavigateTime;
+		private int inputUseThreshold = 160; //in milliseconds
+		private double lastUseTime;
 
 		public enum Direction
 		{
@@ -47,6 +49,10 @@ namespace EVCMonoGame.src
 		private Vector2 screenPosition;
 		private Point itemSize;
 		private int itemSpacing = 0;
+		private Vector2 usableItemAmmountDrawOffset;
+
+		// Font
+		private SpriteFont font;
 
 		// Animation
 		private bool isAnimating;
@@ -59,7 +65,7 @@ namespace EVCMonoGame.src
 
 		public int ActiveUsableItemArrayPos
 		{
-			get { return usableItems.IndexOf(activeUsableItem); }
+			get { return (activeUsableItem != null) ? usableItems.IndexOf(activeUsableItem) : 0; }
 			set { }
 		}
 
@@ -76,19 +82,20 @@ namespace EVCMonoGame.src
 				screenPosition = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 200, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200);
 
 			itemSize = new Point(60, 60);
+			usableItemAmmountDrawOffset = new Vector2(-20, -25);
 
 			// todo : travel inventory through scenes!
-			if(DebugOptions.spawnWithStarterItems)
+			if (DebugOptions.spawnWithStarterItems)
 				StarterItems();
 		}
 
 		public void StarterItems()
 		{
 
-			UsableItem inventoryItem = new UsableItem(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/arrow");
-			UsableItem inventoryItem_2 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
-			UsableItem inventoryItem_3 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
-			UsableItem inventoryItem_4 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/coin-1");
+			Healthpotion inventoryItem = new Healthpotion(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/boss_bee");
+			Healthpotion inventoryItem_2 = new Healthpotion(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
+			UsableItem inventoryItem_3 = new GodMissleScroll(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/arrow");
+			UsableItem inventoryItem_4 = new GodMissleScroll(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/arrow");
 
 			CollisionManager.RemoveCollidable(inventoryItem, CollisionManager.itemCollisionChannel);
 			CollisionManager.RemoveCollidable(inventoryItem_2, CollisionManager.itemCollisionChannel);
@@ -108,16 +115,53 @@ namespace EVCMonoGame.src
 			{
 				activeUsableItem = item;
 			}
-			usableItems.Add(item);
+
+
+			if (item.stackable)
+			{
+				// Stack else Add in List
+				UsableItem itemInStock = usableItems.FirstOrDefault(i => i.itemName == item.itemName);
+
+				if (itemInStock != null)
+				{
+					itemInStock.stack += item.stack;
+				}
+				else
+				{
+					usableItems.Add(item);
+				}
+			}
+			else
+				usableItems.Add(item);
 		}
 
 		public void RemoveUsableItem(UsableItem item)
 		{
 			if (activeUsableItem == item)
 			{
-				activeUsableItem = usableItems.ElementAt<UsableItem>(0);
+				if (usableItems.Count() <= 1)
+					activeUsableItem = null;
+				else
+					activeUsableItem = usableItems.ElementAt(GetNextItemPos());
 			}
 			usableItems.Remove(item);
+		}
+
+		public void UseActiveUsableItem(GameTime gameTime)
+		{
+			// Input Threshold
+			if (gameTime.TotalGameTime.TotalMilliseconds - lastUseTime > inputUseThreshold)
+			{
+				lastUseTime = gameTime.TotalGameTime.TotalMilliseconds;
+
+				if (activeUsableItem != null)
+				{
+					activeUsableItem.Use(owner);
+					if (activeUsableItem.stack <= 0)
+						RemoveUsableItem(activeUsableItem);
+				}
+			}
+			
 		}
 
 		public void AddWeapon(Weapon weapon)
@@ -133,127 +177,105 @@ namespace EVCMonoGame.src
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			// Basic Values für Schleifenverarbeitung
-			int posActiveItem = 0;
 			int anzItems = usableItems.Count();
 
 
 			if (activeUsableItem != null)
 			{
-				posActiveItem = usableItems.IndexOf(activeUsableItem);
-			}
 
-			if (isAnimating)
-			{
-				animationElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-				isAnimating = animationElapsedTime > animationDuration ? false : true;
-
-				// Change current item after animation finished
-				if (!isAnimating)
-					AfterAnimationFinished();
-			}
-			
-
-			int mirror = 1;
-			if (owner.PlayerIndex == PlayerIndex.Two)
-				mirror = -1;
-
-
-			if (isAnimating)
-			{
-				animEaser.Update(gameTime);
-
-				Point itemPosition;
-				Texture2D icon;
-
-
-				float opacity = 0.3f;
-				// Von 1 nach 0
-				if (animEaser.CurrentValue.X != 0)
-					opacity = (animEaser.To.X - animEaser.CurrentValue.X) / animEaser.To.X;
-				
-
-				if (animationDirection == Direction.RIGHT)
+				if (isAnimating)
 				{
-					//Draw Previous Item
-					itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * 0.3f * opacity);
+					animationElapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+					isAnimating = animationElapsedTime > animationDuration ? false : true;
 
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 0.3f * opacity);
-
-				}
-				else
-				{
-					//Bei verschieben nach rechts rückt ein Item von Links hinein
-					itemPosition = new Point(2 * itemSize.X + 2 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (0.3f * (1.0f - opacity)));
-
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(Utility.Mod(GetPrevItemPos() + (int)Direction.LEFT, usableItems.Count())).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (0.3f * (1.0f - opacity)));
-
-
-
-					//Draw Previous Item
-					itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (0.3f + 0.7f * (1.0f - opacity)));
-
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (0.3f + 0.7f * (1.0f - opacity)));
-
+					// Change current item after animation finished
+					if (!isAnimating)
+						AfterAnimationFinished();
 				}
 
-				int itemPositionCounter = 0;
 
-				if (ActiveUsableItemArrayPos == 0)
-					anzItems--;
+				int mirror = 1;
+				if (owner.PlayerIndex == PlayerIndex.Two)
+					mirror = -1;
 
-				for (int i = ActiveUsableItemArrayPos; i < anzItems; i++)
+
+				if (isAnimating)
 				{
-					itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
-					itemPositionCounter++;
+					animEaser.Update(gameTime);
 
-					if (animationDirection == Direction.RIGHT && i == ActiveUsableItemArrayPos)
+					Point itemPosition;
+					Texture2D icon;
+
+
+					float opacity = 0.3f;
+					// Von 1 nach 0
+					if (animEaser.CurrentValue.X != 0)
+						opacity = (animEaser.To.X - animEaser.CurrentValue.X) / animEaser.To.X;
+
+
+					if (animationDirection == Direction.RIGHT)
 					{
-						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+						//Draw Previous Item
+						itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * 0.3f * opacity);
 
 						//Draw Icon
-						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+						icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 0.3f * opacity);
+
+						//Draw Stack Ammount
+						spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(GetPrevItemPos()).stack.ToString(), screenPosition - itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 0.3f * opacity);
 					}
-					else if (animationDirection == Direction.LEFT &&  ActiveUsableItemArrayPos <  2 && i + 1 == anzItems)
+					else
 					{
-						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
+						//Bei verschieben nach rechts rückt ein Item von Links hinein
+						itemPosition = new Point(2 * itemSize.X + 2 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (0.3f * (1.0f - opacity)));
 
 						//Draw Icon
-						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * opacity);
+						icon = usableItems.ElementAt<UsableItem>(Utility.Mod(GetPrevItemPos() + (int)Direction.LEFT, usableItems.Count())).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (0.3f * (1.0f - opacity)));
 
-					} else
-					{
-						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
+						//Draw Stack Ammount
+						spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(Utility.Mod(GetPrevItemPos() + (int)Direction.LEFT, usableItems.Count())).stack.ToString(), screenPosition - itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * (0.3f * (1.0f - opacity)));
+
+
+						//Draw Previous Item
+						itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing + (int)animEaser.CurrentValue.X, 0);
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (0.3f + 0.7f * (1.0f - opacity)));
 
 						//Draw Icon
-						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+						icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (0.3f + 0.7f * (1.0f - opacity)));
 
+						//Draw Stack Ammount
+						spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(GetPrevItemPos()).stack.ToString(), screenPosition - itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * (0.3f + 0.7f * (1.0f - opacity)));
 					}
 
-				}
+					int itemPositionCounter = 0;
 
-				if (ActiveUsableItemArrayPos != 0)
-				{
-					for (int i = 0; i < GetPrevItemPos(); i++)
+					if (ActiveUsableItemArrayPos == 0)
+						anzItems--;
+
+					for (int i = ActiveUsableItemArrayPos; i < anzItems; i++)
 					{
 						itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
 						itemPositionCounter++;
 
-						if (animationDirection == Direction.LEFT && i + 1 == GetPrevItemPos())
+						if (animationDirection == Direction.RIGHT && i == ActiveUsableItemArrayPos)
+						{
+							// Draw Debug Inventory Grid
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+
+							//Draw Icon
+							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+
+							//Draw Stack Ammount
+							spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+
+						}
+						else if (animationDirection == Direction.LEFT && ActiveUsableItemArrayPos < 2 && i + 1 == anzItems)
 						{
 							// Draw Debug Inventory Grid
 							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
@@ -261,80 +283,141 @@ namespace EVCMonoGame.src
 							//Draw Icon
 							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
 							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * opacity);
+
+							//Draw Stack Ammount
+							spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * opacity);
+
+
 						}
 						else
 						{
+							// Draw Debug Inventory Grid
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
+
+							//Draw Icon
+							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+
+							//Draw Stack Ammount
+							spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 1.0f);
+
+						}
+
+					}
+
+					if (ActiveUsableItemArrayPos != 0)
+					{
+						for (int i = 0; i < GetPrevItemPos(); i++)
+						{
+							itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
+							itemPositionCounter++;
+
+							if (animationDirection == Direction.LEFT && i + 1 == GetPrevItemPos())
+							{
+								// Draw Debug Inventory Grid
+								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
+
+								//Draw Icon
+								icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+								spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * opacity);
+
+								//Draw Stack Ammount
+								spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * opacity);
+							}
+							else
+							{
+								// Draw Debug Inventory Grid
+								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.Yellow);
+
+								//Draw Icon
+								icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+								spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+
+								//Draw Stack Ammount
+								spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 1.0f);
+							}
+						}
+					}
+
+					if (animationDirection == Direction.RIGHT)
+					{
+						//Draw Last Item
+						itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (1.0f - opacity));
+
+						//Draw Icon
+						icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (1.0f - opacity));
+
+						//Draw Stack Ammount
+						spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(GetPrevItemPos()).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * (1.0f - opacity));
+					}
+					else
+					{
+					}
+
+				}
+				else
+				{
+					//Draw Previous Item
+					Point itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing, 0);
+					Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * 0.3f);
+
+					//Draw Icon
+					Texture2D icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
+					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 0.3f);
+
+					//Draw Stack Ammount
+					spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(GetPrevItemPos()).stack.ToString(), screenPosition - itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 0.3f);
+
+					int itemPositionCounter = 0;
+
+					if (ActiveUsableItemArrayPos == 0)
+						anzItems--;
+
+					for (int i = ActiveUsableItemArrayPos; i < anzItems; i++)
+					{
+						itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing, 0);
+						itemPositionCounter++;
+
+						// Draw Debug Inventory Grid
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
+
+						//Draw Icon
+						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+
+						//Draw Stack Ammount
+						spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White);
+
+					}
+
+					if (ActiveUsableItemArrayPos != 0)
+					{
+						for (int i = 0; i < GetPrevItemPos(); i++)
+						{
+							itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing, 0);
+							itemPositionCounter++;
+
 							// Draw Debug Inventory Grid
 							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.Yellow);
 
 							//Draw Icon
 							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
 							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+
+							//Draw Stack Ammount
+							spriteBatch.DrawString(font, usableItems.ElementAt<UsableItem>(i).stack.ToString(), screenPosition + itemPosition.ToVector2() * mirror + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White);
+
 						}
 					}
-				}
-
-				if (animationDirection == Direction.RIGHT)
-				{
-					//Draw Last Item
-					itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (1.0f - opacity));
-
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (1.0f - opacity));
-				}
-				else
-				{
 				}
 
 			}
 			else
 			{
-				//Draw Previous Item
-				Point itemPosition = new Point(1 * itemSize.X + 1 * itemSpacing, 0);
-				Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * 0.3f);
-
-				//Draw Icon
-				Texture2D icon = usableItems.ElementAt<UsableItem>(GetPrevItemPos()).inventoryIcon;
-				spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 0.3f);
-
-
-				int itemPositionCounter = 0;
-
-				if (ActiveUsableItemArrayPos == 0)
-					anzItems--;
-
-				for (int i = ActiveUsableItemArrayPos; i < anzItems; i++)
-				{
-					itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing, 0);
-					itemPositionCounter++;
-
-					// Draw Debug Inventory Grid
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
-
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
-				}
-
-				if (ActiveUsableItemArrayPos != 0)
-				{
-					for (int i = 0; i < GetPrevItemPos(); i++)
-					{
-						itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing, 0);
-						itemPositionCounter++;
-
-						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.Yellow);
-
-						//Draw Icon
-						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
-					}
-				}
+				// Kein Item im Inventory
 			}
-
 
 			//Draw Selection Highlighter
 			//Primitives2D.DrawRectangle(spriteBatch, screenPosition, itemSize.ToVector2(), Color.Orange, 2);
@@ -347,11 +430,18 @@ namespace EVCMonoGame.src
 				item.LoadContent(content);
 			foreach (Weapon item in weapons)
 				item.LoadContent(content);
+
+			font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 		}
 
 
 		public void NavigateItems(GameTime gameTime, Direction direction)
 		{
+			if (owner.PlayerIndex == PlayerIndex.Two)
+				if (direction == Direction.LEFT)
+					direction = Direction.RIGHT;
+				else if (direction == Direction.RIGHT)
+					direction = Direction.LEFT;
 			if (usableItems.Count() != 0)
 			{
 				if (!IsGUIBusy(gameTime))
@@ -390,9 +480,9 @@ namespace EVCMonoGame.src
 
 		public bool IsGUIBusy(GameTime gameTime)
 		{
-			if (gameTime.TotalGameTime.TotalMilliseconds - lastInputTime > inputTimeThreshold)
+			if (gameTime.TotalGameTime.TotalMilliseconds - lastNavigateTime > navigateTimeThreshold)
 			{
-				lastInputTime = gameTime.TotalGameTime.TotalMilliseconds;
+				lastNavigateTime = gameTime.TotalGameTime.TotalMilliseconds;
 				return false;
 			}
 			else
