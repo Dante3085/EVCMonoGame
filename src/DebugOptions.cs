@@ -18,15 +18,18 @@ namespace EVCMonoGame.src
 		public static bool startWithLevelEditor = true;
 
 		// Draw
-		public static bool showCollision       = false;
-		public static bool showNavgrid         = false;
-		public static bool showPathfinding     = false;
-		public static bool showRaycasts        = false;
+		public static bool showCollision       = true;
+		public static bool showNavgrid         = true;
+		public static bool showPathfinding     = true;
+		public static bool showRaycasts        = true;
         public static bool showFpsCounter      = true;
         public static bool showAttackRange     = false;
         public static bool showAttackBounds    = false;
         public static bool showHurtBounds      = false;
-        public static bool showItemFinder      = false;
+        public static bool showItemFinder      = true;
+
+		//Gameplay
+		public static bool spawnWithStarterItems = true;
 
         public static void Update()
         {

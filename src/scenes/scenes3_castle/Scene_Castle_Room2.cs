@@ -48,5 +48,15 @@ namespace EVCMonoGame.src.scenes.castle
 
             base.OnEnterScene();
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            {
+                sceneManager.SceneTransitionNextRoom();
+            }
+        }
     }
 }

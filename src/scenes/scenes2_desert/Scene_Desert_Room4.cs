@@ -28,13 +28,39 @@ namespace EVCMonoGame.src.scenes.desert
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
-
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes2_desert/room4.tm.txt");
 
             sora.WorldPosition = new Vector2(1000, 5200);
             riku.WorldPosition = new Vector2(3000, 5200);
+
+
+            doorPlayerOne = new Door(new Vector2(1090, 0));
+            doorPlayerTwo = new Door(new Vector2(3500, 0));
+
+            updateables.AddRange(new IUpdateable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+            });
+
+            drawables.AddRange(new IDrawable[]
+            {
+                doorPlayerOne,
+                doorPlayerTwo,
+            });
+
+            base.OnEnterScene();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            {
+                sceneManager.SceneTransitionNextRoom();
+            }
         }
     }
 }

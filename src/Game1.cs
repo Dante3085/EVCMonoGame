@@ -10,6 +10,7 @@ using System;
 // usings mit eigenem Code
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.utility;
 
 // TODO: Castlevania CurseOfDarkness Menü musik
 
@@ -49,6 +50,11 @@ namespace EVCMonoGame.src
 
         public Game1()
         {
+            //Texture2D tex = new Texture2D(GraphicsDevice, 1920, 1080);
+            //// tex.SetData(GraphicsDevice.GetBackBufferData;
+            //Color[] backBufferData = new Color[1920];
+            //GraphicsDevice.GetBackBufferData<Color>(backBufferData);
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             MouseVisible = true;
@@ -59,8 +65,8 @@ namespace EVCMonoGame.src
             //graphicsDeviceManager.PreferredBackBufferWidth = 3240;
             //graphicsDeviceManager.PreferredBackBufferHeight = 2160;
 
-            graphicsDeviceManager.PreferredBackBufferWidth = 1366;
-            graphicsDeviceManager.PreferredBackBufferHeight = 748;
+            graphicsDeviceManager.PreferredBackBufferWidth  = 1920;
+            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
 
             graphicsDeviceManager.IsFullScreen = false;
             graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
