@@ -215,12 +215,35 @@ namespace EVCMonoGame.src
 					itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
 					itemPositionCounter++;
 
-					// Draw Debug Inventory Grid
-					Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
+					if (animationDirection == Direction.RIGHT && i == ActiveUsableItemArrayPos)
+					{
+						// Draw Debug Inventory Grid
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
 
-					//Draw Icon
-					icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+						//Draw Icon
+						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * (1.0f - 0.7f * (1.0f - opacity)));
+					}
+					else if (animationDirection == Direction.LEFT &&  ActiveUsableItemArrayPos <  2 && i + 1 == anzItems)
+					{
+						// Draw Debug Inventory Grid
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
+
+						//Draw Icon
+						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * opacity);
+
+					} else
+					{
+						// Draw Debug Inventory Grid
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White);
+
+						//Draw Icon
+						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+
+					}
+
 				}
 
 				if (ActiveUsableItemArrayPos != 0)
@@ -230,12 +253,24 @@ namespace EVCMonoGame.src
 						itemPosition = new Point(itemPositionCounter * itemSize.X + itemPositionCounter * itemSpacing - (int)animEaser.CurrentValue.X, 0);
 						itemPositionCounter++;
 
-						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.Yellow);
+						if (animationDirection == Direction.LEFT && i + 1 == GetPrevItemPos())
+						{
+							// Draw Debug Inventory Grid
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
 
-						//Draw Icon
-						icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
-						spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+							//Draw Icon
+							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * opacity);
+						}
+						else
+						{
+							// Draw Debug Inventory Grid
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.Yellow);
+
+							//Draw Icon
+							icon = usableItems.ElementAt<UsableItem>(i).inventoryIcon;
+							spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X + itemPosition.X * mirror, (int)screenPosition.Y), itemSize), Color.White * 1.0f);
+						}
 					}
 				}
 
@@ -302,7 +337,7 @@ namespace EVCMonoGame.src
 
 
 			//Draw Selection Highlighter
-			Primitives2D.DrawRectangle(spriteBatch, screenPosition, itemSize.ToVector2(), Color.Orange, 2);
+			//Primitives2D.DrawRectangle(spriteBatch, screenPosition, itemSize.ToVector2(), Color.Orange, 2);
 		}
 
 		public void LoadContent(ContentManager content)
