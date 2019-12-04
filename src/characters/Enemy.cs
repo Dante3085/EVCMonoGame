@@ -260,7 +260,10 @@ namespace EVCMonoGame.src.characters
 		public override void OnCombatCollision(CombatArgs combatArgs)
 		{
 			base.OnCombatCollision(combatArgs);
-
+            if (combatArgs.victim == this)
+            {
+                sprite.overlayColorOverTime(Color.OrangeRed, TimeSpan.FromMilliseconds(200));
+            }
 			if (combatArgs.attacker != null && combatArgs.attacker is Player)
 				target = (Player)combatArgs.attacker;
 			else
