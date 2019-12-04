@@ -24,6 +24,7 @@ namespace EVCMonoGame.src.statemachine.riku
         public StateAttacking(params Transition[] transitions) 
             : base("Attacking", transitions)
         {
+            cooldown = TimeSpan.FromMilliseconds(500);
         }
 
         public override void Enter(GameTime gameTime)
