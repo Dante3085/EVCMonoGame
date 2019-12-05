@@ -249,7 +249,10 @@ namespace EVCMonoGame.src.characters
                 receivedAttackIds.Add(combatArgs.id);
 
                 if (currentHp <= 0.0f)
+                {
                     OnDeath();
+                    CollisionManager.combatCollidableMarkAsRemove.Add(this);
+                }
                     
             }
             else

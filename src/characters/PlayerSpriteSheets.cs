@@ -61,7 +61,7 @@ namespace EVCMonoGame.src.characters
             get
             {
                 if (!loaded) return null;
-                return amulets[2];
+                return amulets[5];
             }
         }
         public static Texture2D GodModeGlow
@@ -69,7 +69,7 @@ namespace EVCMonoGame.src.characters
             get
             {
                 if (!loaded) return null;
-                return amulets[2];
+                return amulets[6];
             }
         }
         public static void Load(ContentManager content) {

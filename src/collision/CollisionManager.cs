@@ -110,6 +110,7 @@ namespace EVCMonoGame.src.collision
             //    playerCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
             //    combatCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
             //}
+            
         }
 
         public static void AddCollidables(List<Collidable> channel, bool excludeFromAllCollisonChannel = false,
@@ -173,6 +174,13 @@ namespace EVCMonoGame.src.collision
 
         public static bool CheckCombatCollisions(CombatCollidable g1)
         {
+            //um mehrere treffen zu können
+            if (combatCollidableMarkAsRemove.Count > 0)
+            {
+                combatCollidableMarkAsRemove.ForEach((a) => { combatCollisionChannel.Remove(a); });
+                combatCollidableMarkAsRemove.Clear();
+            }
+            bool hit = false;
             if (!g1.HasActiveAttackBounds)
                 return false;
 
@@ -188,10 +196,10 @@ namespace EVCMonoGame.src.collision
                     combatArgs.victim = g2;
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);
-                    return true;
+                    hit = true;
                 }
             }
-            return false;
+            return hit;
         }
 
         public static bool IsObstacleCollision(Collidable g1)
