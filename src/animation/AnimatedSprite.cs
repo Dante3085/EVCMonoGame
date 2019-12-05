@@ -19,7 +19,7 @@ namespace EVCMonoGame.src.animation
 
     public class AnimatedSprite : scenes.IUpdateable, scenes.IDrawable, Collidable, ITranslatable
     {
-        class Animation
+        public class Animation
         {
 
             public Rectangle[] Frames
@@ -92,7 +92,7 @@ namespace EVCMonoGame.src.animation
             }
         }
         #region Fields
-
+        private Color overlayColor = Color.White;
         private String spritesheetName;
         public Texture2D spritesheet;
         private Dictionary<String, Animation> animations;
@@ -100,6 +100,9 @@ namespace EVCMonoGame.src.animation
         private String previousAnimation;
         private int frameIndex;
         private int elapsedMillis;
+        private TimeSpan overlayStart;
+        private bool isOverlaying = false;
+        private TimeSpan overlayDuration;
 
         private Vector2 position;
         private Vector2 previousPosition;
@@ -109,6 +112,14 @@ namespace EVCMonoGame.src.animation
 
         #endregion
         #region Properties
+
+        public Dictionary<String, Animation> Animations
+        {
+            get
+            {
+                return animations;
+            }
+        }
 
         public float Scale { get { return scale; } }
 
@@ -322,11 +333,27 @@ namespace EVCMonoGame.src.animation
 
         #endregion
         #region IDrawable
+
+        public void overlayColorOverTime(Color color, TimeSpan duration)
+        {
+            overlayColor = color;
+            overlayDuration = duration;
+            isOverlaying = true;
+            overlayStart = Game1.totalGametime;
+        }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Animation currentAnim = animations[currentAnimation];
-
-            spriteBatch.Draw(spritesheet, position + currentAnim.FrameOffsets[frameIndex], currentAnim.Frames[frameIndex], Color.White,
+            if (isOverlaying)
+            {
+                if ((Game1.totalGametime - overlayStart) > overlayDuration)
+                {
+                    overlayColor = Color.White;
+                    isOverlaying = false;
+                }
+            }
+            spriteBatch.Draw(spritesheet, position + currentAnim.FrameOffsets[frameIndex], currentAnim.Frames[frameIndex], overlayColor,
                 0, Vector2.Zero, scale, currentAnim.IsMirrored ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
         }
 
@@ -427,9 +454,9 @@ namespace EVCMonoGame.src.animation
                 {
                     animationNames.Add(animName);
                 }
-                for(int animationIndex=0; animationIndex< animationNames.Count(); animationIndex++)
+                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
                 {
-                    for(int offsetIndex =0;
+                    for (int offsetIndex = 0;
                         offsetIndex < animations[animationNames[animationIndex]].FrameOffsets.Count();
                         offsetIndex++)
                     {
@@ -445,7 +472,7 @@ namespace EVCMonoGame.src.animation
                         Rectangle r = animations[animationNames[animationIndex]].AttackBounds[offsetIndex];
                         Vector2 v = r.Location.ToVector2() * this.scale;
                         r.Location = v.ToPoint();
-                        animations[animationNames[animationIndex]].AttackBounds[offsetIndex]= r;
+                        animations[animationNames[animationIndex]].AttackBounds[offsetIndex] = r;
                     }
                 }
             }

@@ -24,29 +24,29 @@ namespace EVCMonoGame.src.characters
     public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
     {
 		#region Fields
-		protected Player target;
-		protected int agentMindestBreite;
-		protected Vector2 movementDirection;
+		public Player target;
+		public int agentMindestBreite;
+		public Vector2 movementDirection;
 
 		// Pathfinding
-		protected static Pathfinder pathfinder;
-		protected List<Point> waypoints;
-		protected Vector2 lastWaypoint;
-		protected Vector2 nextWaypoint;
-		protected float forcePathfindTimer;
-		protected float currentForcePathfindTimer;
+		public static Pathfinder pathfinder;
+		public List<Point> waypoints;
+		public Vector2 lastWaypoint;
+		public Vector2 nextWaypoint;
+		public float forcePathfindTimer;
+		public float currentForcePathfindTimer;
 
 		// Stats
-		protected float attackSpeed = 1000.0f; // in mili
-		protected float attackDmg = 10;
-		protected float attackRange = 200;
-		protected float cooldownOnAttack = 0.0f; // in mili
-		protected bool isAttackOnCooldown = false;
-		protected float aggroRange;
+		public float attackSpeed = 1000.0f; // in mili
+		public float attackDmg = 10;
+		public float attackRange = 200;
+		public float cooldownOnAttack = 0.0f; // in mili
+		public bool isAttackOnCooldown = false;
+		public float aggroRange;
 
 
         // Drops
-        protected int exp;
+        public int exp;
 
 		#endregion
 
@@ -260,7 +260,10 @@ namespace EVCMonoGame.src.characters
 		public override void OnCombatCollision(CombatArgs combatArgs)
 		{
 			base.OnCombatCollision(combatArgs);
-
+            if (combatArgs.victim == this)
+            {
+                sprite.overlayColorOverTime(Color.OrangeRed, TimeSpan.FromMilliseconds(200));
+            }
 			if (combatArgs.attacker != null && combatArgs.attacker is Player)
 				target = (Player)combatArgs.attacker;
 			else

@@ -40,11 +40,47 @@ namespace EVCMonoGame.src.characters
                 return amulets[2];
             }
         }
+        public static Texture2D BlueGlow
+        {
+            get
+            {
+                if (!loaded) return null;
+                return amulets[3];
+            }
+        }
+        public static Texture2D YellowGlow
+        {
+            get
+            {
+                if (!loaded) return null;
+                return amulets[4];
+            }
+        }
+        public static Texture2D WhiteGlow
+        {
+            get
+            {
+                if (!loaded) return null;
+                return amulets[2];
+            }
+        }
+        public static Texture2D GodModeGlow
+        {
+            get
+            {
+                if (!loaded) return null;
+                return amulets[2];
+            }
+        }
         public static void Load(ContentManager content) {
             loaded = true;
             amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent"));
             amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_red"));
-            //amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_green"));
+            amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_green"));
+            amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_blue"));
+            amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_yellow"));
+            amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_white"));
+            amulets.Add(content.Load<Texture2D>("rsrc/spritesheets/khcom_sora_transparent_god_mode"));
         }
     }
 }
