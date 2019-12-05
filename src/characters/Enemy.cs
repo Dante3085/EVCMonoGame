@@ -42,7 +42,7 @@ namespace EVCMonoGame.src.characters
 		public float attackRange = 200;
 		public float cooldownOnAttack = 0.0f; // in mili
 		public bool isAttackOnCooldown = false;
-		public float aggroRange;
+		public float sightRange;
 
 
         // Drops
@@ -93,7 +93,7 @@ namespace EVCMonoGame.src.characters
 
 			forcePathfindTimer = 5000;
 
-			aggroRange = 600;
+			sightRange = 600;
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 
@@ -124,7 +124,7 @@ namespace EVCMonoGame.src.characters
 			{
 				movementDirection.Normalize();
 				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
-				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), aggroRange, 20, Color.Red, 2);
+				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), sightRange, 20, Color.Red, 2);
 			
 
 				if (waypoints != null)
@@ -169,7 +169,7 @@ namespace EVCMonoGame.src.characters
 
 				MoveToCharacter(gameTime, target);
 			} else
-				target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
+				target = CollisionManager.GetNearestPlayerInRange(this, sightRange);
 
 		}
 		#endregion
