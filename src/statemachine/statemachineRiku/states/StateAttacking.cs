@@ -74,6 +74,7 @@ namespace EVCMonoGame.src.statemachine.riku
 
         private void OnXPressed()
         {
+            cooldown = TimeSpan.FromMilliseconds(500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileNormal missile = new MagicMissileNormal(Vector2.Zero, Orientation.DOWN);
@@ -147,6 +148,7 @@ namespace EVCMonoGame.src.statemachine.riku
 
         private void OnYPressed()
         {
+            cooldown = TimeSpan.FromMilliseconds(1000);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileBounce missile = new MagicMissileBounce(Vector2.Zero, Orientation.DOWN);
@@ -228,6 +230,7 @@ namespace EVCMonoGame.src.statemachine.riku
 
         private void OnBPressed()
         {
+            cooldown = TimeSpan.FromMilliseconds(1500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissilePenetrate missile = new MagicMissilePenetrate(Vector2.Zero, Orientation.DOWN);
@@ -309,6 +312,7 @@ namespace EVCMonoGame.src.statemachine.riku
 
         private void OnRightShoulderPressed()
         {
+            cooldown = TimeSpan.FromMilliseconds(2500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileSplit missile = new MagicMissileSplit(Vector2.Zero, Orientation.DOWN);
@@ -389,6 +393,8 @@ namespace EVCMonoGame.src.statemachine.riku
         }
         private void OnLeftShoulderPressed()
         {
+            cooldown = TimeSpan.FromMilliseconds(3000);
+            //Inventory... = cooldown.TotalMilliseconds;
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileGodImperator missile = new MagicMissileGodImperator(Vector2.Zero, Orientation.DOWN);

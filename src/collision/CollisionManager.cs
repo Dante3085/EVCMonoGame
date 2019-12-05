@@ -173,6 +173,8 @@ namespace EVCMonoGame.src.collision
 
         public static bool CheckCombatCollisions(CombatCollidable g1)
         {
+            //um mehrere treffen zu können
+            bool hit = false;
             if (!g1.HasActiveAttackBounds)
                 return false;
 
@@ -188,10 +190,10 @@ namespace EVCMonoGame.src.collision
                     combatArgs.victim = g2;
                     g1.OnCombatCollision(combatArgs);
                     g2.OnCombatCollision(combatArgs);
-                    return true;
+                    hit = true;
                 }
             }
-            return false;
+            return hit;
         }
 
         public static bool IsObstacleCollision(Collidable g1)
