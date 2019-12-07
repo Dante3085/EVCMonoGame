@@ -14,9 +14,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Weapon : InventoryItem
+	public abstract class Weapon : InventoryItem
 	{
-		public Weapon(Vector2 position, String inventoryIconPath, GameplayState.Lane lane) : base(position, inventoryIconPath, lane)
+		public Weapon(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane)
+			: base
+			(
+				  position,
+				  inventoryIconPath,
+				  anmConfigFile,
+				  idleAnim,
+				  lane
+			)
 		{
 		}
 		

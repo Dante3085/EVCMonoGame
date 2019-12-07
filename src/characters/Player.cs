@@ -122,7 +122,7 @@ namespace EVCMonoGame.src.characters
 				else
 					inventory.UseActiveUsableItem(gameTime);
 
-            expBar.Position = healthbar.Position - new Vector2(0, expBar.Size.Y);
+            expBar.Position = Healthbar.Position - new Vector2(0, expBar.Size.Y);
 		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

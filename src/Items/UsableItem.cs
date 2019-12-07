@@ -20,7 +20,15 @@ namespace EVCMonoGame.src.Items
 		public String itemName = "";
 		public bool stackable = true;
 
-		public UsableItem(Vector2 position, String inventoryIconPath, GameplayState.Lane lane, String itemName = "") : base(position, inventoryIconPath, lane)
+		public UsableItem(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane, String itemName = "")
+			: base
+			(
+				  position,
+				  inventoryIconPath,
+				  anmConfigFile,
+				  idleAnim,
+				  lane
+			)
 		{
 			this.itemName = itemName;
 		}

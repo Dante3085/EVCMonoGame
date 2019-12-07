@@ -18,12 +18,14 @@ namespace EVCMonoGame.src.Items
 	{
 		public int heals = 40;
 
-		public Healthpotion(Vector2 position, String inventoryIconPath) 
+		public Healthpotion(Vector2 position) 
 			: base(
 				  position,
-				  inventoryIconPath,
-				  GameplayState.Lane.LaneBoth,
-				  "Healthpotion"
+				  inventoryIconPath: "rsrc/spritesheets/singleImages/boss_bee",
+				  anmConfigFile: "rsrc/spritesheets/configFiles/coin.anm.txt",
+				  idleAnim: "COIN",
+				  lane: GameplayState.Lane.LaneBoth,
+				  itemName: "Healthpotion"
 				  )
 		{
 			shopPrice = 5;
@@ -31,7 +33,7 @@ namespace EVCMonoGame.src.Items
 
 		public override Item Copy()
 		{
-			return new Healthpotion(WorldPosition, inventoryIconPath);
+			return new Healthpotion(WorldPosition);
 		}
 
 		public override void PickUp(Player player)

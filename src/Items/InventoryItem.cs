@@ -17,13 +17,17 @@ namespace EVCMonoGame.src.Items
 	{
 		public Texture2D inventoryIcon;
 		public String inventoryIconPath;
-
-		public InventoryItem(Vector2 position, String inventoryIconPath, GameplayState.Lane lane) : base(position)
-		public InventoryItem(Vector2 position, String inventoryIconPath) : 
-			base(position, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN")
+		
+		public InventoryItem(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane) : 
+			base
+			(	
+				position,
+				anmConfigFile,
+				idleAnim,
+				lane
+			)
 		{
 			this.inventoryIconPath = inventoryIconPath;
-			this.lane = lane;
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

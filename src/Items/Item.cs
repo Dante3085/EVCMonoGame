@@ -25,6 +25,10 @@ namespace EVCMonoGame.src.Items
 		public int shopPrice;
 		public GameplayState.Lane lane;
 
+		//AnimatedSprite
+		public String anmConfigFile;
+		public String idleAnim;
+
 		public bool DoUpdate { get; set; }
 
         // GeometryCollidable
@@ -66,14 +70,20 @@ namespace EVCMonoGame.src.Items
 		}
 		#endregion
 
-		public Item(Vector2 position, String anmConfigFile, String idleAnim)
+		public Item(Vector2 position, String anmConfigFile, String idleAnim, GameplayState.Lane lane)
 		{
+			// Sprite
             sprite = new AnimatedSprite(worldPosition);
             sprite.LoadAnimationsFromFile(anmConfigFile);
             sprite.SetAnimation(idleAnim);
+			this.anmConfigFile = anmConfigFile;
+			this.idleAnim = anmConfigFile;
+
+			// Collision
             CollisionBox = new Rectangle(position.ToPoint(), new Point(50, 50));
 			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
-			lane = GameplayState.Lane.LaneBoth;
+
+			this.lane = lane;
 		}
 
 		public abstract Item Copy();
