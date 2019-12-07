@@ -76,7 +76,7 @@ namespace EVCMonoGame.src.scenes
 
             for (int i = 0; i < items.Length; ++i)
             {
-                items[i] = new InstantConsumable(Vector2.Zero);
+                items[i] = new InstantConsumable(Vector2.Zero, "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
                 drawables.Add(items[i]);
                 updateables.Add(items[i]);
             }

@@ -42,8 +42,8 @@ namespace EVCMonoGame.src.scenes
             playerOne.WorldPosition = new Vector2(1150, 3350);
             playerTwo.WorldPosition = new Vector2(1400, 3350);
 
-            Item potion = new InstantConsumable(new Vector2(1200, 3800));
-            Item potion_2 = new InstantConsumable(new Vector2(1250, 3800));
+            Item potion = new InstantConsumable(new Vector2(1200, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
+            Item potion_2 = new InstantConsumable(new Vector2(1250, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
             Item inventoryItem = new UsableItem(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/boss_bee");
 			Item inventoryItem_2 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
 

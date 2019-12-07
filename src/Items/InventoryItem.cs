@@ -17,7 +17,8 @@ namespace EVCMonoGame.src.Items
 		public Texture2D inventoryIcon;
 		public String inventoryIconPath;
 
-		public InventoryItem(Vector2 position, String inventoryIconPath) : base(position)
+		public InventoryItem(Vector2 position, String inventoryIconPath) : 
+			base(position, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN")
 		{
 			this.inventoryIconPath = inventoryIconPath;
 		}

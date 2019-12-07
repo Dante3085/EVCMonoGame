@@ -19,8 +19,10 @@ namespace EVCMonoGame.src.Items
 		
 		public bool permaStats;
 
-		public InstantConsumable(Vector2 position) : base(position)
+		public InstantConsumable(Vector2 position, String anmConfigFile, String idleAnim, float scale = 1.0f) : 
+			base(position, anmConfigFile, idleAnim)
 		{
+			sprite.Scale = scale;
 		}
 
 		public override void PickUp(Player player)
@@ -28,7 +30,7 @@ namespace EVCMonoGame.src.Items
 			//Player Update Stats
 			player.CurrentHp += heal;
 			player.movementSpeed += speed;
-			player.exp += exp;
+			player.expBar.CurrentExp += exp;
 			player.gold += gold;
 
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);

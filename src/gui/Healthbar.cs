@@ -106,7 +106,7 @@ namespace EVCMonoGame.src.gui
         #region Constructors
         public Healthbar(int maxHp, int currentHp, Vector2 position, Vector2 size)
         {
-            outlineThickness = 1;
+            outlineThickness = 2;
 
             bounds.Location = position.ToPoint();
             bounds.Width = (int)size.X;

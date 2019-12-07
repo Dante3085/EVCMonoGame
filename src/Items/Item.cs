@@ -62,11 +62,11 @@ namespace EVCMonoGame.src.Items
 		}
 		#endregion
 
-		public Item(Vector2 position)
+		public Item(Vector2 position, String anmConfigFile, String idleAnim)
 		{
             sprite = new AnimatedSprite(worldPosition);
-            sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
-            sprite.SetAnimation("COIN");
+            sprite.LoadAnimationsFromFile(anmConfigFile);
+            sprite.SetAnimation(idleAnim);
             CollisionBox = new Rectangle(position.ToPoint(), new Point(50, 50));
 			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
 		}
