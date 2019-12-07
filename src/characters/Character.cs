@@ -267,9 +267,9 @@ namespace EVCMonoGame.src.characters
         public virtual void OnDeath()
         {
 			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
-            CollisionManager.RemoveCombatCollidable(this);
 			CollisionManager.combatCollidableMarkAsRemove.Add(this);
 			Scene.updateablesToRemove.Add(this);
+            Scene.drawablesToRemove.Add(this);
         }
     }
 }
