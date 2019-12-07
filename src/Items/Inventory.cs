@@ -37,6 +37,8 @@ namespace EVCMonoGame.src
 		}
 
 
+		private int gold;
+
 		// Weapons Inventory
 		private List<Weapon> weapons;
 		private Weapon activeWeapon;
@@ -62,6 +64,10 @@ namespace EVCMonoGame.src
 		private Vector2 animPrevPos;
 		private Vector2 animGoalPos;
 		private Easer animEaser;
+
+		#region Properties
+		public int Gold { get; set; }
+		#endregion
 
 		public int ActiveUsableItemArrayPos
 		{
@@ -116,6 +122,7 @@ namespace EVCMonoGame.src
 				activeUsableItem = item;
 			}
 
+			Console.WriteLine("Füge Item: " + item + " mit anzahl: " + item.stack + " hinzu");
 
 			if (item.stackable)
 			{
@@ -174,6 +181,7 @@ namespace EVCMonoGame.src
 			weapons.Remove(weapon);
 		}
 
+		#region Draw
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			// Basic Values für Schleifenverarbeitung
@@ -422,7 +430,7 @@ namespace EVCMonoGame.src
 			//Draw Selection Highlighter
 			//Primitives2D.DrawRectangle(spriteBatch, screenPosition, itemSize.ToVector2(), Color.Orange, 2);
 		}
-
+		#endregion
 		public void LoadContent(ContentManager content)
 		{
 			// Load Starter Items

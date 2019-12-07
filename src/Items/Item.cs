@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.animation;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.Items
 {
@@ -20,6 +21,9 @@ namespace EVCMonoGame.src.Items
 		public Rectangle geoHitbox;
         public AnimatedSprite sprite;
         public bool isPickedUp = false;
+		public bool isInShop = false;
+		public int shopPrice;
+		public GameplayState.Lane lane;
 
 		public bool DoUpdate { get; set; }
 
@@ -69,7 +73,11 @@ namespace EVCMonoGame.src.Items
             sprite.SetAnimation("COIN");
             CollisionBox = new Rectangle(position.ToPoint(), new Point(50, 50));
 			CollisionManager.AddCollidable(this, CollisionManager.itemCollisionChannel);
+			lane = GameplayState.Lane.LaneBoth;
 		}
+
+		public abstract Item Copy();
+
 		public abstract void PickUp(Player player);
 
 

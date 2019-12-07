@@ -70,7 +70,8 @@ namespace EVCMonoGame.src.characters
                   agility: 4,
                   movementSpeed: 7,
                   position: position,
-				  playerIndex: PlayerIndex.Two
+				  playerIndex: PlayerIndex.Two,
+				  lane: GameplayState.Lane.LaneTwo
 			)
         {
             runThreshold = 0.65f;

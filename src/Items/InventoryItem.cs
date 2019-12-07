@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.states;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,9 +18,10 @@ namespace EVCMonoGame.src.Items
 		public Texture2D inventoryIcon;
 		public String inventoryIconPath;
 
-		public InventoryItem(Vector2 position, String inventoryIconPath) : base(position)
+		public InventoryItem(Vector2 position, String inventoryIconPath, GameplayState.Lane lane) : base(position)
 		{
 			this.inventoryIconPath = inventoryIconPath;
+			this.lane = lane;
 		}
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

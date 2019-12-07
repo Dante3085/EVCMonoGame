@@ -23,13 +23,18 @@ namespace EVCMonoGame.src.Items
 		{
 		}
 
+		public override Item Copy()
+		{
+			return new InstantConsumable(CollisionBox.Location.ToVector2());
+		}
+
 		public override void PickUp(Player player)
 		{
 			//Player Update Stats
 			player.CurrentHp += heal;
 			player.movementSpeed += speed;
 			player.exp += exp;
-			player.gold += gold;
+			player.PlayerInventory.Gold += gold;
 
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
 

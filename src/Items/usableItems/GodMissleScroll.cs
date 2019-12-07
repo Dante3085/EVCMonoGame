@@ -18,10 +18,22 @@ namespace EVCMonoGame.src.Items
 	public class GodMissleScroll : UsableItem
 	{
 
-		public GodMissleScroll(Vector2 position, String inventoryIconPath) : base(position, inventoryIconPath)
+		public GodMissleScroll(Vector2 position, String inventoryIconPath)
+			: base
+			(
+				  position,
+				  inventoryIconPath,
+				  GameplayState.Lane.LaneTwo,
+				  "GodMissleScroll"
+			)
 		{
-			itemName = "GodMissleScroll";
 			//stackable = false;
+			shopPrice = 50;
+		}
+
+		public override Item Copy()
+		{
+			return new GodMissleScroll(WorldPosition, inventoryIconPath);
 		}
 
 		public override void PickUp(Player player)

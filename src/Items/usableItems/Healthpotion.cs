@@ -7,6 +7,7 @@ using C3.MonoGame;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.states;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,9 +18,20 @@ namespace EVCMonoGame.src.Items
 	{
 		public int heals = 40;
 
-		public Healthpotion(Vector2 position, String inventoryIconPath) : base(position, inventoryIconPath)
+		public Healthpotion(Vector2 position, String inventoryIconPath) 
+			: base(
+				  position,
+				  inventoryIconPath,
+				  GameplayState.Lane.LaneBoth,
+				  "Healthpotion"
+				  )
 		{
-			itemName = "Healtpotion";
+			shopPrice = 5;
+		}
+
+		public override Item Copy()
+		{
+			return new Healthpotion(WorldPosition, inventoryIconPath);
 		}
 
 		public override void PickUp(Player player)
