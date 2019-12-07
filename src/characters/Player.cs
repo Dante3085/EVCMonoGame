@@ -13,6 +13,7 @@ using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src.characters
 {
@@ -22,6 +23,8 @@ namespace EVCMonoGame.src.characters
         private Inventory inventory;
 
 		public int exp;
+
+        public ExperienceBar expBar;
 
 
 		public Orientation playerOrientation = Orientation.RIGHT;
@@ -83,12 +86,15 @@ namespace EVCMonoGame.src.characters
 			inventory = new Inventory(this);
 			itemFinder = new ItemFinder(this);
 
+            expBar = new ExperienceBar(100, 20, Vector2.Zero, new Vector2(150, 10));
 		}
 
 		public override void LoadContent(ContentManager content)
 		{
 			base.LoadContent(content);
 			inventory.LoadContent(content);
+
+            expBar.LoadContent(content);
 		}
 
 		/*
@@ -115,6 +121,8 @@ namespace EVCMonoGame.src.characters
 					CollisionManager.GetNearestInteractable(this).Interact(this);
 				else
 					inventory.UseActiveUsableItem(gameTime);
+
+            expBar.Position = healthbar.Position - new Vector2(0, expBar.Size.Y);
 		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -122,6 +130,8 @@ namespace EVCMonoGame.src.characters
             base.Draw(gameTime, spriteBatch);
 
             itemFinder.Draw(gameTime, spriteBatch);
+
+            expBar.Draw(gameTime, spriteBatch);
         }
     }
 }

@@ -47,6 +47,13 @@ namespace EVCMonoGame.src.scenes
 			Item potion = new InstantConsumable(new Vector2(1200, 3800));
 			Item potion_2 = new InstantConsumable(new Vector2(1250, 3800));
 
+			//new
+            Item potion = new InstantConsumable(new Vector2(1200, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
+            Item potion_2 = new InstantConsumable(new Vector2(1250, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
+            Item inventoryItem = new UsableItem(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/boss_bee");
+			Item inventoryItem_2 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
+
+
 			Enemy shadow = new Shadow(new Vector2(1350, 4150));
 			Enemy shadow_2 = new Shadow(new Vector2(1300, 4150));
 

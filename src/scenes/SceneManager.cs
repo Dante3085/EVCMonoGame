@@ -163,17 +163,23 @@ namespace EVCMonoGame.src.scenes
                 EScene.TUTORIAL_ROOM_4,
                 EScene.TUTORIAL_ROOM_5,
 
+                EScene.REST_ROOM,
+
                 EScene.TRAIN_ROOM_1,
                 EScene.TRAIN_ROOM_2,
                 EScene.TRAIN_ROOM_3,
                 EScene.TRAIN_ROOM_4,
                 EScene.TRAIN_ROOM_5,
 
+                EScene.REST_ROOM,
+
                 EScene.DESERT_ROOM_1,
                 EScene.DESERT_ROOM_2,
                 EScene.DESERT_ROOM_3,
                 EScene.DESERT_ROOM_4,
                 EScene.DESERT_ROOM_5,
+
+                EScene.REST_ROOM,
 
                 EScene.CASTLE_ROOM_1,
                 EScene.CASTLE_ROOM_2,

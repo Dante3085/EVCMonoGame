@@ -269,6 +269,7 @@ namespace EVCMonoGame.src.characters
 			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
 			CollisionManager.combatCollidableMarkAsRemove.Add(this);
 			Scene.updateablesToRemove.Add(this);
+            Scene.drawablesToRemove.Add(this);
         }
     }
 }
