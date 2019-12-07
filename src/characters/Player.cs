@@ -111,6 +111,8 @@ namespace EVCMonoGame.src.characters
 				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			if (InputManager.IsKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+			if (InputManager.IsKeyPressed(Keys.F))
+				inventory.UseActiveUsableItem(gameTime);
 
             expBar.Position = healthbar.Position - new Vector2(0, expBar.Size.Y);
 		}

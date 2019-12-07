@@ -13,27 +13,25 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class UsableItem : InventoryItem
+	public class Healthpotion : UsableItem
 	{
-		public int stack = 1;
-		public String itemName = "";
-		public bool stackable = true;
+		public int heals = 40;
 
-		public UsableItem(Vector2 position, String inventoryIconPath, String itemName = "") : base(position, inventoryIconPath)
+		public Healthpotion(Vector2 position, String inventoryIconPath) : base(position, inventoryIconPath)
 		{
-			this.itemName = itemName;
+			itemName = "Healtpotion";
 		}
 
 		public override void PickUp(Player player)
 		{
 			base.PickUp(player);
-
-			player.PlayerInventory.AddUsableItem(this);
 		}
 
-		public virtual void Use(Player player)
+		public override void Use(Player player)
 		{
-			stack--;
+			base.Use(player);
+
+			player.CurrentHp += heals;
 		}
 	}
 }
