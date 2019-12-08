@@ -38,31 +38,43 @@ namespace EVCMonoGame.src.scenes
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
             PlayerTwo playerTwo = GameplayState.PlayerTwo;
+			playerOne.PlayerInventory.Gold = 100;
+			playerOne.CurrentHp = 10;
 
-            playerOne.WorldPosition = new Vector2(1150, 3350);
-            playerTwo.WorldPosition = new Vector2(1400, 3350);
+            playerOne.WorldPosition = new Vector2(600, 800);
+            playerTwo.WorldPosition = new Vector2(900, 750);
 
-            Item potion = new InstantConsumable(new Vector2(1200, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
-            Item potion_2 = new InstantConsumable(new Vector2(1250, 3800), "rsrc/spritesheets/configFiles/coin.anm.txt", "COIN");
-            Item inventoryItem = new UsableItem(new Vector2(1300, 3800), "rsrc/spritesheets/singleImages/boss_bee");
-			Item inventoryItem_2 = new UsableItem(new Vector2(1350, 3820), "rsrc/spritesheets/singleImages/boss_bee");
+			Item potion = new Healthpotion(new Vector2(1200, 3800));
+			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
+			
 
 			Enemy shadow = new Shadow(new Vector2(1350, 4150));
 			Enemy shadow_2 = new Shadow(new Vector2(1300, 4150));
 
-			drawables.Add(potion);
-            drawables.Add(potion_2);
-            drawables.Add(inventoryItem);
-			drawables.Add(inventoryItem_2);
+			// Shop
+			Item inventoryItem = new Healthpotion(new Vector2(1300, 3800));
+			Item inventoryItem_2 = new GodMissleScroll(new Vector2(1350, 3820));
+			Shop soraShop = new Shop(new Vector2(350, 900), new List<Item> { inventoryItem, inventoryItem_2 }, GameplayState.Lane.LaneOne);
 
+			//Drawables	
+				//Items
+			drawables.Add(potion);
+			drawables.Add(potion_2);
+
+				//Shop
+			drawables.Add(soraShop);
+
+				//Enemys
 			drawables.Add(shadow);
 			drawables.Add(shadow_2);
 
+			//Updatables
+				//Items
 			updateables.Add(potion);
-            updateables.Add(potion_2);
-            updateables.Add(inventoryItem);
-			updateables.Add(inventoryItem_2);
-
+			updateables.Add(potion_2);
+				//Shop
+			updateables.Add(soraShop);
+				//Enemys
 			updateables.Add(shadow);
 			updateables.Add(shadow_2);
 		}

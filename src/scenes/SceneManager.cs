@@ -199,7 +199,7 @@ namespace EVCMonoGame.src.scenes
             // Randomize Castle Rooms 1 to 4.
             Utility.RandomizeList<EScene>(roomSeqence, 15, 18);
 
-            currentScene = previousScene = scenes[EScene.TRAIN_ROOM_1];
+            currentScene = previousScene = scenes[EScene.REST_ROOM];
 
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);

@@ -244,14 +244,14 @@ namespace EVCMonoGame.src.characters
                 currentHp -= combatArgs.damage;
                 healthbar.CurrentHp = currentHp;
 
-                sprite.Position += combatArgs.knockBack;
+                WorldPosition += combatArgs.knockBack;
+				CollisionManager.IsCollisionAfterMove(this, true, false);
 
                 receivedAttackIds.Add(combatArgs.id);
 
                 if (currentHp <= 0.0f)
                 {
                     OnDeath();
-                    CollisionManager.combatCollidableMarkAsRemove.Add(this);
                 }
                     
             }

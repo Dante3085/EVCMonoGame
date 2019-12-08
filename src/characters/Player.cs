@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.collision;
+using EVCMonoGame.src.states;
 using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src.characters
@@ -20,13 +22,14 @@ namespace EVCMonoGame.src.characters
         private ItemFinder itemFinder;
         private Inventory inventory;
 
-		public int gold;
+		public int exp;
 
         public ExperienceBar expBar;
 
 
 		public Orientation playerOrientation = Orientation.RIGHT;
 		private PlayerIndex playerIndex;
+		public GameplayState.Lane lane;
 
 		public Inventory PlayerInventory
         {
@@ -57,7 +60,8 @@ namespace EVCMonoGame.src.characters
 				int agility,
 				int movementSpeed,
 				Vector2 position,
-				PlayerIndex playerIndex
+				PlayerIndex playerIndex,
+				GameplayState.Lane lane
             )
             : base
             (
@@ -78,6 +82,7 @@ namespace EVCMonoGame.src.characters
 			this.playerIndex = playerIndex;
             this.combatant = CombatantType.PLAYER;
             this.combatArgs.targetType = CombatantType.ENEMY;
+			this.lane = lane;
 			inventory = new Inventory(this);
 			itemFinder = new ItemFinder(this);
 
@@ -112,9 +117,12 @@ namespace EVCMonoGame.src.characters
 			if (InputManager.IsKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
 			if (InputManager.IsKeyPressed(Keys.F))
-				inventory.UseActiveUsableItem(gameTime);
+				if (CollisionManager.IsInteractableCollision(this))
+					CollisionManager.GetNearestInteractable(this).Interact(this);
+				else
+					inventory.UseActiveUsableItem(gameTime);
 
-            expBar.Position = healthbar.Position - new Vector2(0, expBar.Size.Y);
+            expBar.Position = Healthbar.Position - new Vector2(0, expBar.Size.Y);
 		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

@@ -64,7 +64,8 @@ namespace EVCMonoGame.src.characters
                   agility: 4,
                   movementSpeed: 7,
                   position: position,
-				  playerIndex: PlayerIndex.One
+				  playerIndex: PlayerIndex.One,
+				  lane: GameplayState.Lane.LaneOne
             )
         {
 

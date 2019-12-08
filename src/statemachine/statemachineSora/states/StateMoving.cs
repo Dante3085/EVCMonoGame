@@ -77,7 +77,7 @@ namespace EVCMonoGame.src.statemachine.sora
             if (directionVectorLength < 0.15f)
                 return;
 
-            Console.WriteLine(directionVectorLength);
+            //Console.WriteLine(directionVectorLength);
 
             if (mvAngle > (-22.5) && mvAngle <= (22.5))
             {

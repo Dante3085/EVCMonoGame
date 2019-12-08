@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using C3.MonoGame;
 using EVCMonoGame.src.characters;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.Items
 {
@@ -49,8 +50,16 @@ namespace EVCMonoGame.src.Items
 			List<Collidable> foundItems = CollisionManager.GetAllCollidablesInRange(owner, finderRange, CollisionManager.itemCollisionChannel);
 			foreach (Item item in foundItems)
 			{
-                itemsToPullList.Add(item);
-				item.PickUp(owner);
+				if (!item.isInShop)
+				{
+					// Nur aufheben wenn für sich bestimmt oder alle
+					if (item.lane == GameplayState.Lane.LaneBoth || owner.lane == item.lane)
+					{
+						itemsToPullList.Add(item);
+						item.PickUp(owner);
+					}
+
+				}
 			}
 
             PullItemsNearPlayer();
@@ -62,20 +71,22 @@ namespace EVCMonoGame.src.Items
 
             foreach(Item item in itemsToPullList)
             {
-                if (Vector2.Distance(owner.CollisionBox.Center.ToVector2(), item.WorldPosition) < 25)
-                {
-                    removeFromPulling.Add(item);
-                    item.isPickedUp = true;
-                } else
-                {
-                    Vector2 direction = owner.CollisionBox.Center.ToVector2() - item.WorldPosition;
+
+				if (Vector2.Distance(owner.CollisionBox.Center.ToVector2(), item.WorldPosition) < 25)
+				{
+					removeFromPulling.Add(item);
+					item.isPickedUp = true;
+				}
+				else
+				{
+					Vector2 direction = owner.CollisionBox.Center.ToVector2() - item.WorldPosition;
 
 
-                    direction.Normalize();
-                    direction = new Vector2(direction.X * itemDraggingSpeed, direction.Y * itemDraggingSpeed);
+					direction.Normalize();
+					direction = new Vector2(direction.X * itemDraggingSpeed, direction.Y * itemDraggingSpeed);
 
-                    item.WorldPosition += direction;
-                }
+					item.WorldPosition += direction;
+				}
                 
             }
 

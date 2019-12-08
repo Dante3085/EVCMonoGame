@@ -31,7 +31,8 @@ namespace EVCMonoGame.src.collision
         public static List<Collidable> itemCollisionChannel = new List<Collidable>();
         public static List<Collidable> playerCollisionChannel = new List<Collidable>();
         public static List<Collidable> projectileCollisionChannel = new List<Collidable>();
-        public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
+		public static List<Interactable> interactableCollisionChannel = new List<Interactable>();
+		public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
 		public static List<CombatCollidable> combatCollidableMarkAsRemove = new List<CombatCollidable>();
 
@@ -61,9 +62,17 @@ namespace EVCMonoGame.src.collision
                 {
                     Primitives2D.FillRectangle(spriteBatch, c.AttackBounds, attackBoundColor);
                 }
-            }
+			}
 
-            if (DebugOptions.showHurtBounds)
+			if (DebugOptions.showInteractable)
+			{
+				foreach (Interactable interactable in interactableCollisionChannel)
+				{
+					Primitives2D.DrawRectangle(spriteBatch, interactable.InteractableBounds, Color.LightBlue);
+				}
+			}
+
+			if (DebugOptions.showHurtBounds)
             {
                 Color hurtBoundColor = Color.Green;
                 hurtBoundColor.A = 50;
@@ -138,7 +147,19 @@ namespace EVCMonoGame.src.collision
                 collisionChannel.Add((Collidable)collidable);
         }
 
-        public static void AddCombatCollidable(CombatCollidable combatCollidable)
+		public static void AddInteractable(Interactable interactable)
+		{
+
+			if (!interactableCollisionChannel.Contains(interactable))
+				interactableCollisionChannel.Add((Interactable)interactable);
+		}
+
+		public static void RemoveInteractable(Interactable interactable)
+		{
+			interactableCollisionChannel.Remove(interactable);
+		}
+
+		public static void AddCombatCollidable(CombatCollidable combatCollidable)
         {
             if (!combatCollisionChannel.Contains(combatCollidable))
             {
@@ -167,6 +188,7 @@ namespace EVCMonoGame.src.collision
             combatCollisionChannel.Clear();
 			combatCollidableMarkAsRemove.Clear();
             projectileCollisionChannel.Clear();
+			interactableCollisionChannel.Clear();
 
             navGrid = null;
             raycasts = null;
@@ -174,12 +196,7 @@ namespace EVCMonoGame.src.collision
 
         public static bool CheckCombatCollisions(CombatCollidable g1)
         {
-            //um mehrere treffen zu können
-            if (combatCollidableMarkAsRemove.Count > 0)
-            {
-                combatCollidableMarkAsRemove.ForEach((a) => { combatCollisionChannel.Remove(a); });
-                combatCollidableMarkAsRemove.Clear();
-            }
+
             bool hit = false;
             if (!g1.HasActiveAttackBounds)
                 return false;
@@ -199,7 +216,15 @@ namespace EVCMonoGame.src.collision
                     hit = true;
                 }
             }
-            return hit;
+
+			//um mehrere treffen zu können
+			if (combatCollidableMarkAsRemove.Count > 0)
+			{
+				combatCollidableMarkAsRemove.ForEach((a) => { combatCollisionChannel.Remove(a); });
+				combatCollidableMarkAsRemove.Clear();
+			}
+
+			return hit;
         }
 
         public static bool IsObstacleCollision(Collidable g1)
@@ -216,7 +241,56 @@ namespace EVCMonoGame.src.collision
             return false;
         }
 
-        public static bool IsCollisionInArea(Rectangle area, List<Collidable> collisionChannel)
+		public static bool IsInteractableCollision(Collidable g1)
+		{
+			foreach (Interactable interactable in interactableCollisionChannel)
+			{
+				if (g1 != interactable)
+				{
+					if (g1.CollisionBox.Intersects(interactable.InteractableBounds))
+						return true;
+				}
+			}
+
+			return false;
+		}
+
+		public static List<Interactable> GetInteractables(Collidable g1)
+		{
+			List<Interactable> interactables = new List<Interactable>();
+
+			foreach (Interactable interactable in interactableCollisionChannel)
+			{
+				if (g1 != interactable)
+				{
+					if (g1.CollisionBox.Intersects(interactable.InteractableBounds))
+						interactables.Add(interactable);
+				}
+			}
+
+			return interactables;
+		}
+
+		public static Interactable GetNearestInteractable(Collidable g1)
+		{
+			Interactable nearest = null;
+
+			foreach (Interactable interactable in interactableCollisionChannel)
+			{
+				if (g1 != interactable)
+				{
+					if (g1.CollisionBox.Intersects(interactable.InteractableBounds))
+						if (nearest == null)
+							nearest = interactable;
+						else if (Vector2.Distance(interactable.InteractableBounds.Center.ToVector2(), g1.CollisionBox.Center.ToVector2()) < Vector2.Distance(nearest.InteractableBounds.Center.ToVector2(), g1.CollisionBox.Center.ToVector2()))
+							nearest = interactable;
+				}
+			}
+
+			return nearest;
+		}
+
+		public static bool IsCollisionInArea(Rectangle area, List<Collidable> collisionChannel)
         {
             foreach (Collidable obstacle in collisionChannel)
             {

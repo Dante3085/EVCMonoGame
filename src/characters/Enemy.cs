@@ -285,13 +285,18 @@ namespace EVCMonoGame.src.characters
             {
 
                 Vector2 rndCoinPosition = WorldPosition + new Vector2(random.Next(250), random.Next(250));
-                InstantConsumable coin = new InstantConsumable(rndCoinPosition, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", 
-					                                              "COIN");
+                InstantConsumable coin = new InstantConsumable(	rndCoinPosition, 
+																"Content/rsrc/spritesheets/configFiles/coin.anm.txt", 
+																"COIN",
+																GameplayState.Lane.LaneBoth);
 				coin.gold = random.Next(1, 12);
 
 				Vector2 rndExpBottlePosition = WorldPosition + new Vector2(random.Next(-250, 0), random.Next(-250, 0));
-				InstantConsumable expBottle = new InstantConsumable(rndExpBottlePosition, "Content/rsrc/spritesheets/configFiles/exp.anm.txt",
-																			 "EXP", 0.5f);
+				InstantConsumable expBottle = new InstantConsumable(	rndExpBottlePosition,
+																		"Content/rsrc/spritesheets/configFiles/exp.anm.txt",
+																		"EXP",
+																		GameplayState.Lane.LaneBoth,
+																		0.5f);
 				expBottle.exp = random.Next(10, 21);
 
                 Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
