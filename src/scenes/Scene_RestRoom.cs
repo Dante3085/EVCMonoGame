@@ -37,12 +37,14 @@ namespace EVCMonoGame.src.scenes
 			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
-            PlayerTwo playerTwo = GameplayState.PlayerTwo;
 			playerOne.PlayerInventory.Gold = 100;
 			playerOne.CurrentHp = 10;
+			playerOne.WorldPosition = new Vector2(600, 800);
 
-            playerOne.WorldPosition = new Vector2(600, 800);
-            playerTwo.WorldPosition = new Vector2(900, 750);
+			PlayerTwo playerTwo = GameplayState.PlayerTwo;
+			playerTwo.PlayerInventory.Gold = 500;
+			playerTwo.WorldPosition = new Vector2(900, 750);
+
 
 			Item potion = new Healthpotion(new Vector2(1200, 3800));
 			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
@@ -56,15 +58,22 @@ namespace EVCMonoGame.src.scenes
 			Item inventoryItem_2 = new GodMissleScroll(new Vector2(1350, 3820));
 			Shop soraShop = new Shop(new Vector2(350, 900), new List<Item> { inventoryItem, inventoryItem_2 }, GameplayState.Lane.LaneOne);
 
+
+			// Shop
+			Item weapon = new CoinBombMissle(new Vector2(1300, 3800));
+			Item weapon_2 = new PenetrateMissle(new Vector2(1350, 3820));
+			Shop rikuShop = new Shop(new Vector2(1350, 700), new List<Item> { weapon, weapon_2 }, GameplayState.Lane.LaneTwo);
+
 			//Drawables	
-				//Items
+			//Items
 			drawables.Add(potion);
 			drawables.Add(potion_2);
 
 				//Shop
 			drawables.Add(soraShop);
+			drawables.Add(rikuShop);
 
-				//Enemys
+			//Enemys
 			drawables.Add(shadow);
 			drawables.Add(shadow_2);
 
@@ -74,7 +83,8 @@ namespace EVCMonoGame.src.scenes
 			updateables.Add(potion_2);
 				//Shop
 			updateables.Add(soraShop);
-				//Enemys
+			updateables.Add(rikuShop);
+			//Enemys
 			updateables.Add(shadow);
 			updateables.Add(shadow_2);
 		}

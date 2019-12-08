@@ -20,7 +20,7 @@ namespace EVCMonoGame.src.characters
     public abstract class Player : Character, scenes.IDrawable
     {
         private ItemFinder itemFinder;
-        private Inventory inventory;
+        protected Inventory inventory;
 
 		public int exp;
 
@@ -34,7 +34,7 @@ namespace EVCMonoGame.src.characters
 		public Inventory PlayerInventory
         {
             get { return inventory; }
-            set { }
+            set { inventory = value; }
         }
 		public PlayerIndex PlayerIndex
 		{
@@ -83,7 +83,6 @@ namespace EVCMonoGame.src.characters
             this.combatant = CombatantType.PLAYER;
             this.combatArgs.targetType = CombatantType.ENEMY;
 			this.lane = lane;
-			inventory = new Inventory(this);
 			itemFinder = new ItemFinder(this);
 
             expBar = new ExperienceBar(100, 20, Vector2.Zero, new Vector2(150, 10));
@@ -112,10 +111,23 @@ namespace EVCMonoGame.src.characters
 
             itemFinder.Update(gameTime);
 
+			//Navigate UsableItems
 			if (InputManager.IsKeyPressed(Keys.Q))
 				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			if (InputManager.IsKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+
+			//Navigate Weapons
+			if (InputManager.IsKeyPressed(Keys.Y))
+				inventory.NavigateWeapons(gameTime, Inventory.Direction.LEFT);
+			if (InputManager.IsKeyPressed(Keys.X))
+				inventory.NavigateWeapons(gameTime, Inventory.Direction.RIGHT);
+
+			// Use Special Attack
+			if (InputManager.IsKeyPressed(Keys.B) && playerIndex == PlayerIndex.One)
+				inventory.ActivateSpecialAttack(gameTime);
+
+			// Use Item or Interact
 			if (InputManager.IsKeyPressed(Keys.F))
 				if (CollisionManager.IsInteractableCollision(this))
 					CollisionManager.GetNearestInteractable(this).Interact(this);

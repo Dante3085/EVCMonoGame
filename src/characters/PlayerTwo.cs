@@ -18,6 +18,7 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.projectiles;
 using EVCMonoGame.src.statemachine.riku;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.characters
 {
@@ -53,6 +54,12 @@ namespace EVCMonoGame.src.characters
             get; set;
         } = false;
 
+		public new InventoryRiku PlayerInventory
+		{
+			get { return (InventoryRiku)inventory; }
+			set { inventory = value; }
+		}
+
         #endregion
 
         #region Constructors
@@ -74,6 +81,8 @@ namespace EVCMonoGame.src.characters
 				  lane: GameplayState.Lane.LaneTwo
 			)
         {
+			PlayerInventory = new InventoryRiku(this);
+
             runThreshold = 0.65f;
 
             movementSpeed = 7.5f;
@@ -132,6 +141,10 @@ namespace EVCMonoGame.src.characters
             missilesToBeAdded.Clear();
             missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
             stateManager.Update(gameTime);
+
+			//Debug Input
+			if (InputManager.IsKeyPressed(Keys.B))
+				PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 200);
 
             // flinch = zurückweichen
             
