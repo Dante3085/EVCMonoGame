@@ -142,6 +142,7 @@ namespace EVCMonoGame.src.scenes
 
         public void SetCameraToPosition(Vector2 position)
         {
+            followsPlayers = false;
             SetCameraToFocusObject(new ITranslatablePosition(position));
         }
 

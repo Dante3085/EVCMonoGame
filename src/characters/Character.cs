@@ -16,13 +16,13 @@ using EVCMonoGame.src.collision;
 namespace EVCMonoGame.src.characters
 {
     // TODO: CombatArgs irgendwie initialisieren.
-        public enum CombatantType
-        {
-            PLAYER,
-            ENEMY,
-            MISSILE,
-            UNDEFINED
-        }
+    public enum CombatantType
+    {
+        PLAYER,
+        ENEMY,
+        MISSILE,
+        UNDEFINED
+    }
 
     public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable, ITranslatable
     {
@@ -59,8 +59,23 @@ namespace EVCMonoGame.src.characters
 
         #region Properties
 
-        public int MaxHp { get { return maxHp; } }
-        public int CurrentHp { get { return currentHp; } set { currentHp = value; healthbar.CurrentHp = value; } }
+        public int MaxHp 
+        { 
+            get { return maxHp; } 
+            set 
+            { 
+                maxHp = value;
+                healthbar.MaxHp = maxHp;
+            } 
+        }
+        public int CurrentHp
+        { 
+            get { return currentHp; } 
+            set 
+            { 
+                currentHp = value; healthbar.CurrentHp = value; 
+            } 
+        }
         public int MaxMp { get { return maxMp; } }
         public int CurrentMp { get { return currentMp; } }
         public int Strength { get { return strength; } }
@@ -68,7 +83,7 @@ namespace EVCMonoGame.src.characters
         public int Intelligence { get { return intelligence; } }
         public int Agility { get { return agility; } }
         public float MovementSpeed { get { return movementSpeed; } }
-        public CombatantType Combatant{ get { return combatant; } }
+        public CombatantType Combatant { get { return combatant; } }
 
         public Vector2 Position
         {
@@ -245,7 +260,7 @@ namespace EVCMonoGame.src.characters
                 healthbar.CurrentHp = currentHp;
 
                 WorldPosition += combatArgs.knockBack;
-				CollisionManager.IsCollisionAfterMove(this, true, false);
+                CollisionManager.IsCollisionAfterMove(this, true, false);
 
                 receivedAttackIds.Add(combatArgs.id);
 
@@ -253,7 +268,7 @@ namespace EVCMonoGame.src.characters
                 {
                     OnDeath();
                 }
-                    
+
             }
             else
             {
@@ -266,9 +281,9 @@ namespace EVCMonoGame.src.characters
 
         public virtual void OnDeath()
         {
-			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
-			CollisionManager.combatCollidableMarkAsRemove.Add(this);
-			Scene.updateablesToRemove.Add(this);
+            CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+            CollisionManager.combatCollidableMarkAsRemove.Add(this);
+            Scene.updateablesToRemove.Add(this);
             Scene.drawablesToRemove.Add(this);
         }
     }

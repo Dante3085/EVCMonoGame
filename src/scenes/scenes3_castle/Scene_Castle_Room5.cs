@@ -33,6 +33,8 @@ namespace EVCMonoGame.src.scenes.castle
         private Rectangle roomBottomHalf = new Rectangle(0, 2383, 3717, 2268);
         private Vector2 roomBottomHalfPosition = new Vector2();
 
+        private bool hadesWasPreviouslyAlive = true;
+
         private FinalItem finalItemSora;
         private FinalItem finalItemRiku;
 
@@ -58,16 +60,11 @@ namespace EVCMonoGame.src.scenes.castle
             shadow2 = new Shadow(new Vector2(2500, 3000));
             hades = new Hades(new Vector2(2000, 2000));
 
-            finalItemSora = new FinalItem(new Vector2(1000, 1600), GameplayState.Lane.LaneOne);
-            finalItemRiku = new FinalItem(new Vector2(2800, 1600), GameplayState.Lane.LaneTwo);
-
             updateables.AddRange(new IUpdateable[]
             {
                 shadow,
                 shadow2,
                 hades,
-                finalItemSora,
-                finalItemRiku,
             });
 
             drawables.AddRange(new IDrawable[]
@@ -75,8 +72,6 @@ namespace EVCMonoGame.src.scenes.castle
                 shadow,
                 shadow2,
                 hades,
-                finalItemSora,
-                finalItemRiku,
             });
         }
 
@@ -102,6 +97,19 @@ namespace EVCMonoGame.src.scenes.castle
                 sceneManager.SceneTransition(EScene.BARREN_FALLS_ENTRANCE);
             }
 
+            if (hadesWasPreviouslyAlive && !hades.IsAlive)
+            {
+                finalItemSora = new FinalItem(new Vector2(1000, 1600), GameplayState.Lane.LaneOne);
+                finalItemRiku = new FinalItem(new Vector2(2800, 1600), GameplayState.Lane.LaneTwo);
+
+                updateablesToAdd.Add(finalItemSora);
+                drawablesToAdd.Add(finalItemSora);
+
+                updateablesToAdd.Add(finalItemRiku);
+                drawablesToAdd.Add(finalItemRiku);
+            }
+
+            hadesWasPreviouslyAlive = hades.IsAlive;
             UpdateCamera();
         }
 
