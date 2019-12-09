@@ -53,6 +53,9 @@ namespace EVCMonoGame.src.scenes
         CASTLE_ROOM_3,
         CASTLE_ROOM_4,
         CASTLE_ROOM_5,
+
+        BARREN_FALLS_ENTRANCE,
+        BARREN_FALLS,
     }
 
     public class SceneManager
@@ -153,6 +156,9 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
             scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
 
+            scenes[EScene.BARREN_FALLS_ENTRANCE] = new Scene_BarrenFallsEntrance(this);
+            scenes[EScene.BARREN_FALLS] = new Scene_BarrenFalls(this);
+
             roomSeqence = new List<EScene>();
 
             roomSeqence.AddRange(new EScene[]
@@ -186,6 +192,9 @@ namespace EVCMonoGame.src.scenes
                 EScene.CASTLE_ROOM_3,
                 EScene.CASTLE_ROOM_4,
                 EScene.CASTLE_ROOM_5,
+
+                EScene.BARREN_FALLS_ENTRANCE,
+                EScene.BARREN_FALLS,
             });
 
             // Tutorial is not random.

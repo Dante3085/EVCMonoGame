@@ -17,8 +17,8 @@ namespace EVCMonoGame.src.characters.enemies
             : base
             (
                   name: "Hades",
-                  maxHp: 2450,
-                  currentHp: 2450,
+                  maxHp: 99999,
+                  currentHp: 99999,
                   maxMp: 100,
                   currentMp: 100,
                   strength: 15,

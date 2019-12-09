@@ -180,6 +180,12 @@ namespace EVCMonoGame.src.collision
 
         public static void CleanCollisonManager()
         {
+            if (GameplayState.PlayerTwo != null)
+            {
+                GameplayState.PlayerTwo.missiles.Clear();
+                GameplayState.PlayerTwo.missilesToBeAdded.Clear();
+            }
+
             allCollisionsChannel.Clear();
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();

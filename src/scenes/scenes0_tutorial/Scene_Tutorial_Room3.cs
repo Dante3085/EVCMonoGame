@@ -19,9 +19,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 {
     public class Scene_Tutorial_Room3 : Scene
     {
-        private Shadow shadow1;
-        private Shadow shadow2;
-        private Shadow shadow3;
+        private Shadow[] shadows;
 
         public Scene_Tutorial_Room3(SceneManager sceneManager)
             : base(sceneManager)
@@ -37,9 +35,21 @@ namespace EVCMonoGame.src.scenes.tutorial
             sora.WorldPosition = new Vector2(1356, 4265);
             riku.WorldPosition = new Vector2(2069, 4376);
 
-            shadow1 = new Shadow(new Vector2(1330, 3000));
-            shadow2 = new Shadow(new Vector2(2100, 3000));
-            shadow3 = new Shadow(new Vector2(1200, 2500));
+            shadows = new Shadow[10];
+            for (int i = 0; i < shadows.Length; ++i)
+            {
+                if (i % 2 == 0)
+                {
+                    shadows[i] = new Shadow(new Vector2(1200, 2500 + 100*i));
+                }
+                else
+                {
+                    shadows[i] = new Shadow(new Vector2(2100, 2500 + 100 * i));
+                }
+
+                updateables.Add(shadows[i]);
+                drawables.Add(shadows[i]);
+            }
 
             doorPlayerOne = new Door(new Vector2(1550, 801));
             doorPlayerTwo = new Door(new Vector2(2000, 805));
@@ -48,18 +58,12 @@ namespace EVCMonoGame.src.scenes.tutorial
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                shadow1,
-                shadow2,
-                shadow3,
             });
 
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                shadow1,
-                shadow2,
-                shadow3,
             });
 
             camera.Zoom = 0.7f;

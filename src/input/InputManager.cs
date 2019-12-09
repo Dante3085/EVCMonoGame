@@ -477,14 +477,4 @@ namespace EVCMonoGame.src.input
         #endregion
         #endregion
     }
-
-    //public class KeyCombination
-    //{
-    //    private List<Keys> keys;
-
-    //    public KeyCombination(params Keys[] keys)
-    //    {
-    //        this.keys.AddRange(keys);
-    //    }
-    //}
 }
