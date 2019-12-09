@@ -69,7 +69,9 @@ namespace EVCMonoGame.src.characters
             )
         {
 
-            isAttacking = false;
+			PlayerInventory = new Inventory(this);
+
+			isAttacking = false;
             runThreshold = 0.65f;
 
             movementSpeed = 7.5f;

@@ -26,7 +26,7 @@ namespace EVCMonoGame.src.Items
 		private GameplayState.Lane lane;
 
 		// Input // Debug weil das Bugs verursacht wenn zwei spieler den allg. shop zeitgleich benutzen. InputHandling bitte im Spieler
-		private int InteractThreshold = 2000;
+		private int InteractThreshold = 300;
 		private double lastInteract = 0;
 		private GameTime gameTime;
 
