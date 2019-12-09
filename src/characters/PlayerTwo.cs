@@ -147,8 +147,21 @@ namespace EVCMonoGame.src.characters
 				PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 200);
 
             // flinch = zurückweichen
-            
+
             // playerPortrait.Update(gameTime);
+
+            if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.Two))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.Two))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.RightStick, PlayerIndex.Two))
+            {
+                inventory.UseActiveUsableItem(gameTime);
+            }
         }
 
         
