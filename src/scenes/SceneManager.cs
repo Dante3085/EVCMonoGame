@@ -121,7 +121,6 @@ namespace EVCMonoGame.src.scenes
             reverseTransitionFinished = false;
 
             debugTexts = new DebugTexts(new Vector2(100, 100));
-            debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
 
@@ -163,6 +162,7 @@ namespace EVCMonoGame.src.scenes
 
             roomSeqence.AddRange(new EScene[]
             {
+                // 0
                 EScene.TUTORIAL_ROOM_1,
                 EScene.TUTORIAL_ROOM_2,
                 EScene.TUTORIAL_ROOM_3,
@@ -171,6 +171,7 @@ namespace EVCMonoGame.src.scenes
 
                 EScene.REST_ROOM,
 
+                // 6
                 EScene.TRAIN_ROOM_1,
                 EScene.TRAIN_ROOM_2,
                 EScene.TRAIN_ROOM_3,
@@ -179,6 +180,7 @@ namespace EVCMonoGame.src.scenes
 
                 EScene.REST_ROOM,
 
+                // 12
                 EScene.DESERT_ROOM_1,
                 EScene.DESERT_ROOM_2,
                 EScene.DESERT_ROOM_3,
@@ -187,12 +189,14 @@ namespace EVCMonoGame.src.scenes
 
                 EScene.REST_ROOM,
 
+                // 18
                 EScene.CASTLE_ROOM_1,
                 EScene.CASTLE_ROOM_2,
                 EScene.CASTLE_ROOM_3,
                 EScene.CASTLE_ROOM_4,
                 EScene.CASTLE_ROOM_5,
 
+                // 23
                 EScene.BARREN_FALLS_ENTRANCE,
                 EScene.BARREN_FALLS,
             });
@@ -200,15 +204,15 @@ namespace EVCMonoGame.src.scenes
             // Tutorial is not random.
 
             // Randomize Train Rooms 3 to 5.
-            Utility.RandomizeList<EScene>(roomSeqence, 7, 9);
+            Utility.RandomizeList<EScene>(roomSeqence, 8, 10);
 
             // Randomize Desert Rooms 1 to 4.
-            Utility.RandomizeList<EScene>(roomSeqence, 10, 13);
+            Utility.RandomizeList<EScene>(roomSeqence, 12, 15);
 
             // Randomize Castle Rooms 1 to 4.
-            Utility.RandomizeList<EScene>(roomSeqence, 15, 18);
+            Utility.RandomizeList<EScene>(roomSeqence, 18, 21);
 
-            currentScene = previousScene = scenes[EScene.REST_ROOM];
+            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
 
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);

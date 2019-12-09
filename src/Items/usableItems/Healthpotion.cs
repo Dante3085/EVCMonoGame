@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.Items
 			: base(
 				  position,
 				  inventoryIconPath: "rsrc/spritesheets/singleImages/boss_bee",
-				  anmConfigFile: "rsrc/spritesheets/configFiles/coin.anm.txt",
+				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				  idleAnim: "COIN",
 				  lane: GameplayState.Lane.LaneBoth,
 				  itemName: "Healthpotion"

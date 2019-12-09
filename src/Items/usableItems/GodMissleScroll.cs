@@ -22,8 +22,10 @@ namespace EVCMonoGame.src.Items
 			: base
 			(
 				  position,
-				  "rsrc/spritesheets/singleImages/arrow",
-				  "rsrc/spritesheets/configFiles/coin.anm.txt",
+				  "rsrc/spr" +
+				  "" +
+				  "itesheets/singleImages/arrow",
+				  "Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				  "COIN",
 				  GameplayState.Lane.LaneTwo,
 				  "GodMissleScroll"

@@ -228,6 +228,13 @@ namespace EVCMonoGame.src.utility
             return Vector2.Zero;
         }
 
+        /// <summary>
+        /// Randomizes all Elements fo the given list from index startIndex(including) to index endIndex(including).
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
         public static void RandomizeList<T>(List<T> list, int startIndex, int endIndex)
         {
             if (startIndex < 0 || endIndex >= list.Count)

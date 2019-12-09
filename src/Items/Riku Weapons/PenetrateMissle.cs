@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.Items
 			(
 				position,
 				"rsrc/spritesheets/singleImages/arrow",
-				"rsrc/spritesheets/configFiles/coin.anm.txt",
+				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				"COIN",
 				"PenetrateMissle"
 			)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
@@ -13,6 +14,7 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.Items;
 using EVCMonoGame.src.characters.enemies;
+using EVCMonoGame.src.input;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -21,6 +23,8 @@ namespace EVCMonoGame.src.scenes
 
     public class Scene_RestRoom : Scene
     {
+		private Rectangle doorAreaSora = new Rectangle(650, 130, 365, 255);
+		private Rectangle doorAreaRiku = new Rectangle(2550, 122, 450, 265);
 
         public Scene_RestRoom(SceneManager sceneManager)
             : base(sceneManager)
@@ -106,5 +110,17 @@ namespace EVCMonoGame.src.scenes
 
             base.Draw(gameTime, spriteBatch);
         }
-    }
+
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+
+			// Go to BarrenFallsEntrance
+			if ((CollisionManager.IsPlayerInArea(PlayerIndex.One, doorAreaSora) && InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) ||
+				CollisionManager.IsPlayerInArea(PlayerIndex.Two, doorAreaRiku) && InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two)))
+			{
+				sceneManager.SceneTransitionNextRoom();
+			}
+		}
+	}
 }
