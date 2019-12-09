@@ -15,6 +15,7 @@ using EVCMonoGame.src.Items;
 using Microsoft.Xna.Framework;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.utility;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src
 {
@@ -103,8 +104,8 @@ namespace EVCMonoGame.src
 			if (owner.PlayerIndex == PlayerIndex.One)
 				screenPosition = new Vector2(200, 200);
 			else
-				screenPosition = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 200, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 200);
-
+				screenPosition = new Vector2(Game1.GraphicsDeviceManager.PreferredBackBufferWidth - 200, Game1.GraphicsDeviceManager.PreferredBackBufferHeight - 200);
+			
 			itemSize = new Point(60, 60);
 			usableItemAmmountDrawOffset = new Vector2(-20, -25);
 
