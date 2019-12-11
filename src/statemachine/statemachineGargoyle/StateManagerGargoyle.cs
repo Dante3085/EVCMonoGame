@@ -7,34 +7,34 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.characters;
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.gargoyle
 {
-    class StateManagerShadow : StateManager
+    class StateManagerGargoyle : StateManager
     {
-        public Shadow shadow;
-        public StateManagerShadow(Shadow shadow)
+        public Gargoyle gargoyle;
+        public StateManagerGargoyle(Gargoyle gargoyle)
         {
-            this.shadow = shadow;
-            this.states.Add(new StateStanding(shadow,
+            this.gargoyle = gargoyle;
+            this.states.Add(new StateStanding(gargoyle,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
                 new StandingFinished("Patrol", this)
             ));
-            this.states.Add(new StatePatrol(shadow,
+            this.states.Add(new StatePatrol(gargoyle,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
                 new PatrolFinished("Standing", this)
             ));
-            this.states.Add(new StateCharge(shadow,
+            this.states.Add(new StateCharge(gargoyle,
                 new IsDying("Dying", this),
                 new PlayerOutOfSightRange("Standing", this),
                 new CanAttackPlayer("Attack", this)
             ));
-            this.states.Add(new StateAttack(shadow,
+            this.states.Add(new StateAttack(gargoyle,
                 new IsDying("Dying", this),
                 new AttackFinished("Standing", this)
             ));
-            this.states.Add(new StateDying(shadow));
+            this.states.Add(new StateDying(gargoyle));
             this.currentState = states.Find((a) => { return a.stateId.Equals("Standing"); });
         }
 

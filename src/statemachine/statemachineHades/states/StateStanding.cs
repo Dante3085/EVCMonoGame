@@ -9,44 +9,44 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.hades
 {
     class StateStanding : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerHades stateManagerHades;
         public TimeSpan enteredStateTimeStamp = new TimeSpan(0, 0, 0);
-        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3,6));
-        public Shadow shadow;
-        public StateStanding(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
+        public Hades hades;
+        public StateStanding(/*StateManagerHades stateManager*/ Hades hades, params Transition[] transitions)
             : base("Standing", transitions)
         {
-            this.shadow = /*stateManager.*/shadow;
-            //this.stateManagerShadow = stateManagerShadow;
+            this.hades = /*stateManager.*/hades;
+            //this.stateManagerHades = stateManagerHades;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
             duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
-            Console.WriteLine("Shadow duration:" + duration.Seconds);
+            Console.WriteLine("Hades duration:" + duration.Seconds);
             enteredStateTimeStamp = gameTime.TotalGameTime;
-            float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.movementDirection);
-            shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(hades.movementDirection);
+            hades.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_RIGHT");
+                hades.Sprite.SetAnimation("IDLE_UP_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_LEFT");
+                hades.Sprite.SetAnimation("IDLE_UP_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_LEFT");
+                hades.Sprite.SetAnimation("IDLE_DOWN_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+                hades.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
             }
         }
 

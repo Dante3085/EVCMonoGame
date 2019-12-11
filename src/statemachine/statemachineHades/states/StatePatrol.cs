@@ -9,47 +9,47 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.hades
 {
     class StatePatrol : State
     {
         public float patrolLength;
         public Vector2 startPosition;
-        public StateManagerShadow stateManagerShadow;
-        public Shadow shadow;
+        public StateManagerHades stateManagerHades;
+        public Hades hades;
         private Random ran = new Random();
         public bool stateFinished = false;
-        public StatePatrol(Shadow shadow, params Transition[] transitions)
+        public StatePatrol(Hades hades, params Transition[] transitions)
             : base("Patrol", transitions)
         {
-            this.shadow = shadow;
+            this.hades = hades;
 
         }
         public override void Enter(GameTime gameTime)
         {
             stateFinished = false;
             base.Enter(gameTime);
-            startPosition = shadow.WorldPosition;
+            startPosition = hades.WorldPosition;
             Vector2 nextPatrolDirection = new Vector2(ran.Next(-100, 100), ran.Next(-100, 100));
-            shadow.movementDirection = Utility.ScaleVectorTo(nextPatrolDirection, shadow.movementSpeed);
-            patrolLength = ran.Next((int)shadow.sightRange / 2, (int)shadow.sightRange);
-            float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.movementDirection);
-            shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+            hades.movementDirection = Utility.ScaleVectorTo(nextPatrolDirection, hades.movementSpeed);
+            patrolLength = ran.Next((int)hades.sightRange / 2, (int)hades.sightRange);
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(hades.movementDirection);
+            hades.Sprite.SetAnimation("MOVE_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                hades.Sprite.SetAnimation("MOVE_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                hades.Sprite.SetAnimation("MOVE_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                hades.Sprite.SetAnimation("MOVE_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                hades.Sprite.SetAnimation("MOVE_RIGHT");
             }
         }
 
@@ -60,10 +60,10 @@ namespace EVCMonoGame.src.statemachine.shadow
 
         public override void Update(GameTime gameTime)
         {
-            shadow.PreviousWorldPosition = shadow.worldPosition;
-            shadow.WorldPosition += Utility.ScaleVectorTo(shadow.movementDirection, shadow.MovementSpeed);
-            stateFinished = CollisionManager.IsCollisionAfterMove(shadow, true, true);
-            stateFinished = stateFinished || ((startPosition-shadow.WorldPosition).Length()>patrolLength);
+            hades.PreviousWorldPosition = hades.worldPosition;
+            hades.WorldPosition += Utility.ScaleVectorTo(hades.movementDirection, hades.MovementSpeed);
+            stateFinished = CollisionManager.IsCollisionAfterMove(hades, true, true);
+            stateFinished = stateFinished || ((startPosition-hades.WorldPosition).Length()>patrolLength);
         }
     }
 }

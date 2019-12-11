@@ -9,72 +9,72 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.gargoyle
 {
     class StateCharge : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerGargoyle stateManagerGargoyle;
         public TimeSpan enteredState = new TimeSpan(0, 0, 0);
         public TimeSpan duration = new TimeSpan(0, 0, 10);
-        public Shadow shadow;
-        public StateCharge(Shadow shadow, params Transition[] transitions)
+        public Gargoyle gargoyle;
+        public StateCharge(Gargoyle gargoyle, params Transition[] transitions)
             : base("Charge", transitions)
         {
-            this.shadow = shadow;
+            this.gargoyle = gargoyle;
         }
         public override void Enter(GameTime gameTime)
         {
-            switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+            switch (Utility.GetOrientationDiagonal(gargoyle.movementDirection))
             {
                 case Orientation.DOWN_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                    gargoyle.Sprite.SetAnimation("FLYING_LEFT");
                     break;
                 case Orientation.DOWN_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                    gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                     break;
                 case Orientation.UP_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                    gargoyle.Sprite.SetAnimation("FLYING_LEFT");
                     break;
                 case Orientation.UP_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                     break;
                 default:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                     break;
             }
-            
-            shadow.target = CollisionManager.GetNearestPlayerInRange(shadow, shadow.sightRange);
-            
+
+            gargoyle.target = CollisionManager.GetNearestPlayerInRange(gargoyle, gargoyle.sightRange);
+
             base.Enter(gameTime);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (shadow.target != null) shadow.MoveToCharacter(gameTime, shadow.target);
-            if (Utility.GetOrientationDiagonal(shadow.previousMovementDirection) != Utility.GetOrientationDiagonal(shadow.movementDirection))
+            if (gargoyle.target != null) gargoyle.MoveToCharacter(gameTime, gargoyle.target);
+            if (Utility.GetOrientationDiagonal(gargoyle.previousMovementDirection) != Utility.GetOrientationDiagonal(gargoyle.movementDirection))
             {
-                switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+                switch (Utility.GetOrientationDiagonal(gargoyle.movementDirection))
                 {
                     case Orientation.DOWN_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                        gargoyle.Sprite.SetAnimation("FLYING_LEFT");
                         break;
                     case Orientation.DOWN_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                        gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                         break;
                     case Orientation.UP_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                        gargoyle.Sprite.SetAnimation("FLYING_LEFT");
                         break;
                     case Orientation.UP_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                         break;
                     default:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        gargoyle.Sprite.SetAnimation("FLYING_RIGHT");
                         break;
                 }
             }
-           
+
         }
 
         public override void Exit(GameTime gameTime)

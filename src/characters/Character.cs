@@ -120,6 +120,7 @@ namespace EVCMonoGame.src.characters
         {
             set
             {
+                //PreviousWorldPosition = worldPosition;
                 worldPosition = value;
 
                 collisionBox.Location = value.ToPoint();
@@ -219,7 +220,7 @@ namespace EVCMonoGame.src.characters
 
             combatArgs = new CombatArgs(this, null, CombatantType.UNDEFINED);
             combatArgs.damage = 50;
-            combatArgs.knockBack = new Vector2(50, 0);
+            //combatArgs.knockBack = new Vector2(50, 0);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -252,7 +253,7 @@ namespace EVCMonoGame.src.characters
             //enemyHealthbar.CurrentHp -= combatArgs.damage;
             //enemySprite.Position += combatArgs.knockBack;
 
-            Console.WriteLine("id: " + combatArgs.id);
+            
 
             if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
             {
@@ -269,13 +270,6 @@ namespace EVCMonoGame.src.characters
                     OnDeath();
                 }
 
-            }
-            else
-            {
-                // Reset this to true when the attack is over.
-                // This is to prevent one attack be counted
-                // as multiple attacks.
-                HasActiveAttackBounds = false;
             }
         }
 

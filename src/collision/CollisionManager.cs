@@ -52,15 +52,7 @@ namespace EVCMonoGame.src.collision
                     Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
                 }
             }
-            if (enemyCollisionChannel.Count > 0)
-            {
-                List<Point> p = new List<Point>();
-                p = Enemy.pathfinder.Pathfind(enemyCollisionChannel.First().WorldPosition.ToPoint(), playerCollisionChannel.First().WorldPosition.ToPoint());
-                for (int i = 0; i < (p.Count() - 1); i++)
-                {
-                    Primitives2D.DrawLine(spriteBatch, p[i].ToVector2(), p[i + 1].ToVector2(), Color.Green, 3);
-                }
-            }
+            
             if (DebugOptions.showAttackBounds)
             {
                 Color attackBoundColor = Color.DarkRed;

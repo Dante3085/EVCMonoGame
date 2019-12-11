@@ -8,35 +8,35 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.hades
 
 {
     class StateAttack : State
     {
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerHades stateManagerHades;
         public TimeSpan lastAttack = new TimeSpan(0, 0, 0);
         public TimeSpan cooldown = new TimeSpan(0, 0, 1);
-        public Shadow shadow;
-        public StateAttack(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public Hades hades;
+        public StateAttack(/*StateManagerHades stateManager*/ Hades hades, params Transition[] transitions)
             : base("Attack", transitions)
         {
-            this.shadow = shadow;
+            this.hades = hades;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            Console.WriteLine("Shadow entered ATTACKSTATE");
-            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(shadow, shadow.attackRange+10);
+            Console.WriteLine("Hades entered ATTACKSTATE");
+            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRange+10);
             
-            shadow.CombatArgs.NewId();
+            hades.CombatArgs.NewId();
             
-            if (nearestPlayer.Sprite.Bounds.Center.X > shadow.CollisionBox.Center.X)
+            if (nearestPlayer.Sprite.Bounds.Center.X > hades.CollisionBox.Center.X)
             {
-                shadow.Sprite.SetAnimation("NORMAL_ATTACK_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_STRIKE_RIGHT");
             }
             else
             {
-                shadow.Sprite.SetAnimation("NORMAL_ATTACK_LEFT");
+                hades.Sprite.SetAnimation("RAGE_STRIKE_LEFT");
             }
 
         }
@@ -50,7 +50,7 @@ namespace EVCMonoGame.src.statemachine.shadow
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            CollisionManager.CheckCombatCollisions(shadow);
+            CollisionManager.CheckCombatCollisions(hades);
         }
     }
 }

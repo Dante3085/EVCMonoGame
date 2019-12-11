@@ -18,6 +18,7 @@ using C3.MonoGame;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.Items;
+using EVCMonoGame.src.statemachine;
 
 namespace EVCMonoGame.src.characters
 {
@@ -27,6 +28,9 @@ namespace EVCMonoGame.src.characters
 		public Player target;
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
+        public Vector2 previousMovementDirection;
+
+        public statemachine.StateManager stateManager;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;
@@ -148,7 +152,7 @@ namespace EVCMonoGame.src.characters
 		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            /*
             if (!IsAlive)
                 return;
 
@@ -170,20 +174,21 @@ namespace EVCMonoGame.src.characters
 				MoveToCharacter(gameTime, target);
 			} else
 				target = CollisionManager.GetNearestPlayerInRange(this, sightRange);
-
-		}
+           */
+            stateManager.Update(gameTime);
+        }
 		#endregion
 
 		
 
 		public void MoveToCharacter(GameTime gameTime, Character character)
 		{
-			//ToDo
-			// - bool return
-			//
-			//
-			//
-
+            //ToDo
+            // - bool return
+            //
+            //
+            //
+            previousMovementDirection = movementDirection;
 			movementDirection = Vector2.Zero;
 
 
@@ -266,8 +271,9 @@ namespace EVCMonoGame.src.characters
             }
 			if (combatArgs.attacker != null && combatArgs.attacker is Player)
 				target = (Player)combatArgs.attacker;
-			else
+			/*else
 				Console.WriteLine("Nicht Player");
+                */
 		}
 
 		public override void OnDeath()

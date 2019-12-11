@@ -11,6 +11,7 @@ using EVCMonoGame.src.Items;
 
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.statemachine.shadow;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -38,6 +39,7 @@ namespace EVCMonoGame.src.characters.enemies
 
             collisionBox.Size = new Point(50, 50);
             collisionBoxOffset = new Vector2(30, 30);
+            stateManager = new StateManagerShadow(this);
         }
 
         public override void Update(GameTime gameTime)
@@ -62,5 +64,6 @@ namespace EVCMonoGame.src.characters.enemies
         //    base.OnCombatCollision(combatArgs);
         //    enemySprite.SetAnimation("FLINCH_LEFT");
         //}
+        
     }
 }

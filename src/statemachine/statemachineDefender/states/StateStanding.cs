@@ -9,44 +9,43 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.defender
 {
     class StateStanding : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerDefender stateManagerDefender;
         public TimeSpan enteredStateTimeStamp = new TimeSpan(0, 0, 0);
-        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3,6));
-        public Shadow shadow;
-        public StateStanding(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
+        public Defender defender;
+        public StateStanding(/*StateManagerDefender stateManager*/ Defender defender, params Transition[] transitions)
             : base("Standing", transitions)
         {
-            this.shadow = /*stateManager.*/shadow;
-            //this.stateManagerShadow = stateManagerShadow;
+            this.defender = /*stateManager.*/defender;
+            //this.stateManagerDefender = stateManagerDefender;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
             duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
-            Console.WriteLine("Shadow duration:" + duration.Seconds);
             enteredStateTimeStamp = gameTime.TotalGameTime;
-            float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.movementDirection);
-            shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(defender.PreviousWorldPosition - defender.worldPosition);
+            defender.Sprite.SetAnimation("IDLE_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_RIGHT");
+                defender.Sprite.SetAnimation("IDLE_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_LEFT");
+                defender.Sprite.SetAnimation("IDLE_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_LEFT");
+                defender.Sprite.SetAnimation("IDLE_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+                defender.Sprite.SetAnimation("IDLE_RIGHT");
             }
         }
 

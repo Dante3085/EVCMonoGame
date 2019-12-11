@@ -9,44 +9,43 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.gargoyle
 {
     class StateStanding : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerGargoyle stateManagerGargoyle;
         public TimeSpan enteredStateTimeStamp = new TimeSpan(0, 0, 0);
-        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3,6));
-        public Shadow shadow;
-        public StateStanding(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public TimeSpan duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
+        public Gargoyle gargoyle;
+        public StateStanding(/*StateManagerGargoyle stateManager*/ Gargoyle gargoyle, params Transition[] transitions)
             : base("Standing", transitions)
         {
-            this.shadow = /*stateManager.*/shadow;
-            //this.stateManagerShadow = stateManagerShadow;
+            this.gargoyle = /*stateManager.*/gargoyle;
+            //this.stateManagerGargoyle = stateManagerGargoyle;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
             duration = new TimeSpan(0, 0, Utility.random.Next(3, 6));
-            Console.WriteLine("Shadow duration:" + duration.Seconds);
             enteredStateTimeStamp = gameTime.TotalGameTime;
-            float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.movementDirection);
-            shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(gargoyle.PreviousWorldPosition - gargoyle.worldPosition);
+            gargoyle.Sprite.SetAnimation("IDLE_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_RIGHT");
+                gargoyle.Sprite.SetAnimation("IDLE_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_LEFT");
+                gargoyle.Sprite.SetAnimation("IDLE_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_LEFT");
+                gargoyle.Sprite.SetAnimation("IDLE_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+                gargoyle.Sprite.SetAnimation("IDLE_RIGHT");
             }
         }
 

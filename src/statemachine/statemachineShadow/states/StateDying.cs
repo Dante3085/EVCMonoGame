@@ -8,6 +8,7 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
+using EVCMonoGame.src.scenes;
 
 namespace EVCMonoGame.src.statemachine.shadow
 {
@@ -18,7 +19,7 @@ namespace EVCMonoGame.src.statemachine.shadow
         public TimeSpan duration = new TimeSpan(0, 0, 10);
         public Shadow shadow;
         public StateDying(Shadow shadow, params Transition[] transitions)
-            : base("Attack", transitions)
+            : base("Dying", transitions)
         {
             this.shadow = shadow;
         }
@@ -56,6 +57,8 @@ namespace EVCMonoGame.src.statemachine.shadow
         {
             base.Exit(gameTime);
             shadow.FlaggedForRemove = true;
+            Scene.updateablesToRemove.Add(shadow);
+            Scene.drawablesToRemove.Add(shadow);
         }
     }
 }

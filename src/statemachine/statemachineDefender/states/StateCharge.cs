@@ -9,72 +9,72 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.defender
 {
     class StateCharge : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerDefender stateManagerDefender;
         public TimeSpan enteredState = new TimeSpan(0, 0, 0);
         public TimeSpan duration = new TimeSpan(0, 0, 10);
-        public Shadow shadow;
-        public StateCharge(Shadow shadow, params Transition[] transitions)
+        public Defender defender;
+        public StateCharge(Defender defender, params Transition[] transitions)
             : base("Charge", transitions)
         {
-            this.shadow = shadow;
+            this.defender = defender;
         }
         public override void Enter(GameTime gameTime)
         {
-            switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+            switch (Utility.GetOrientationDiagonal(defender.movementDirection))
             {
                 case Orientation.DOWN_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                    defender.Sprite.SetAnimation("RUN_LEFT");
                     break;
                 case Orientation.DOWN_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                    defender.Sprite.SetAnimation("RUN_RIGHT");
                     break;
                 case Orientation.UP_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                    defender.Sprite.SetAnimation("RUN_LEFT");
                     break;
                 case Orientation.UP_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    defender.Sprite.SetAnimation("RUN_RIGHT");
                     break;
                 default:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    defender.Sprite.SetAnimation("RUN_RIGHT");
                     break;
             }
-            
-            shadow.target = CollisionManager.GetNearestPlayerInRange(shadow, shadow.sightRange);
-            
+
+            defender.target = CollisionManager.GetNearestPlayerInRange(defender, defender.sightRange);
+
             base.Enter(gameTime);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (shadow.target != null) shadow.MoveToCharacter(gameTime, shadow.target);
-            if (Utility.GetOrientationDiagonal(shadow.previousMovementDirection) != Utility.GetOrientationDiagonal(shadow.movementDirection))
+            if (defender.target != null) defender.MoveToCharacter(gameTime, defender.target);
+            if (Utility.GetOrientationDiagonal(defender.previousMovementDirection) != Utility.GetOrientationDiagonal(defender.movementDirection))
             {
-                switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+                switch (Utility.GetOrientationDiagonal(defender.movementDirection))
                 {
                     case Orientation.DOWN_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                        defender.Sprite.SetAnimation("RUN_LEFT");
                         break;
                     case Orientation.DOWN_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                        defender.Sprite.SetAnimation("RUN_RIGHT");
                         break;
                     case Orientation.UP_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                        defender.Sprite.SetAnimation("RUN_LEFT");
                         break;
                     case Orientation.UP_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        defender.Sprite.SetAnimation("RUN_RIGHT");
                         break;
                     default:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        defender.Sprite.SetAnimation("RUN_RIGHT");
                         break;
                 }
             }
-           
+
         }
 
         public override void Exit(GameTime gameTime)

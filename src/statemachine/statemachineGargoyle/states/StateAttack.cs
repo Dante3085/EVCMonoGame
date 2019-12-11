@@ -8,35 +8,35 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.gargoyle
 
 {
     class StateAttack : State
     {
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerGargoyle stateManagerGargoyle;
         public TimeSpan lastAttack = new TimeSpan(0, 0, 0);
         public TimeSpan cooldown = new TimeSpan(0, 0, 1);
-        public Shadow shadow;
-        public StateAttack(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public Gargoyle gargoyle;
+        public StateAttack(/*StateManagerGargoyle stateManager*/ Gargoyle gargoyle, params Transition[] transitions)
             : base("Attack", transitions)
         {
-            this.shadow = shadow;
+            this.gargoyle = gargoyle;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            Console.WriteLine("Shadow entered ATTACKSTATE");
-            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(shadow, shadow.attackRange+10);
+            Console.WriteLine("Gargoyle entered ATTACKSTATE");
+            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(gargoyle, gargoyle.attackRange+10);
             
-            shadow.CombatArgs.NewId();
+            gargoyle.CombatArgs.NewId();
             
-            if (nearestPlayer.Sprite.Bounds.Center.X > shadow.CollisionBox.Center.X)
+            if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
             {
-                shadow.Sprite.SetAnimation("NORMAL_ATTACK_RIGHT");
+                gargoyle.Sprite.SetAnimation("ATTACK_RIGHT");
             }
             else
             {
-                shadow.Sprite.SetAnimation("NORMAL_ATTACK_LEFT");
+                gargoyle.Sprite.SetAnimation("ATTACK_LEFT");
             }
 
         }
@@ -50,7 +50,7 @@ namespace EVCMonoGame.src.statemachine.shadow
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            CollisionManager.CheckCombatCollisions(shadow);
+            CollisionManager.CheckCombatCollisions(gargoyle);
         }
     }
 }

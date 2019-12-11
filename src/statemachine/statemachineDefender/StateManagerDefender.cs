@@ -7,34 +7,34 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.characters;
 using Microsoft.Xna.Framework;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.defender
 {
-    class StateManagerShadow : StateManager
+    class StateManagerDefender : StateManager
     {
-        public Shadow shadow;
-        public StateManagerShadow(Shadow shadow)
+        public Defender defender;
+        public StateManagerDefender(Defender defender)
         {
-            this.shadow = shadow;
-            this.states.Add(new StateStanding(shadow,
+            this.defender = defender;
+            this.states.Add(new StateStanding(defender,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
                 new StandingFinished("Patrol", this)
             ));
-            this.states.Add(new StatePatrol(shadow,
+            this.states.Add(new StatePatrol(defender,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
                 new PatrolFinished("Standing", this)
             ));
-            this.states.Add(new StateCharge(shadow,
+            this.states.Add(new StateCharge(defender,
                 new IsDying("Dying", this),
                 new PlayerOutOfSightRange("Standing", this),
                 new CanAttackPlayer("Attack", this)
             ));
-            this.states.Add(new StateAttack(shadow,
+            this.states.Add(new StateAttack(defender,
                 new IsDying("Dying", this),
                 new AttackFinished("Standing", this)
             ));
-            this.states.Add(new StateDying(shadow));
+            this.states.Add(new StateDying(defender));
             this.currentState = states.Find((a) => { return a.stateId.Equals("Standing"); });
         }
 

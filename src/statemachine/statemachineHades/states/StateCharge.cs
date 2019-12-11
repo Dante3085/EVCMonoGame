@@ -9,72 +9,72 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.utility;
 
-namespace EVCMonoGame.src.statemachine.shadow
+namespace EVCMonoGame.src.statemachine.hades
 {
     class StateCharge : State
     {
 
-        public StateManagerShadow stateManagerShadow;
+        public StateManagerHades stateManagerHades;
         public TimeSpan enteredState = new TimeSpan(0, 0, 0);
         public TimeSpan duration = new TimeSpan(0, 0, 10);
-        public Shadow shadow;
-        public StateCharge(Shadow shadow, params Transition[] transitions)
+        public Hades hades;
+        public StateCharge(Hades hades, params Transition[] transitions)
             : base("Charge", transitions)
         {
-            this.shadow = shadow;
+            this.hades = hades;
         }
         public override void Enter(GameTime gameTime)
         {
-            switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+            switch (Utility.GetOrientationDiagonal(hades.movementDirection))
             {
                 case Orientation.DOWN_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                    hades.Sprite.SetAnimation("MOVE_LEFT");
                     break;
                 case Orientation.DOWN_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                    hades.Sprite.SetAnimation("MOVE_RIGHT");
                     break;
                 case Orientation.UP_LEFT:
-                    shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                    hades.Sprite.SetAnimation("MOVE_LEFT");
                     break;
                 case Orientation.UP_RIGHT:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    hades.Sprite.SetAnimation("MOVE_RIGHT");
                     break;
                 default:
-                    shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                    hades.Sprite.SetAnimation("MOVE_RIGHT");
                     break;
             }
-            
-            shadow.target = CollisionManager.GetNearestPlayerInRange(shadow, shadow.sightRange);
-            
+
+            hades.target = CollisionManager.GetNearestPlayerInRange(hades, hades.sightRange);
+
             base.Enter(gameTime);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (shadow.target != null) shadow.MoveToCharacter(gameTime, shadow.target);
-            if (Utility.GetOrientationDiagonal(shadow.previousMovementDirection) != Utility.GetOrientationDiagonal(shadow.movementDirection))
+            if (hades.target != null) hades.MoveToCharacter(gameTime, hades.target);
+            if (Utility.GetOrientationDiagonal(hades.previousMovementDirection) != Utility.GetOrientationDiagonal(hades.movementDirection))
             {
-                switch (Utility.GetOrientationDiagonal(shadow.movementDirection))
+                switch (Utility.GetOrientationDiagonal(hades.movementDirection))
                 {
                     case Orientation.DOWN_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+                        hades.Sprite.SetAnimation("MOVE_LEFT");
                         break;
                     case Orientation.DOWN_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+                        hades.Sprite.SetAnimation("MOVE_RIGHT");
                         break;
                     case Orientation.UP_LEFT:
-                        shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+                        hades.Sprite.SetAnimation("MOVE_LEFT");
                         break;
                     case Orientation.UP_RIGHT:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        hades.Sprite.SetAnimation("MOVE_RIGHT");
                         break;
                     default:
-                        shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
+                        hades.Sprite.SetAnimation("MOVE_RIGHT");
                         break;
                 }
             }
-           
+
         }
 
         public override void Exit(GameTime gameTime)
