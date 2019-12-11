@@ -19,8 +19,7 @@ namespace EVCMonoGame.src.scenes.train
 {
     public class Scene_Train_Room5 : Scene
     {
-        private Shadow shadow1;
-        private Shadow shadow2;
+        private Shadow[] shadows;
 
         public Scene_Train_Room5(SceneManager sceneManager)
             : base(sceneManager)
@@ -41,29 +40,53 @@ namespace EVCMonoGame.src.scenes.train
             // camera.DynamicZoomActivated = false;
             // camera.Zoom = camera.WideZoom;
 
-            shadow1 = new Shadow(new Vector2(400, 896));
-            shadow2 = new Shadow(new Vector2(400, 2600));
-
-            updateables.AddRange(new IUpdateable[]
+            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
             {
-                shadow1,
-                shadow2,
+                new Vector2(361, 1230),
+                new Vector2(1560, 664),
+                new Vector2(1627, 1190),
+                new Vector2(2200, 1160),
+                new Vector2(2348, 787),
             });
 
-            drawables.AddRange(new IDrawable[]
+            enemySpawnLocationsRightLane.AddRange(new Vector2[]
             {
-                shadow1,
-                shadow2,
+                new Vector2(1505, 2357),
+                new Vector2(1635, 2729),
+                new Vector2(1931, 2891),
+                new Vector2(2207, 2865),
+                new Vector2(2352, 2444),
             });
+            RandomizeEnemySpawnLocations();
+
+            shadows = new Shadow[10];
+            for (int i = 0; i < shadows.Length; ++i)
+            {
+                // Spawn on left side.
+                if (i % 2 == 0)
+                {
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                }
+
+                // Spawn on right side.
+                else
+                {
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                }
+
+                updateables.Add(shadows[i]);
+                drawables.Add(shadows[i]);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (!shadow1.IsAlive && !shadow2.IsAlive)
+            if (shadows.All((s) => !s.IsAlive))
             {
                 sceneManager.SceneTransitionNextRoom();
+                // sceneManager.SceneTransition(EScene.TRAIN_ROOM_3);
             }
         }
     }

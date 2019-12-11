@@ -13,6 +13,7 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
+using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.scenes
 {
@@ -42,6 +43,9 @@ namespace EVCMonoGame.src.scenes
 
         protected PlayerOne sora = GameplayState.PlayerOne;
         protected PlayerTwo riku = GameplayState.PlayerTwo;
+
+        protected List<Vector2> enemySpawnLocationsLeftLane = new List<Vector2>();
+        protected List<Vector2> enemySpawnLocationsRightLane = new List<Vector2>();
 
         #endregion
         #region Constructors
@@ -170,6 +174,46 @@ namespace EVCMonoGame.src.scenes
 		{
 			pauseScene = false;
 		}
+
+        protected void RandomizeEnemySpawnLocations()
+        {
+            Utility.RandomizeList<Vector2>(enemySpawnLocationsLeftLane, 0, enemySpawnLocationsLeftLane.Count - 1);
+            Utility.RandomizeList<Vector2>(enemySpawnLocationsRightLane, 0, enemySpawnLocationsRightLane.Count - 1);
+        }
+
+        protected Vector2 NextEnemySpawnLocationLeftLane()
+        {
+            if (enemySpawnLocationsLeftLane.Count == 0)
+            {
+                throw new InvalidOperationException("All enemySpawnLocations on left lane are already in use.");
+            }
+
+            Vector2 spawnLocation = enemySpawnLocationsLeftLane[0];
+            enemySpawnLocationsLeftLane.RemoveAt(0);
+            return spawnLocation;
+        }
+
+        protected Vector2 NextEnemySpawnLocationRightLane()
+        {
+            if (enemySpawnLocationsRightLane.Count == 0)
+            {
+                throw new InvalidOperationException("All enemySpawnLocations on right lane are already in use.");
+            }
+
+            Vector2 spawnLocation = enemySpawnLocationsRightLane[0];
+            enemySpawnLocationsRightLane.RemoveAt(0);
+            return spawnLocation;
+        }
+
+        protected void AddUpdateables(params IUpdateable[] updateables)
+        {
+            this.updateables.AddRange(updateables);
+        }
+
+        protected void AddDrawables(params IDrawable[] drawables)
+        {
+            this.drawables.AddRange(drawables);
+        }
 
         #endregion
     }

@@ -35,16 +35,40 @@ namespace EVCMonoGame.src.scenes.tutorial
             sora.WorldPosition = new Vector2(1356, 4265);
             riku.WorldPosition = new Vector2(2069, 4376);
 
-            shadows = new Shadow[10];
+            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
+            {
+                new Vector2(1350, 1320),
+                new Vector2(660, 1877),
+                new Vector2(1214, 2007), 
+                new Vector2(440, 2500),
+                new Vector2(1249, 2500),
+                new Vector2(1140, 3636),
+            });
+
+            enemySpawnLocationsRightLane.AddRange(new Vector2[]
+            {
+                new Vector2(2030, 1500),
+                new Vector2(2800, 1920),
+                new Vector2(2500, 2174),
+                new Vector2(3180, 2342),
+                new Vector2(2451, 2930),
+                new Vector2(2368, 3430),
+            });
+            RandomizeEnemySpawnLocations();
+
+            shadows = new Shadow[6];
             for (int i = 0; i < shadows.Length; ++i)
             {
+                // Spawn on left side.
                 if (i % 2 == 0)
                 {
-                    shadows[i] = new Shadow(new Vector2(1200, 2500 + 100*i));
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
                 }
+
+                // Spawn on right side.
                 else
                 {
-                    shadows[i] = new Shadow(new Vector2(2100, 2500 + 100 * i));
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
                 }
 
                 updateables.Add(shadows[i]);
