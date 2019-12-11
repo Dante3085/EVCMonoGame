@@ -14,35 +14,37 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public abstract class UsableItem : InventoryItem
+	public class CoinBombMissle : WeaponRiku
 	{
-		public int stack = 1;
-		public String itemName = "";
-		public bool stackable = true;
 
-		public UsableItem(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane, String itemName = "")
+		public CoinBombMissle(Vector2 position)
 			: base
 			(
-				  position,
-				  inventoryIconPath,
-				  anmConfigFile,
-				  idleAnim,
-				  lane
+				position,
+				"rsrc/spritesheets/singleImages/coin-1",
+				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
+				"COIN",
+				"CoinBombMissle"
 			)
 		{
-			this.itemName = itemName;
+			Unlocked = true;
 		}
-		
+		public override Item Copy()
+		{
+			return new CoinBombMissle(WorldPosition);
+		}
+
+
 		public override void PickUp(Player player)
 		{
 			base.PickUp(player);
-
-			player.PlayerInventory.AddUsableItem(this);
 		}
 
-		public virtual void Use(Player player)
+		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
-			stack--;
+			base.ActivateSpecial(player, gameTime);
+			Console.WriteLine("Special Attacke der CoinBomb Missle");
 		}
+
 	}
 }

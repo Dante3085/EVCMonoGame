@@ -19,7 +19,8 @@ namespace EVCMonoGame.src.scenes.tutorial
 {
     public class Scene_Tutorial_Room4 : Scene
     {
-        private Defender defender;
+        private Defender defenderSora;
+        private Defender defenderRiku;
 
         public Scene_Tutorial_Room4(SceneManager sceneManager)
             : base(sceneManager)
@@ -38,20 +39,23 @@ namespace EVCMonoGame.src.scenes.tutorial
             doorPlayerOne = new Door(new Vector2(494, 100));
             doorPlayerTwo = new Door(new Vector2(1712, 104));
 
-            defender = new Defender(new Vector2(1712, 900));
+            defenderSora = new Defender(new Vector2(600, 600));
+            defenderRiku = new Defender(new Vector2(1712, 900));
 
             updateables.AddRange(new IUpdateable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                defender,
+                defenderSora,
+                defenderRiku,
             });
 
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                defender,
+                defenderSora,
+                defenderRiku,
             });
 
             camera.Zoom = 0.7f;

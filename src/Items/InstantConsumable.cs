@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.states;
 using Microsoft.Xna.Framework;
 
 namespace EVCMonoGame.src.Items
@@ -19,8 +20,21 @@ namespace EVCMonoGame.src.Items
 		
 		public bool permaStats;
 
-		public InstantConsumable(Vector2 position) : base(position)
+		public InstantConsumable(Vector2 position, String anmConfigFile, String idleAnim, GameplayState.Lane lane, float scale = 1.0f) 
+			: base
+			(
+				position,
+				anmConfigFile,
+				idleAnim,
+				lane
+			)
 		{
+			sprite.Scale = scale;
+		}
+
+		public override Item Copy()
+		{
+			return new InstantConsumable(WorldPosition, anmConfigFile, idleAnim, lane, sprite.Scale);
 		}
 
 		public override void PickUp(Player player)
@@ -29,7 +43,8 @@ namespace EVCMonoGame.src.Items
 			player.CurrentHp += heal;
 			player.movementSpeed += speed;
 			player.exp += exp;
-			player.gold += gold;
+			player.PlayerInventory.Gold += gold;
+			player.expBar.CurrentExp += exp;
 
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
 

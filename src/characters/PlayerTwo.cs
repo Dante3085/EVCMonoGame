@@ -18,6 +18,7 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.projectiles;
 using EVCMonoGame.src.statemachine.riku;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.characters
 {
@@ -53,6 +54,12 @@ namespace EVCMonoGame.src.characters
             get; set;
         } = false;
 
+		public new InventoryRiku PlayerInventory
+		{
+			get { return (InventoryRiku)inventory; }
+			set { inventory = value; }
+		}
+
         #endregion
 
         #region Constructors
@@ -70,9 +77,12 @@ namespace EVCMonoGame.src.characters
                   agility: 4,
                   movementSpeed: 7,
                   position: position,
-				  playerIndex: PlayerIndex.Two
+				  playerIndex: PlayerIndex.Two,
+				  lane: GameplayState.Lane.LaneTwo
 			)
         {
+			PlayerInventory = new InventoryRiku(this);
+
             runThreshold = 0.65f;
 
             movementSpeed = 7.5f;
@@ -132,9 +142,26 @@ namespace EVCMonoGame.src.characters
             missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
             stateManager.Update(gameTime);
 
+			//Debug Input
+			if (InputManager.IsKeyPressed(Keys.B))
+				PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 200);
+
             // flinch = zurückweichen
-            
+
             // playerPortrait.Update(gameTime);
+
+            if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.Two))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.Two))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.RightStick, PlayerIndex.Two))
+            {
+                inventory.UseActiveUsableItem(gameTime);
+            }
         }
 
         

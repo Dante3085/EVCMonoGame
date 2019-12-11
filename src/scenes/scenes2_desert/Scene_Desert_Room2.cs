@@ -19,9 +19,8 @@ namespace EVCMonoGame.src.scenes.desert
 {
     public class Scene_Desert_Room2 : Scene
     {
-        private Shadow shadow1;
-        private Shadow shadow2;
-
+        private Shadow[] shadows;
+        
         public Scene_Desert_Room2(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -36,24 +35,59 @@ namespace EVCMonoGame.src.scenes.desert
             sora.WorldPosition = new Vector2(2000, 5200);
             riku.WorldPosition = new Vector2(5000, 3700);
 
-            shadow1 = new Shadow(new Vector2(2200, 5200));
-            shadow2 = new Shadow(new Vector2(5200, 3700));
-
             doorPlayerOne = new Door(new Vector2(1794, 3000));
             doorPlayerTwo = new Door(new Vector2(4415, 2177));
 
+            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
+            {
+                new Vector2(1785, 4760),
+                new Vector2(2282, 4598),
+                new Vector2(2172, 4030),
+                new Vector2(1441, 3927),
+                new Vector2(1961, 3472),
+                new Vector2(1764, 3332),
+                new Vector2(2217, 3669),
+            });
+
+            enemySpawnLocationsRightLane.AddRange(new Vector2[]
+            {
+                new Vector2(4302, 3508),
+                new Vector2(5976, 3305),
+                new Vector2(5110, 3103),
+                new Vector2(3908, 3047),
+                new Vector2(4575, 2539),
+                new Vector2(5336, 1940),
+                new Vector2(5852, 1697)
+            });
+            RandomizeEnemySpawnLocations();
+
+            shadows = new Shadow[10];
+            for (int i = 0; i < shadows.Length; ++i)
+            {
+                // Spawn on left side.
+                if (i % 2 == 0)
+                {
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                }
+
+                // Spawn on right side.
+                else
+                {
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                }
+
+                updateables.Add(shadows[i]);
+                drawables.Add(shadows[i]);
+            }
+
             updateables.AddRange(new IUpdateable[]
             {
-                shadow1,
-                shadow2,
                 doorPlayerOne,
                 doorPlayerTwo,
             });
 
             drawables.AddRange(new IDrawable[]
             {
-                shadow1,
-                shadow2,
                 doorPlayerOne,
                 doorPlayerTwo,
             });
@@ -65,7 +99,7 @@ namespace EVCMonoGame.src.scenes.desert
         {
             base.Update(gameTime);
 
-            if (!shadow1.IsAlive && !shadow2.IsAlive &&
+            if (shadows.All(s => !s.IsAlive) &&
                 doorPlayerOne.Open && doorPlayerTwo.Open)
             {
                 sceneManager.SceneTransitionNextRoom();

@@ -14,35 +14,36 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public abstract class UsableItem : InventoryItem
+	public class PenetrateMissle : WeaponRiku
 	{
-		public int stack = 1;
-		public String itemName = "";
-		public bool stackable = true;
 
-		public UsableItem(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane, String itemName = "")
+		public PenetrateMissle(Vector2 position)
 			: base
 			(
-				  position,
-				  inventoryIconPath,
-				  anmConfigFile,
-				  idleAnim,
-				  lane
+				position,
+				"rsrc/spritesheets/singleImages/arrow",
+				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
+				"COIN",
+				"PenetrateMissle"
 			)
 		{
-			this.itemName = itemName;
 		}
-		
+		public override Item Copy()
+		{
+			return new PenetrateMissle(WorldPosition);
+		}
+
+
 		public override void PickUp(Player player)
 		{
 			base.PickUp(player);
-
-			player.PlayerInventory.AddUsableItem(this);
 		}
 
-		public virtual void Use(Player player)
+		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
-			stack--;
+			base.ActivateSpecial(player, gameTime);
+			Console.WriteLine("Special Attacke der Penetration Missle");
 		}
+
 	}
 }

@@ -11,25 +11,30 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
+using EVCMonoGame.src.collision;
+using EVCMonoGame.src.states;
+using EVCMonoGame.src.gui;
 
 namespace EVCMonoGame.src.characters
 {
     public abstract class Player : Character, scenes.IDrawable
     {
         private ItemFinder itemFinder;
-        private Inventory inventory;
+        protected Inventory inventory;
 
-		public int gold;
 		public int exp;
+
+        public ExperienceBar expBar;
 
 
 		public Orientation playerOrientation = Orientation.RIGHT;
 		private PlayerIndex playerIndex;
+		public GameplayState.Lane lane;
 
 		public Inventory PlayerInventory
         {
             get { return inventory; }
-            set { }
+            set { inventory = value; }
         }
 		public PlayerIndex PlayerIndex
 		{
@@ -55,7 +60,8 @@ namespace EVCMonoGame.src.characters
 				int agility,
 				int movementSpeed,
 				Vector2 position,
-				PlayerIndex playerIndex
+				PlayerIndex playerIndex,
+				GameplayState.Lane lane
             )
             : base
             (
@@ -76,14 +82,18 @@ namespace EVCMonoGame.src.characters
 			this.playerIndex = playerIndex;
             this.combatant = CombatantType.PLAYER;
             this.combatArgs.targetType = CombatantType.ENEMY;
-			inventory = new Inventory(this);
+			this.lane = lane;
 			itemFinder = new ItemFinder(this);
+
+            expBar = new ExperienceBar(100, 20, Vector2.Zero, new Vector2(150, 10));
 		}
 
 		public override void LoadContent(ContentManager content)
 		{
 			base.LoadContent(content);
 			inventory.LoadContent(content);
+
+            expBar.LoadContent(content);
 		}
 
 		/*
@@ -101,11 +111,30 @@ namespace EVCMonoGame.src.characters
 
             itemFinder.Update(gameTime);
 
+			//Navigate UsableItems
 			if (InputManager.IsKeyPressed(Keys.Q))
 				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
 			if (InputManager.IsKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
 
+			//Navigate Weapons
+			if (InputManager.IsKeyPressed(Keys.Y))
+				inventory.NavigateWeapons(gameTime, Inventory.Direction.LEFT);
+			if (InputManager.IsKeyPressed(Keys.X))
+				inventory.NavigateWeapons(gameTime, Inventory.Direction.RIGHT);
+
+			// Use Special Attack
+			if (InputManager.IsKeyPressed(Keys.B) && playerIndex == PlayerIndex.One)
+				inventory.ActivateSpecialAttack(gameTime);
+
+			// Use Item or Interact
+			if (InputManager.IsKeyPressed(Keys.F))
+				if (CollisionManager.IsInteractableCollision(this))
+					CollisionManager.GetNearestInteractable(this).Interact(this);
+				else
+					inventory.UseActiveUsableItem(gameTime);
+
+            expBar.Position = Healthbar.Position - new Vector2(0, expBar.Size.Y);
 		}
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -113,6 +142,8 @@ namespace EVCMonoGame.src.characters
             base.Draw(gameTime, spriteBatch);
 
             itemFinder.Draw(gameTime, spriteBatch);
+
+            expBar.Draw(gameTime, spriteBatch);
         }
     }
 }

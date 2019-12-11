@@ -53,6 +53,9 @@ namespace EVCMonoGame.src.scenes
         CASTLE_ROOM_3,
         CASTLE_ROOM_4,
         CASTLE_ROOM_5,
+
+        BARREN_FALLS_ENTRANCE,
+        BARREN_FALLS,
     }
 
     public class SceneManager
@@ -78,6 +81,12 @@ namespace EVCMonoGame.src.scenes
         private StateManager stateManager;
 
         private static List<EScene> roomSeqence;
+
+        private Texture2D rikuControllerLayout;
+        private bool showRikuControllerLayout = false;
+
+        private Texture2D soraControllerLayout;
+        private bool showSoraControllerLayout = false;
 
         #endregion
         #region Properties
@@ -118,7 +127,6 @@ namespace EVCMonoGame.src.scenes
             reverseTransitionFinished = false;
 
             debugTexts = new DebugTexts(new Vector2(100, 100));
-            debugTexts.Entries.Add("MousePos:");
 
             scenes = new Dictionary<EScene, Scene>();
 
@@ -153,47 +161,64 @@ namespace EVCMonoGame.src.scenes
             scenes[EScene.CASTLE_ROOM_4] = new Scene_Castle_Room4(this);
             scenes[EScene.CASTLE_ROOM_5] = new Scene_Castle_Room5(this);
 
+            scenes[EScene.BARREN_FALLS_ENTRANCE] = new Scene_BarrenFallsEntrance(this);
+            scenes[EScene.BARREN_FALLS] = new Scene_BarrenFalls(this);
+
             roomSeqence = new List<EScene>();
 
             roomSeqence.AddRange(new EScene[]
             {
+                // 0
                 EScene.TUTORIAL_ROOM_1,
                 EScene.TUTORIAL_ROOM_2,
                 EScene.TUTORIAL_ROOM_3,
                 EScene.TUTORIAL_ROOM_4,
                 EScene.TUTORIAL_ROOM_5,
 
+                EScene.REST_ROOM,
+
+                // 6
                 EScene.TRAIN_ROOM_1,
                 EScene.TRAIN_ROOM_2,
                 EScene.TRAIN_ROOM_3,
                 EScene.TRAIN_ROOM_4,
                 EScene.TRAIN_ROOM_5,
 
+                EScene.REST_ROOM,
+
+                // 12
                 EScene.DESERT_ROOM_1,
                 EScene.DESERT_ROOM_2,
                 EScene.DESERT_ROOM_3,
                 EScene.DESERT_ROOM_4,
                 EScene.DESERT_ROOM_5,
 
+                EScene.REST_ROOM,
+
+                // 18
                 EScene.CASTLE_ROOM_1,
                 EScene.CASTLE_ROOM_2,
                 EScene.CASTLE_ROOM_3,
                 EScene.CASTLE_ROOM_4,
                 EScene.CASTLE_ROOM_5,
+
+                // 23
+                EScene.BARREN_FALLS_ENTRANCE,
+                EScene.BARREN_FALLS,
             });
 
             // Tutorial is not random.
 
             // Randomize Train Rooms 3 to 5.
-            Utility.RandomizeList<EScene>(roomSeqence, 7, 9);
+            Utility.RandomizeList<EScene>(roomSeqence, 8, 10);
 
             // Randomize Desert Rooms 1 to 4.
-            Utility.RandomizeList<EScene>(roomSeqence, 10, 13);
+            Utility.RandomizeList<EScene>(roomSeqence, 12, 15);
 
             // Randomize Castle Rooms 1 to 4.
-            Utility.RandomizeList<EScene>(roomSeqence, 15, 18);
+            Utility.RandomizeList<EScene>(roomSeqence, 18, 21);
 
-            currentScene = previousScene = scenes[EScene.TUTORIAL_ROOM_1];
+            currentScene = previousScene = scenes[EScene.CASTLE_ROOM_1];
 
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.playerCollisionChannel);
 			CollisionManager.AddCollidable(GameplayState.PlayerOne, CollisionManager.obstacleCollisionChannel);
@@ -215,6 +240,9 @@ namespace EVCMonoGame.src.scenes
             globalFont = game.Content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
             debugTexts.LoadContent(game.Content);
 
+            soraControllerLayout = game.Content.Load<Texture2D>("rsrc/sora_xbox360ControllerLayout");
+            rikuControllerLayout = game.Content.Load<Texture2D>("rsrc/riku_xbox360ControllerLayout");
+
 			// Evtl überflüssig, da wir nur den Content vom aktuellen Level fetchen möchten
 			// Wir nehmen die Ladezeit von paar ms beim level transition im Kauf
             //foreach (Scene s in scenes.Values)
@@ -230,6 +258,18 @@ namespace EVCMonoGame.src.scenes
 
             // Global Updating
             if (transitioning) { UpdateTransition(gameTime); }
+
+            if (InputManager.OnButtonPressed(Buttons.Back, PlayerIndex.One) ||
+                InputManager.OnKeyPressed(Keys.I))
+            {
+                showSoraControllerLayout = !showSoraControllerLayout;
+            }
+
+            if (InputManager.OnButtonPressed(Buttons.Back, PlayerIndex.Two) ||
+                InputManager.OnKeyPressed(Keys.I))
+            {
+                showRikuControllerLayout = !showRikuControllerLayout;
+            }
         }
 
         public void Draw(GameTime gameTime)
@@ -242,6 +282,16 @@ namespace EVCMonoGame.src.scenes
 
             if (transitioning) { DrawTransition(); }
             debugTexts.Draw(gameTime, spriteBatch);
+
+            if (showRikuControllerLayout)
+            {
+                spriteBatch.Draw(rikuControllerLayout, new Rectangle(900, 100, 1000, 700), Color.White);
+            }
+
+            if (showSoraControllerLayout)
+            {
+                spriteBatch.Draw(soraControllerLayout, new Rectangle(50, 100, 1000, 700), Color.White);
+            }
 
             spriteBatch.End();
         }

@@ -82,6 +82,8 @@ namespace EVCMonoGame.src.utility
                     "Provide a file that ends with '.anm.txt'.");
             }
 
+            
+            
             System.IO.StreamReader file = new System.IO.StreamReader(path);
 
             AnimationDatasPlusSpriteSheet animDataPlusSpriteSheet = new AnimationDatasPlusSpriteSheet();

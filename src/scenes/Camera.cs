@@ -59,8 +59,8 @@ namespace EVCMonoGame.src.scenes
         private Easer zoomEaser;
         private float distanceBetweenPlayers = 0;
         private float previousDistanceBetweenPlayers = 0;
-        private const float zoomBorderCloseWide = 1500;
-        private const float zoomBorderWideVeryWide = 2500;
+        private const float zoomBorderCloseWide = 700;
+        private const float zoomBorderWideVeryWide = 1500;
 
         #endregion
 
@@ -142,6 +142,7 @@ namespace EVCMonoGame.src.scenes
 
         public void SetCameraToPosition(Vector2 position)
         {
+            followsPlayers = false;
             SetCameraToFocusObject(new ITranslatablePosition(position));
         }
 

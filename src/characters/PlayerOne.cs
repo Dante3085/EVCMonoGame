@@ -64,11 +64,14 @@ namespace EVCMonoGame.src.characters
                   agility: 4,
                   movementSpeed: 7,
                   position: position,
-				  playerIndex: PlayerIndex.One
+				  playerIndex: PlayerIndex.One,
+				  lane: GameplayState.Lane.LaneOne
             )
         {
 
-            isAttacking = false;
+			PlayerInventory = new Inventory(this);
+
+			isAttacking = false;
             runThreshold = 0.65f;
 
             movementSpeed = 7.5f;
@@ -117,26 +120,37 @@ namespace EVCMonoGame.src.characters
             base.Update(gameTime);
             stateManager.Update(gameTime);
 
-
+            if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.One))
+            {
+                inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+            }
+            else if (InputManager.OnButtonPressed(Buttons.RightStick, PlayerIndex.One))
+            {
+                inventory.UseActiveUsableItem(gameTime);
+            }
         }
 
         public /* override */ void OnCombatCollision(CombatArgs combatArgs)
         {
-            sprite.Position += combatArgs.knockBack;
+            //sprite.Position += combatArgs.knockBack;
 
-            switch (playerOrientation)
-            {
-                case Orientation.DOWN: sprite.SetAnimation("FLINCH_LEFT"); break;
-                case Orientation.DOWN_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
-                case Orientation.LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
-                case Orientation.UP_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
-                case Orientation.UP: sprite.SetAnimation("FLINCH_LEFT"); break;
+            //switch (playerOrientation)
+            //{
+            //    case Orientation.DOWN: sprite.SetAnimation("FLINCH_LEFT"); break;
+            //    case Orientation.DOWN_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
+            //    case Orientation.LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
+            //    case Orientation.UP_LEFT: sprite.SetAnimation("FLINCH_LEFT"); break;
+            //    case Orientation.UP: sprite.SetAnimation("FLINCH_LEFT"); break;
 
-                case Orientation.UP_RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
-                case Orientation.RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
-                case Orientation.DOWN_RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
-            }
-            flinching = true;
+            //    case Orientation.UP_RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
+            //    case Orientation.RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
+            //    case Orientation.DOWN_RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
+            //}
+            //flinching = true;
         }
     }
 }

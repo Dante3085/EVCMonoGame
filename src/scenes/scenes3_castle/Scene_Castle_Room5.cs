@@ -13,6 +13,8 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
+using EVCMonoGame.src.Items.usableItems;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -30,6 +32,13 @@ namespace EVCMonoGame.src.scenes.castle
 
         private Rectangle roomBottomHalf = new Rectangle(0, 2383, 3717, 2268);
         private Vector2 roomBottomHalfPosition = new Vector2();
+
+        private bool hadesWasPreviouslyAlive = true;
+
+        private FinalItem finalItemSora;
+        private FinalItem finalItemRiku;
+
+        private Rectangle doorArea = new Rectangle(1850, 990, 440, 290);
 
         public Scene_Castle_Room5(SceneManager sceneManager)
             : base(sceneManager)
@@ -80,6 +89,27 @@ namespace EVCMonoGame.src.scenes.castle
                 camera.MoveCamera(camera.GetCameraPoint(Screenpoint.CENTER), new Vector2(2000, 1300), 3000);
             }
 
+            // Go to BarrenFallsEntrance
+            if (!hades.IsAlive &&
+               (CollisionManager.IsPlayerInArea(PlayerIndex.One, doorArea) && InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) ||
+                CollisionManager.IsPlayerInArea(PlayerIndex.Two, doorArea) && InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two)))
+            {
+                sceneManager.SceneTransition(EScene.BARREN_FALLS_ENTRANCE);
+            }
+
+            if (hadesWasPreviouslyAlive && !hades.IsAlive)
+            {
+                finalItemSora = new FinalItem(new Vector2(1000, 1600), GameplayState.Lane.LaneOne);
+                finalItemRiku = new FinalItem(new Vector2(2800, 1600), GameplayState.Lane.LaneTwo);
+
+                updateablesToAdd.Add(finalItemSora);
+                drawablesToAdd.Add(finalItemSora);
+
+                updateablesToAdd.Add(finalItemRiku);
+                drawablesToAdd.Add(finalItemRiku);
+            }
+
+            hadesWasPreviouslyAlive = hades.IsAlive;
             UpdateCamera();
         }
 

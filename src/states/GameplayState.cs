@@ -18,7 +18,7 @@ namespace EVCMonoGame.src.states
     /// placeholder to get the idea across: you'll probably want to
     /// put some more interesting gameplay in here!
     /// </summary>
-    internal class GameplayState : GameState
+    public class GameplayState : GameState
     {
         // TODO: Player hier statisch erzeugen.
 
@@ -28,6 +28,14 @@ namespace EVCMonoGame.src.states
 		private static PlayerOne playerOne;
 		private static PlayerTwo playerTwo;
 		private static bool isTwoPlayer;
+
+
+		public enum Lane
+		{
+			LaneOne,
+			LaneTwo,
+			LaneBoth
+		}
 
 		private Random random = new Random();
 

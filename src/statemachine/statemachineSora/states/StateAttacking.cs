@@ -65,43 +65,49 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             CombatArgs combatArgs = sora.CombatArgs;
             combatArgs.NewId();
+            combatArgs.damage += 5;
+
             switch (sora.playerOrientation)
             {
                 case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
-                    combatArgs.knockBack = new Vector2(-10, 0);
+                    combatArgs.knockBack = new Vector2(-100, 0);
                     break;
                     
                 case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT";
-                    combatArgs.knockBack = new Vector2(-10, -10);
+                    combatArgs.knockBack = new Vector2(-100, -100);
                     break;
 
                 case Orientation.UP: nextAttackAnimation = "ATTACK_UP";
-                    combatArgs.knockBack = new Vector2(0, -200);
+                    combatArgs.knockBack = new Vector2(0, -100);
                     break;
 
                 case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT";
                     break;
 
                 case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
-                    combatArgs.knockBack = new Vector2(10, 0);
+                    combatArgs.knockBack = new Vector2(100, 0);
                    break;
 
                 case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";
-                    combatArgs.knockBack = new Vector2(10, 10);
+                    combatArgs.knockBack = new Vector2(100, 100);
                     break;
 
                 case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN";
-                    combatArgs.knockBack = new Vector2(0, 10);
+                    combatArgs.knockBack = new Vector2(0, 100);
                     break;
 
                 case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT";
-                    combatArgs.knockBack = new Vector2(-10, 10);
+                    combatArgs.knockBack = new Vector2(-100, 100);
                     break;
             }
         }
 
         private void OnYPressed()
         {
+            CombatArgs combatArgs = sora.CombatArgs;
+            combatArgs.NewId();
+            combatArgs.damage += 10;
+
             switch (sora.playerOrientation)
             {
                 case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_1"; break;
@@ -117,16 +123,50 @@ namespace EVCMonoGame.src.statemachine.sora
 
         private void OnBPressed()
         {
+            CombatArgs combatArgs = sora.CombatArgs;
+            combatArgs.NewId();
+            combatArgs.damage += 15;
+
             switch (sora.playerOrientation)
             {
-                case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2"; break;
-                case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT"; break;
-                case Orientation.UP: nextAttackAnimation = "ATTACK_UP"; break;
-                case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT"; break;
-                case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2"; break;
-                case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT"; break;
-                case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN"; break;
-                case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT"; break;
+                case Orientation.LEFT:
+                    nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_2";
+                    combatArgs.knockBack = new Vector2(-250, 0);
+                    break;
+
+                case Orientation.UP_LEFT:
+                    nextAttackAnimation = "ATTACK_UP_LEFT";
+                    combatArgs.knockBack = new Vector2(-100, -100);
+                    break;
+
+                case Orientation.UP:
+                    nextAttackAnimation = "ATTACK_UP";
+                    combatArgs.knockBack = new Vector2(0, -100);
+                    break;
+
+                case Orientation.UP_RIGHT:
+                    nextAttackAnimation = "ATTACK_UP_RIGHT";
+                    break;
+
+                case Orientation.RIGHT:
+                    nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_2";
+                    combatArgs.knockBack = new Vector2(250, 0);
+                    break;
+
+                case Orientation.DOWN_RIGHT:
+                    nextAttackAnimation = "ATTACK_DOWN_RIGHT";
+                    combatArgs.knockBack = new Vector2(100, 100);
+                    break;
+
+                case Orientation.DOWN:
+                    nextAttackAnimation = "ATTACK_DOWN";
+                    combatArgs.knockBack = new Vector2(0, 100);
+                    break;
+
+                case Orientation.DOWN_LEFT:
+                    nextAttackAnimation = "ATTACK_DOWN_LEFT";
+                    combatArgs.knockBack = new Vector2(-100, 100);
+                    break;
             }
         }
     }

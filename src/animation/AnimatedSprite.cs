@@ -121,7 +121,11 @@ namespace EVCMonoGame.src.animation
             }
         }
 
-        public float Scale { get { return scale; } }
+        public float Scale 
+        {
+            get { return scale; } 
+            set { scale = value; }
+        }
 
         public bool FlaggedForRemove
         {

@@ -14,35 +14,44 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public abstract class UsableItem : InventoryItem
+	public abstract class WeaponRiku : Weapon
 	{
 		public int stack = 1;
-		public String itemName = "";
-		public bool stackable = true;
+		public bool unlocked = false;
+		public String weaponName;
 
-		public UsableItem(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, GameplayState.Lane lane, String itemName = "")
+		public bool Unlocked
+		{
+			get { return unlocked; }
+			set { unlocked = value; }
+		}
+
+		public WeaponRiku(Vector2 position, String inventoryIconPath, String anmConfigFile, String idleAnim, String weaponName)
 			: base
 			(
 				  position,
 				  inventoryIconPath,
 				  anmConfigFile,
 				  idleAnim,
-				  lane
+				  GameplayState.Lane.LaneTwo
 			)
 		{
-			this.itemName = itemName;
+			this.weaponName = weaponName;
 		}
 		
 		public override void PickUp(Player player)
 		{
 			base.PickUp(player);
-
-			player.PlayerInventory.AddUsableItem(this);
 		}
 
-		public virtual void Use(Player player)
+		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
-			stack--;
+			if (stack > 0)
+				stack--;
+			if (stack == 0)
+				Unlocked = false;
+
 		}
+
 	}
 }

@@ -20,6 +20,9 @@ namespace EVCMonoGame.src.scenes.desert
     public class Scene_Desert_Room3 : Scene
     {
 
+        private Defender[] defenders;
+        private Gargoyle[] gargoyles;
+
         public Scene_Desert_Room3(SceneManager sceneManager)
            : base(sceneManager)
         {
@@ -37,17 +40,55 @@ namespace EVCMonoGame.src.scenes.desert
             doorPlayerOne = new Door(new Vector2(765, 0));
             doorPlayerTwo = new Door(new Vector2(2431, 0));
 
-            updateables.AddRange(new IUpdateable[]
+            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
             {
-                doorPlayerOne,
-                doorPlayerTwo,
+                new Vector2(1437, 1272),
+                new Vector2(913, 740),
+                new Vector2(1212, 279),
+                new Vector2(426, 238),
             });
 
-            drawables.AddRange(new IDrawable[]
+            enemySpawnLocationsRightLane.AddRange(new Vector2[]
             {
-                doorPlayerOne,
-                doorPlayerTwo,
+                new Vector2(2200, 1878),
+                new Vector2(2867, 1485),
+                new Vector2(2205, 830),
+                new Vector2(2213, 253),
             });
+            RandomizeEnemySpawnLocations();
+
+            defenders = new Defender[2];
+            defenders[0] = new Defender(NextEnemySpawnLocationLeftLane());
+            defenders[1] = new Defender(NextEnemySpawnLocationRightLane());
+
+            gargoyles = new Gargoyle[2];
+            gargoyles[0] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+            gargoyles[1] = new Gargoyle(NextEnemySpawnLocationRightLane());
+
+            AddUpdateables
+            (
+                defenders[0],
+                defenders[1],
+
+                gargoyles[0],
+                gargoyles[1],
+
+                doorPlayerOne,
+                doorPlayerTwo
+            );
+
+            AddDrawables
+            (
+                defenders[0],
+                defenders[1],
+
+                gargoyles[0],
+                gargoyles[1],
+
+                doorPlayerOne,
+                doorPlayerTwo
+            );
+
             base.OnEnterScene();
         }
 
