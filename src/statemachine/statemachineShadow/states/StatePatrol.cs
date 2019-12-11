@@ -13,11 +13,11 @@ namespace EVCMonoGame.src.statemachine.shadow
 {
     class StatePatrol : State
     {
-        Vector2 targetPoint = Vector2.One;
-        List<Point> waypoints = new List<Point>();
+        public Vector2 targetPoint = Vector2.One;
         public StateManagerShadow stateManagerShadow;
         public Shadow shadow;
         private Random ran = new Random();
+        public bool leaveState = false;
         public StatePatrol(Shadow shadow, params Transition[] transitions)
             : base("Attack", transitions)
         {
@@ -27,20 +27,28 @@ namespace EVCMonoGame.src.statemachine.shadow
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-
-            for (int i = 0; i < 1000; i++)
+            Vector2 nextPatrolPoint = new Vector2(ran.Next(-100, 100), ran.Next(-100, 100));
+            nextPatrolPoint = Utility.ScaleVectorTo(nextPatrolPoint, ran.Next((int)shadow.sightRange / 2, (int)shadow.sightRange));
+            nextPatrolPoint = Utility.ScaleVectorTo(nextPatrolPoint, ((int)(nextPatrolPoint.Length()/shadow.MovementSpeed))*shadow.MovementSpeed);
+            shadow.movementDirection = Utility.ScaleVectorTo(nextPatrolPoint, shadow.MovementSpeed);
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.movementDirection);
+            shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+            if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                Vector2 nextPatrolPoint = new Vector2(ran.Next(-100, 100), ran.Next(-100, 100));
-                nextPatrolPoint = Utility.ScaleVectorTo(nextPatrolPoint, ran.Next((int)shadow.sightRange / 2, (int)shadow.sightRange));
-                if (!CollisionManager.IsBlockedRaycast(shadow, new CollidableHelper(shadow.CollisionBox.Location, shadow.CollisionBox.Size)))
-                {
-                    break;
-                }else if (i > 999)
-                {
-                    targetPoint = shadow.WorldPosition;
-                }
+                shadow.Sprite.SetAnimation("WALK_UP_RIGHT");
             }
-            waypoints = Shadow.pathfinder.Pathfind(shadow.WorldPosition.ToPoint(), targetPoint.ToPoint());
+            if (orientationAngle > (90) && orientationAngle <= (180))
+            {
+                shadow.Sprite.SetAnimation("WALK_UP_LEFT");
+            }
+            if (orientationAngle > (-180) && orientationAngle <= (-90))
+            {
+                shadow.Sprite.SetAnimation("WALK_DOWN_LEFT");
+            }
+            if (orientationAngle > (-90) && orientationAngle <= (0))
+            {
+                shadow.Sprite.SetAnimation("WALK_DOWN_RIGHT");
+            }
         }
 
         public override void Exit(GameTime gameTime)
@@ -50,9 +58,9 @@ namespace EVCMonoGame.src.statemachine.shadow
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
-
+            shadow.WorldPosition += shadow.movementDirection;
+            leaveState = CollisionManager.IsCollisionAfterMove(shadow, true, true);
+            leaveState = shadow.WorldPosition == targetPoint;
         }
     }
 }

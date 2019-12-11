@@ -57,7 +57,7 @@ namespace EVCMonoGame.src.collision
                 p = Enemy.pathfinder.Pathfind(enemyCollisionChannel.First().WorldPosition.ToPoint(), playerCollisionChannel.First().WorldPosition.ToPoint());
                 for (int i = 0; i < (p.Count() - 1); i++)
                 {
-                    Primitives2D.DrawLine(spriteBatch, p[i].ToVector2(), p[i + 1].ToVector2(),Color.Green, 3);
+                    Primitives2D.DrawLine(spriteBatch, p[i].ToVector2(), p[i + 1].ToVector2(), Color.Green, 3);
                 }
             }
             if (DebugOptions.showAttackBounds)
@@ -167,6 +167,11 @@ namespace EVCMonoGame.src.collision
 
         public static void CleanCollisonManager()
         {
+            if (GameplayState.PlayerTwo != null)
+            {
+                GameplayState.PlayerTwo.missiles.Clear();
+                GameplayState.PlayerTwo.missilesToBeAdded.Clear();
+            }
             allCollisionsChannel.Clear();
             obstacleCollisionChannel.Clear();
             enemyCollisionChannel.Clear();

@@ -11,51 +11,51 @@ using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.statemachine.shadow
 {
-    class StateStanding : State
+    class StateDying : State
     {
-
         public StateManagerShadow stateManagerShadow;
         public TimeSpan enteredState = new TimeSpan(0, 0, 0);
         public TimeSpan duration = new TimeSpan(0, 0, 10);
         public Shadow shadow;
-        public StateStanding(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
+        public StateDying(Shadow shadow, params Transition[] transitions)
             : base("Attack", transitions)
         {
-            this.shadow = /*stateManager.*/shadow;
-            //this.stateManagerShadow = stateManagerShadow;
+            this.shadow = shadow;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            enteredState = gameTime.TotalGameTime;
             float orientationAngle = Utility.GetAngleOfVectorInDegrees(shadow.PreviousWorldPosition - shadow.worldPosition);
-            shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+            shadow.Sprite.SetAnimation("DESPAWN_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_RIGHT");
+                shadow.Sprite.SetAnimation("DESPAWN_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                shadow.Sprite.SetAnimation("IDLE_UP_LEFT");
+                shadow.Sprite.SetAnimation("DESPAWN_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_LEFT");
+                shadow.Sprite.SetAnimation("DESPAWN_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                shadow.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+                shadow.Sprite.SetAnimation("DESPAWN_RIGHT");
             }
+        }
+
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (shadow.Sprite.AnimationFinished) Exit(gameTime);
         }
 
         public override void Exit(GameTime gameTime)
         {
             base.Exit(gameTime);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
+            shadow.FlaggedForRemove = true;
         }
     }
 }

@@ -251,7 +251,6 @@ namespace EVCMonoGame.src.characters
                 if (currentHp <= 0.0f)
                 {
                     OnDeath();
-                    CollisionManager.combatCollidableMarkAsRemove.Add(this);
                 }
                     
             }
@@ -267,7 +266,6 @@ namespace EVCMonoGame.src.characters
         public virtual void OnDeath()
         {
 			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
-            CollisionManager.RemoveCombatCollidable(this);
 			CollisionManager.combatCollidableMarkAsRemove.Add(this);
 			Scene.updateablesToRemove.Add(this);
         }
