@@ -8,13 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.tilemap;
-using EVCMonoGame.src.characters;
+using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.scenes.castle
 {
     public class Scene_Castle_Room2 : Scene
     {
+        private Defender[] defenders;
+        private Gargoyle[] gargoyles;
+
         public Scene_Castle_Room2(SceneManager sceneManager)
             : base(sceneManager)
         {
@@ -43,28 +46,44 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 new Vector2(3897, 1041),
                 new Vector2(4256, 1643),
-                new Vector2(, 2661),
-                new Vector2(3394, 1334),
-                new Vector2(2251, 1060),
-                new Vector2(3443, 3521)
+                new Vector2(4200, 1884),
+                new Vector2(5000, 1568),
+                new Vector2(6040, 1301),
+                new Vector2(6064, 1873),
             });
             RandomizeEnemySpawnLocations();
 
-            //shadows = new Shadow[6];
-            //for (int i = 0; i < shadows.Length; ++i)
-            //{
-            //    if (i % 2 == 0)
-            //    {
-            //        shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
-            //    }
-            //    else
-            //    {
-            //        shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
-            //    }
+            defenders = new Defender[4];
+            for (int i = 0; i < defenders.Length; ++i)
+            {
+                if (i % 2 == 0)
+                {
+                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane());
+                }
+                else
+                {
+                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane());
+                }
 
-            //    updateables.Add(shadows[i]);
-            //    drawables.Add(shadows[i]);
-            //}
+                updateables.Add(defenders[i]);
+                drawables.Add(defenders[i]);
+            }
+
+            gargoyles = new Gargoyle[4];
+            for (int i = 0; i < gargoyles.Length; ++i)
+            {
+                if (i % 2 == 0)
+                {
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+                }
+                else
+                {
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane());
+                }
+
+                updateables.Add(gargoyles[i]);
+                drawables.Add(gargoyles[i]);
+            }
 
             doorPlayerOne = new Door(new Vector2(3071, 381));
             doorPlayerTwo = new Door(new Vector2(3831, 386));
@@ -90,7 +109,8 @@ namespace EVCMonoGame.src.scenes.castle
         {
             base.Update(gameTime);
 
-            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            if (defenders.All(d => !d.IsAlive && gargoyles.All(g => !g.IsAlive)) &&
+                doorPlayerOne.Open && doorPlayerTwo.Open)
             {
                 sceneManager.SceneTransitionNextRoom();
             }

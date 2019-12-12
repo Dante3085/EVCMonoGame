@@ -14,6 +14,18 @@ using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src.characters
 {
+
+    public enum EAura
+    {
+        NORMAL,
+        RED,
+        GREEN,
+        BLUE,
+        YELLOW,
+        WHITE,
+        GOD,
+    }
+
     public static class PlayerSpriteSheets
     {
         private static bool loaded = false;
