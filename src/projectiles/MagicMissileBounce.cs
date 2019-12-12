@@ -43,6 +43,7 @@ namespace EVCMonoGame.src.projectiles
 
             combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
+            combatArgs.atackOrientation = orientation;
             if (CollisionManager.IsCollisionWithWall(this))
             {
                 FlaggedForRemove = true;
@@ -186,7 +187,8 @@ namespace EVCMonoGame.src.projectiles
                 WorldPosition += (previousCollisionBoxPosition-collisionBox.Location.ToVector2());
                 WorldPosition -= prevToNowWorldPosi;
                 WorldPosition += prevToNowWorldPosi;
-                CollisionManager.ResolveCollisionWithWall(this);                
+                CollisionManager.ResolveCollisionWithWall(this);
+                combatArgs.atackOrientation = orientation;
             }
             if (bounceCounter >= maxBounces || FlaggedForRemove)
             {

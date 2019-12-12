@@ -34,7 +34,7 @@ namespace EVCMonoGame.src.collision
 		public static List<Interactable> interactableCollisionChannel = new List<Interactable>();
 		public static List<CombatCollidable> combatCollisionChannel = new List<CombatCollidable>();
 
-		public static List<CombatCollidable> combatCollidableMarkAsRemove = new List<CombatCollidable>();
+        public static List<CombatCollidable> combatCollidableMarkAsRemove = new List<CombatCollidable>();
 
         private static byte[,] navGrid;
         private static int debugGridCellSize;
@@ -52,7 +52,7 @@ namespace EVCMonoGame.src.collision
                     Primitives2D.DrawCircle(spriteBatch, c.CollisionBox.Center.ToVector2(), 5f, 10, Color.Red, 2);
                 }
             }
-
+            
             if (DebugOptions.showAttackBounds)
             {
                 Color attackBoundColor = Color.DarkRed;
@@ -119,7 +119,7 @@ namespace EVCMonoGame.src.collision
             //    playerCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
             //    combatCollisionChannel.RemoveAll((a) => { return a.FlaggedForRemove; });
             //}
-            
+
         }
 
         public static void AddCollidables(List<Collidable> channel, bool excludeFromAllCollisonChannel = false,
@@ -192,7 +192,7 @@ namespace EVCMonoGame.src.collision
             playerCollisionChannel.Clear();
             itemCollisionChannel.Clear();
             combatCollisionChannel.Clear();
-			combatCollidableMarkAsRemove.Clear();
+            combatCollidableMarkAsRemove.Clear();
             projectileCollisionChannel.Clear();
 			interactableCollisionChannel.Clear();
 
@@ -477,7 +477,7 @@ namespace EVCMonoGame.src.collision
 
             foreach (Collidable c in collisionChannel)
             {
-                if(collidable != c)
+                if (collidable != c)
                 {
                     float distance = Vector2.Distance(collidable.CollisionBox.Center.ToVector2(),
                                                       c.CollisionBox.Center.ToVector2());
@@ -617,7 +617,7 @@ namespace EVCMonoGame.src.collision
             {
                 return obstacleCollisionChannel.Except(playerCollisionChannel).ToList().Except(enemyCollisionChannel).ToList().Find((g2) =>
                 {
-                    return g1.CollisionBox.Intersects(g2.CollisionBox)&&
+                    return g1.CollisionBox.Intersects(g2.CollisionBox) &&
                            g1 != g2;
                 }).CollisionBox;
             }
@@ -870,7 +870,7 @@ namespace EVCMonoGame.src.collision
         }
 
         // Zieht eine Box Zwischen 2 Collidables auf und meldet ob eine Kollision mit Obstakles stattgefunden hat.
-        public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel)
+        public static bool IsBlockedRaycast(Collidable fromCollidable, Collidable toCollidable, List<Collidable> collisionChannel = null)
         {
 
             raycasts = new List<Rectangle>();

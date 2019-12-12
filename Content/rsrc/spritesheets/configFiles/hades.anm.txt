@@ -49,7 +49,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 150@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = ATTACK_GUN_LEFT
@@ -59,7 +59,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 150@all
 FRAME_OFFSETS = (-50, 0), (-230, 0), (-180, 0), (-180, 0), (-180, 0)
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = MOVE_LEFT
@@ -89,7 +89,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, 0), (0, 5), (0, 0), (0, -10), (-30, 0), (-90, 0), (-90, -40), (-90, -40), (-90, -40)
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_TRANSFORMATION_RIGHT
@@ -99,7 +99,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, 0), (0, 5), (0, 0), (0, -10), (-30, 0), (-90, 0), (-90, -40), (-90, -40), (-90, -40)
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_MOVE_LEFT
@@ -129,7 +129,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_FIRE_BLAST_LEFT
@@ -139,7 +139,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, 0), (0, 0), (-200, 0), (-200, 0), (-200, 0), (-200, 0), (-200, 0), (-220, 0), (-220, 0),
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_METEOR_RIGHT
@@ -149,7 +149,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (-200, 0), (-130, 0), (-130, 0), (-100, 0), (-120, 0), (-120, 0), (-150, 0), (-150, -70), (-60, 0), (-60, 0), (-60, 0), (-150, -30), (-60, 50)
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_METEOR_LEFT
@@ -159,7 +159,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (-150, 0), (-130, 0), (-130, 0), (-100, 0), (-120, 0), (-120, 0), (-150, 0), (-150, -70), (-100, 0), (-60, 0), (-60, 0), (-200, -30), (-400, 0)
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_STRIKE_RIGHT
@@ -169,7 +169,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, -100), (-50, -30), (-30, 0), (0, 0), (0, 0), (0, 0)
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = RAGE_STRIKE_LEFT
@@ -179,4 +179,4 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 200@all
 FRAME_OFFSETS = (0, -100), (-200, -30), (-200, 0), (-200, 0), (-200, 0), (-200, 0)
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false

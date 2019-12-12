@@ -15,30 +15,29 @@ namespace EVCMonoGame.src.statemachine.shadow
     {
         public StateManagerShadow stateManagerShadow;
         public TimeSpan lastAttack = new TimeSpan(0, 0, 0);
-        public TimeSpan cooldown = new TimeSpan(0, 0, 3);
+        public TimeSpan cooldown = new TimeSpan(0, 0, 1);
         public Shadow shadow;
         public StateAttack(/*StateManagerShadow stateManager*/ Shadow shadow, params Transition[] transitions)
             : base("Attack", transitions)
         {
-            this.shadow = /*stateManager.*/shadow;
-            //this.stateManagerShadow = stateManagerShadow;
+            this.shadow = shadow;
         }
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            if (CollisionManager.IsPlayerInRange(shadow, 300)) {
-                Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(shadow, 10000);
-
-                if (nearestPlayer.Sprite.Bounds.Center.X > shadow.Sprite.Bounds.Center.X)
-                {
-                    shadow.Sprite.SetAnimation("NORMAL_ATTACK_RIGHT");
-                }
-                else
-                {
-                    shadow.Sprite.SetAnimation("NORMAL_ATTACK_LEFT");
-                }
+            Console.WriteLine("Shadow entered ATTACKSTATE");
+            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(shadow, shadow.attackRange+10);
+            
+            shadow.CombatArgs.NewId();
+            
+            if (nearestPlayer.Sprite.Bounds.Center.X > shadow.CollisionBox.Center.X)
+            {
+                shadow.Sprite.SetAnimation("NORMAL_ATTACK_RIGHT");
             }
-            //attacklogic
+            else
+            {
+                shadow.Sprite.SetAnimation("NORMAL_ATTACK_LEFT");
+            }
 
         }
 

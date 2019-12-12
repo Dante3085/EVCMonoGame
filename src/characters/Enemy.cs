@@ -18,6 +18,7 @@ using C3.MonoGame;
 using EVCMonoGame.src.input;
 using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.Items;
+using EVCMonoGame.src.statemachine;
 
 namespace EVCMonoGame.src.characters
 {
@@ -27,6 +28,9 @@ namespace EVCMonoGame.src.characters
 		public Player target;
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
+        public Vector2 previousMovementDirection;
+
+        public statemachine.StateManager stateManager;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;
@@ -42,7 +46,7 @@ namespace EVCMonoGame.src.characters
 		public float attackRange = 200;
 		public float cooldownOnAttack = 0.0f; // in mili
 		public bool isAttackOnCooldown = false;
-		public float aggroRange;
+		public float sightRange;
 
 
         // Drops
@@ -93,7 +97,7 @@ namespace EVCMonoGame.src.characters
 
 			forcePathfindTimer = 5000;
 
-			aggroRange = 600;
+			sightRange = 600;
 			CollisionBox = new Rectangle(WorldPosition.ToPoint(), new Point(100, 100));	// Sprite IDLE Bounds liefert keine Quadratische Hitbox sodass der Pathfinder nicht funktioniert
 			agentMindestBreite = CollisionBox.Width;
 
@@ -124,7 +128,7 @@ namespace EVCMonoGame.src.characters
 			{
 				movementDirection.Normalize();
 				Primitives2D.DrawLine(spriteBatch, CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2() + movementDirection * 50, Color.White, 2);
-				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), aggroRange, 20, Color.Red, 2);
+				Primitives2D.DrawCircle(spriteBatch, CollisionBox.Center.ToVector2(), sightRange, 20, Color.Red, 2);
 			
 
 				if (waypoints != null)
@@ -148,7 +152,7 @@ namespace EVCMonoGame.src.characters
 		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            /*
             if (!IsAlive)
                 return;
 
@@ -169,21 +173,22 @@ namespace EVCMonoGame.src.characters
 
 				MoveToCharacter(gameTime, target);
 			} else
-				target = CollisionManager.GetNearestPlayerInRange(this, aggroRange);
-
-		}
+				target = CollisionManager.GetNearestPlayerInRange(this, sightRange);
+           */
+            stateManager.Update(gameTime);
+        }
 		#endregion
 
 		
 
 		public void MoveToCharacter(GameTime gameTime, Character character)
 		{
-			//ToDo
-			// - bool return
-			//
-			//
-			//
-
+            //ToDo
+            // - bool return
+            //
+            //
+            //
+            previousMovementDirection = movementDirection;
 			movementDirection = Vector2.Zero;
 
 
@@ -266,8 +271,9 @@ namespace EVCMonoGame.src.characters
             }
 			if (combatArgs.attacker != null && combatArgs.attacker is Player)
 				target = (Player)combatArgs.attacker;
-			else
+			/*else
 				Console.WriteLine("Nicht Player");
+                */
 		}
 
 		public override void OnDeath()

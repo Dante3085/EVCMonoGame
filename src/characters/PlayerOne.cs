@@ -107,7 +107,7 @@ namespace EVCMonoGame.src.characters
             base.LoadContent(content);
             MagicMissile.content = content;
             PlayerSpriteSheets.Load(content);
-            sprite.spritesheet = PlayerSpriteSheets.RedGlow;
+            //sprite.spritesheet = PlayerSpriteSheets.RedGlow;
             // playerPortrait.LoadContent(content);
             stateManager = new StateManagerSora();
         }
@@ -132,6 +132,34 @@ namespace EVCMonoGame.src.characters
             {
                 inventory.UseActiveUsableItem(gameTime);
             }
+        }
+
+        public void SetGlow(EAura aura){
+            
+            switch(aura){
+                case WHITE:
+                        sprite.spritesheet = PlayerSpriteSheets.WhiteGlow;
+                    break;
+                case GREEN:
+                        sprite.spritesheet = PlayerSpriteSheets.GreenGlow;
+                        break;
+                case RED:
+                    sprite.spritesheet = PlayerSpriteSheets.RedGlow;
+                    break;
+                case BLUE:
+                    sprite.spritesheet = PlayerSpriteSheets.BlueGlow;
+                    break;
+                case YELLOW:
+                    sprite.spritesheet = PlayerSpriteSheets.YellowGlow;
+                    break;
+                case GOD:
+                    sprite.spritesheet = PlayerSpriteSheets.GodModeGlow;
+                    break;
+                case NORMAL:
+                    sprite.spritesheet = PlayerSpriteSheets.NoGlow;
+                    break;
+            }
+            
         }
 
         public /* override */ void OnCombatCollision(CombatArgs combatArgs)

@@ -47,6 +47,7 @@ namespace EVCMonoGame.src.projectiles
 
             combatArgs = new CombatArgs(this, null, CombatantType.ENEMY);
             combatArgs.damage = 50;
+            combatArgs.atackOrientation = orientation;
             if (CollisionManager.IsCollisionWithWall(this))
             {
                 FlaggedForRemove = true;

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using C3.MonoGame;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.statemachine.gargoyle;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -34,6 +35,7 @@ namespace EVCMonoGame.src.characters.enemies
             sprite.SetAnimation("BATTLE_CRY_LEFT");
 
             collisionBoxOffset = new Vector2(100, 100);
+            stateManager = new StateManagerGargoyle(this);
         }
 
         public override void Update(GameTime gameTime)
