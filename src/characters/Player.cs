@@ -145,5 +145,7 @@ namespace EVCMonoGame.src.characters
 
             expBar.Draw(gameTime, spriteBatch);
         }
+
+		public abstract void CheckLevelUp();
     }
 }

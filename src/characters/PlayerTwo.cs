@@ -178,5 +178,10 @@ namespace EVCMonoGame.src.characters
             flinching = true;
         }
         #endregion
+
+        public override void CheckLevelUp()
+        {
+            
+        }
     }
 }

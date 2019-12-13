@@ -11,6 +11,7 @@ using EVCMonoGame.src.Items;
 
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.Items;
 using EVCMonoGame.src.statemachine.shadow;
 
 namespace EVCMonoGame.src.characters.enemies
@@ -57,6 +58,20 @@ namespace EVCMonoGame.src.characters.enemies
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
+        }
+
+        public override void DropLoot()
+        {
+            base.DropLoot();
+
+            Random random = new Random();
+
+            //if (random.Next(0, 2) == 1)
+            //{
+            //    Sora_NoGlow sora_NoGlow = new Sora_NoGlow(WorldPosition);
+
+            //    update
+            //}
         }
 
         //public override void OnCombatCollision(CombatArgs combatArgs)

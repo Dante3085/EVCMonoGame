@@ -33,12 +33,6 @@ namespace EVCMonoGame.src.Items
 			return new PenetrateMissle(WorldPosition);
 		}
 
-
-		public override void PickUp(Player player)
-		{
-			base.PickUp(player);
-		}
-
 		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
 			base.ActivateSpecial(player, gameTime);

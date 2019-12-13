@@ -18,11 +18,13 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
 using EVCMonoGame.src.projectiles;
+using EVCMonoGame.src.Items;
 
 // TODO: Setze flinch boolean flag OnCombatCollision für TransitionOnFlinchAttack.
 
 namespace EVCMonoGame.src.characters
 {
+
     public class PlayerOne : Player
     {
         #region Fields
@@ -35,7 +37,11 @@ namespace EVCMonoGame.src.characters
 
         public Vector2 movementVector;
         public Vector2 previousMovementVector;
-        
+
+        private bool controllingWeaponInventory = false;
+
+        public AuraWeapon weapon = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/pumpkinBottle",
+                                       "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.NORMAL);
 
         #endregion
         #region Properties
@@ -93,7 +99,12 @@ namespace EVCMonoGame.src.characters
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
             flinching = false;
-		}
+
+            inventory.AddWeapon(weapon);
+            CollisionManager.RemoveCollidable(weapon, CollisionManager.itemCollisionChannel);
+
+            expBar.Level = 14;
+        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -120,42 +131,66 @@ namespace EVCMonoGame.src.characters
             base.Update(gameTime);
             stateManager.Update(gameTime);
 
-            if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
+            if (InputManager.OnButtonPressed(Buttons.DPadUp, PlayerIndex.One) ||
+                InputManager.OnButtonPressed(Buttons.DPadDown, PlayerIndex.One))
             {
-                inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+                controllingWeaponInventory = !controllingWeaponInventory;
             }
-            else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.One))
+
+            if (controllingWeaponInventory)
             {
-                inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+                if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
+                {
+                    inventory.NavigateWeapons(gameTime, Inventory.Direction.LEFT);
+                    inventory.ActivateSpecialAttack(gameTime);
+                }
+                else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.One))
+                {
+                    inventory.NavigateWeapons(gameTime, Inventory.Direction.RIGHT);
+                    inventory.ActivateSpecialAttack(gameTime);
+                }
             }
-            else if (InputManager.OnButtonPressed(Buttons.RightStick, PlayerIndex.One))
+            else
             {
-                inventory.UseActiveUsableItem(gameTime);
+                if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.One))
+                {
+                    inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
+                }
+
+                else if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
+                {
+                    inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
+                }
+
+                else if (InputManager.OnButtonPressed(Buttons.RightStick, PlayerIndex.One))
+                {
+                    inventory.UseActiveUsableItem(gameTime);
+                }
             }
         }
 
         public void SetGlow(EAura aura){
             
             switch(aura){
-                case WHITE:
+                case EAura.WHITE:
                         sprite.spritesheet = PlayerSpriteSheets.WhiteGlow;
                     break;
-                case GREEN:
+                case EAura.GREEN:
                         sprite.spritesheet = PlayerSpriteSheets.GreenGlow;
                         break;
-                case RED:
+                case EAura.RED:
                     sprite.spritesheet = PlayerSpriteSheets.RedGlow;
                     break;
-                case BLUE:
+                case EAura.BLUE:
                     sprite.spritesheet = PlayerSpriteSheets.BlueGlow;
                     break;
-                case YELLOW:
+                case EAura.YELLOW:
                     sprite.spritesheet = PlayerSpriteSheets.YellowGlow;
                     break;
-                case GOD:
+                case EAura.GOD:
                     sprite.spritesheet = PlayerSpriteSheets.GodModeGlow;
                     break;
-                case NORMAL:
+                case EAura.NORMAL:
                     sprite.spritesheet = PlayerSpriteSheets.NoGlow;
                     break;
             }
@@ -179,6 +214,79 @@ namespace EVCMonoGame.src.characters
             //    case Orientation.DOWN_RIGHT: sprite.SetAnimation("FLINCH_RIGHT"); break;
             //}
             //flinching = true;
+        }
+
+        public override void CheckLevelUp()
+        {
+            if (expBar.LevelUp)
+            {
+                switch(expBar.Level)
+                {
+                    case 15:
+                        AuraWeapon redAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/cBottle",
+                            "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.RED,
+                            strength: 30);
+                        CollisionManager.RemoveCollidable(redAura, CollisionManager.itemCollisionChannel);
+                        inventory.AddWeapon(redAura);
+
+                        redAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+
+                    case 30:
+                        AuraWeapon greenAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/gBottle",
+                            "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.GREEN,
+                            knockbackMultiplier: 2);
+                        CollisionManager.RemoveCollidable(greenAura, CollisionManager.itemCollisionChannel);
+                        inventory.AddWeapon(greenAura);
+
+                        greenAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+
+                    case 45:
+                        AuraWeapon blueAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/exBottle",
+                            "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.BLUE,
+                            speed: 10);
+                        CollisionManager.RemoveCollidable(blueAura, CollisionManager.itemCollisionChannel);
+                        inventory.AddWeapon(blueAura);
+
+                        blueAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+
+                    case 60:
+                        AuraWeapon yellowAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/lightBluePotion",
+                            "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.YELLOW,
+                            strength: 25, knockbackMultiplier: 2);
+                        CollisionManager.RemoveCollidable(yellowAura, CollisionManager.itemCollisionChannel);
+                        inventory.AddWeapon(yellowAura);
+
+                        yellowAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+
+                    case 75:
+                        AuraWeapon whiteAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/greenGel",
+                            "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.WHITE,
+                            speed: 10, strength: 35);
+                        CollisionManager.RemoveCollidable(whiteAura, CollisionManager.itemCollisionChannel);
+                        inventory.AddWeapon(whiteAura);
+
+                        whiteAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+
+                    case 90:
+                        AuraWeapon godAura = new AuraWeapon(Vector2.Zero, "rsrc/spritesheets/singleImages/bluePotion",
+                                       "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", EAura.GOD,
+                                       strength: 100, defense:100, speed: 15, knockbackMultiplier: 5);
+
+
+                        CollisionManager.RemoveCollidable(godAura, CollisionManager.itemCollisionChannel);
+
+                        inventory.AddWeapon(godAura);
+
+
+                        godAura.LoadContent(GameplayState.globalContentManager);
+                        break;
+                }
+            }
         }
     }
 }

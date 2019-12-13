@@ -33,7 +33,7 @@ namespace EVCMonoGame.src.Items
 
 		public override void StarterItems()
 		{
-			base.StarterItems();
+			// base.StarterItems();
 
 			WeaponRiku weapon = new PenetrateMissle(new Vector2(1300, 3800));
 			WeaponRiku weapon_2 = new CoinBombMissle(new Vector2(1350, 3820));
