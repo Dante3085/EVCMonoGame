@@ -132,7 +132,8 @@ namespace EVCMonoGame.src.characters
             if (BlockInput)
                 return;
 
-            base.Update(gameTime);
+			stateManager.Update(gameTime);
+			base.Update(gameTime);
             foreach (MagicMissile m in missiles)
             {
                 m.Update(gameTime);
@@ -140,7 +141,6 @@ namespace EVCMonoGame.src.characters
             missiles.AddRange(missilesToBeAdded);
             missilesToBeAdded.Clear();
             missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
-            stateManager.Update(gameTime);
 
 			//Debug Input
 			if (InputManager.IsKeyPressed(Keys.B))

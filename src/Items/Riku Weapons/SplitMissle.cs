@@ -27,7 +27,9 @@ namespace EVCMonoGame.src.Items
                 "SplitMissle"
             )
 		{
+			shopPrice = 10;
 		}
+
 		public override Item Copy()
 		{
 			return new SplitMissle(WorldPosition);

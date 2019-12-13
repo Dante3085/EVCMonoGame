@@ -27,6 +27,7 @@ namespace EVCMonoGame.src.Items
 				"PenetrateMissle"
 			)
 		{
+			shopPrice = 5;
 		}
 		public override Item Copy()
 		{

@@ -27,6 +27,7 @@ namespace EVCMonoGame.src.Items
                 "GodImperatorMissle"
             )
 		{
+			shopPrice = 100;
 		}
 		public override Item Copy()
 		{

@@ -20,6 +20,7 @@ namespace EVCMonoGame.src.characters
 {
     public abstract class Player : Character, scenes.IDrawable
     {
+		// Inventorymanagement
         private ItemFinder itemFinder;
         protected Inventory inventory;
 
@@ -27,8 +28,11 @@ namespace EVCMonoGame.src.characters
 
         public ExperienceBar expBar;
 
+		// Font
+		protected SpriteFont font;
 
-        private bool drawGold;
+		// Gold
+		private bool drawGold;
         private double showGoldTime;
         public AnimatedSprite goldSprite;
 
@@ -106,7 +110,9 @@ namespace EVCMonoGame.src.characters
 
             expBar.LoadContent(content);
             goldSprite.LoadContent(content);
-        }
+
+			font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+		}
 
 		/*
 				public override void LoadContent(ContentManager content)
@@ -151,7 +157,7 @@ namespace EVCMonoGame.src.characters
             if (drawGold)
             {
                 goldSprite.Scale = 1f;
-                goldSprite.WorldPosition = WorldPosition;
+                goldSprite.WorldPosition = WorldPosition + new Vector2(10, -125);
                 goldSprite.Update(gameTime);
 
                 showGoldTime = -gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -162,9 +168,11 @@ namespace EVCMonoGame.src.characters
             }
             else
                 goldSprite.Scale = 0f;
-        }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		
+		}
+
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
 
@@ -173,9 +181,12 @@ namespace EVCMonoGame.src.characters
             expBar.Draw(gameTime, spriteBatch);
 
             goldSprite.Draw(gameTime, spriteBatch);
-        }
 
-        public void ShowGold(bool showGold, double time = 0)
+			if(drawGold)
+				spriteBatch.DrawString(font, "x" + PlayerInventory.Gold.ToString(), WorldPosition + new Vector2(70, -110), Color.White);
+		}
+
+		public void ShowGold(bool showGold, double time = 0)
         {
             drawGold = showGold;
             showGoldTime = time;

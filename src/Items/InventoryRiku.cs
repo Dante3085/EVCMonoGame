@@ -37,9 +37,9 @@ namespace EVCMonoGame.src.Items
 		{
 			base.StarterItems();
 
-			WeaponRiku weapon_2 = new GodImperatorMissle(Vector2.Zero);
-			WeaponRiku weapon_3 = new SplitMissle(Vector2.Zero);
-            WeaponRiku weapon = new PenetrateMissle(Vector2.Zero);
+			WeaponRiku weapon = new GodImperatorMissle(Vector2.Zero);
+			WeaponRiku weapon_2 = new SplitMissle(Vector2.Zero);
+            WeaponRiku weapon_3 = new PenetrateMissle(Vector2.Zero);
             WeaponRiku weapon_4 = new BounceMissle(Vector2.Zero);
 
             weapon.stack = 0;

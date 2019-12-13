@@ -117,8 +117,9 @@ namespace EVCMonoGame.src.characters
             if (BlockInput)
                 return;
 
-            base.Update(gameTime);
-            stateManager.Update(gameTime);
+			stateManager.Update(gameTime);
+
+			base.Update(gameTime);
 
             if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
             {

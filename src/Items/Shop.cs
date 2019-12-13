@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.Items
 {
@@ -28,6 +29,13 @@ namespace EVCMonoGame.src.Items
 		private GameTime gameTime;
 
 		private List<Item> drawSelledItems;
+		private Item activeItem;
+
+
+		// Font
+		protected SpriteFont font;
+		public AnimatedSprite goldSprite;
+		private bool drawGold;
 
 		private ContentManager contentManager;
 
@@ -46,23 +54,17 @@ namespace EVCMonoGame.src.Items
 			shopPosition = position;
 			this.lane = lane;
 
+			// Sprite
+			goldSprite = new AnimatedSprite(Vector2.Zero);
+			goldSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
+			goldSprite.SetAnimation("COIN");
+
 			// Lege Items aus
 			ArrangeItems();
 
             drawSelledItems = new List<Item>();
 
 			CollisionManager.AddInteractable(this);
-		}
-
-
-		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-		{
-			foreach (Item sellableItem in sellableItems)
-			{
-				sellableItem.Draw(gameTime, spriteBatch);
-			}
-            for (int i = drawSelledItems.Count - 1; i >= 0; i--)
-                drawSelledItems.ElementAt<Item>(i).Draw(gameTime, spriteBatch);
 		}
 
 		public void LoadContent(ContentManager content)
@@ -73,11 +75,34 @@ namespace EVCMonoGame.src.Items
 			{
 				sellableItem.LoadContent(content);
 			}
+
+			goldSprite.LoadContent(content);
+
+			font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 		}
+
+		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			foreach (Item sellableItem in sellableItems)
+			{
+				sellableItem.Draw(gameTime, spriteBatch);
+			}
+            for (int i = drawSelledItems.Count - 1; i >= 0; i--)
+                drawSelledItems.ElementAt<Item>(i).Draw(gameTime, spriteBatch);
+
+			if (drawGold)
+			{
+				goldSprite.Draw(gameTime, spriteBatch);
+				spriteBatch.DrawString(font, "x" + activeItem.shopPrice, activeItem.WorldPosition + new Vector2(50, 75), Color.White);
+			}
+		}
+
 
 		public void Update(GameTime gameTime)
 		{
 			this.gameTime = gameTime;
+
+			activeItem = null;
 
             // Collision Update
 			foreach (Item sellableItem in sellableItems)
@@ -85,12 +110,23 @@ namespace EVCMonoGame.src.Items
 				sellableItem.Update(gameTime);
 			}
 
+			if (lane == GameplayState.Lane.LaneOne)
+				activeItem = GetNearestItem(GameplayState.PlayerOne);
+			if (lane == GameplayState.Lane.LaneTwo)
+				activeItem = GetNearestItem(GameplayState.PlayerTwo);
+
+			if (activeItem != null)
+				drawGold = true;
+			else
+				drawGold = false;
+
             // Update Item das vom Spieler gekauft und gezogen wird
             for (int i = drawSelledItems.Count - 1; i >= 0; i--)
                 if (drawSelledItems.ElementAt<Item>(i).isPickedUp)
                     drawSelledItems.RemoveAt(i);
                 else
                     drawSelledItems.ElementAt<Item>(i).Update(gameTime);
+
             if(lane == GameplayState.Lane.LaneOne && CollisionManager.IsPlayerInArea(PlayerIndex.One, InteractableBounds))
             {
                 GameplayState.PlayerOne.ShowGold(true);
@@ -109,7 +145,17 @@ namespace EVCMonoGame.src.Items
                 if (CollisionManager.IsPlayerInArea(PlayerIndex.Two, InteractableBounds))
                     GameplayState.PlayerTwo.ShowGold(true);
             }
-        }
+
+			if (drawGold)
+			{
+				goldSprite.Scale = 1f;
+				goldSprite.WorldPosition = activeItem.WorldPosition + new Vector2(-10, 65);
+				goldSprite.Update(gameTime);
+			}
+			else
+				goldSprite.Scale = 0f;
+
+		}
 
 		// Legt Items im Pattern vorm Shop aus
 		public void ArrangeItems()

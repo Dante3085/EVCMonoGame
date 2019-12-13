@@ -27,6 +27,7 @@ namespace EVCMonoGame.src.Items
                 "BounceMissle"
             )
 		{
+			shopPrice = 2;
 		}
 		public override Item Copy()
 		{
