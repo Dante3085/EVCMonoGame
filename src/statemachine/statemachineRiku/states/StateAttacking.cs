@@ -11,6 +11,7 @@ using EVCMonoGame.src.states;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.projectiles;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.statemachine.riku
 {
@@ -38,21 +39,21 @@ namespace EVCMonoGame.src.statemachine.riku
             else if (InputManager.OnButtonPressed(Buttons.Y, PlayerIndex.Two) ||
                 InputManager.OnKeyPressed(Keys.D2))
             {
-                OnYPressed();
+                OnYPressed(gameTime);
             }
             else if (InputManager.OnButtonPressed(Buttons.B, PlayerIndex.Two) ||
                 InputManager.OnKeyPressed(Keys.D3))
             {
-                OnBPressed();
+                OnBPressed(gameTime);
             }else if(InputManager.OnButtonPressed(Buttons.RightShoulder, PlayerIndex.Two) ||
                 InputManager.OnKeyPressed(Keys.D4))
             {
-                OnRightShoulderPressed();
+                OnRightShoulderPressed(gameTime);
             }
             else if (InputManager.OnButtonPressed(Buttons.LeftShoulder, PlayerIndex.Two) ||
                InputManager.OnKeyPressed(Keys.D5))
             {
-                OnLeftShoulderPressed();
+                OnLeftShoulderPressed(gameTime);
             }
 
             riku.Sprite.SetAnimation(nextAttackAnimation);
@@ -147,9 +148,17 @@ namespace EVCMonoGame.src.statemachine.riku
             }
         }
 
-        private void OnYPressed()
+        private void OnYPressed(GameTime gameTime)
         {
-            cooldown = TimeSpan.FromMilliseconds(1000);
+            if (riku.PlayerInventory.IsAbilityOnStock(InventoryRiku.Ability.BounceMissle))
+                riku.PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.BounceMissle, 1000);
+            else
+            {
+                OnXPressed(gameTime);
+                return;
+            }
+
+                cooldown = TimeSpan.FromMilliseconds(1000);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileBounce missile = new MagicMissileBounce(Vector2.Zero, Orientation.DOWN);
@@ -229,8 +238,15 @@ namespace EVCMonoGame.src.statemachine.riku
             }
         }
 
-        private void OnBPressed()
+        private void OnBPressed(GameTime gameTime)
         {
+            if (riku.PlayerInventory.IsAbilityOnStock(InventoryRiku.Ability.PenetrateMissle))
+                riku.PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 1500);
+            else
+            {
+                OnXPressed(gameTime);
+                return;
+            }
             cooldown = TimeSpan.FromMilliseconds(1500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
@@ -311,8 +327,15 @@ namespace EVCMonoGame.src.statemachine.riku
             }
         }
 
-        private void OnRightShoulderPressed()
+        private void OnRightShoulderPressed(GameTime gameTime)
         {
+            if (riku.PlayerInventory.IsAbilityOnStock(InventoryRiku.Ability.SplitMissle))
+                riku.PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.SplitMissle, 2500);
+            else
+            {
+                OnXPressed(gameTime);
+                return;
+            }
             cooldown = TimeSpan.FromMilliseconds(2500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
@@ -392,8 +415,15 @@ namespace EVCMonoGame.src.statemachine.riku
                     break;
             }
         }
-        private void OnLeftShoulderPressed()
+        private void OnLeftShoulderPressed(GameTime gameTime)
         {
+            if (riku.PlayerInventory.IsAbilityOnStock(InventoryRiku.Ability.GodImperator))
+                riku.PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.GodImperator, 3000);
+            else
+            {
+                OnXPressed(gameTime);
+                return;
+            }
             cooldown = TimeSpan.FromMilliseconds(3000);
             //Inventory... = cooldown.TotalMilliseconds;
             CombatArgs combatArgs = riku.CombatArgs;

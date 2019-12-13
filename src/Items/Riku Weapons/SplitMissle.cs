@@ -14,24 +14,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class CoinBombMissle : WeaponRiku
+	public class SplitMissle : WeaponRiku
 	{
 
-		public CoinBombMissle(Vector2 position)
+		public SplitMissle(Vector2 position)
 			: base
 			(
 				position,
-				"rsrc/spritesheets/singleImages/coin-1",
+				"rsrc/spritesheets/singleImages/arrow",
 				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				"COIN",
-				"CoinBombMissle"
-			)
+                "SplitMissle"
+            )
 		{
-			Unlocked = true;
 		}
 		public override Item Copy()
 		{
-			return new CoinBombMissle(WorldPosition);
+			return new SplitMissle(WorldPosition);
 		}
 
 
@@ -43,7 +42,6 @@ namespace EVCMonoGame.src.Items
 		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
 			base.ActivateSpecial(player, gameTime);
-			Console.WriteLine("Special Attacke der CoinBomb Missle");
 		}
 
 	}

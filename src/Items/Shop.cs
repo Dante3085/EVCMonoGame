@@ -25,12 +25,9 @@ namespace EVCMonoGame.src.Items
 		private Vector2 shopPosition;
 		private GameplayState.Lane lane;
 
-		// Input // Debug weil das Bugs verursacht wenn zwei spieler den allg. shop zeitgleich benutzen. InputHandling bitte im Spieler
-		private int InteractThreshold = 300;
-		private double lastInteract = 0;
 		private GameTime gameTime;
 
-		private Item selledItem;
+		private List<Item> drawSelledItems;
 
 		private ContentManager contentManager;
 
@@ -52,6 +49,8 @@ namespace EVCMonoGame.src.Items
 			// Lege Items aus
 			ArrangeItems();
 
+            drawSelledItems = new List<Item>();
+
 			CollisionManager.AddInteractable(this);
 		}
 
@@ -62,8 +61,8 @@ namespace EVCMonoGame.src.Items
 			{
 				sellableItem.Draw(gameTime, spriteBatch);
 			}
-			if(selledItem != null)
-				selledItem.Draw(gameTime, spriteBatch);
+            for (int i = drawSelledItems.Count - 1; i >= 0; i--)
+                drawSelledItems.ElementAt<Item>(i).Draw(gameTime, spriteBatch);
 		}
 
 		public void LoadContent(ContentManager content)
@@ -80,20 +79,43 @@ namespace EVCMonoGame.src.Items
 		{
 			this.gameTime = gameTime;
 
+            // Collision Update
 			foreach (Item sellableItem in sellableItems)
 			{
 				sellableItem.Update(gameTime);
 			}
 
-			if (selledItem != null)
-				selledItem.Update(gameTime);
-		}
+            // Update Item das vom Spieler gekauft und gezogen wird
+            for (int i = drawSelledItems.Count - 1; i >= 0; i--)
+                if (drawSelledItems.ElementAt<Item>(i).isPickedUp)
+                    drawSelledItems.RemoveAt(i);
+                else
+                    drawSelledItems.ElementAt<Item>(i).Update(gameTime);
+            if(lane == GameplayState.Lane.LaneOne && CollisionManager.IsPlayerInArea(PlayerIndex.One, InteractableBounds))
+            {
+                GameplayState.PlayerOne.ShowGold(true);
+            }
+
+            if (lane == GameplayState.Lane.LaneTwo && CollisionManager.IsPlayerInArea(PlayerIndex.Two, InteractableBounds))
+            {
+                GameplayState.PlayerTwo.ShowGold(true);
+            }
+
+            if (lane == GameplayState.Lane.LaneBoth)
+            {
+                if(CollisionManager.IsPlayerInArea(PlayerIndex.One, InteractableBounds))
+                    GameplayState.PlayerOne.ShowGold(true);
+
+                if (CollisionManager.IsPlayerInArea(PlayerIndex.Two, InteractableBounds))
+                    GameplayState.PlayerTwo.ShowGold(true);
+            }
+        }
 
 		// Legt Items im Pattern vorm Shop aus
 		public void ArrangeItems()
 		{
 			Vector2 itemPosition = Vector2.Zero;
-			Vector2 offset = new Vector2(0, 100);
+			Vector2 offset = new Vector2(150, 0);
 
 			foreach (Item sellableItem in sellableItems)
 			{
@@ -111,21 +133,31 @@ namespace EVCMonoGame.src.Items
 				//Console.WriteLine("Shop nicht für dich verfügbar");
 				return;
 			}
+            
+            Item sellableItem = GetNearestItem(player);
 
-			if (lastInteract + InteractThreshold < gameTime.TotalGameTime.TotalMilliseconds)
-			{
-				lastInteract = gameTime.TotalGameTime.TotalMilliseconds;
-
-				foreach (Item sellableItem in sellableItems)
-					if (CollisionManager.IsPlayerInArea(player.PlayerIndex, sellableItem.CollisionBox))
-						if (CheckGold(player, sellableItem))
-							SellItem(player, sellableItem);
-						else
-							Console.WriteLine("Nicht genug Gold");
-			}
-			
-							
+            if (sellableItem != null)
+				if (CheckGold(player, sellableItem))
+					SellItem(player, sellableItem);
+				else
+					Console.WriteLine("Nicht genug Gold");
 		}
+
+        public Item GetNearestItem(Player player)
+        {
+            Item nearestItem = null;
+
+            foreach (Item item in sellableItems)
+            {
+                if (item.CollisionBox.Intersects(player.CollisionBox))
+                    if (nearestItem == null)
+                        nearestItem = item;
+                    else if (Vector2.Distance(player.CollisionBox.Center.ToVector2(), item.CollisionBox.Center.ToVector2()) < Vector2.Distance(player.CollisionBox.Center.ToVector2(), nearestItem.CollisionBox.Center.ToVector2()))
+                        nearestItem = item;
+            }
+
+            return nearestItem;
+        }
 
 		public void SellItem(Player buyer, Item selledItem)
 		{
@@ -149,7 +181,7 @@ namespace EVCMonoGame.src.Items
 			Console.WriteLine("Verkauft: " + selledItem);
 			spawnedItem.lane = buyer.lane;
 			spawnedItem.LoadContent(contentManager);
-			this.selledItem = spawnedItem; //dirty! - TODO bessere lösung
+			drawSelledItems.Add(spawnedItem); //dirty! - TODO bessere lösung
 		}
 
 		public bool CheckGold(Player player, Item item)

@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Input;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.gui;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.characters
 {
@@ -27,7 +28,12 @@ namespace EVCMonoGame.src.characters
         public ExperienceBar expBar;
 
 
-		public Orientation playerOrientation = Orientation.RIGHT;
+        private bool drawGold;
+        private double showGoldTime;
+        public AnimatedSprite goldSprite;
+
+
+        public Orientation playerOrientation = Orientation.RIGHT;
 		private PlayerIndex playerIndex;
 		public GameplayState.Lane lane;
 
@@ -86,7 +92,12 @@ namespace EVCMonoGame.src.characters
 			itemFinder = new ItemFinder(this);
 
             expBar = new ExperienceBar(100, 20, Vector2.Zero, new Vector2(150, 10));
-		}
+
+            // Sprite
+            goldSprite = new AnimatedSprite(WorldPosition);
+            goldSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
+            goldSprite.SetAnimation("COIN");
+        }
 
 		public override void LoadContent(ContentManager content)
 		{
@@ -94,7 +105,8 @@ namespace EVCMonoGame.src.characters
 			inventory.LoadContent(content);
 
             expBar.LoadContent(content);
-		}
+            goldSprite.LoadContent(content);
+        }
 
 		/*
 				public override void LoadContent(ContentManager content)
@@ -112,30 +124,45 @@ namespace EVCMonoGame.src.characters
             itemFinder.Update(gameTime);
 
 			//Navigate UsableItems
-			if (InputManager.IsKeyPressed(Keys.Q))
+			if (InputManager.OnKeyPressed(Keys.Q))
 				inventory.NavigateItems(gameTime, Inventory.Direction.LEFT);
-			if (InputManager.IsKeyPressed(Keys.E))
+			if (InputManager.OnKeyPressed(Keys.E))
 				inventory.NavigateItems(gameTime, Inventory.Direction.RIGHT);
 
 			//Navigate Weapons
-			if (InputManager.IsKeyPressed(Keys.Y))
+			if (InputManager.OnKeyPressed(Keys.Y))
 				inventory.NavigateWeapons(gameTime, Inventory.Direction.LEFT);
-			if (InputManager.IsKeyPressed(Keys.X))
+			if (InputManager.OnKeyPressed(Keys.X))
 				inventory.NavigateWeapons(gameTime, Inventory.Direction.RIGHT);
 
 			// Use Special Attack
-			if (InputManager.IsKeyPressed(Keys.B) && playerIndex == PlayerIndex.One)
+			if (InputManager.OnKeyPressed(Keys.B) && playerIndex == PlayerIndex.One)
 				inventory.ActivateSpecialAttack(gameTime);
 
 			// Use Item or Interact
-			if (InputManager.IsKeyPressed(Keys.F))
+			if (InputManager.OnKeyPressed(Keys.F))
 				if (CollisionManager.IsInteractableCollision(this))
 					CollisionManager.GetNearestInteractable(this).Interact(this);
 				else
 					inventory.UseActiveUsableItem(gameTime);
 
             expBar.Position = Healthbar.Position - new Vector2(0, expBar.Size.Y);
-		}
+
+            if (drawGold)
+            {
+                goldSprite.Scale = 1f;
+                goldSprite.WorldPosition = WorldPosition;
+                goldSprite.Update(gameTime);
+
+                showGoldTime = -gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (showGoldTime < 0)
+                {
+                    ShowGold(false);
+                }
+            }
+            else
+                goldSprite.Scale = 0f;
+        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -144,6 +171,15 @@ namespace EVCMonoGame.src.characters
             itemFinder.Draw(gameTime, spriteBatch);
 
             expBar.Draw(gameTime, spriteBatch);
+
+            goldSprite.Draw(gameTime, spriteBatch);
         }
+
+        public void ShowGold(bool showGold, double time = 0)
+        {
+            drawGold = showGold;
+            showGoldTime = time;
+        }
+
     }
 }

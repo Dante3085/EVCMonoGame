@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.utility;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src
 {
@@ -44,8 +45,8 @@ namespace EVCMonoGame.src
 
 		private int gold;
 
-		// Weapons Inventory
-		protected List<Weapon> weapons;
+        // Weapons Inventory
+        protected List<Weapon> weapons;
 		protected Weapon activeWeapon;
 
 		// Items Inventory
@@ -97,7 +98,7 @@ namespace EVCMonoGame.src
 
 		public Inventory(Player owner)
 		{
-			this.owner = owner;
+            this.owner = owner;
 			usableItems = new List<UsableItem>();
 			weapons = new List<Weapon>();
 
@@ -131,6 +132,7 @@ namespace EVCMonoGame.src
 			AddUsableItem(inventoryItem_2);
 			AddUsableItem(inventoryItem_3);
 			AddUsableItem(inventoryItem_4);
+
 		}
 
 		public virtual void AddUsableItem(UsableItem item)
@@ -698,6 +700,7 @@ namespace EVCMonoGame.src
 				item.LoadContent(content);
 
 			font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
+
 		}
 
 
@@ -826,5 +829,8 @@ namespace EVCMonoGame.src
 				activeWeapon = weapons.ElementAt<Weapon>(currentPos);
 			}
 		}
-	}
+
+
+
+    }
 }

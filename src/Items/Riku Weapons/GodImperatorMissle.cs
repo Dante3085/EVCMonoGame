@@ -14,23 +14,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class PenetrateMissle : WeaponRiku
+	public class GodImperatorMissle : WeaponRiku
 	{
 
-		public PenetrateMissle(Vector2 position)
+		public GodImperatorMissle(Vector2 position)
 			: base
 			(
 				position,
 				"rsrc/spritesheets/singleImages/arrow",
 				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				"COIN",
-				"PenetrateMissle"
-			)
+                "GodImperatorMissle"
+            )
 		{
 		}
 		public override Item Copy()
 		{
-			return new PenetrateMissle(WorldPosition);
+			return new GodImperatorMissle(WorldPosition);
 		}
 
 

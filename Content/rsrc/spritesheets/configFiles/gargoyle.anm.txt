@@ -49,7 +49,7 @@ ATTACK_BOUNDS = (0, 0, 50, 50), (0, 0, 100, 100)
 FRAME_DELAYS  = 330@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = BATTLE_CRY_RIGHT
@@ -59,7 +59,7 @@ ATTACK_BOUNDS = (0, 0, 200, 200), (0, 0, 200, 200)
 FRAME_DELAYS  = 330@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = BATTLE_CRY_TWO_LEFT
@@ -69,7 +69,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 300@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = BATTLE_CRY_TWO_RIGHT
@@ -79,7 +79,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 300@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = ATTACK_LEFT
@@ -89,7 +89,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 220@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = ATTACK_RIGHT
@@ -99,7 +99,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 220@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = FLINCH_LEFT
@@ -109,7 +109,7 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 220@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = false
-IS_LOOPED     = true
+IS_LOOPED     = false
 
 [ANIMATION]
 NAME          = FLINCH_RIGHT
@@ -119,4 +119,4 @@ ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 220@all
 FRAME_OFFSETS = (0, 0)@all
 IS_MIRRORED   = true
-IS_LOOPED     = true
+IS_LOOPED     = false

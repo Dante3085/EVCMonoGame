@@ -54,19 +54,20 @@ namespace EVCMonoGame.src.scenes
 			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
 			
 
-			Enemy shadow = new Shadow(new Vector2(1350, 4150));
-			Enemy shadow_2 = new Shadow(new Vector2(1300, 4150));
+			Enemy shadow = new Shadow(Vector2.Zero);
+			Enemy shadow_2 = new Shadow(Vector2.Zero);
 
 			// Shop
-			Item inventoryItem = new Healthpotion(new Vector2(1300, 3800));
-			Item inventoryItem_2 = new GodMissleScroll(new Vector2(1350, 3820));
+			Item inventoryItem = new Healthpotion(Vector2.Zero);
+			Item inventoryItem_2 = new GodMissleScroll(Vector2.Zero);
 			Shop soraShop = new Shop(new Vector2(350, 900), new List<Item> { inventoryItem, inventoryItem_2 }, GameplayState.Lane.LaneOne);
-
-
-			// Shop
-			Item weapon = new CoinBombMissle(new Vector2(1300, 3800));
-			Item weapon_2 = new PenetrateMissle(new Vector2(1350, 3820));
-			Shop rikuShop = new Shop(new Vector2(1350, 700), new List<Item> { weapon, weapon_2 }, GameplayState.Lane.LaneTwo);
+            
+            // Shop
+            Item bounceMissle = new BounceMissle(new Vector2(0, 0));
+			Item penetrateMissle = new PenetrateMissle(new Vector2(0, 0));
+            Item splitMissle = new SplitMissle(new Vector2(0, 0));
+            Item godImperator = new GodImperatorMissle(new Vector2(0, 0));
+            Shop rikuShop = new Shop(new Vector2(1350, 700), new List<Item> { bounceMissle, penetrateMissle, splitMissle, godImperator }, GameplayState.Lane.LaneTwo);
 
 			//Drawables	
 			//Items
@@ -88,7 +89,7 @@ namespace EVCMonoGame.src.scenes
 				//Shop
 			updateables.Add(soraShop);
 			updateables.Add(rikuShop);
-			//Enemys
+			    //Enemys
 			updateables.Add(shadow);
 			updateables.Add(shadow_2);
 		}
