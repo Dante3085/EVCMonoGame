@@ -22,6 +22,7 @@ namespace EVCMonoGame.src.states
     {
         // TODO: Player hier statisch erzeugen.
 
+        public static ContentManager globalContentManager;
         private ContentManager content;
         private SpriteFont gameFont;
 
@@ -57,6 +58,7 @@ namespace EVCMonoGame.src.states
 		{
 			get { return isTwoPlayer; }
 		}
+
 		#endregion
 
 		public GameplayState()
@@ -72,7 +74,10 @@ namespace EVCMonoGame.src.states
 		public override void LoadContent()
         {
             if (content == null)
+            {
                 content = new ContentManager(StateManager.Game.Services, "Content");
+                globalContentManager = content;
+            }
 
             // Aus irgendeinem Grund ist der StateManager im Konstruktor von Gameplaystate noch null.
             // Hier aber nicht mehr.
