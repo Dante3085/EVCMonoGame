@@ -192,5 +192,6 @@ namespace EVCMonoGame.src.characters
             showGoldTime = time;
         }
 
+		public abstract void CheckLevelUp();
     }
 }

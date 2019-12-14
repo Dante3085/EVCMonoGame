@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.statemachine.defender;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -35,6 +36,7 @@ namespace EVCMonoGame.src.characters.enemies
             sprite.SetAnimation("RUN_RIGHT");
 
             collisionBoxOffset = new Vector2(100, 100);
+            stateManager = new StateManagerDefender(this);
         }
 
         public override void Update(GameTime gameTime)

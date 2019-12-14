@@ -230,7 +230,6 @@ namespace EVCMonoGame.src.scenes
 
 			currentScene.OnEnterScene();
 			currentScene.LoadContent(game.Content);
-
 		}
         #endregion
         #region Methods

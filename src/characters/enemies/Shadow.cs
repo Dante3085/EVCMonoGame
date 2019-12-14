@@ -11,6 +11,8 @@ using EVCMonoGame.src.Items;
 
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.Items;
+using EVCMonoGame.src.statemachine.shadow;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -38,6 +40,7 @@ namespace EVCMonoGame.src.characters.enemies
 
             collisionBox.Size = new Point(50, 50);
             collisionBoxOffset = new Vector2(30, 30);
+            stateManager = new StateManagerShadow(this);
         }
 
         public override void Update(GameTime gameTime)
@@ -57,10 +60,25 @@ namespace EVCMonoGame.src.characters.enemies
             base.LoadContent(content);
         }
 
+        public override void DropLoot()
+        {
+            base.DropLoot();
+
+            Random random = new Random();
+
+            //if (random.Next(0, 2) == 1)
+            //{
+            //    Sora_NoGlow sora_NoGlow = new Sora_NoGlow(WorldPosition);
+
+            //    update
+            //}
+        }
+
         //public override void OnCombatCollision(CombatArgs combatArgs)
         //{
         //    base.OnCombatCollision(combatArgs);
         //    enemySprite.SetAnimation("FLINCH_LEFT");
         //}
+        
     }
 }

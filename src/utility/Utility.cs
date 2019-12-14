@@ -17,7 +17,7 @@ namespace EVCMonoGame.src.utility
         // RegularExpression for ReplaceWhitespace()
         private static readonly Regex sWhitespace = new Regex(@"\s+");
 
-        private static Random random = new Random();
+        public static Random random = new Random();
 
         /// <summary>
         /// Returns a new string which is equal to input except that all occurences of whitespace
@@ -172,6 +172,51 @@ namespace EVCMonoGame.src.utility
             }
             return Orientation.NONE;
         }
+
+        public static Orientation GetOrientationDiagonal(Vector2 directionVector)
+        {
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(directionVector);
+            if (orientationAngle > (0) && orientationAngle <= (90))
+            {
+                return Orientation.UP_RIGHT;
+            }
+            if (orientationAngle > (90) && orientationAngle <= (180))
+            {
+                return Orientation.UP_LEFT;
+            }
+            if (orientationAngle > (-180) && orientationAngle <= (-90))
+            {
+                return Orientation.DOWN_LEFT;
+            }
+            if (orientationAngle > (-90) && orientationAngle <= (0))
+            {
+                return Orientation.DOWN_RIGHT;
+            }
+            return Orientation.NONE;
+        }
+
+        public static Orientation GetOrientationStraight(Vector2 directionVector)
+        {
+            float orientationAngle = Utility.GetAngleOfVectorInDegrees(directionVector);
+            if (orientationAngle > (45) && orientationAngle <= (135))
+            {
+                return Orientation.UP;
+            }
+            if ((orientationAngle > (135) && orientationAngle <= (180))|| (orientationAngle > (-180) && orientationAngle <= (-135)))
+            {
+                return Orientation.LEFT;
+            }
+            if (orientationAngle > (-135) && orientationAngle <= (-45))
+            {
+                return Orientation.DOWN;
+            }
+            if ((orientationAngle > (-45) && orientationAngle <= (0))|| (orientationAngle > (0) && orientationAngle <= (45)))
+            {
+                return Orientation.RIGHT;
+            }
+            return Orientation.NONE;
+        }
+
 
         public static Rectangle CalcMinimalBoundingBox(List<Vector2> points)
         {

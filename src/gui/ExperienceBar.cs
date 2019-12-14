@@ -33,11 +33,25 @@ namespace EVCMonoGame.src.gui
         private Rectangle expTextBounds;
 
         private int level = 0;
+        private bool levelUp = false;
 
         public int Level
         {
             get { return level; }
             set { level = value; }
+        }
+
+        public bool LevelUp
+        {
+            get
+            {
+                //levelUp = false;
+                //return true;
+
+                bool returnValue = levelUp;
+                levelUp = false;
+                return returnValue;
+            }
         }
 
         public Vector2 Size
@@ -87,6 +101,7 @@ namespace EVCMonoGame.src.gui
                 if (currentExp == maxExp)
                 {
                     ++level;
+                    levelUp = true;
                     currentExp = 0;
                 }
 

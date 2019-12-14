@@ -19,7 +19,9 @@ namespace EVCMonoGame.src.statemachine.sora
         private PlayerOne sora = GameplayState.PlayerOne;
         private String nextAttackAnimation = "UNINITIALIZED";
 
-        public StateAttacking(params Transition[] transitions) 
+        private CombatArgs previousCombatArgs;
+
+        public StateAttacking(params Transition[] transitions)
             : base("Attacking", transitions)
         {
         }
@@ -28,7 +30,14 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             base.Enter(gameTime);
 
-            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One)||
+
+            CombatArgs soraCombatArgs = sora.CombatArgs;
+            previousCombatArgs = soraCombatArgs;
+
+            soraCombatArgs.damage += sora.weapon.strength;
+
+
+            if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One) ||
                 InputManager.OnKeyPressed(Keys.D1))
             {
                 OnXPressed();
@@ -59,6 +68,8 @@ namespace EVCMonoGame.src.statemachine.sora
             base.Exit(gameTime);
 
             sora.HasActiveAttackBounds = true;
+
+            sora.CombatArgs = previousCombatArgs;
         }
 
         private void OnXPressed()
@@ -69,35 +80,44 @@ namespace EVCMonoGame.src.statemachine.sora
 
             switch (sora.playerOrientation)
             {
-                case Orientation.LEFT: nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
-                    combatArgs.knockBack = new Vector2(-100, 0);
-                    break;
-                    
-                case Orientation.UP_LEFT: nextAttackAnimation = "ATTACK_UP_LEFT";
-                    combatArgs.knockBack = new Vector2(-100, -100);
+                case Orientation.LEFT:
+                    nextAttackAnimation = "ATTACK_STD_COMBO_LEFT_0";
+                    combatArgs.knockBack = new Vector2(-100, 0) * sora.weapon.knockbackMultiplier;
                     break;
 
-                case Orientation.UP: nextAttackAnimation = "ATTACK_UP";
-                    combatArgs.knockBack = new Vector2(0, -100);
+                case Orientation.UP_LEFT:
+                    nextAttackAnimation = "ATTACK_UP_LEFT";
+                    combatArgs.knockBack = new Vector2(-100, -100) * sora.weapon.knockbackMultiplier;
                     break;
 
-                case Orientation.UP_RIGHT: nextAttackAnimation = "ATTACK_UP_RIGHT";
+                case Orientation.UP:
+                    nextAttackAnimation = "ATTACK_UP";
+                    combatArgs.knockBack = new Vector2(0, -100) * sora.weapon.knockbackMultiplier;
                     break;
 
-                case Orientation.RIGHT: nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
-                    combatArgs.knockBack = new Vector2(100, 0);
-                   break;
-
-                case Orientation.DOWN_RIGHT: nextAttackAnimation = "ATTACK_DOWN_RIGHT";
-                    combatArgs.knockBack = new Vector2(100, 100);
+                case Orientation.UP_RIGHT:
+                    nextAttackAnimation = "ATTACK_UP_RIGHT";
+                    combatArgs.knockBack = new Vector2(100, -100) * sora.weapon.knockbackMultiplier;
                     break;
 
-                case Orientation.DOWN: nextAttackAnimation = "ATTACK_DOWN";
-                    combatArgs.knockBack = new Vector2(0, 100);
+                case Orientation.RIGHT:
+                    nextAttackAnimation = "ATTACK_STD_COMBO_RIGHT_0";
+                    combatArgs.knockBack = new Vector2(100, 0) * sora.weapon.knockbackMultiplier;
                     break;
 
-                case Orientation.DOWN_LEFT: nextAttackAnimation = "ATTACK_DOWN_LEFT";
-                    combatArgs.knockBack = new Vector2(-100, 100);
+                case Orientation.DOWN_RIGHT:
+                    nextAttackAnimation = "ATTACK_DOWN_RIGHT";
+                    combatArgs.knockBack = new Vector2(100, 100) * sora.weapon.knockbackMultiplier;
+                    break;
+
+                case Orientation.DOWN:
+                    nextAttackAnimation = "ATTACK_DOWN";
+                    combatArgs.knockBack = new Vector2(0, 100) * sora.weapon.knockbackMultiplier;
+                    break;
+
+                case Orientation.DOWN_LEFT:
+                    nextAttackAnimation = "ATTACK_DOWN_LEFT";
+                    combatArgs.knockBack = new Vector2(-100, 100) * sora.weapon.knockbackMultiplier;
                     break;
             }
         }

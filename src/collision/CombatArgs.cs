@@ -15,6 +15,7 @@ namespace EVCMonoGame.src.collision
         public CombatCollidable attacker;
         public CombatCollidable victim;
         public CombatantType targetType;
+        public Orientation atackOrientation = Orientation.NONE;
 
         public int damage        = 0;
         public Vector2 knockBack = Vector2.Zero;

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.scenes;
+using EVCMonoGame.src.statemachine.hades;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -17,17 +18,17 @@ namespace EVCMonoGame.src.characters.enemies
             : base
             (
                   name: "Hades",
-                  maxHp: 3000,
-                  currentHp: 3000,
+                  maxHp: 99999,
+                  currentHp: 99999,
                   maxMp: 100,
                   currentMp: 100,
-                  strength: 15,
+                  strength: 20,
                   defense: 12,
                   intelligence: 9,
                   agility: 8,
                   movementSpeed: 6,
                   position: position,
-                  exp: 3000
+                  exp: 10000
             )
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
@@ -35,6 +36,7 @@ namespace EVCMonoGame.src.characters.enemies
 
             collisionBox.Size = new Point(120, 120);
             collisionBoxOffset = new Vector2(50, 110);
+            stateManager = new StateManagerHades(this);
         }
 
         public override void Update(GameTime gameTime)

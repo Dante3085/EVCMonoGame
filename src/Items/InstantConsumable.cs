@@ -46,6 +46,8 @@ namespace EVCMonoGame.src.Items
 			player.PlayerInventory.Gold += gold;
 			player.expBar.CurrentExp += exp;
 
+			player.CheckLevelUp();
+
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
 
 		}

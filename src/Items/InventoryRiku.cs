@@ -35,7 +35,7 @@ namespace EVCMonoGame.src.Items
 
 		public override void StarterItems()
 		{
-			base.StarterItems();
+			// base.StarterItems();
 
 			WeaponRiku weapon = new GodImperatorMissle(Vector2.Zero);
 			WeaponRiku weapon_2 = new SplitMissle(Vector2.Zero);

@@ -55,6 +55,8 @@ namespace EVCMonoGame.src.scenes.tutorial
             base.OnEnterScene();
 
             camera.Zoom = 0.7f;
+            //camera.MinZoom = 0.6f;
+            //camera.MaxZoom = 0.4f;
         }
 
         public override void Update(GameTime gameTime)
