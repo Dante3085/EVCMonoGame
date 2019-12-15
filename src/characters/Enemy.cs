@@ -283,7 +283,7 @@ namespace EVCMonoGame.src.characters
             DropLoot();
         }
 
-        public void DropLoot()
+        public virtual void DropLoot()
         {
             Random random = new Random();
 
