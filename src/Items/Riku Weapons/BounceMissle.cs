@@ -21,13 +21,15 @@ namespace EVCMonoGame.src.Items
 			: base
 			(
 				position,
-				"rsrc/spritesheets/singleImages/coin-1",
+				"rsrc/spritesheets/singleImages/Magic_Missile_Green",
 				"Content/rsrc/spritesheets/configFiles/magic_missile_green.anm.txt",
 				"MAGIC_MISSILE_UP",
                 "BounceMissle"
             )
 		{
 			shopPrice = 2;
+			sprite.Scale = 3;
+			sprite.RescaleOffsets();
 		}
 		public override Item Copy()
 		{
