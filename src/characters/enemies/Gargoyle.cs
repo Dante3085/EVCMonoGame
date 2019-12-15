@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using C3.MonoGame;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.gargoyle;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -31,9 +32,10 @@ namespace EVCMonoGame.src.characters.enemies
                   exp: 8
             )
         {
+            sprite = new AnimatedSprite(position, 5.0f, true);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gargoyle.anm.txt");
             sprite.SetAnimation("BATTLE_CRY_LEFT");
-
+            this.attackRange = 450;
             collisionBoxOffset = new Vector2(100, 100);
             stateManager = new StateManagerGargoyle(this);
         }

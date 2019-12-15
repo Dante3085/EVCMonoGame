@@ -137,25 +137,25 @@ namespace EVCMonoGame.src.characters
         public void SetGlow(EAura aura){
             
             switch(aura){
-                case WHITE:
+                case EAura.WHITE:
                         sprite.spritesheet = PlayerSpriteSheets.WhiteGlow;
                     break;
-                case GREEN:
+                case EAura.GREEN:
                         sprite.spritesheet = PlayerSpriteSheets.GreenGlow;
                         break;
-                case RED:
+                case EAura.RED:
                     sprite.spritesheet = PlayerSpriteSheets.RedGlow;
                     break;
-                case BLUE:
+                case EAura.BLUE:
                     sprite.spritesheet = PlayerSpriteSheets.BlueGlow;
                     break;
-                case YELLOW:
+                case EAura.YELLOW:
                     sprite.spritesheet = PlayerSpriteSheets.YellowGlow;
                     break;
-                case GOD:
+                case EAura.GOD:
                     sprite.spritesheet = PlayerSpriteSheets.GodModeGlow;
                     break;
-                case NORMAL:
+                case EAura.NORMAL:
                     sprite.spritesheet = PlayerSpriteSheets.NoGlow;
                     break;
             }

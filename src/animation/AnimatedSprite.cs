@@ -107,6 +107,7 @@ namespace EVCMonoGame.src.animation
         private Vector2 position;
         private Vector2 previousPosition;
         private float scale;
+        private bool scaleAttackBounds;
 
         private Rectangle bounds;
 
@@ -155,6 +156,7 @@ namespace EVCMonoGame.src.animation
             get
             {
                 Rectangle currentAttackBounds = animations[currentAnimation].AttackBounds[frameIndex];
+                if(scaleAttackBounds)currentAttackBounds.Location *= new Point((int)scale, (int)scale);
                 currentAttackBounds.Location += position.ToPoint();
                 currentAttackBounds.Size *= new Point((int)scale, (int)scale);
 
@@ -285,7 +287,7 @@ namespace EVCMonoGame.src.animation
             this.scale = scale;
         }
 
-        public AnimatedSprite(Vector2 position, float scale = 1.0f)
+        public AnimatedSprite(Vector2 position, float scale = 1.0f, bool scaleAttackBounds = false)
         {
             animations = new Dictionary<string, Animation>();
             currentAnimation = "NONE";
@@ -295,6 +297,7 @@ namespace EVCMonoGame.src.animation
             this.position = position;
             previousPosition = position;
             this.scale = scale;
+            this.scaleAttackBounds = scaleAttackBounds;
         }
         #endregion
 
@@ -452,6 +455,38 @@ namespace EVCMonoGame.src.animation
                              aD.frameDelays, aD.frameOffsets, aD.isMirrored, aD.isLooped);
             }
             if (scaleOffsets)
+            {
+                List<String> animationNames = new List<string>();
+                foreach (String animName in animations.Keys)
+                {
+                    animationNames.Add(animName);
+                }
+                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
+                {
+                    for (int offsetIndex = 0;
+                        offsetIndex < animations[animationNames[animationIndex]].FrameOffsets.Count();
+                        offsetIndex++)
+                    {
+                        animations[animationNames[animationIndex]].FrameOffsets[offsetIndex] *= this.scale;
+                    }
+                }
+                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
+                {
+                    for (int offsetIndex = 0;
+                        offsetIndex < animations[animationNames[animationIndex]].AttackBounds.Count();
+                        offsetIndex++)
+                    {
+                        Rectangle r = animations[animationNames[animationIndex]].AttackBounds[offsetIndex];
+                        Vector2 v = r.Location.ToVector2() * this.scale;
+                        r.Location = v.ToPoint();
+                        animations[animationNames[animationIndex]].AttackBounds[offsetIndex] = r;
+                    }
+                }
+            }
+        }
+
+        public void RescaleOffsets(){
+        	if (scaleOffsets)
             {
                 List<String> animationNames = new List<string>();
                 foreach (String animName in animations.Keys)
