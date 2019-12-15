@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/khcom_collectibles
+
+[ANIMATION]
+NAME          = IDLE
+FRAMES        = (18, 4, 12, 12), (18, 16, 12, 12), (18, 28, 12, 12), (18, 40, 12, 12), (18, 52, 12, 12), (18, 64, 12, 12), (18, 76, 12, 12) 
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 200@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
