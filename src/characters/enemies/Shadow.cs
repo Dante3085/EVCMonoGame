@@ -65,13 +65,72 @@ namespace EVCMonoGame.src.characters.enemies
             base.DropLoot();
 
             Random random = new Random();
+            int rndNum;
 
-            //if (random.Next(0, 2) == 1)
-            //{
-            //    Sora_NoGlow sora_NoGlow = new Sora_NoGlow(WorldPosition);
+            // 10% GodMissile
+            rndNum = random.Next(0, 10);
+            if (rndNum == 0)
+            {
+                GodImperatorMissle godMissile = new GodImperatorMissle(WorldPosition);
 
-            //    update
-            //}
+                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+                {
+                    godMissile,
+                });
+
+                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+                {
+                    godMissile,
+                });
+            }
+
+            // 40% SplitMissile
+            else if (rndNum >= 0 && rndNum <= 3)
+            {
+                SplitMissle splitMissile = new SplitMissle(WorldPosition);
+
+                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+                {
+                    splitMissile,
+                });
+
+                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+                {
+                    splitMissile
+                });
+            }
+
+            // 60% PenetrateMissile
+            else if (rndNum >= 0 && rndNum <= 5)
+            {
+                PenetrateMissle penetrateMissile = new PenetrateMissle(WorldPosition);
+
+                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+                {
+                    penetrateMissile,
+                });
+
+                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+                {
+                    penetrateMissile
+                });
+            }
+
+            // 80% BounceMissile
+            else if (rndNum >= 0 && rndNum <= 7)
+            {
+                BounceMissle bounceMissile = new BounceMissle(WorldPosition);
+
+                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+                {
+                    bounceMissile,
+                });
+
+                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+                {
+                    bounceMissile
+                });
+            }
         }
 
         //public override void OnCombatCollision(CombatArgs combatArgs)

@@ -300,16 +300,21 @@ namespace EVCMonoGame.src.characters
 																		0.5f);
 				expBottle.exp = random.Next(10, 21);
 
+				Vector2 rndHealthorbPosition = WorldPosition + new Vector2(random.Next(-250, 250), random.Next(-250, 250));
+				Healthpotion healthpotion = new Healthpotion(rndHealthorbPosition);
+
 				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
 				{
 					coin,
 					expBottle,
+					healthpotion,
 				});
 
 				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
 				{
 					coin,
 					expBottle,
+					healthpotion,
 				});
 			}
 		}
