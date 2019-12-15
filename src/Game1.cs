@@ -66,7 +66,7 @@ namespace EVCMonoGame.src
             //graphicsDeviceManager.PreferredBackBufferWidth = 3240;
             //graphicsDeviceManager.PreferredBackBufferHeight = 2160;
 
-            graphicsDeviceManager.PreferredBackBufferWidth  = 1920;
+            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
             graphicsDeviceManager.PreferredBackBufferHeight = 1080;
 
             graphicsDeviceManager.IsFullScreen = false;
@@ -95,6 +95,8 @@ namespace EVCMonoGame.src
 
         protected override void LoadContent()
         {
+            AssetManager.LoadAssets(Content);
+
             fpsCounter.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -137,7 +139,7 @@ namespace EVCMonoGame.src
         }
     }
 
-    internal static class Program
+    internal static class ProgramO
     {
         private static void Main()
         {
