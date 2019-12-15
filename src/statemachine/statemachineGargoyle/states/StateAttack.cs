@@ -26,10 +26,26 @@ namespace EVCMonoGame.src.statemachine.gargoyle
         {
             base.Enter(gameTime);
             Console.WriteLine("Gargoyle entered ATTACKSTATE");
-            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(gargoyle, gargoyle.attackRange+10);
-            
+            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(gargoyle, gargoyle.attackRange + 10);
+
             gargoyle.CombatArgs.NewId();
-            
+            Console.WriteLine("gargoyleattackdamega:" + gargoyle.CombatArgs.damage);
+            if ((nearestPlayer.Sprite.Bounds.Center - gargoyle.CollisionBox.Center).ToVector2().Length() > gargoyle.attackRange / 2)
+            {
+                CloseAttack(nearestPlayer);
+            }
+            else
+            {
+                BattleCry(nearestPlayer);
+            }
+
+        }
+
+
+        private void CloseAttack(Player nearestPlayer)
+        {
+            cooldown = new TimeSpan(0, 0, 1);
+            gargoyle.attackDmg = 50;
             if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
             {
                 gargoyle.Sprite.SetAnimation("ATTACK_RIGHT");
@@ -38,8 +54,22 @@ namespace EVCMonoGame.src.statemachine.gargoyle
             {
                 gargoyle.Sprite.SetAnimation("ATTACK_LEFT");
             }
-
         }
+
+        private void BattleCry(Player nearestPlayer)
+        {
+            cooldown = new TimeSpan(0, 0, 3);
+            gargoyle.attackDmg = 20;
+            if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
+            {
+                gargoyle.Sprite.SetAnimation("BATTLE_CRY_RIGHT");
+            }
+            else
+            {
+                gargoyle.Sprite.SetAnimation("BATTLE_CRY_LEFT");
+            }
+        }
+
 
         public override void Exit(GameTime gameTime)
         {

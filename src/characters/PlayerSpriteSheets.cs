@@ -23,7 +23,7 @@ namespace EVCMonoGame.src.characters
         BLUE,
         YELLOW,
         WHITE,
-        GOD,
+        GOD
     }
 
     public static class PlayerSpriteSheets

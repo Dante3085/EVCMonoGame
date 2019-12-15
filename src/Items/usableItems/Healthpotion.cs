@@ -22,13 +22,14 @@ namespace EVCMonoGame.src.Items
 			: base(
 				  position,
 				  inventoryIconPath: "rsrc/spritesheets/singleImages/boss_bee",
-				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/coin.anm.txt",
-				  idleAnim: "COIN",
+				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/healthorb.anm.txt",
+				  idleAnim: "IDLE",
 				  lane: GameplayState.Lane.LaneBoth,
 				  itemName: "Healthpotion"
 				  )
 		{
 			shopPrice = 5;
+			sprite.Scale = 4;
 		}
 
 		public override Item Copy()

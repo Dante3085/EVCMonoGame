@@ -22,8 +22,8 @@ namespace EVCMonoGame.src.Items
 			(
 				position,
 				"rsrc/spritesheets/singleImages/coin-1",
-				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
-				"COIN",
+				"Content/rsrc/spritesheets/configFiles/magic_missile_green.anm.txt",
+				"MAGIC_MISSILE_UP",
                 "BounceMissle"
             )
 		{

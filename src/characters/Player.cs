@@ -147,11 +147,13 @@ namespace EVCMonoGame.src.characters
 				inventory.ActivateSpecialAttack(gameTime);
 
 			// Use Item or Interact
-			if (InputManager.OnKeyPressed(Keys.F))
+			if (InputManager.OnKeyPressed(Keys.F) || InputManager.OnButtonPressed(Buttons.A, playerIndex))
+			{
 				if (CollisionManager.IsInteractableCollision(this))
 					CollisionManager.GetNearestInteractable(this).Interact(this);
 				else
 					inventory.UseActiveUsableItem(gameTime);
+			}
 
             expBar.Position = Healthbar.Position - new Vector2(0, expBar.Size.Y);
 

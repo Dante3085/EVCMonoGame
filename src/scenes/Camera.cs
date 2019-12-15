@@ -59,12 +59,25 @@ namespace EVCMonoGame.src.scenes
         private Easer zoomEaser;
         private float distanceBetweenPlayers = 0;
         private float previousDistanceBetweenPlayers = 0;
-        private const float zoomBorderCloseWide = 700;
-        private const float zoomBorderWideVeryWide = 1500;
+        private float zoomBorderCloseWide = 700;
+        private float zoomBorderWideVeryWide = 1500;
 
         #endregion
 
         #region Properties
+
+        public float ZoomBorderCloseWide
+        {
+            get { return zoomBorderCloseWide; }
+            set { zoomBorderCloseWide = value; }
+        }
+
+        public float ZoomBorderWideVeryWide
+        {
+            get { return zoomBorderWideVeryWide; }
+            set { zoomBorderWideVeryWide = value; }
+        }
+
         public bool DoUpdate
         {
             get; set;
@@ -269,6 +282,8 @@ namespace EVCMonoGame.src.scenes
                     previousDistanceBetweenPlayers = distanceBetweenPlayers;
                     distanceBetweenPlayers = (GameplayState.PlayerTwo.WorldPosition - 
                                                    GameplayState.PlayerOne.WorldPosition).Length();
+
+                    Console.WriteLine("playerDistance: " + distanceBetweenPlayers);
 
                     if (DynamicZoomActivated)
                     {

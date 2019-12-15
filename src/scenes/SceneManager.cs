@@ -373,7 +373,10 @@ namespace EVCMonoGame.src.scenes
 						CollisionManager.AddCollidable(GameplayState.PlayerTwo, CollisionManager.obstacleCollisionChannel);
 					}
 
-					nextScene.OnEnterScene();
+                    CollisionManager.AddCombatCollidable(GameplayState.PlayerOne);
+                    CollisionManager.AddCombatCollidable(GameplayState.PlayerTwo);
+
+                    nextScene.OnEnterScene();
 					nextScene.LoadContent(game.Content);
 
 
