@@ -41,12 +41,9 @@ namespace EVCMonoGame.src.scenes
 			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
-			playerOne.PlayerInventory.Gold = 100;
-			playerOne.CurrentHp = 10;
 			playerOne.WorldPosition = new Vector2(600, 800);
 
 			PlayerTwo playerTwo = GameplayState.PlayerTwo;
-			playerTwo.PlayerInventory.Gold = 500;
 			playerTwo.WorldPosition = new Vector2(900, 750);
 
 

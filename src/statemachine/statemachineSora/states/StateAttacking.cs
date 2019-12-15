@@ -75,8 +75,7 @@ namespace EVCMonoGame.src.statemachine.sora
         private void OnXPressed()
         {
             CombatArgs combatArgs = sora.CombatArgs;
-            combatArgs.NewId();
-            combatArgs.damage += 5;
+            sora.CombatArgs.NewId();
 
             switch (sora.playerOrientation)
             {
