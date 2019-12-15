@@ -14,24 +14,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class CoinBombMissle : WeaponRiku
+	public class BounceMissle : WeaponRiku
 	{
 
-		public CoinBombMissle(Vector2 position)
+		public BounceMissle(Vector2 position)
 			: base
 			(
 				position,
 				"rsrc/spritesheets/singleImages/coin-1",
 				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				"COIN",
-				"CoinBombMissle"
-			)
+                "BounceMissle"
+            )
 		{
-			Unlocked = true;
+			shopPrice = 2;
 		}
 		public override Item Copy()
 		{
-			return new CoinBombMissle(WorldPosition);
+			return new BounceMissle(WorldPosition);
 		}
 
 

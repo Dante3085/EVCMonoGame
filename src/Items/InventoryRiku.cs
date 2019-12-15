@@ -23,8 +23,10 @@ namespace EVCMonoGame.src.Items
 		public double AbilityCooldown; // in mili
 
 		public enum Ability {
-			PenetrateMissle,
-			CoinBombMissle
+            GodImperator,
+            SplitMissle,
+            PenetrateMissle,
+            BounceMissle
 		}
 
 		public InventoryRiku(Player riku) : base(riku)
@@ -35,20 +37,26 @@ namespace EVCMonoGame.src.Items
 		{
 			// base.StarterItems();
 
-			WeaponRiku weapon = new PenetrateMissle(new Vector2(1300, 3800));
-			WeaponRiku weapon_2 = new CoinBombMissle(new Vector2(1350, 3820));
-			WeaponRiku weapon_3 = new CoinBombMissle(new Vector2(1350, 3820));
+			WeaponRiku weapon = new GodImperatorMissle(Vector2.Zero);
+			WeaponRiku weapon_2 = new SplitMissle(Vector2.Zero);
+            WeaponRiku weapon_3 = new PenetrateMissle(Vector2.Zero);
+            WeaponRiku weapon_4 = new BounceMissle(Vector2.Zero);
 
-			weapon.stack = 0;
+            weapon.stack = 0;
+            weapon_2.stack = 0;
+            weapon_3.stack = 0;
+            weapon_4.stack = 0;
 
-			CollisionManager.RemoveCollidable(weapon, CollisionManager.itemCollisionChannel);
+            CollisionManager.RemoveCollidable(weapon, CollisionManager.itemCollisionChannel);
 			CollisionManager.RemoveCollidable(weapon_2, CollisionManager.itemCollisionChannel);
 			CollisionManager.RemoveCollidable(weapon_3, CollisionManager.itemCollisionChannel);
+            CollisionManager.RemoveCollidable(weapon_4, CollisionManager.itemCollisionChannel);
 
-			AddWeapon(weapon);
+            AddWeapon(weapon);
 			AddWeapon(weapon_2);
 			AddWeapon(weapon_3);
-		}
+            AddWeapon(weapon_4);
+        }
 
 		public override void DrawWeaponsInventory(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -70,14 +78,17 @@ namespace EVCMonoGame.src.Items
 					//Draw Icon
 					icon = weapons.ElementAt<Weapon>(itemPositionCounter).inventoryIcon;
 					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X, (int)screenPosition.Y - itemPosition.Y), itemSize), Color.White * 1.0f);
+                    
+                    //Draw Stack Ammount
+                    spriteBatch.DrawString(font, weapon.stack.ToString(), screenPosition - itemPosition.ToVector2() + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 1.0f);
 
-				}
+                }
 
-				itemPositionCounter++;
+                itemPositionCounter++;
 			}
 		}
 
-		public void ActivateSpecialAttack(GameTime gameTime, Ability ability, double cooldown)
+		public void ActivateSpecialAttack(GameTime gameTime, Ability ability, double cooldown = 0)
 		{
 			activeWeapon = weapons.ElementAt<Weapon>((int)ability);
 			if (((WeaponRiku)activeWeapon).Unlocked)
@@ -85,6 +96,11 @@ namespace EVCMonoGame.src.Items
 				base.ActivateSpecialAttack(gameTime);
 			}
 		}
+
+        public WeaponRiku GetWeapon(Ability ability)
+        {
+            return (WeaponRiku)weapons.ElementAt<Weapon>((int)ability);
+        }
 
 		public bool IsAbilityOnCooldown(Ability ability, GameTime gameTime)
 		{
@@ -108,6 +124,9 @@ namespace EVCMonoGame.src.Items
 			}
 		}
 
-
+        public bool IsAbilityOnStock(Ability ability)
+        {
+            return GetWeapon(ability).stack > 0 && GetWeapon(ability).Unlocked ? true : false;
+        }
 	}
 }

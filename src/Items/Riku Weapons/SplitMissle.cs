@@ -14,24 +14,31 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class PenetrateMissle : WeaponRiku
+	public class SplitMissle : WeaponRiku
 	{
 
-		public PenetrateMissle(Vector2 position)
+		public SplitMissle(Vector2 position)
 			: base
 			(
 				position,
 				"rsrc/spritesheets/singleImages/arrow",
 				"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 				"COIN",
-				"PenetrateMissle"
-			)
+                "SplitMissle"
+            )
 		{
-			shopPrice = 5;
+			shopPrice = 10;
 		}
+
 		public override Item Copy()
 		{
-			return new PenetrateMissle(WorldPosition);
+			return new SplitMissle(WorldPosition);
+		}
+
+
+		public override void PickUp(Player player)
+		{
+			base.PickUp(player);
 		}
 
 		public override void ActivateSpecial(Player player, GameTime gameTime)
