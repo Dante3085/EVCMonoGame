@@ -52,6 +52,7 @@ namespace EVCMonoGame.src
                 showPathfinding     = !showPathfinding;
                 showRaycasts        = !showRaycasts;
                 showAttackRange     = !showAttackRange;
+				showInteractable	= !showInteractable;
             }
 
             if (InputManager.OnKeyPressed(Keys.F3))
