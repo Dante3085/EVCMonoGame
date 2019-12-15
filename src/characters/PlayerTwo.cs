@@ -146,6 +146,8 @@ namespace EVCMonoGame.src.characters
 			if (InputManager.IsKeyPressed(Keys.B))
 				PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 200);
 
+			PlayerInventory.Update(gameTime);
+
             // flinch = zurückweichen
 
             // playerPortrait.Update(gameTime);

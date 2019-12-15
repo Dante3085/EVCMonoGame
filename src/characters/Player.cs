@@ -160,7 +160,7 @@ namespace EVCMonoGame.src.characters
                 goldSprite.WorldPosition = WorldPosition + new Vector2(10, -125);
                 goldSprite.Update(gameTime);
 
-                showGoldTime = -gameTime.ElapsedGameTime.TotalMilliseconds;
+                showGoldTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (showGoldTime < 0)
                 {
                     ShowGold(false);

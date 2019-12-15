@@ -43,7 +43,6 @@ namespace EVCMonoGame.src.Items
 		public override void ActivateSpecial(Player player, GameTime gameTime)
 		{
 			base.ActivateSpecial(player, gameTime);
-			Console.WriteLine("Special Attacke der CoinBomb Missle");
 		}
 
 	}

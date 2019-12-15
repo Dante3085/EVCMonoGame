@@ -48,6 +48,9 @@ namespace EVCMonoGame.src.Items
 
 			player.CheckLevelUp();
 
+			if (gold > 0)
+				player.ShowGold(true, 2000);
+
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
 
 		}
