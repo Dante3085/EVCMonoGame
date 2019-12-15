@@ -485,34 +485,32 @@ namespace EVCMonoGame.src.animation
             }
         }
 
-        public void RescaleOffsets(){
-        	if (scaleOffsets)
+        public void RescaleOffsets()
+        {
+            List<String> animationNames = new List<string>();
+            foreach (String animName in animations.Keys)
             {
-                List<String> animationNames = new List<string>();
-                foreach (String animName in animations.Keys)
-                {
-                    animationNames.Add(animName);
-                }
-                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
-                {
-                    for (int offsetIndex = 0;
+                animationNames.Add(animName);
+            }
+            for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
+            {
+                for (int offsetIndex = 0;
                         offsetIndex < animations[animationNames[animationIndex]].FrameOffsets.Count();
                         offsetIndex++)
-                    {
-                        animations[animationNames[animationIndex]].FrameOffsets[offsetIndex] *= this.scale;
-                    }
-                }
-                for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
                 {
-                    for (int offsetIndex = 0;
+                    animations[animationNames[animationIndex]].FrameOffsets[offsetIndex] *= this.scale;
+                }
+            }
+            for (int animationIndex = 0; animationIndex < animationNames.Count(); animationIndex++)
+            {
+                for (int offsetIndex = 0;
                         offsetIndex < animations[animationNames[animationIndex]].AttackBounds.Count();
                         offsetIndex++)
-                    {
-                        Rectangle r = animations[animationNames[animationIndex]].AttackBounds[offsetIndex];
-                        Vector2 v = r.Location.ToVector2() * this.scale;
-                        r.Location = v.ToPoint();
-                        animations[animationNames[animationIndex]].AttackBounds[offsetIndex] = r;
-                    }
+                {
+                    Rectangle r = animations[animationNames[animationIndex]].AttackBounds[offsetIndex];
+                    Vector2 v = r.Location.ToVector2() * this.scale;
+                    r.Location = v.ToPoint();
+                    animations[animationNames[animationIndex]].AttackBounds[offsetIndex] = r;
                 }
             }
         }
