@@ -46,7 +46,6 @@ namespace EVCMonoGame.src.scenes
 			PlayerTwo playerTwo = GameplayState.PlayerTwo;
 			playerTwo.WorldPosition = new Vector2(900, 750);
 
-
 			Item potion = new Healthpotion(new Vector2(1200, 3800));
 			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
 			
