@@ -29,19 +29,19 @@ namespace EVCMonoGame.src.statemachine.gargoyle
             switch (Utility.GetOrientationDiagonal(gargoyle.movementDirection))
             {
                 case Orientation.DOWN_LEFT:
-                    gargoyle.Sprite.SetAnimation("FLINCH_LEFT");
+                    gargoyle.Sprite.SetAnimation("BATTLE_CRY_TWO_LEFT");
                     break;
                 case Orientation.DOWN_RIGHT:
-                    gargoyle.Sprite.SetAnimation("FLINCH_RIGHT");
+                    gargoyle.Sprite.SetAnimation("BATTLE_CRY_TWO_RIGHT");
                     break;
                 case Orientation.UP_LEFT:
-                    gargoyle.Sprite.SetAnimation("FLINCH_LEFT");
+                    gargoyle.Sprite.SetAnimation("BATTLE_CRY_TWO_LEFT");
                     break;
                 case Orientation.UP_RIGHT:
-                    gargoyle.Sprite.SetAnimation("FLINCH_RIGHT");
+                    gargoyle.Sprite.SetAnimation("BATTLE_CRY_TWO_RIGHT");
                     break;
                 default:
-                    gargoyle.Sprite.SetAnimation("FLINCH_RIGHT");
+                    gargoyle.Sprite.SetAnimation("BATTLE_CRY_TWO_RIGHT");
                     break;
             }
 
