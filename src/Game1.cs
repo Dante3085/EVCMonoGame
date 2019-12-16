@@ -95,7 +95,7 @@ namespace EVCMonoGame.src
 
         protected override void LoadContent()
         {
-            AssetManager.LoadAssets(Content);
+            //AssetManager.LoadAssets(Content);
 
             fpsCounter.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -139,7 +139,7 @@ namespace EVCMonoGame.src
         }
     }
 
-    internal static class ProgramO
+    internal static class Program
     {
         private static void Main()
         {

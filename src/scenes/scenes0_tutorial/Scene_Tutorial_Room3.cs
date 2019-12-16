@@ -77,13 +77,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             doorPlayerOne = new Door(new Vector2(1550, 801));
             doorPlayerTwo = new Door(new Vector2(2000, 805));
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

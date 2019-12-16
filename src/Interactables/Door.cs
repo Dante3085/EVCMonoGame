@@ -11,10 +11,12 @@ using C3.MonoGame;
 
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.characters;
+using EVCMonoGame.src.collision;
 
 namespace EVCMonoGame.src
 {
-    public class Door : scenes.IDrawable, scenes.IUpdateable
+    public class Door : scenes.IDrawable, Interactable
     {
         private Texture2D texture;
         private Vector2 position;
@@ -41,30 +43,16 @@ namespace EVCMonoGame.src
         {
             get; set;
         } = true;
+		public Rectangle InteractableBounds { get => interactionArea; set => interactionArea = value; }
 
-        public Door(Vector2 position)
+		public Door(Vector2 position)
         {
             this.position = position;
 
             interactionArea = new Rectangle(position.ToPoint(), new Point(128, 256));
             interactionArea.Inflate(100, 100);
-        }
 
-        public void Update(GameTime gameTime)
-        {
-            if (BlockPlayerInteraction)
-                return;
-
-            if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One)||InputManager.OnKeyPressed(Keys.I)) &&
-                GameplayState.PlayerOne.CollisionBox.Intersects(interactionArea))
-            {
-                open = !open;
-            }
-            else if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) || InputManager.OnKeyPressed(Keys.O)) &&
-                     GameplayState.PlayerTwo.CollisionBox.Intersects(interactionArea))
-            {
-                open = !open;
-            }
+			CollisionManager.AddInteractable(this);
         }
 
         public void LoadContent(ContentManager content)
@@ -89,5 +77,13 @@ namespace EVCMonoGame.src
             //color.A = 25;
             //Primitives2D.FillRectangle(spriteBatch, interactionArea, color);
         }
-    }
+
+		public void Interact(Player player)
+		{
+			if (BlockPlayerInteraction)
+				return;
+
+			open = !open;
+		}
+	}
 }

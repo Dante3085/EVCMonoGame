@@ -13,10 +13,11 @@ using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.characters;
 
 namespace EVCMonoGame.src
 {
-    public class Lever : scenes.IUpdateable, scenes.IDrawable
+    public class Lever : scenes.IDrawable, Interactable
     {
         private Texture2D texture;
         private Vector2 position;
@@ -44,14 +45,15 @@ namespace EVCMonoGame.src
         public Rectangle Bounds
         {
             get { return screenBounds; }
-        }
+		}
 
         public bool DoUpdate
         {
             get; set;
         } = true;
+		public Rectangle InteractableBounds { get => interactionArea; set => interactionArea = value; }
 
-        public Lever(Vector2 position)
+		public Lever(Vector2 position)
         {
             this.position = position;
 
@@ -59,24 +61,19 @@ namespace EVCMonoGame.src
             interactionArea.Inflate(100, 100);
 
             screenBounds = new Rectangle((int)position.X, (int)position.Y, 128, 128);
+
+			CollisionManager.AddInteractable(this);
         }
 
-        public void Update(GameTime gamTime)
-        {
-            if (BlockPlayerInteraction)
-                return;
+		public void Interact(Player player)
+		{
+			if (BlockPlayerInteraction)
+				return;
 
-            if ((InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) &&
-                 CollisionManager.IsPlayerInArea(PlayerIndex.One, interactionArea)) ||
+			activated = !activated;
+		}
 
-                (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) &&
-                 CollisionManager.IsPlayerInArea(PlayerIndex.Two, interactionArea)))
-            {
-                activated = !activated;
-            }
-        }
-
-        public void LoadContent(ContentManager content)
+		public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("rsrc/tilesets/FF6MapTileCastles");
         }
@@ -96,5 +93,7 @@ namespace EVCMonoGame.src
             //color.A = 20;
             //Primitives2D.FillRectangle(spriteBatch, interactionArea, color);
         }
-    }
+
+
+	}
 }

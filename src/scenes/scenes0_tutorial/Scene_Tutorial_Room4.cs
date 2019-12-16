@@ -44,8 +44,6 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             updateables.AddRange(new IUpdateable[]
             {
-                doorPlayerOne,
-                doorPlayerTwo,
                 defenderSora,
                 defenderRiku,
             });

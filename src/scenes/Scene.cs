@@ -29,6 +29,7 @@ namespace EVCMonoGame.src.scenes
         public static List<IUpdateable> updateablesToRemove;
         public static List<IDrawable> drawablesToRemove;
 
+		protected bool isGameOver = false;
 
         protected SceneManager sceneManager;
         protected Camera camera;
@@ -70,8 +71,9 @@ namespace EVCMonoGame.src.scenes
             //    (GameplayState.PlayerTwo.WorldPosition - GameplayState.PlayerOne.Sprite.WorldPosition) / 2;
 
             if (!GameplayState.PlayerOne.IsAlive && !GameplayState.PlayerTwo.IsAlive)
-            {
-                sceneManager.SceneTransition(EScene.GAME_OVER);
+			{
+				isGameOver = true;
+				sceneManager.SceneTransition(EScene.GAME_OVER);
             }
 
             if (!pauseScene)
@@ -125,10 +127,13 @@ namespace EVCMonoGame.src.scenes
             spriteBatch.End();
 
 			// Draw Inventory independent from Camera Transformation
-			spriteBatch.Begin();
-				GameplayState.PlayerOne.PlayerInventory.Draw(gameTime, spriteBatch);
-				GameplayState.PlayerTwo.PlayerInventory.Draw(gameTime, spriteBatch);
-			spriteBatch.End();
+			if(!isGameOver)
+			{
+				spriteBatch.Begin();
+					GameplayState.PlayerOne.PlayerInventory.Draw(gameTime, spriteBatch);
+					GameplayState.PlayerTwo.PlayerInventory.Draw(gameTime, spriteBatch);
+				spriteBatch.End();
+			}
 		}
 
         public virtual void LoadContent(ContentManager contentManager)

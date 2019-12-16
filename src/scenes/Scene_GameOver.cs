@@ -34,6 +34,8 @@ namespace EVCMonoGame.src.scenes
         {
             base.OnEnterScene();
 
+			isGameOver = true;
+
             selectionSprite = new AnimatedSprite(new Vector2(650, 100), 4);
             heartSprite     = new AnimatedSprite(new Vector2(860, 300), 4);
 

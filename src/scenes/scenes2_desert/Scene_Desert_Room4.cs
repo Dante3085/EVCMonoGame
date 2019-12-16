@@ -117,11 +117,6 @@ namespace EVCMonoGame.src.scenes.desert
             doorPlayerOne = new Door(new Vector2(1090, 0));
             doorPlayerTwo = new Door(new Vector2(3500, 0));
 
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
 
             drawables.AddRange(new IDrawable[]
             {

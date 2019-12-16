@@ -89,7 +89,7 @@ namespace EVCMonoGame.src.Items
 					if (cooldown != null && cooldown.From.X != 0)	// Division durch 0 bei cooldown von 0
 					{
 						int cooldownRectangleSizeY = (int)(itemSize.Y * (1 - (cooldown.From.X - cooldown.CurrentValue.X) / cooldown.From.X));
-						spriteBatch.FillRectangle(new Rectangle(new Point((int)screenPosition.X - itemPosition.X - (int)(1 - (cooldown.From.X - cooldown.CurrentValue.X) / cooldown.From.X), (int)screenPosition.Y - itemPosition.Y), new Point(itemSize.X, cooldownRectangleSizeY)), new Color(Color.Red, 0.3f));
+						spriteBatch.FillRectangle(new Rectangle(new Point((int)screenPosition.X - itemPosition.X, (int)screenPosition.Y - itemPosition.Y - (int)(itemSize.Y * (1 - (cooldown.From.X - cooldown.CurrentValue.X)) / cooldown.From.X)), new Point(itemSize.X, cooldownRectangleSizeY)), new Color(Color.Red, 0.3f));
 					}
 				}
 

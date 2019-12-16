@@ -75,13 +75,7 @@ namespace EVCMonoGame.src.scenes.desert
                 updateables.Add(gargoyles[i]);
                 drawables.Add(gargoyles[i]);
             }
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

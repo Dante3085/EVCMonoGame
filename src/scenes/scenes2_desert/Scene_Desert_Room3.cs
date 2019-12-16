@@ -71,10 +71,7 @@ namespace EVCMonoGame.src.scenes.desert
                 defenders[1],
 
                 gargoyles[0],
-                gargoyles[1],
-
-                doorPlayerOne,
-                doorPlayerTwo
+                gargoyles[1]
             );
 
             AddDrawables
