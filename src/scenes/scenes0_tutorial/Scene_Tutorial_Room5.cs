@@ -62,10 +62,7 @@ namespace EVCMonoGame.src.scenes.tutorial
             leverManagerPlayerOne = new LeverManager(true, leverBit5, leverBit4, leverBit3);
 			
 			updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-				
+            {				
                 leverManagerPlayerOne,
                 leverManagerPlayerTwo,
             });

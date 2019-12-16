@@ -73,13 +73,7 @@ namespace EVCMonoGame.src.scenes.castle
 
             doorPlayerOne = new Door(new Vector2(577, 384));
             doorPlayerTwo = new Door(new Vector2(1920, 383));
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

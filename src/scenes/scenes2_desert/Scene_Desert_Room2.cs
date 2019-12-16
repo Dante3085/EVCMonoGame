@@ -79,13 +79,7 @@ namespace EVCMonoGame.src.scenes.desert
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
             }
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
