@@ -29,7 +29,7 @@ namespace EVCMonoGame.src.scenes.tutorial
         private Lever leverBit5;
         private LeverManager leverManagerPlayerOne;
 
-        private int elapsedMillisAfterBothDoorsOpened = 0;
+		private int elapsedMillisAfterBothDoorsOpened = 0;
 
         public Scene_Tutorial_Room5(SceneManager sceneManager)
             : base(sceneManager)
@@ -60,18 +60,12 @@ namespace EVCMonoGame.src.scenes.tutorial
             leverBit4 = new Lever(new Vector2(960, 130));
             leverBit5 = new Lever(new Vector2(700, 130));
             leverManagerPlayerOne = new LeverManager(true, leverBit5, leverBit4, leverBit3);
-
-            updateables.AddRange(new IUpdateable[]
+			
+			updateables.AddRange(new IUpdateable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-
-                leverBit0,
-                leverBit1,
-                leverBit2,
-                leverBit3,
-                leverBit4,
-                leverBit5,
+				
                 leverManagerPlayerOne,
                 leverManagerPlayerTwo,
             });
@@ -80,8 +74,8 @@ namespace EVCMonoGame.src.scenes.tutorial
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-
-                leverBit0,
+				
+				leverBit0,
                 leverBit1,
                 leverBit2,
                 leverBit3,
