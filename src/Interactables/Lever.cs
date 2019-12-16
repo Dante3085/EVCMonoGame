@@ -65,7 +65,7 @@ namespace EVCMonoGame.src
 			CollisionManager.AddInteractable(this);
         }
 
-		public void Interact(Player player)
+		public virtual void Interact(Player player)
 		{
 			if (BlockPlayerInteraction)
 				return;
@@ -73,12 +73,12 @@ namespace EVCMonoGame.src
 			activated = !activated;
 		}
 
-		public void LoadContent(ContentManager content)
+		public virtual void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("rsrc/tilesets/FF6MapTileCastles");
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (activated)
             {

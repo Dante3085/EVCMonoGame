@@ -1,0 +1,22 @@
+
+SPRITESHEET = rsrc/spritesheets/portal
+
+[ANIMATION]
+NAME          = PORTAL_READY
+FRAMES        = (13, 13, 36, 46), (77, 13, 36, 46), (141, 13, 36, 46), (205, 13, 36, 46), (269, 13, 36, 46), (333, 13, 36, 46), (397, 13, 36, 46), (461, 13, 36, 46)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+[ANIMATION]
+NAME          = PORTAL_USED
+FRAMES        = (14, 138, 36, 46), (78, 138, 36, 46), (142, 138, 36, 46), (205, 138, 36, 46), (255, 138, 36, 46), (400, 143, 36, 46)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false

@@ -37,6 +37,7 @@ namespace EVCMonoGame.src.characters
         public AnimatedSprite goldSprite;
 		private int fakeGoldOffset;
 
+		public bool hidePlayer = false;
 
 		public Orientation playerOrientation = Orientation.RIGHT;
 		private PlayerIndex playerIndex;
@@ -178,16 +179,20 @@ namespace EVCMonoGame.src.characters
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.Draw(gameTime, spriteBatch);
+			if (!hidePlayer)
+			{
+				base.Draw(gameTime, spriteBatch);
 
-            itemFinder.Draw(gameTime, spriteBatch);
+				itemFinder.Draw(gameTime, spriteBatch);
 
-            expBar.Draw(gameTime, spriteBatch);
+				expBar.Draw(gameTime, spriteBatch);
 
-            goldSprite.Draw(gameTime, spriteBatch);
+				goldSprite.Draw(gameTime, spriteBatch);
 
-			if(drawGold)
-				spriteBatch.DrawString(font, "x" + (PlayerInventory.Gold + fakeGoldOffset).ToString(), WorldPosition + new Vector2(70, -110), Color.White);
+				if (drawGold)
+					spriteBatch.DrawString(font, "x" + (PlayerInventory.Gold + fakeGoldOffset).ToString(), WorldPosition + new Vector2(70, -110), Color.White);
+			}
+           
 		}
 
 		public void ShowGold(bool showGold, double time = 0)
