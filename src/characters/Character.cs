@@ -26,9 +26,9 @@ namespace EVCMonoGame.src.characters
 
     public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable, ITranslatable
     {
-
-
         #region Fields
+
+        public statemachine.StateManager stateManager;
 
         public Vector2 worldPosition;
         protected Rectangle collisionBox;
@@ -78,7 +78,7 @@ namespace EVCMonoGame.src.characters
         }
         public int MaxMp { get { return maxMp; } }
         public int CurrentMp { get { return currentMp; } }
-        public int Strength { get { return strength; } }
+        public int Strength { get { return strength; } set { strength = value; } }
         public int Defense { get { return defense; } }
         public int Intelligence { get { return intelligence; } }
         public int Agility { get { return agility; } }

@@ -18,11 +18,26 @@ namespace EVCMonoGame.src.statemachine.sora
     class StateMoving : State
     {
         private PlayerOne sora = GameplayState.PlayerOne;
+
+        private float previousMovementSpeed;
+
         public StateMoving(params Transition[] transitions)
             : base("Moving", transitions)
         {
 
         }
+
+        public override void Enter(GameTime gameTime)
+        {
+            base.Enter(gameTime);
+
+            if (sora.weapon != null)
+            {
+                previousMovementSpeed = sora.movementSpeed;
+                sora.movementSpeed += sora.weapon.speed;
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
             Vector2 directionVector = Vector2.Zero;
@@ -146,6 +161,16 @@ namespace EVCMonoGame.src.statemachine.sora
                     sora.Sprite.SetAnimation("RUN_DOWN_RIGHT");
                 }
                 sora.playerOrientation = Orientation.DOWN_RIGHT;
+            }
+        }
+
+        public override void Exit(GameTime gameTime)
+        {
+            base.Exit(gameTime);
+
+            if (sora.weapon != null)
+            {
+                sora.movementSpeed = previousMovementSpeed;
             }
         }
     }

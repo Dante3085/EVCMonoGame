@@ -14,26 +14,32 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class PenetrateMissle : WeaponRiku
+	public class BounceMissle : WeaponRiku
 	{
 
-		public PenetrateMissle(Vector2 position)
+		public BounceMissle(Vector2 position)
 			: base
 			(
 				position,
-				"rsrc/spritesheets/singleImages/Magic_Missile_Blue",
-				"Content/rsrc/spritesheets/configFiles/magic_missile_blue.anm.txt",
+				"rsrc/spritesheets/singleImages/Magic_Missile_Green",
+				"Content/rsrc/spritesheets/configFiles/magic_missile_green.anm.txt",
 				"MAGIC_MISSILE_UP",
-				"PenetrateMissle"
-			)
+                "BounceMissle"
+            )
 		{
-			shopPrice = 5;
+			shopPrice = 2;
 			sprite.Scale = 3;
 			sprite.RescaleOffsets();
 		}
 		public override Item Copy()
 		{
-			return new PenetrateMissle(WorldPosition);
+			return new BounceMissle(WorldPosition);
+		}
+
+
+		public override void PickUp(Player player)
+		{
+			base.PickUp(player);
 		}
 
 		public override void ActivateSpecial(Player player, GameTime gameTime)

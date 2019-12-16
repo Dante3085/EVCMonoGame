@@ -26,8 +26,6 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        public StateManagerRiku stateManager;
-
         public float runThreshold;
 
         public Keys[] keyboardControls;
@@ -132,7 +130,8 @@ namespace EVCMonoGame.src.characters
             if (BlockInput)
                 return;
 
-            base.Update(gameTime);
+			stateManager.Update(gameTime);
+			base.Update(gameTime);
             foreach (MagicMissile m in missiles)
             {
                 m.Update(gameTime);
@@ -140,11 +139,12 @@ namespace EVCMonoGame.src.characters
             missiles.AddRange(missilesToBeAdded);
             missilesToBeAdded.Clear();
             missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
-            stateManager.Update(gameTime);
 
 			//Debug Input
 			if (InputManager.IsKeyPressed(Keys.B))
 				PlayerInventory.ActivateSpecialAttack(gameTime, InventoryRiku.Ability.PenetrateMissle, 200);
+
+			PlayerInventory.Update(gameTime);
 
             // flinch = zurückweichen
 
@@ -178,5 +178,10 @@ namespace EVCMonoGame.src.characters
             flinching = true;
         }
         #endregion
+
+        public override void CheckLevelUp()
+        {
+            
+        }
     }
 }

@@ -18,17 +18,17 @@ namespace EVCMonoGame.src.characters.enemies
             : base
             (
                   name: "Hades",
-                  maxHp: 300,
-                  currentHp: 300,
+                  maxHp: 32000,
+                  currentHp: 32000,
                   maxMp: 100,
                   currentMp: 100,
-                  strength: 15,
+                  strength: 20,
                   defense: 12,
                   intelligence: 9,
                   agility: 8,
                   movementSpeed: 6,
                   position: position,
-                  exp: 3000
+                  exp: 10000
             )
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");

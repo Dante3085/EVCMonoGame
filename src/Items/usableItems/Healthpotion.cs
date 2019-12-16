@@ -21,14 +21,15 @@ namespace EVCMonoGame.src.Items
 		public Healthpotion(Vector2 position) 
 			: base(
 				  position,
-				  inventoryIconPath: "rsrc/spritesheets/singleImages/boss_bee",
-				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/coin.anm.txt",
-				  idleAnim: "COIN",
+				  inventoryIconPath: "rsrc/spritesheets/singleImages/castlevania_healthpotion",
+				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/healthpotion.anm.txt",
+				  idleAnim: "IDLE",
 				  lane: GameplayState.Lane.LaneBoth,
 				  itemName: "Healthpotion"
 				  )
 		{
 			shopPrice = 5;
+			sprite.Scale = 4;
 		}
 
 		public override Item Copy()

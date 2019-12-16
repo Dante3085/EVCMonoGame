@@ -41,10 +41,21 @@ namespace EVCMonoGame.src.Items
 		{
 			//Player Update Stats
 			player.CurrentHp += heal;
+			if (player.CurrentHp > player.MaxHp)
+			{
+				player.CurrentHp = player.MaxHp;
+			}
+
+
 			player.movementSpeed += speed;
 			player.exp += exp;
 			player.PlayerInventory.Gold += gold;
 			player.expBar.CurrentExp += exp;
+
+			player.CheckLevelUp();
+
+			if (gold > 0)
+				player.ShowGold(true, 2000);
 
 			CollisionManager.RemoveCollidable(this, CollisionManager.itemCollisionChannel);
 

@@ -18,37 +18,48 @@ using EVCMonoGame.src.utility;
 
 namespace EVCMonoGame.src.Items
 {
-	public class InventoryRiku : Inventory
+	public class InventoryRiku : Inventory, scenes.IUpdateable
 	{
-		public double AbilityCooldown; // in mili
+		public Easer cooldown; // in mili
+
+		public bool DoUpdate { get; set; }
 
 		public enum Ability {
-			PenetrateMissle,
-			CoinBombMissle
+            GodImperator,
+            SplitMissle,
+            PenetrateMissle,
+            BounceMissle
 		}
 
 		public InventoryRiku(Player riku) : base(riku)
 		{
+			cooldown = new Easer(Vector2.Zero, Vector2.Zero, 0, Easing.LinearEaseNone);
 		}
 
 		public override void StarterItems()
 		{
-			base.StarterItems();
+			// base.StarterItems();
 
-			WeaponRiku weapon = new PenetrateMissle(new Vector2(1300, 3800));
-			WeaponRiku weapon_2 = new CoinBombMissle(new Vector2(1350, 3820));
-			WeaponRiku weapon_3 = new CoinBombMissle(new Vector2(1350, 3820));
+			WeaponRiku weapon = new GodImperatorMissle(Vector2.Zero);
+			WeaponRiku weapon_2 = new SplitMissle(Vector2.Zero);
+            WeaponRiku weapon_3 = new PenetrateMissle(Vector2.Zero);
+            WeaponRiku weapon_4 = new BounceMissle(Vector2.Zero);
 
-			weapon.stack = 0;
+            weapon.stack = 0;
+            weapon_2.stack = 0;
+            weapon_3.stack = 0;
+            weapon_4.stack = 0;
 
-			CollisionManager.RemoveCollidable(weapon, CollisionManager.itemCollisionChannel);
+            CollisionManager.RemoveCollidable(weapon, CollisionManager.itemCollisionChannel);
 			CollisionManager.RemoveCollidable(weapon_2, CollisionManager.itemCollisionChannel);
 			CollisionManager.RemoveCollidable(weapon_3, CollisionManager.itemCollisionChannel);
+            CollisionManager.RemoveCollidable(weapon_4, CollisionManager.itemCollisionChannel);
 
-			AddWeapon(weapon);
+            AddWeapon(weapon);
 			AddWeapon(weapon_2);
 			AddWeapon(weapon_3);
-		}
+            AddWeapon(weapon_4);
+        }
 
 		public override void DrawWeaponsInventory(GameTime gameTime, SpriteBatch spriteBatch)
 		{
@@ -70,21 +81,43 @@ namespace EVCMonoGame.src.Items
 					//Draw Icon
 					icon = weapons.ElementAt<Weapon>(itemPositionCounter).inventoryIcon;
 					spriteBatch.Draw(icon, new Rectangle(new Point((int)screenPosition.X - itemPosition.X, (int)screenPosition.Y - itemPosition.Y), itemSize), Color.White * 1.0f);
+                    
+                    //Draw Stack Ammount
+                    spriteBatch.DrawString(font, weapon.stack.ToString(), screenPosition - itemPosition.ToVector2() + itemSize.ToVector2() + usableItemAmmountDrawOffset, Color.White * 1.0f);
 
+					//Draw Cooldown
+					if (cooldown != null && cooldown.From.X != 0)	// Division durch 0 bei cooldown von 0
+					{
+						int cooldownRectangleSizeY = (int)(itemSize.Y * (1 - (cooldown.From.X - cooldown.CurrentValue.X) / cooldown.From.X));
+						spriteBatch.FillRectangle(new Rectangle(new Point((int)screenPosition.X - itemPosition.X - (int)(1 - (cooldown.From.X - cooldown.CurrentValue.X) / cooldown.From.X), (int)screenPosition.Y - itemPosition.Y), new Point(itemSize.X, cooldownRectangleSizeY)), new Color(Color.Red, 0.3f));
+					}
 				}
 
-				itemPositionCounter++;
+                itemPositionCounter++;
 			}
 		}
 
-		public void ActivateSpecialAttack(GameTime gameTime, Ability ability, double cooldown)
+		public void ActivateSpecialAttack(GameTime gameTime, Ability ability, double cooldown = 0)
 		{
+			// Check Cooldown
+			if (this.cooldown.CurrentValue.X > 0)
+				return;
+
 			activeWeapon = weapons.ElementAt<Weapon>((int)ability);
+
 			if (((WeaponRiku)activeWeapon).Unlocked)
 			{
 				base.ActivateSpecialAttack(gameTime);
+
+				this.cooldown = new Easer(new Vector2((float)cooldown, (float)cooldown), Vector2.Zero, (int)cooldown, Easing.LinearEaseNone);
+				this.cooldown.Start();
 			}
 		}
+
+        public WeaponRiku GetWeapon(Ability ability)
+        {
+            return (WeaponRiku)weapons.ElementAt<Weapon>((int)ability);
+        }
 
 		public bool IsAbilityOnCooldown(Ability ability, GameTime gameTime)
 		{
@@ -108,6 +141,15 @@ namespace EVCMonoGame.src.Items
 			}
 		}
 
+        public bool IsAbilityOnStock(Ability ability)
+        {
+			return GetWeapon(ability).Unlocked && GetWeapon(ability).stack > 0;
+        }
 
+		public void Update(GameTime gameTime)
+		{
+			if(cooldown != null)
+				cooldown.Update(gameTime);
+		}
 	}
 }

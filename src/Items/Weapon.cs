@@ -46,6 +46,8 @@ namespace EVCMonoGame.src.Items
 
 				//Base Special Attack
 			}
+
+			player.Sprite.spritesheet = PlayerSpriteSheets.GodModeGlow;
 		}
 
 		public bool IsOnCooldown(GameTime gameTime)
