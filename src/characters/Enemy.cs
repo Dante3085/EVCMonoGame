@@ -22,15 +22,13 @@ using EVCMonoGame.src.statemachine;
 
 namespace EVCMonoGame.src.characters
 {
-	public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
+	public class Enemy : Character
 	{
 		#region Fields
 		public Player target;
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
 		public Vector2 previousMovementDirection;
-
-		public statemachine.StateManager stateManager;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;

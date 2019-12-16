@@ -18,7 +18,7 @@ using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.characters
 {
-    public abstract class Player : Character, scenes.IDrawable
+    public abstract class Player : Character
     {
 		// Inventorymanagement
         private ItemFinder itemFinder;

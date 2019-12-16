@@ -29,7 +29,7 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        public StateManagerSora stateManager;
+        // public StateManagerSora stateManager;
         public bool isAttacking;
         public float runThreshold;
 
