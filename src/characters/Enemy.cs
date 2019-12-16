@@ -301,12 +301,18 @@ namespace EVCMonoGame.src.characters
 				expBottle.exp = random.Next(10, 21);
 
 				Vector2 rndHealthorbPosition = WorldPosition + new Vector2(random.Next(-250, 250), random.Next(-250, 250));
-				Healthpotion healthpotion = new Healthpotion(rndHealthorbPosition);
+				InstantConsumable healthorb = new InstantConsumable(rndHealthorbPosition, "Content/rsrc/spritesheets/configFiles/healthorb.anm.txt",
+																	"IDLE", GameplayState.Lane.LaneBoth, 3);
+				healthorb.heal = random.Next(10, 25);
+
+				Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
+				Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
 
 				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
 				{
 					coin,
 					expBottle,
+					healthorb,
 					healthpotion,
 				});
 
@@ -314,6 +320,7 @@ namespace EVCMonoGame.src.characters
 				{
 					coin,
 					expBottle,
+					healthorb,
 					healthpotion,
 				});
 			}

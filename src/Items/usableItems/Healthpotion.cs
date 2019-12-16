@@ -21,8 +21,8 @@ namespace EVCMonoGame.src.Items
 		public Healthpotion(Vector2 position) 
 			: base(
 				  position,
-				  inventoryIconPath: "rsrc/spritesheets/singleImages/healthorb",
-				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/healthorb.anm.txt",
+				  inventoryIconPath: "rsrc/spritesheets/singleImages/castlevania_healthpotion",
+				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/healthpotion.anm.txt",
 				  idleAnim: "IDLE",
 				  lane: GameplayState.Lane.LaneBoth,
 				  itemName: "Healthpotion"
