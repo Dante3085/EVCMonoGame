@@ -11,11 +11,23 @@ using EVCMonoGame.src.characters.enemies;
 namespace EVCMonoGame.src.statemachine.gargoyle
 
 {
+    public enum NextGargoyleAttack
+    {
+        CLOSEATTACK,
+        CRYATTACK,
+        UNKNOWN
+    }
     class StateAttack : State
     {
+        public NextGargoyleAttack nextGargoyleAttack = NextGargoyleAttack.UNKNOWN;
         public StateManagerGargoyle stateManagerGargoyle;
-        public TimeSpan lastAttack = new TimeSpan(0, 0, 0);
-        public TimeSpan cooldown = new TimeSpan(0, 0, 1);
+        public TimeSpan lastCloseAttack = new TimeSpan(0, 0, 0);
+        public TimeSpan lastCryAttack = new TimeSpan(0, 0, 0);
+        public bool setCryTime = false;
+        public bool setCloseTime = false;
+
+        public TimeSpan cooldownClose = new TimeSpan(0, 0, 1);
+        public TimeSpan cooldownFar = new TimeSpan(0, 0, 5);
         public Gargoyle gargoyle;
         public StateAttack(/*StateManagerGargoyle stateManager*/ Gargoyle gargoyle, params Transition[] transitions)
             : base("Attack", transitions)
@@ -29,14 +41,24 @@ namespace EVCMonoGame.src.statemachine.gargoyle
             Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(gargoyle, gargoyle.attackRange + 10);
 
             gargoyle.CombatArgs.NewId();
-            Console.WriteLine("gargoyleattackdamega:" + gargoyle.CombatArgs.damage);
-            if ((nearestPlayer.Sprite.Bounds.Center - gargoyle.CollisionBox.Center).ToVector2().Length() > gargoyle.attackRange / 2)
+            switch (nextGargoyleAttack)
             {
-                CloseAttack(nearestPlayer);
-            }
-            else
-            {
-                BattleCry(nearestPlayer);
+                case NextGargoyleAttack.CLOSEATTACK:
+                    CloseAttack(nearestPlayer);
+                    break;
+                case NextGargoyleAttack.CRYATTACK:
+                    BattleCry(nearestPlayer);
+                    break;
+                case NextGargoyleAttack.UNKNOWN:
+                    if ((nearestPlayer.Sprite.Bounds.Center - gargoyle.CollisionBox.Center).ToVector2().Length() < gargoyle.attackRange / 2)
+                    {
+                        CloseAttack(nearestPlayer);
+                    }
+                    else
+                    {
+                        BattleCry(nearestPlayer);
+                    }
+                    break;
             }
 
         }
@@ -44,7 +66,7 @@ namespace EVCMonoGame.src.statemachine.gargoyle
 
         private void CloseAttack(Player nearestPlayer)
         {
-            cooldown = new TimeSpan(0, 0, 1);
+            setCloseTime = true;
             gargoyle.attackDmg = 50;
             if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
             {
@@ -58,7 +80,7 @@ namespace EVCMonoGame.src.statemachine.gargoyle
 
         private void BattleCry(Player nearestPlayer)
         {
-            cooldown = new TimeSpan(0, 0, 3);
+            setCryTime = true;
             gargoyle.attackDmg = 20;
             if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
             {
@@ -74,7 +96,16 @@ namespace EVCMonoGame.src.statemachine.gargoyle
         public override void Exit(GameTime gameTime)
         {
             base.Exit(gameTime);
-            lastAttack = gameTime.TotalGameTime;
+            if (setCloseTime)
+            {
+                lastCloseAttack = gameTime.TotalGameTime;
+                setCloseTime = false;
+            }
+            if (setCryTime)
+            {
+                lastCryAttack = gameTime.TotalGameTime;
+                setCryTime = false;
+            }
         }
 
         public override void Update(GameTime gameTime)
