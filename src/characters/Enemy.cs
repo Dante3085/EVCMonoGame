@@ -306,15 +306,19 @@ namespace EVCMonoGame.src.characters
 																	"IDLE", GameplayState.Lane.LaneBoth, 3);
 				healthorb.heal = random.Next(10, 25);
 
-				Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
-				Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
+				if (random.Next(1, 100) < 30)
+				{
+					Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
+					Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
+					Scene.drawablesToAdd.Add(healthpotion);
+					Scene.updateablesToAdd.Add(healthpotion);
+				}
 
 				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
 				{
 					coin,
 					expBottle,
 					healthorb,
-					healthpotion,
 				});
 
 				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
@@ -322,7 +326,6 @@ namespace EVCMonoGame.src.characters
 					coin,
 					expBottle,
 					healthorb,
-					healthpotion,
 				});
 			}
 
@@ -330,14 +333,14 @@ namespace EVCMonoGame.src.characters
 				DropMissiles();
 		}
 
-		private void DropMissiles()
+		protected virtual void DropMissiles()
 		{
 			Random random = new Random();
 			int rndNum;
 
-			// 10% GodMissile
-			rndNum = random.Next(0, 10);
-			if (rndNum == 0)
+			// 5% GodMissile
+			rndNum = random.Next(1, 100);
+			if (rndNum <= 5)
 			{
 				GodImperatorMissle godMissile = new GodImperatorMissle(WorldPosition);
 
@@ -352,8 +355,8 @@ namespace EVCMonoGame.src.characters
 				});
 			}
 
-			// 40% SplitMissile
-			else if (rndNum >= 0 && rndNum <= 3)
+			// 35% SplitMissile
+			else if (rndNum < 35)
 			{
 				SplitMissle splitMissile = new SplitMissle(WorldPosition);
 
@@ -369,7 +372,7 @@ namespace EVCMonoGame.src.characters
 			}
 
 			// 60% PenetrateMissile
-			else if (rndNum >= 0 && rndNum <= 5)
+			else if (rndNum <= 60)
 			{
 				PenetrateMissle penetrateMissile = new PenetrateMissle(WorldPosition);
 
@@ -385,7 +388,7 @@ namespace EVCMonoGame.src.characters
 			}
 
 			// 80% BounceMissile
-			else if (rndNum >= 0 && rndNum <= 7)
+			else if (rndNum <= 80)
 			{
 				BounceMissle bounceMissile = new BounceMissle(WorldPosition);
 
