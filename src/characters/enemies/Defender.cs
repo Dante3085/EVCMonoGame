@@ -10,26 +10,28 @@ using Microsoft.Xna.Framework.Content;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.defender;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters.enemies
 {
     public class Defender : Enemy
     {
-        public Defender(Vector2 position)
-            : base
-            (
-                  name: "Defender",
-                  maxHp: 1000,
-                  currentHp: 1000,
-                  maxMp: 0,
-                  currentMp: 0,
-                  strength: 8,
-                  defense: 15,
-                  intelligence: 0,
-                  agility: 3,
-                  movementSpeed: 3,
-                  position: position,
-                  exp: 150
+		public Defender(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
+			: base
+			(
+				  name: "Defender",
+				  maxHp: 1000,
+				  currentHp: 1000,
+				  maxMp: 0,
+				  currentMp: 0,
+				  strength: 8,
+				  defense: 15,
+				  intelligence: 0,
+				  agility: 3,
+				  movementSpeed: 3,
+				  position: position,
+				  exp: 150,
+				  spawn: spawn
             )
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/defender.anm.txt");

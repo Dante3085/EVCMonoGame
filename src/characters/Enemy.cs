@@ -29,6 +29,7 @@ namespace EVCMonoGame.src.characters
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
 		public Vector2 previousMovementDirection;
+		public GameplayState.Lane spawn;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;
@@ -71,7 +72,8 @@ namespace EVCMonoGame.src.characters
 			int agility,
 			float movementSpeed,
 			Vector2 position,
-			int exp
+			int exp,
+			GameplayState.Lane spawn = GameplayState.Lane.LaneBoth
 		)
 			: base
 			(
@@ -90,6 +92,7 @@ namespace EVCMonoGame.src.characters
 			)
 		{
 			this.exp = exp;
+			this.spawn = spawn;
 
 			sprite = new AnimatedSprite(position, 5.0f);
 
@@ -323,7 +326,8 @@ namespace EVCMonoGame.src.characters
 				});
 			}
 
-			DropMissiles();
+			if(spawn != GameplayState.Lane.LaneOne)
+				DropMissiles();
 		}
 
 		private void DropMissiles()

@@ -58,7 +58,7 @@ namespace EVCMonoGame.src.scenes.train
             shadows = new Shadow[5];
             for (int i = 0; i < shadows.Length; ++i)
             {
-                shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneBoth);
 
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
@@ -67,7 +67,7 @@ namespace EVCMonoGame.src.scenes.train
             defenders = new Defender[3];
             for (int i = 0; i < defenders.Length; ++i)
             {
-                defenders[i] = new Defender(NextEnemySpawnLocationLeftLane());
+                defenders[i] = new Defender(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneBoth);
 
                 updateables.Add(defenders[i]);
                 drawables.Add(defenders[i]);

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.hades;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -28,8 +29,9 @@ namespace EVCMonoGame.src.characters.enemies
                   agility: 8,
                   movementSpeed: 6,
                   position: position,
-                  exp: 10000
-            )
+                  exp: 10000,
+				  spawn: GameplayState.Lane.LaneBoth
+			)
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
             sprite.SetAnimation("RAGE_STRIKE_LEFT");

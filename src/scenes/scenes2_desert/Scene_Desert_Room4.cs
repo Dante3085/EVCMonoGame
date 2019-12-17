@@ -71,11 +71,11 @@ namespace EVCMonoGame.src.scenes.desert
             {
                 if (i % 2 == 0)
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(shadows[i]);
@@ -87,11 +87,11 @@ namespace EVCMonoGame.src.scenes.desert
             {
                 if (i % 2 == 0)
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(defenders[i]);
@@ -103,11 +103,11 @@ namespace EVCMonoGame.src.scenes.desert
             {
                 if (i % 2 == 0)
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(gargoyles[i]);

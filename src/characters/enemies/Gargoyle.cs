@@ -10,12 +10,13 @@ using C3.MonoGame;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.gargoyle;
 using EVCMonoGame.src.animation;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters.enemies
 {
     public class Gargoyle : Enemy
     {
-        public Gargoyle(Vector2 position)
+        public Gargoyle(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
             : base
             (
                   name: "Gargoyle",
@@ -29,8 +30,9 @@ namespace EVCMonoGame.src.characters.enemies
                   agility: 3,
                   movementSpeed: 6,
                   position: position,
-                  exp: 8
-            )
+                  exp: 8,
+				  spawn: spawn
+			)
         {
             sprite = new AnimatedSprite(position, 5.0f, true);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/gargoyle.anm.txt");

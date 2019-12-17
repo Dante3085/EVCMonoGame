@@ -13,12 +13,13 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.Items;
 using EVCMonoGame.src.statemachine.shadow;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters.enemies
 {
     public class Shadow : Enemy
     {
-        public Shadow(Vector2 position)
+        public Shadow(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
             : base
             (
                   name: "Shadow",
@@ -32,8 +33,9 @@ namespace EVCMonoGame.src.characters.enemies
                   agility: 8,
                   movementSpeed: 4,
                   position: position,
-                  exp: 50
-            )
+                  exp: 50,
+				  spawn: spawn
+			)
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
             sprite.SetAnimation("WALK_DOWN_RIGHT");
