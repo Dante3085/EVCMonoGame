@@ -278,7 +278,9 @@ namespace EVCMonoGame.src.characters
 
         public virtual void OnDeath()
         {
-            CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+			HasActiveHurtBounds = false;
+
+			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.combatCollidableMarkAsRemove.Add(this);
         }
     }
