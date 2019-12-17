@@ -3,7 +3,7 @@ SPRITESHEET = rsrc/spritesheets/spike_trap
 
 [ANIMATION]
 NAME          = COOLDOWN
-FRAMES        = (0, 0, 32, 41)
+FRAMES        = (0, 0, 32, 32)
 HURT_BOUNDS   = NONE
 ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 130@all
@@ -13,7 +13,7 @@ IS_LOOPED     = true
 
 [ANIMATION]
 NAME          = PREPARE
-FRAMES        = (32, 0, 32, 41), (64, 0, 32, 41), (96, 0, 32, 41), (128, 0, 32, 41), (160, 0, 32, 41), (192, 0, 32, 41)
+FRAMES        = (32, 0, 32, 32), (64, 0, 32, 32), (96, 0, 32, 32), (128, 0, 32, 32), (160, 0, 32, 32), (192, 0, 32, 32)
 HURT_BOUNDS   = NONE
 ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 130@all
@@ -23,7 +23,7 @@ IS_LOOPED     = true
 
 [ANIMATION]
 NAME          = DO_DMG
-FRAMES        = (224, 0, 32, 41), (256, 0, 32, 41), (288, 0, 32, 41), (320, 0, 32, 41), (352, 0, 32, 41), (384, 0, 32, 41), (416, 0, 32, 41)
+FRAMES        = (224, 0, 32, 32), (256, 0, 32, 32), (288, 0, 32, 32), (320, 0, 32, 32), (352, 0, 32, 32), (384, 0, 32, 32), (416, 0, 32, 32)
 HURT_BOUNDS   = NONE
 ATTACK_BOUNDS = NONE
 FRAME_DELAYS  = 130@all
