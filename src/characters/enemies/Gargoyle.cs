@@ -12,11 +12,14 @@ using EVCMonoGame.src.statemachine.gargoyle;
 using EVCMonoGame.src.animation;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.Items;
+using Microsoft.Xna.Framework.Audio;
+//using Microsoft.Xna.Framework.Media;
 
 namespace EVCMonoGame.src.characters.enemies
 {
     public class Gargoyle : Enemy
     {
+        public SoundEffect scream;
         public Gargoyle(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
             : base
             (
@@ -59,6 +62,7 @@ namespace EVCMonoGame.src.characters.enemies
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
+            scream = AssetManager.GetSoundEffect(ESoundEffect.GARGOYLE);
         }
 
 		public override void DropLoot()
