@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.tilemap;
@@ -52,6 +53,9 @@ namespace EVCMonoGame.src.scenes.tutorial
             camera.Zoom = 0.7f;
             //camera.MinZoom = 0.6f;
             //camera.MaxZoom = 0.4f;
+
+            MediaPlayer.Play(AssetManager.GetSong(ESong.BEGINNING));
+            MediaPlayer.IsRepeating = true;
         }
 
         public override void Update(GameTime gameTime)

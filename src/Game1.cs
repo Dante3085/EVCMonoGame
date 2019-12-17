@@ -95,7 +95,7 @@ namespace EVCMonoGame.src
 
         protected override void LoadContent()
         {
-            //AssetManager.LoadAssets(Content);
+            AssetManager.LoadAssets(Content);
 
             fpsCounter.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
