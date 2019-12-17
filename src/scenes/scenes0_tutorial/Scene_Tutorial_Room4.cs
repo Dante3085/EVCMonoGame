@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.tilemap;
@@ -39,8 +41,8 @@ namespace EVCMonoGame.src.scenes.tutorial
             doorPlayerOne = new Door(new Vector2(494, 100));
             doorPlayerTwo = new Door(new Vector2(1712, 104));
 
-            defenderSora = new Defender(new Vector2(600, 600));
-            defenderRiku = new Defender(new Vector2(1712, 900));
+            defenderSora = new Defender(new Vector2(600, 600), hpBonus: 1000);
+            defenderRiku = new Defender(new Vector2(1712, 900), hpBonus: 1000);
 
             updateables.AddRange(new IUpdateable[]
             {
@@ -58,6 +60,8 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             camera.Zoom = 0.7f;
             base.OnEnterScene();
+
+            MediaPlayer.Play(AssetManager.GetSong(ESong.DEFENDER_BROTHERS));
         }
 
         public override void Update(GameTime gameTime)

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 public enum ETexture
 {
@@ -32,6 +33,12 @@ public enum ESong
     WAY_TO_FALL,
 
     BEGINNING,
+    DEFENDER_BROTHERS,
+    REST_ROOM,
+}
+
+public enum ESoundEffect
+{
     GARGOYLE,
 }
 
@@ -42,6 +49,7 @@ public static class AssetManager
     private static Dictionary<ETexture, Texture2D> textures = new Dictionary<ETexture, Texture2D>();
     private static Dictionary<EFont, SpriteFont> fonts = new Dictionary<EFont, SpriteFont>();
     private static Dictionary<ESong, Song> songs = new Dictionary<ESong, Song>();
+    private static Dictionary<ESoundEffect, SoundEffect> sfx = new Dictionary<ESoundEffect, SoundEffect>();
 
     private static Dictionary<String, ETexture> textureNames = new Dictionary<string, ETexture>()
     {
@@ -64,7 +72,15 @@ public static class AssetManager
     private static Dictionary<String, ESong> songNames = new Dictionary<string, ESong>()
     {
         { "rsrc/audio/music/Beginning", ESong.BEGINNING },
-        { "rsrc/audio/sfx/Gargoyle", ESong.GARGOYLE },
+        { "rsrc/audio/music/DefenderBrothers", ESong.DEFENDER_BROTHERS },
+        { "rsrc/audio/music/RestRoom", ESong.REST_ROOM },
+
+        
+    };
+
+    private static Dictionary<String, ESoundEffect> sfxNames = new Dictionary<string, ESoundEffect>()
+    {
+        { "rsrc/audio/sfx/Gargoyle", ESoundEffect.GARGOYLE },
     };
 
     public static void LoadAssets(ContentManager contentManager)
@@ -93,6 +109,12 @@ public static class AssetManager
             songs.Add(songNames[songName], contentManager.Load<Song>(songName));
         }
 
+        // Load SFX
+        foreach (String sfxName in sfxNames.Keys)
+        {
+            sfx.Add(sfxNames[sfxName], contentManager.Load<SoundEffect>(sfxName));
+        }
+
         loaded = true;
     }
 
@@ -109,6 +131,11 @@ public static class AssetManager
     public static Song GetSong(ESong song)
     {
         return songs[song];
+    }
+
+    public static SoundEffect GetSoundEffect(ESoundEffect soundEffect)
+    {
+        return sfx[soundEffect];
     }
 }
 
