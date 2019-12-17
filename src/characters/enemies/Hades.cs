@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.hades;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -19,8 +20,8 @@ namespace EVCMonoGame.src.characters.enemies
             : base
             (
                   name: "Hades",
-                  maxHp: 32000,
-                  currentHp: 32000,
+                  maxHp: 400,//32000,
+                  currentHp: 400,//32000,
                   maxMp: 100,
                   currentMp: 100,
                   strength: 20,
@@ -33,6 +34,7 @@ namespace EVCMonoGame.src.characters.enemies
 				  spawn: GameplayState.Lane.LaneBoth
 			)
         {
+            sprite = new AnimatedSprite(position, 5.0f, true);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
             sprite.SetAnimation("RAGE_STRIKE_LEFT");
 

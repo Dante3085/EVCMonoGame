@@ -128,7 +128,10 @@ namespace EVCMonoGame.src.characters
 		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            if (!IsAlive)
+            {
+                sprite.overlayColorOverTime(Color.DarkGray, new TimeSpan(0, 0, 0, 0, 10));
+            }
             itemFinder.Update(gameTime);
 
 			//Navigate UsableItems

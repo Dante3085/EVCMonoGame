@@ -8,16 +8,16 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 
-namespace EVCMonoGame.src.statemachine.hades
+namespace EVCMonoGame.src.statemachine.hadesRage
 
 {
     class StateAttack : State
     {
-        public StateManagerHades stateManagerHades;
+        public StateManagerHadesRage stateManagerHadesRage;
         public TimeSpan lastAttack = new TimeSpan(0, 0, 0);
         public TimeSpan cooldown = new TimeSpan(0, 0, 1);
         public Hades hades;
-        public StateAttack(/*StateManagerHades stateManager*/ Hades hades, params Transition[] transitions)
+        public StateAttack(/*StateManagerHadesRage stateManager*/ Hades hades, params Transition[] transitions)
             : base("Attack", transitions)
         {
             this.hades = hades;
@@ -32,11 +32,11 @@ namespace EVCMonoGame.src.statemachine.hades
             
             if (nearestPlayer.Sprite.Bounds.Center.X > hades.CollisionBox.Center.X)
             {
-                hades.Sprite.SetAnimation("ATTACK_GUN_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_STRIKE_RIGHT");
             }
             else
             {
-                hades.Sprite.SetAnimation("ATTACK_GUN_LEFT");
+                hades.Sprite.SetAnimation("RAGE_STRIKE_LEFT");
             }
 
         }
