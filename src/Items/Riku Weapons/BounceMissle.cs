@@ -27,7 +27,7 @@ namespace EVCMonoGame.src.Items
                 "BounceMissle"
             )
 		{
-			shopPrice = 2;
+			shopPrice = 5;
 			sprite.Scale = 3;
 			sprite.RescaleOffsets();
 		}

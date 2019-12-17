@@ -25,6 +25,7 @@ namespace EVCMonoGame.src.characters
         protected Inventory inventory;
 
 		public int exp;
+		public bool isPhaseMode = false; // Erlaubt das durchlaufen von Enemys und andere Spieler
 
         public ExperienceBar expBar;
 

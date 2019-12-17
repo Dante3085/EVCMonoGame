@@ -77,10 +77,12 @@ namespace EVCMonoGame.src.statemachine.sora
             }
 
             sora.WorldPosition += sora.movementVector;
+			if (sora.isPhaseMode)
+				CollisionManager.IsCollisionAfterMove(sora, true, true, CollisionManager.enemyCollisionChannel.Concat(CollisionManager.playerCollisionChannel).ToList<Collidable>() );
+			else
+				CollisionManager.IsCollisionAfterMove(sora, true, true);
 
-            CollisionManager.IsCollisionAfterMove(sora, true, true);
-
-            sora.Sprite.Position = sora.WorldPosition;
+			sora.Sprite.Position = sora.WorldPosition;
 
             // Has a movement happened ?
 

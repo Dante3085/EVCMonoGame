@@ -656,10 +656,17 @@ namespace EVCMonoGame.src.collision
 
         }
 
-        public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding)
+        public static bool IsCollisionAfterMove(Collidable g1, bool fixMyCollision, bool resolveCollisionWithSliding, List<Collidable> ignoreChannel = null)
         {
             bool isCollision = false;
-            foreach (Collidable g2 in allCollisionsChannel)
+			List<Collidable> filteredChannel;
+
+			if (ignoreChannel != null)
+				filteredChannel = allCollisionsChannel.Except(ignoreChannel).ToList<Collidable>();
+			else
+				filteredChannel = allCollisionsChannel;
+
+			foreach (Collidable g2 in filteredChannel)
             {
                 if (g1 != g2)
                 {

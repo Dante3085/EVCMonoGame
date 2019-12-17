@@ -15,6 +15,7 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.Items.usableItems;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Traps;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -47,8 +48,19 @@ namespace EVCMonoGame.src.scenes.castle
         }
 
         public override void OnEnterScene()
-        {
-            base.OnEnterScene();
+		{
+			FireTrap fireTrap_1 = new FireTrap(new Vector2(1700, 2000));
+			updateables.AddRange(new IUpdateable[]
+			{
+				fireTrap_1,
+			});
+
+			drawables.AddRange(new IDrawable[]
+			{
+				fireTrap_1,
+			});
+
+			base.OnEnterScene();
 
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt");
@@ -60,19 +72,20 @@ namespace EVCMonoGame.src.scenes.castle
             shadow2 = new Shadow(new Vector2(2500, 3000));
             hades = new Hades(new Vector2(2000, 2000));
 
+
             updateables.AddRange(new IUpdateable[]
-            {
-                shadow,
+			{
+				shadow,
                 shadow2,
                 hades,
-            });
+			});
 
             drawables.AddRange(new IDrawable[]
-            {
-                shadow,
+			{
+				shadow,
                 shadow2,
                 hades,
-            });
+			});
         }
 
         public override void Update(GameTime gameTime)

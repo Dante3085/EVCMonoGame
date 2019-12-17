@@ -25,7 +25,7 @@ namespace EVCMonoGame.src
         private Rectangle deactivatedTextureRec = new Rectangle(368, 128, 16, 16);
         private Rectangle activatedTextureRec = new Rectangle(384, 128, 16, 16);
 
-        private Rectangle interactionArea;
+        protected Rectangle interactionArea;
 
         private Rectangle screenBounds;
 

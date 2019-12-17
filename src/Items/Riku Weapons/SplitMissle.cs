@@ -27,7 +27,7 @@ namespace EVCMonoGame.src.Items
                 "SplitMissle"
             )
 		{
-			shopPrice = 10;
+			shopPrice = 11;
 			sprite.Scale = 3;
 			sprite.RescaleOffsets();
 		}

@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/portal_traveling
+
+[ANIMATION]
+NAME          = TRAVELING
+FRAMES        = (17, 232, 136, 136),(203, 232, 136, 136),(384, 232, 136, 136),(566, 232, 136, 136),(17, 440, 136, 136),(203, 440, 136, 136),(384, 440, 136, 136),(566, 440, 136, 136)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true

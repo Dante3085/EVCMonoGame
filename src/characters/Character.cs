@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.characters
         PLAYER,
         ENEMY,
         MISSILE,
+		TRAP,
         UNDEFINED
     }
 
