@@ -14,6 +14,7 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Items;
 
 namespace EVCMonoGame.src.scenes.tutorial
 {
@@ -38,12 +39,28 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             doorPlayerOne = new Door(new Vector2(4548, 577));
             doorPlayerTwo = new Door(new Vector2(5568, 1537));
-			
-            drawables.AddRange(new IDrawable[]
+
+			Chest chest_riku = new Chest(new Vector2(3570, 2900), new List<Item>(){
+																			new BounceMissle(Vector2.Zero),
+																			new BounceMissle(Vector2.Zero),
+																			new BounceMissle(Vector2.Zero),
+																			new PenetrateMissle(Vector2.Zero),
+																			new PenetrateMissle(Vector2.Zero),
+																			new PenetrateMissle(Vector2.Zero),
+																			new SplitMissle(Vector2.Zero)
+			}, GameplayState.Lane.LaneTwo);
+
+			updateables.AddRange(new IUpdateable[]
+			{
+				chest_riku,
+			});
+
+			drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-            });
+				chest_riku
+			});
 
             base.OnEnterScene();
 

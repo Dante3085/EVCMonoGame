@@ -78,7 +78,7 @@ namespace EVCMonoGame.src.Traps
 			currentPrepareTime = prepareTime;
 			currentDoDMGTime = doDMGTime;
 
-			dmgArea = new Rectangle(new Point((int)worldPosition.X, (int)worldPosition.Y - 40), new Point((int)(32 * scale), (int)(40 * scale)));
+			dmgArea = new Rectangle(new Point((int)worldPosition.X, (int)worldPosition.Y - 40), new Point((int)(35 * scale), (int)(40 * scale)));
 
 			// Trap Sprite
 			trapSprite = new AnimatedSprite(worldPosition, scale);
@@ -90,8 +90,8 @@ namespace EVCMonoGame.src.Traps
 		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
 			trapSprite.Draw(gameTime, spriteBatch);
-			//if(DebugOptions.showAttackBounds)
-			spriteBatch.DrawRectangle(dmgArea, Color.Red);
+			if(DebugOptions.showAttackBounds)
+				spriteBatch.DrawRectangle(dmgArea, Color.Red);
 		}
 
 		public virtual void LoadContent(ContentManager content)

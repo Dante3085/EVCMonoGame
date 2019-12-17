@@ -41,25 +41,26 @@ namespace EVCMonoGame.src.scenes
 			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
-			playerOne.WorldPosition = new Vector2(600, 800);
+			playerOne.WorldPosition = new Vector2(700, 3500);
+			playerOne.PlayerInventory.Gold = 50;
 
 			PlayerTwo playerTwo = GameplayState.PlayerTwo;
-			playerTwo.WorldPosition = new Vector2(900, 750);
+			playerTwo.WorldPosition = new Vector2(1000, 3500);
 
 			Item potion = new Healthpotion(new Vector2(1200, 3800));
 			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
 
 			// Shop
-			Item inventoryItem = new Healthpotion(Vector2.Zero);
-			Item inventoryItem_2 = new GodMissleScroll(Vector2.Zero);
-			Shop soraShop = new Shop(new Vector2(350, 900), new List<Item> { inventoryItem, inventoryItem_2 }, GameplayState.Lane.LaneOne);
+			Item healtpotion = new Healthpotion(Vector2.Zero);
+			Item bearTrapItem = new BearTrapItem(Vector2.Zero);
+			Shop soraShop = new Shop(new Vector2(700, 3250), new List<Item> { healtpotion, bearTrapItem }, GameplayState.Lane.LaneOne);
             
             // Shop
             Item bounceMissle = new BounceMissle(new Vector2(0, 0));
 			Item penetrateMissle = new PenetrateMissle(new Vector2(0, 0));
             Item splitMissle = new SplitMissle(new Vector2(0, 0));
             Item godImperator = new GodImperatorMissle(new Vector2(0, 0));
-            Shop rikuShop = new Shop(new Vector2(1350, 700), new List<Item> { bounceMissle, penetrateMissle, splitMissle, godImperator }, GameplayState.Lane.LaneTwo);
+            Shop rikuShop = new Shop(new Vector2(2350, 3250), new List<Item> { bounceMissle, penetrateMissle, splitMissle, godImperator }, GameplayState.Lane.LaneTwo);
 
 			//Drawables	
 			//Items

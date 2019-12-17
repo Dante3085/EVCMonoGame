@@ -71,7 +71,7 @@ namespace EVCMonoGame.src
 
 		public override void Interact(Player player)
 		{
-			if (usedOnce == false)
+			if (usedOnce == false && player == traveler)
 			{
 				base.Interact(player);
 

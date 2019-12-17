@@ -39,22 +39,25 @@ namespace EVCMonoGame.src.scenes.tutorial
             doorPlayerOne = new Door(new Vector2(494, 100));
             doorPlayerTwo = new Door(new Vector2(1712, 104));
 
-            defenderSora = new Defender(new Vector2(600, 600));
+            //defenderSora = new Defender(new Vector2(600, 600));
             defenderRiku = new Defender(new Vector2(1712, 900));
+			LaneTeleporter teleporter = new LaneTeleporter(new Vector2(500, 750), sora, new Vector2(1712, 900), 10000);
 
-            updateables.AddRange(new IUpdateable[]
+			updateables.AddRange(new IUpdateable[]
             {
-                defenderSora,
+                //defenderSora,
                 defenderRiku,
-            });
+				teleporter
+			});
 
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                defenderSora,
+                //defenderSora,
                 defenderRiku,
-            });
+				teleporter
+			});
 
             camera.Zoom = 0.7f;
             base.OnEnterScene();
@@ -69,7 +72,7 @@ namespace EVCMonoGame.src.scenes.tutorial
             //    sceneManager.SceneTransition(EScene.TUTORIAL_ROOM_5);
             //}
 
-            if (doorPlayerOne.Open && doorPlayerTwo.Open && !defenderSora.IsAlive && !defenderRiku.IsAlive)
+            if (doorPlayerOne.Open && doorPlayerTwo.Open && !defenderRiku.IsAlive)
             {
                 sceneManager.SceneTransitionNextRoom();
             }

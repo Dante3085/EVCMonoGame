@@ -77,9 +77,9 @@ namespace EVCMonoGame.src.scenes.train
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
             }
-        }
+		}
 
-        public override void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 

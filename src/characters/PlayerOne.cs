@@ -132,6 +132,9 @@ namespace EVCMonoGame.src.characters
 
 			base.Update(gameTime);
 
+			if (InputManager.OnKeyPressed(Keys.E))
+				Console.WriteLine("Location: " + WorldPosition);
+
             if (InputManager.OnButtonPressed(Buttons.DPadUp, PlayerIndex.One) ||
                 InputManager.OnButtonPressed(Buttons.DPadDown, PlayerIndex.One))
             {
