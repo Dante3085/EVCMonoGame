@@ -26,8 +26,6 @@ namespace EVCMonoGame.src.characters
     {
         #region Fields
 
-        public StateManagerRiku stateManager;
-
         public float runThreshold;
 
         public Keys[] keyboardControls;

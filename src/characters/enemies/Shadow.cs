@@ -63,15 +63,6 @@ namespace EVCMonoGame.src.characters.enemies
         public override void DropLoot()
         {
             base.DropLoot();
-
-            Random random = new Random();
-
-            //if (random.Next(0, 2) == 1)
-            //{
-            //    Sora_NoGlow sora_NoGlow = new Sora_NoGlow(WorldPosition);
-
-            //    update
-            //}
         }
 
         //public override void OnCombatCollision(CombatArgs combatArgs)

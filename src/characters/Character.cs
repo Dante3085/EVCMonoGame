@@ -26,9 +26,9 @@ namespace EVCMonoGame.src.characters
 
     public abstract class Character : scenes.IUpdateable, scenes.IDrawable, Collidable, CombatCollidable, ITranslatable
     {
-
-
         #region Fields
+
+        public statemachine.StateManager stateManager;
 
         public Vector2 worldPosition;
         protected Rectangle collisionBox;

@@ -41,6 +41,12 @@ namespace EVCMonoGame.src.Items
 		{
 			//Player Update Stats
 			player.CurrentHp += heal;
+			if (player.CurrentHp > player.MaxHp)
+			{
+				player.CurrentHp = player.MaxHp;
+			}
+
+
 			player.movementSpeed += speed;
 			player.exp += exp;
 			player.PlayerInventory.Gold += gold;

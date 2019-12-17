@@ -22,15 +22,13 @@ using EVCMonoGame.src.statemachine;
 
 namespace EVCMonoGame.src.characters
 {
-	public class Enemy : Character, scenes.IUpdateable, scenes.IDrawable
+	public class Enemy : Character
 	{
 		#region Fields
 		public Player target;
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
 		public Vector2 previousMovementDirection;
-
-		public statemachine.StateManager stateManager;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;
@@ -300,16 +298,101 @@ namespace EVCMonoGame.src.characters
 																		0.5f);
 				expBottle.exp = random.Next(10, 21);
 
+				Vector2 rndHealthorbPosition = WorldPosition + new Vector2(random.Next(-250, 250), random.Next(-250, 250));
+				InstantConsumable healthorb = new InstantConsumable(rndHealthorbPosition, "Content/rsrc/spritesheets/configFiles/healthorb.anm.txt",
+																	"IDLE", GameplayState.Lane.LaneBoth, 3);
+				healthorb.heal = random.Next(10, 25);
+
+				Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
+				Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
+
 				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
 				{
 					coin,
 					expBottle,
+					healthorb,
+					healthpotion,
 				});
 
 				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
 				{
 					coin,
 					expBottle,
+					healthorb,
+					healthpotion,
+				});
+			}
+
+			DropMissiles();
+		}
+
+		private void DropMissiles()
+		{
+			Random random = new Random();
+			int rndNum;
+
+			// 10% GodMissile
+			rndNum = random.Next(0, 10);
+			if (rndNum == 0)
+			{
+				GodImperatorMissle godMissile = new GodImperatorMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					godMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					godMissile,
+				});
+			}
+
+			// 40% SplitMissile
+			else if (rndNum >= 0 && rndNum <= 3)
+			{
+				SplitMissle splitMissile = new SplitMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					splitMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					splitMissile
+				});
+			}
+
+			// 60% PenetrateMissile
+			else if (rndNum >= 0 && rndNum <= 5)
+			{
+				PenetrateMissle penetrateMissile = new PenetrateMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					penetrateMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					penetrateMissile
+				});
+			}
+
+			// 80% BounceMissile
+			else if (rndNum >= 0 && rndNum <= 7)
+			{
+				BounceMissle bounceMissile = new BounceMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					bounceMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					bounceMissile
 				});
 			}
 		}
