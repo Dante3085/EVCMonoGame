@@ -16,7 +16,7 @@ namespace EVCMonoGame.src.Items
 {
 	public class Healthpotion : UsableItem
 	{
-		public int heals = 40;
+		public int heals = 100;
 
 		public Healthpotion(Vector2 position) 
 			: base(
