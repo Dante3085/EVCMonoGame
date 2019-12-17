@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.hades;
+using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -31,6 +32,7 @@ namespace EVCMonoGame.src.characters.enemies
                   exp: 10000
             )
         {
+            sprite = new AnimatedSprite(position, 5.0f, true);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
             sprite.SetAnimation("RAGE_STRIKE_LEFT");
 
