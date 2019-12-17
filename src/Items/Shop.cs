@@ -34,15 +34,24 @@ namespace EVCMonoGame.src.Items
 
 		// Font
 		protected SpriteFont font;
-		public AnimatedSprite goldSprite;
-		private bool drawGold;
+		public AnimatedSprite playerGoldSprite;
+		private bool drawPlayerGold;
+
+		// Draw spended
+		private List<Vector2>[] goldSpend; // Zieht Gold an sich
+		private int[] goldSpendQueue;	// Trägt Gold langsam in Liste ein
+		private AnimatedSprite goldSpendSprite;
+		private float goldDraggingSpeed = 7.5f;
+		public Vector2 goldSpendGoal;
+		public double goldSpendQueueThreshold = 65;
+		public double currentGoldSpendQueueTime = 0;
 
 		private ContentManager contentManager;
 
 		#region Properties
 		public bool DoUpdate { get; set; }
 		public Rectangle InteractableBounds {
-			get => new Rectangle(shopPosition.ToPoint(), new Point(800, 400) );
+			get => new Rectangle(shopPosition.ToPoint(), new Point(500, 200) );
 			set { }
 		}
 		#endregion
@@ -55,14 +64,27 @@ namespace EVCMonoGame.src.Items
 			this.lane = lane;
 
 			// Sprite
-			goldSprite = new AnimatedSprite(Vector2.Zero);
-			goldSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
-			goldSprite.SetAnimation("COIN");
+			playerGoldSprite = new AnimatedSprite(Vector2.Zero);
+			playerGoldSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
+			playerGoldSprite.SetAnimation("COIN");
+
+			// PlayerSpendGold Sprite
+			goldSpendSprite = new AnimatedSprite(Vector2.Zero);
+			goldSpendSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
+			goldSpendSprite.SetAnimation("COIN");
 
 			// Lege Items aus
 			ArrangeItems();
 
-            drawSelledItems = new List<Item>();
+			goldSpendGoal = InteractableBounds.Center.ToVector2() + new Vector2(0, -200);
+
+			goldSpend = new List<Vector2>[2];
+			goldSpend[0] = new List<Vector2>();	// PlayerOne
+			goldSpend[1] = new List<Vector2>();	// PlayerTwo
+
+			goldSpendQueue = new int[2]; // 2 Spieler
+
+			drawSelledItems = new List<Item>();
 
 			CollisionManager.AddInteractable(this);
 		}
@@ -76,7 +98,8 @@ namespace EVCMonoGame.src.Items
 				sellableItem.LoadContent(content);
 			}
 
-			goldSprite.LoadContent(content);
+			playerGoldSprite.LoadContent(content);
+			goldSpendSprite.LoadContent(content);
 
 			font = content.Load<SpriteFont>("rsrc/fonts/DefaultFont");
 		}
@@ -90,11 +113,19 @@ namespace EVCMonoGame.src.Items
             for (int i = drawSelledItems.Count - 1; i >= 0; i--)
                 drawSelledItems.ElementAt<Item>(i).Draw(gameTime, spriteBatch);
 
-			if (drawGold)
+			if (drawPlayerGold)
 			{
-				goldSprite.Draw(gameTime, spriteBatch);
+				playerGoldSprite.Draw(gameTime, spriteBatch);
 				spriteBatch.DrawString(font, "x" + activeItem.shopPrice, activeItem.WorldPosition + new Vector2(50, 75), Color.White);
 			}
+
+			// Draw dragged spended gold
+			foreach (List<Vector2> playerGoldSpend in goldSpend)
+				foreach (Vector2 playerGoldSpendLocation in playerGoldSpend)
+				{
+					goldSpendSprite.WorldPosition = playerGoldSpendLocation;
+					goldSpendSprite.Draw(gameTime, spriteBatch);
+				}
 		}
 
 
@@ -116,9 +147,9 @@ namespace EVCMonoGame.src.Items
 				activeItem = GetNearestItem(GameplayState.PlayerTwo);
 
 			if (activeItem != null)
-				drawGold = true;
+				drawPlayerGold = true;
 			else
-				drawGold = false;
+				drawPlayerGold = false;
 
             // Update Item das vom Spieler gekauft und gezogen wird
             for (int i = drawSelledItems.Count - 1; i >= 0; i--)
@@ -146,14 +177,79 @@ namespace EVCMonoGame.src.Items
                     GameplayState.PlayerTwo.ShowGold(true);
             }
 
-			if (drawGold)
+			if (drawPlayerGold)
 			{
-				goldSprite.Scale = 1f;
-				goldSprite.WorldPosition = activeItem.WorldPosition + new Vector2(-10, 65);
-				goldSprite.Update(gameTime);
+				playerGoldSprite.Scale = 1f;
+				playerGoldSprite.WorldPosition = activeItem.WorldPosition + new Vector2(-10, 65);
+				playerGoldSprite.Update(gameTime);
 			}
 			else
-				goldSprite.Scale = 0f;
+				playerGoldSprite.Scale = 0f;
+
+
+			goldSpendSprite.Update(gameTime);
+			currentGoldSpendQueueTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+			// Trage langsam Gold in die drag liste ein
+			if (currentGoldSpendQueueTime <= 0)
+			{
+				for( int i = 0; i < goldSpendQueue.Count(); i++)
+				{
+					int playerGoldSpend = goldSpendQueue[i];
+
+					if (playerGoldSpend > 0)
+					{
+						Vector2 source = Vector2.Zero;
+						if (i == 0)
+						{
+							source = GameplayState.PlayerOne.WorldPosition;
+							GameplayState.PlayerOne.ShowFakeGold(true, playerGoldSpend, goldSpendQueueThreshold);
+						}
+						else if (i == 1)
+						{
+							source = GameplayState.PlayerTwo.WorldPosition;
+							GameplayState.PlayerTwo.ShowFakeGold(true, playerGoldSpend, goldSpendQueueThreshold);
+						}
+
+
+						source += new Vector2(10, -125);
+
+						goldSpendQueue[i]--;
+						goldSpend[i].Add(source);
+
+						currentGoldSpendQueueTime = goldSpendQueueThreshold;
+					}
+				}
+
+			}
+
+
+
+			// Drag Gold to Shop
+			for (int i = 0; i < goldSpend.GetLength(0); i++)
+			{
+				List<Vector2> playerGoldSpendList = goldSpend[i];
+				
+				for (int j = playerGoldSpendList.Count - 1; j >= 0; j--)
+				{
+					// Pull
+
+					if (Vector2.Distance(playerGoldSpendList.ElementAt(j), goldSpendGoal) < 25)
+					{
+						playerGoldSpendList.RemoveAt(j);
+					}
+					else
+					{
+						Vector2 direction = playerGoldSpendList.ElementAt(j) - goldSpendGoal;
+
+
+						direction.Normalize();
+						direction = new Vector2(direction.X * goldDraggingSpeed, direction.Y * goldDraggingSpeed);
+
+						playerGoldSpendList[j] -= direction;
+					}
+				}
+
+			}
 
 		}
 
@@ -227,7 +323,9 @@ namespace EVCMonoGame.src.Items
 			Console.WriteLine("Verkauft: " + selledItem);
 			spawnedItem.lane = buyer.lane;
 			spawnedItem.LoadContent(contentManager);
-			drawSelledItems.Add(spawnedItem); //dirty! - TODO bessere lösung
+			drawSelledItems.Add(spawnedItem);
+			
+			goldSpendQueue[(int)buyer.PlayerIndex] += selledItem.shopPrice;
 		}
 
 		public bool CheckGold(Player player, Item item)

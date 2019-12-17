@@ -13,12 +13,13 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.Items;
 using EVCMonoGame.src.statemachine.shadow;
+using EVCMonoGame.src.states;
 
 namespace EVCMonoGame.src.characters.enemies
 {
     public class Shadow : Enemy
     {
-        public Shadow(Vector2 position)
+        public Shadow(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
             : base
             (
                   name: "Shadow",
@@ -32,8 +33,9 @@ namespace EVCMonoGame.src.characters.enemies
                   agility: 8,
                   movementSpeed: 4,
                   position: position,
-                  exp: 50
-            )
+                  exp: 50,
+				  spawn: spawn
+			)
         {
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/shadow.anm.txt");
             sprite.SetAnimation("WALK_DOWN_RIGHT");
@@ -63,74 +65,6 @@ namespace EVCMonoGame.src.characters.enemies
         public override void DropLoot()
         {
             base.DropLoot();
-
-            Random random = new Random();
-            int rndNum;
-
-            // 10% GodMissile
-            rndNum = random.Next(0, 10);
-            if (rndNum == 0)
-            {
-                GodImperatorMissle godMissile = new GodImperatorMissle(WorldPosition);
-
-                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
-                {
-                    godMissile,
-                });
-
-                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
-                {
-                    godMissile,
-                });
-            }
-
-            // 40% SplitMissile
-            else if (rndNum >= 0 && rndNum <= 3)
-            {
-                SplitMissle splitMissile = new SplitMissle(WorldPosition);
-
-                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
-                {
-                    splitMissile,
-                });
-
-                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
-                {
-                    splitMissile
-                });
-            }
-
-            // 60% PenetrateMissile
-            else if (rndNum >= 0 && rndNum <= 5)
-            {
-                PenetrateMissle penetrateMissile = new PenetrateMissle(WorldPosition);
-
-                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
-                {
-                    penetrateMissile,
-                });
-
-                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
-                {
-                    penetrateMissile
-                });
-            }
-
-            // 80% BounceMissile
-            else if (rndNum >= 0 && rndNum <= 7)
-            {
-                BounceMissle bounceMissile = new BounceMissle(WorldPosition);
-
-                Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
-                {
-                    bounceMissile,
-                });
-
-                Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
-                {
-                    bounceMissile
-                });
-            }
         }
 
         //public override void OnCombatCollision(CombatArgs combatArgs)

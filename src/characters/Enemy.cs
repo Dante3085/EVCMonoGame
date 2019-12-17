@@ -29,6 +29,7 @@ namespace EVCMonoGame.src.characters
 		public int agentMindestBreite;
 		public Vector2 movementDirection;
 		public Vector2 previousMovementDirection;
+		public GameplayState.Lane spawn;
 
 		// Pathfinding
 		public static Pathfinder pathfinder;
@@ -71,7 +72,8 @@ namespace EVCMonoGame.src.characters
 			int agility,
 			float movementSpeed,
 			Vector2 position,
-			int exp
+			int exp,
+			GameplayState.Lane spawn = GameplayState.Lane.LaneBoth
 		)
 			: base
 			(
@@ -90,6 +92,7 @@ namespace EVCMonoGame.src.characters
 			)
 		{
 			this.exp = exp;
+			this.spawn = spawn;
 
 			sprite = new AnimatedSprite(position, 5.0f);
 
@@ -303,15 +306,19 @@ namespace EVCMonoGame.src.characters
 																	"IDLE", GameplayState.Lane.LaneBoth, 3);
 				healthorb.heal = random.Next(10, 25);
 
-				Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
-				Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
+				if (random.Next(1, 100) < 30)
+				{
+					Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
+					Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);
+					Scene.drawablesToAdd.Add(healthpotion);
+					Scene.updateablesToAdd.Add(healthpotion);
+				}
 
 				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
 				{
 					coin,
 					expBottle,
 					healthorb,
-					healthpotion,
 				});
 
 				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
@@ -319,7 +326,80 @@ namespace EVCMonoGame.src.characters
 					coin,
 					expBottle,
 					healthorb,
-					healthpotion,
+				});
+			}
+
+			if(spawn != GameplayState.Lane.LaneOne)
+				DropMissiles();
+		}
+
+		protected virtual void DropMissiles()
+		{
+			Random random = new Random();
+			int rndNum;
+
+			// 5% GodMissile
+			rndNum = random.Next(1, 100);
+			if (rndNum <= 5)
+			{
+				GodImperatorMissle godMissile = new GodImperatorMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					godMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					godMissile,
+				});
+			}
+
+			// 35% SplitMissile
+			else if (rndNum < 35)
+			{
+				SplitMissle splitMissile = new SplitMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					splitMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					splitMissile
+				});
+			}
+
+			// 60% PenetrateMissile
+			else if (rndNum <= 60)
+			{
+				PenetrateMissle penetrateMissile = new PenetrateMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					penetrateMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					penetrateMissile
+				});
+			}
+
+			// 80% BounceMissile
+			else if (rndNum <= 80)
+			{
+				BounceMissle bounceMissile = new BounceMissle(WorldPosition);
+
+				Scene.drawablesToAdd.AddRange(new scenes.IDrawable[]
+				{
+					bounceMissile,
+				});
+
+				Scene.updateablesToAdd.AddRange(new scenes.IUpdateable[]
+				{
+					bounceMissile
 				});
 			}
 		}

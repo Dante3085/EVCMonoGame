@@ -58,11 +58,11 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 if (i % 2 == 0)
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(defenders[i]);
@@ -74,11 +74,11 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 if (i % 2 == 0)
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(gargoyles[i]);
@@ -88,11 +88,6 @@ namespace EVCMonoGame.src.scenes.castle
             doorPlayerOne = new Door(new Vector2(767, 383));
             doorPlayerTwo = new Door(new Vector2(1920, 383));
 
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
 
             drawables.AddRange(new IDrawable[]
             {

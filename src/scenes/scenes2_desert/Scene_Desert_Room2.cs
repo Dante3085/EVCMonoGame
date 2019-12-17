@@ -67,25 +67,19 @@ namespace EVCMonoGame.src.scenes.desert
                 // Spawn on left side.
                 if (i % 2 == 0)
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
 
                 // Spawn on right side.
                 else
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
             }
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

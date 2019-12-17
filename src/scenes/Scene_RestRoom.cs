@@ -42,18 +42,12 @@ namespace EVCMonoGame.src.scenes
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
 			playerOne.WorldPosition = new Vector2(600, 800);
-			playerOne.PlayerInventory.Gold = 1000;
 
 			PlayerTwo playerTwo = GameplayState.PlayerTwo;
 			playerTwo.WorldPosition = new Vector2(900, 750);
-			playerTwo.PlayerInventory.Gold = 1000;
 
 			Item potion = new Healthpotion(new Vector2(1200, 3800));
 			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
-			
-
-			Enemy shadow = new Shadow(Vector2.Zero);
-			Enemy shadow_2 = new Shadow(Vector2.Zero);
 
 			// Shop
 			Item inventoryItem = new Healthpotion(Vector2.Zero);
@@ -75,10 +69,7 @@ namespace EVCMonoGame.src.scenes
 				//Shop
 			drawables.Add(soraShop);
 			drawables.Add(rikuShop);
-
-			//Enemys
-			drawables.Add(shadow);
-			drawables.Add(shadow_2);
+			
 
 			//Updatables
 				//Items
@@ -87,9 +78,6 @@ namespace EVCMonoGame.src.scenes
 				//Shop
 			updateables.Add(soraShop);
 			updateables.Add(rikuShop);
-			    //Enemys
-			updateables.Add(shadow);
-			updateables.Add(shadow_2);
 		}
 
         public override void LoadContent(ContentManager contentManager)

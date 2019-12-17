@@ -32,7 +32,9 @@ namespace EVCMonoGame.src.scenes.castle
             sora.WorldPosition = new Vector2(2789, 2770);
             riku.WorldPosition = new Vector2(4090, 2770);
 
-            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
+			LaneTeleporter laneTeleporter = new LaneTeleporter(new Vector2(2589, 2570), sora, new Vector2(4090, 2270), 15000);
+
+			enemySpawnLocationsLeftLane.AddRange(new Vector2[]
             {
                 new Vector2(2957, 1202),
                 new Vector2(2239, 1566),
@@ -58,11 +60,11 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 if (i % 2 == 0)
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane());
+                    defenders[i] = new Defender(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(defenders[i]);
@@ -74,11 +76,11 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 if (i % 2 == 0)
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(gargoyles[i]);
@@ -88,15 +90,12 @@ namespace EVCMonoGame.src.scenes.castle
             doorPlayerOne = new Door(new Vector2(3071, 381));
             doorPlayerTwo = new Door(new Vector2(3831, 386));
 
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
+			updateables.Add(laneTeleporter);
 
             drawables.AddRange(new IDrawable[]
             {
-                doorPlayerOne,
+				laneTeleporter,
+				doorPlayerOne,
                 doorPlayerTwo,
             });
 

@@ -58,12 +58,12 @@ namespace EVCMonoGame.src.scenes.desert
             RandomizeEnemySpawnLocations();
 
             defenders = new Defender[2];
-            defenders[0] = new Defender(NextEnemySpawnLocationLeftLane());
-            defenders[1] = new Defender(NextEnemySpawnLocationRightLane());
+            defenders[0] = new Defender(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
+            defenders[1] = new Defender(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
 
             gargoyles = new Gargoyle[2];
-            gargoyles[0] = new Gargoyle(NextEnemySpawnLocationLeftLane());
-            gargoyles[1] = new Gargoyle(NextEnemySpawnLocationRightLane());
+            gargoyles[0] = new Gargoyle(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
+            gargoyles[1] = new Gargoyle(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
 
             AddUpdateables
             (
@@ -71,10 +71,7 @@ namespace EVCMonoGame.src.scenes.desert
                 defenders[1],
 
                 gargoyles[0],
-                gargoyles[1],
-
-                doorPlayerOne,
-                doorPlayerTwo
+                gargoyles[1]
             );
 
             AddDrawables

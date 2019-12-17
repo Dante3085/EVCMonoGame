@@ -50,7 +50,8 @@ namespace EVCMonoGame.src.characters
 
         protected Vector2 collisionBoxOffset = Vector2.Zero;
         protected AnimatedSprite sprite;
-        protected CombatArgs combatArgs;
+		public bool hideSprite = false;
+		protected CombatArgs combatArgs;
         public bool flinching = false;
 
         private List<long> receivedAttackIds = new List<long>();
@@ -240,7 +241,8 @@ namespace EVCMonoGame.src.characters
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            sprite.Draw(gameTime, spriteBatch);
+			if(!hideSprite)
+				sprite.Draw(gameTime, spriteBatch);
 
             if (DrawHealthbar && IsAlive)
             {

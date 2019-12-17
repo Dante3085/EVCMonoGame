@@ -29,16 +29,37 @@ namespace EVCMonoGame.src.statemachine.defender
             Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(defender, defender.attackRange+10);
             
             defender.CombatArgs.NewId();
-            
+
+            float distanceFromPlayer = (defender.CollisionBox.Center - nearestPlayer.CollisionBox.Center).ToVector2().Length();
+            Console.WriteLine("distanceFromPlayer: " + distanceFromPlayer);
+
+            Random random = new Random();
+            int rndNum = random.Next(0, 2);
+
             if (nearestPlayer.Sprite.Bounds.Center.X > defender.CollisionBox.Center.X)
             {
-                defender.Sprite.SetAnimation("SHIELD_SPIN_RIGHT");
+                if (distanceFromPlayer <= 600)
+                {
+                    defender.Sprite.SetAnimation("SHIELD_SPIN_RIGHT");
+                }
+                else if (distanceFromPlayer > 600)
+                {
+                    defender.CombatArgs.knockBack = new Vector2(150, 0);
+                    defender.Sprite.SetAnimation("SHIELD_CHARGE_RIGHT");
+                }
             }
             else
             {
-                defender.Sprite.SetAnimation("SHIELD_SPIN_LEFT");
+                if (distanceFromPlayer <= 600)
+                {
+                    defender.Sprite.SetAnimation("SHIELD_SPIN_LEFT");
+                }
+                else if (distanceFromPlayer > 600)
+                {
+                    defender.CombatArgs.knockBack = new Vector2(-150, 0);
+                    defender.Sprite.SetAnimation("SHIELD_CHARGE_LEFT");
+                }
             }
-
         }
 
         public override void Exit(GameTime gameTime)

@@ -44,8 +44,6 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             updateables.AddRange(new IUpdateable[]
             {
-                doorPlayerOne,
-                doorPlayerTwo,
                 defenderSora,
                 defenderRiku,
             });
@@ -71,7 +69,7 @@ namespace EVCMonoGame.src.scenes.tutorial
             //    sceneManager.SceneTransition(EScene.TUTORIAL_ROOM_5);
             //}
 
-            if (doorPlayerOne.Open && doorPlayerTwo.Open)
+            if (doorPlayerOne.Open && doorPlayerTwo.Open && !defenderSora.IsAlive && !defenderRiku.IsAlive)
             {
                 sceneManager.SceneTransitionNextRoom();
             }

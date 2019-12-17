@@ -60,11 +60,11 @@ namespace EVCMonoGame.src.scenes.castle
             {
                 if (i % 2 == 0)
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
                 else
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(shadows[i]);
@@ -73,13 +73,7 @@ namespace EVCMonoGame.src.scenes.castle
 
             doorPlayerOne = new Door(new Vector2(577, 384));
             doorPlayerTwo = new Door(new Vector2(1920, 383));
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

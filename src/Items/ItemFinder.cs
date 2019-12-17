@@ -37,7 +37,7 @@ namespace EVCMonoGame.src.Items
 			this.owner = owner;
 			playerInventory = owner.PlayerInventory;
 
-            finderRange = 300f;
+            finderRange = 400f;
 
             itemDraggingSpeed += owner.MovementSpeed; 
 

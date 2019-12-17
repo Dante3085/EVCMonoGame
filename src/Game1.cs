@@ -139,7 +139,7 @@ namespace EVCMonoGame.src
         }
     }
 
-    internal static class ProgramO
+    internal static class Program
     {
         private static void Main()
         {

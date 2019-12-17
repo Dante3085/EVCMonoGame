@@ -35,9 +35,11 @@ namespace EVCMonoGame.src.characters
 		private bool drawGold;
         private double showGoldTime;
         public AnimatedSprite goldSprite;
+		private int fakeGoldOffset;
 
+		public bool hidePlayer = false;
 
-        public Orientation playerOrientation = Orientation.RIGHT;
+		public Orientation playerOrientation = Orientation.RIGHT;
 		private PlayerIndex playerIndex;
 		public GameplayState.Lane lane;
 
@@ -169,6 +171,7 @@ namespace EVCMonoGame.src.characters
                 if (showGoldTime < 0)
                 {
                     ShowGold(false);
+					fakeGoldOffset = 0;
                 }
             }
             else
@@ -179,23 +182,37 @@ namespace EVCMonoGame.src.characters
 
 		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.Draw(gameTime, spriteBatch);
+			if (!hidePlayer)
+			{
+				base.Draw(gameTime, spriteBatch);
 
-            itemFinder.Draw(gameTime, spriteBatch);
+				itemFinder.Draw(gameTime, spriteBatch);
 
-            expBar.Draw(gameTime, spriteBatch);
+				expBar.Draw(gameTime, spriteBatch);
 
-            goldSprite.Draw(gameTime, spriteBatch);
+				goldSprite.Draw(gameTime, spriteBatch);
 
-			if(drawGold)
-				spriteBatch.DrawString(font, "x" + PlayerInventory.Gold.ToString(), WorldPosition + new Vector2(70, -110), Color.White);
+				if (drawGold)
+					spriteBatch.DrawString(font, "x" + (PlayerInventory.Gold + fakeGoldOffset).ToString(), WorldPosition + new Vector2(70, -110), Color.White);
+			}
+           
 		}
 
 		public void ShowGold(bool showGold, double time = 0)
         {
-            drawGold = showGold;
-            showGoldTime = time;
+			if (fakeGoldOffset == 0)
+			{
+				drawGold = showGold;
+				showGoldTime = time;
+			}
         }
+
+		public void ShowFakeGold(bool showGold, int fakeGoldOffset, double time = 0)
+		{
+			this.fakeGoldOffset = fakeGoldOffset;
+			drawGold = showGold;
+			showGoldTime = time;
+		}
 
 		public abstract void CheckLevelUp();
     }

@@ -62,13 +62,13 @@ namespace EVCMonoGame.src.scenes.tutorial
                 // Spawn on left side.
                 if (i % 2 == 0)
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
 
                 // Spawn on right side.
                 else
                 {
-                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane());
+                    shadows[i] = new Shadow(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(shadows[i]);
@@ -77,13 +77,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             doorPlayerOne = new Door(new Vector2(1550, 801));
             doorPlayerTwo = new Door(new Vector2(2000, 805));
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,

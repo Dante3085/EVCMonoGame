@@ -63,25 +63,19 @@ namespace EVCMonoGame.src.scenes.desert
                 // Spawn on left side.
                 if (i % 2 == 0)
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationLeftLane(), GameplayState.Lane.LaneOne);
                 }
 
                 // Spawn on right side.
                 else
                 {
-                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane());
+                    gargoyles[i] = new Gargoyle(NextEnemySpawnLocationRightLane(), GameplayState.Lane.LaneTwo);
                 }
 
                 updateables.Add(gargoyles[i]);
                 drawables.Add(gargoyles[i]);
             }
-
-            updateables.AddRange(new IUpdateable[]
-            {
-                doorPlayerOne,
-                doorPlayerTwo,
-            });
-
+			
             drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
