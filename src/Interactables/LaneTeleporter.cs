@@ -40,6 +40,8 @@ namespace EVCMonoGame.src
 		private Easer travelEaser;
 		private double laneTransitionTime = 1500;
 
+		private GeometryBox blockingGeoBox;
+
 
 		public LaneTeleporter(Vector2 position, Player traveler, Vector2 teleportGoal, double laneTime = 10000) : base(position)
 		{
@@ -48,20 +50,23 @@ namespace EVCMonoGame.src
 			this.teleportGoal = teleportGoal;
 			this.laneTime = laneTime;
 
+			interactionArea.Inflate(50, 100);
+
 			teleporterState = new TeleporterState();
+			blockingGeoBox = new GeometryBox(new Rectangle(position.ToPoint(), new Point(140, 230)));
 
 			// ´Portal Sprite
 			portalSprite = new AnimatedSprite(Vector2.Zero, 7);
 			portalSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/portal.anm.txt");
 			portalSprite.SetAnimation("PORTAL_READY");
-			portalSprite.WorldPosition = position - new Vector2(80, 100);
+			portalSprite.WorldPosition = position - new Vector2(70, 50);
 
 			// PlayerSpendGold Sprite
 			travelSprite = new AnimatedSprite(Vector2.Zero);
-			travelSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/coin.anm.txt");
-			travelSprite.SetAnimation("COIN");
+			travelSprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/portal_traveling.anm.txt");
+			travelSprite.SetAnimation("TRAVELING");
 
-			//CollisionManager.AddCollidable(new GeometryBox(new Rectangle(teleportGoal.ToPoint(), new Point(200, 200))), CollisionManager.obstacleCollisionChannel);
+			CollisionManager.AddCollidable(blockingGeoBox, CollisionManager.obstacleCollisionChannel);
 		}
 
 		public override void Interact(Player player)
@@ -121,6 +126,7 @@ namespace EVCMonoGame.src
 						{
 							portalSprite.SetAnimation("PORTAL_USED");
 							usedOnce = true;
+							CollisionManager.RemoveCollidable(blockingGeoBox, CollisionManager.obstacleCollisionChannel);
 						}
 						break;
 				}
@@ -160,13 +166,17 @@ namespace EVCMonoGame.src
 		{
 			if (laneTime > 0)
 			{
+				traveler.isPhaseMode = true;
+				CollisionManager.RemoveCollidable(traveler, CollisionManager.obstacleCollisionChannel);
 				laneTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 				return false;
 			}
 			else
 			{
-				travelEaser.Reverse();
+				CollisionManager.AddCollidable(traveler, CollisionManager.obstacleCollisionChannel);
+				traveler.isPhaseMode = false;
 				travelEaser.From = traveler.WorldPosition;
+				travelEaser.To = position;
 				travelEaser.Start();
 				return true;
 			}
