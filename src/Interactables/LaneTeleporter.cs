@@ -18,7 +18,7 @@ using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src
 {
-    public class LaneTeleporter : Lever, scenes.IDrawable, Interactable, scenes.IUpdateable
+    public class LaneTeleporter : Lever, scenes.IUpdateable
 	{
 
 		private Vector2 position;
