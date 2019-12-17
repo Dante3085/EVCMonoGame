@@ -41,14 +41,52 @@ namespace EVCMonoGame.src.scenes
 			tilemap = new Tilemap(Vector2.Zero, "Content/rsrc/tilesets/configFiles/tilemaps/other/restRoom.tm.txt");
 
 			PlayerOne playerOne = GameplayState.PlayerOne;
-			playerOne.WorldPosition = new Vector2(700, 3500);
-			playerOne.PlayerInventory.Gold = 50;
+			playerOne.WorldPosition = new Vector2(1300, 4000);
 
 			PlayerTwo playerTwo = GameplayState.PlayerTwo;
-			playerTwo.WorldPosition = new Vector2(1000, 3500);
+			playerTwo.WorldPosition = new Vector2(2100, 4000);
 
-			Item potion = new Healthpotion(new Vector2(1200, 3800));
-			Item potion_2 = new Healthpotion(new Vector2(1250, 3800));
+			Chest chest_sora = new Chest(	new Vector2(1300, 3500),
+											new List<Item>(){
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneOne){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneOne, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneOne, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneOne, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneOne, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneOne, 0.5f) { exp = 3},
+												new Healthpotion(Vector2.Zero),
+											}, GameplayState.Lane.LaneOne);
+
+			Chest chest_riku = new Chest(	new Vector2(2100, 3500),
+											new List<Item>(){
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/coin.anm.txt", "COIN", GameplayState.Lane.LaneTwo){ gold = 1 },
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneTwo, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneTwo, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneTwo, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneTwo, 0.5f) { exp = 3},
+												new InstantConsumable(Vector2.Zero, "Content/rsrc/spritesheets/configFiles/exp.anm.txt", "EXP", GameplayState.Lane.LaneTwo, 0.5f) { exp = 3},
+												new BounceMissle(Vector2.Zero),
+												new PenetrateMissle(Vector2.Zero),										
+												new Healthpotion(Vector2.Zero),
+											}, GameplayState.Lane.LaneTwo);
 
 			// Shop
 			Item healtpotion = new Healthpotion(Vector2.Zero);
@@ -63,9 +101,9 @@ namespace EVCMonoGame.src.scenes
             Shop rikuShop = new Shop(new Vector2(2350, 3250), new List<Item> { bounceMissle, penetrateMissle, splitMissle, godImperator }, GameplayState.Lane.LaneTwo);
 
 			//Drawables	
-			//Items
-			drawables.Add(potion);
-			drawables.Add(potion_2);
+				//Chest
+			drawables.Add(chest_sora);
+			drawables.Add(chest_riku);
 
 				//Shop
 			drawables.Add(soraShop);
@@ -73,9 +111,9 @@ namespace EVCMonoGame.src.scenes
 			
 
 			//Updatables
-				//Items
-			updateables.Add(potion);
-			updateables.Add(potion_2);
+				//Chest
+			updateables.Add(chest_sora);
+			updateables.Add(chest_riku);
 				//Shop
 			updateables.Add(soraShop);
 			updateables.Add(rikuShop);
