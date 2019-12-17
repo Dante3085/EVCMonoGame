@@ -563,7 +563,7 @@ namespace EVCMonoGame.src.collision
                                                   player.CollisionBox.Center.ToVector2());
 
                 if (distance < range)
-                    if (nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2()))
+                    if (player.IsAlive&&(nearestPlayer == null || distance < Vector2.Distance(collidable.CollisionBox.Center.ToVector2(), nearestPlayer.CollisionBox.Center.ToVector2())))
                     {
                         nearestPlayer = player;
                     }

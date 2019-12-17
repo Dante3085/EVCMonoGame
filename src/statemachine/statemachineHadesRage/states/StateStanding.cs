@@ -31,22 +31,22 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             Console.WriteLine("Hades duration:" + duration.Seconds);
             enteredStateTimeStamp = gameTime.TotalGameTime;
             float orientationAngle = Utility.GetAngleOfVectorInDegrees(hades.movementDirection);
-            hades.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+            hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                hades.Sprite.SetAnimation("IDLE_UP_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                hades.Sprite.SetAnimation("IDLE_UP_LEFT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                hades.Sprite.SetAnimation("IDLE_DOWN_LEFT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                hades.Sprite.SetAnimation("IDLE_DOWN_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             }
         }
 

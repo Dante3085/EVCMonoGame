@@ -28,19 +28,19 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             switch (Utility.GetOrientationDiagonal(hades.movementDirection))
             {
                 case Orientation.DOWN_LEFT:
-                    hades.Sprite.SetAnimation("MOVE_LEFT");
+                    hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
                     break;
                 case Orientation.DOWN_RIGHT:
-                    hades.Sprite.SetAnimation("MOVE_RIGHT");
+                    hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                     break;
                 case Orientation.UP_LEFT:
-                    hades.Sprite.SetAnimation("MOVE_LEFT");
+                    hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
                     break;
                 case Orientation.UP_RIGHT:
-                    hades.Sprite.SetAnimation("MOVE_RIGHT");
+                    hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                     break;
                 default:
-                    hades.Sprite.SetAnimation("MOVE_RIGHT");
+                    hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                     break;
             }
 
@@ -58,19 +58,19 @@ namespace EVCMonoGame.src.statemachine.hadesRage
                 switch (Utility.GetOrientationDiagonal(hades.movementDirection))
                 {
                     case Orientation.DOWN_LEFT:
-                        hades.Sprite.SetAnimation("MOVE_LEFT");
+                        hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
                         break;
                     case Orientation.DOWN_RIGHT:
-                        hades.Sprite.SetAnimation("MOVE_RIGHT");
+                        hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                         break;
                     case Orientation.UP_LEFT:
-                        hades.Sprite.SetAnimation("MOVE_LEFT");
+                        hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
                         break;
                     case Orientation.UP_RIGHT:
-                        hades.Sprite.SetAnimation("MOVE_RIGHT");
+                        hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                         break;
                     default:
-                        hades.Sprite.SetAnimation("MOVE_RIGHT");
+                        hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
                         break;
                 }
             }

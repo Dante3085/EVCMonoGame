@@ -34,22 +34,22 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             hades.movementDirection = Utility.ScaleVectorTo(nextPatrolDirection, hades.movementSpeed);
             patrolLength = ran.Next((int)hades.sightRange / 2, (int)hades.sightRange);
             float orientationAngle = Utility.GetAngleOfVectorInDegrees(hades.movementDirection);
-            hades.Sprite.SetAnimation("MOVE_RIGHT");
+            hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             if (orientationAngle > (0) && orientationAngle <= (90))
             {
-                hades.Sprite.SetAnimation("MOVE_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             }
             if (orientationAngle > (90) && orientationAngle <= (180))
             {
-                hades.Sprite.SetAnimation("MOVE_LEFT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
             }
             if (orientationAngle > (-180) && orientationAngle <= (-90))
             {
-                hades.Sprite.SetAnimation("MOVE_LEFT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_LEFT");
             }
             if (orientationAngle > (-90) && orientationAngle <= (0))
             {
-                hades.Sprite.SetAnimation("MOVE_RIGHT");
+                hades.Sprite.SetAnimation("RAGE_MOVE_RIGHT");
             }
         }
 
