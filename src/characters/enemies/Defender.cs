@@ -17,12 +17,13 @@ namespace EVCMonoGame.src.characters.enemies
 {
     public class Defender : Enemy
     {
-		public Defender(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth)
+		public Defender(Vector2 position, GameplayState.Lane spawn = GameplayState.Lane.LaneBoth,
+			            int hpBonus = 0)
 			: base
 			(
 				  name: "Defender",
-				  maxHp: 1000,
-				  currentHp: 1000,
+				  maxHp: 1000 + hpBonus,
+				  currentHp: 1000 + hpBonus,
 				  maxMp: 0,
 				  currentMp: 0,
 				  strength: 8,
