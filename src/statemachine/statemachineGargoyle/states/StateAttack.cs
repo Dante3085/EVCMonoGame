@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
+using Microsoft.Xna.Framework.Audio;
 
 namespace EVCMonoGame.src.statemachine.gargoyle
 
@@ -80,6 +81,7 @@ namespace EVCMonoGame.src.statemachine.gargoyle
 
         private void BattleCry(Player nearestPlayer)
         {
+            gargoyle.scream.CreateInstance().Play();
             setCryTime = true;
             gargoyle.attackDmg = 20;
             if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
