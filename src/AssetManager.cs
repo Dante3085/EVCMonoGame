@@ -32,10 +32,6 @@ public enum ESong
     WAY_TO_FALL,
 
     BEGINNING,
-}
-
-public enum ESFX
-{
     GARGOYLE,
 }
 
@@ -68,11 +64,7 @@ public static class AssetManager
     private static Dictionary<String, ESong> songNames = new Dictionary<string, ESong>()
     {
         { "rsrc/audio/music/Beginning", ESong.BEGINNING },
-    };
-
-    private static Dictionary<String, ESFX> sfxNames = new Dictionary<string, ESFX>()
-    {
-        { "rsrc/audio/sfx/Gargoyle", ESFX.GARGOYLE },
+        { "rsrc/audio/sfx/Gargoyle", ESong.GARGOYLE },
     };
 
     public static void LoadAssets(ContentManager contentManager)
