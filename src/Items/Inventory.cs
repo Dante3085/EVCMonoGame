@@ -584,7 +584,7 @@ namespace EVCMonoGame.src
 						else
 						{
 							// Draw Debug Inventory Grid
-							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, 1), itemSize.ToVector2(), Color.White);
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, -1), itemSize.ToVector2(), Color.White);
 
 							//Draw Icon
 							icon = weapons.ElementAt<Weapon>(i).inventoryIcon;
@@ -603,7 +603,7 @@ namespace EVCMonoGame.src
 							if (animationDirectionWeapons == Direction.LEFT && i + 1 == GetPrevWeaponPos())
 							{
 								// Draw Debug Inventory Grid
-								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, mirror), itemSize.ToVector2(), Color.White * opacity);
+								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, -mirror), itemSize.ToVector2(), Color.White * opacity);
 
 								//Draw Icon
 								icon = weapons.ElementAt<Weapon>(i).inventoryIcon;
@@ -612,7 +612,7 @@ namespace EVCMonoGame.src
 							else
 							{
 								// Draw Debug Inventory Grid
-								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, 1), itemSize.ToVector2(), Color.Yellow);
+								Primitives2D.DrawRectangle(spriteBatch, screenPosition + itemPosition.ToVector2() * new Vector2(mirror, -1), itemSize.ToVector2(), Color.Yellow);
 
 								//Draw Icon
 								icon = weapons.ElementAt<Weapon>(i).inventoryIcon;
@@ -660,7 +660,7 @@ namespace EVCMonoGame.src
 						itemPositionCounter++;
 
 						// Draw Debug Inventory Grid
-						Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, 1), itemSize.ToVector2(), Color.White);
+						Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(-mirror, 1), itemSize.ToVector2(), Color.White);
 
 						//Draw Icon
 						icon = weapons.ElementAt<Weapon>(i).inventoryIcon;
@@ -677,7 +677,7 @@ namespace EVCMonoGame.src
 							itemPositionCounter++;
 
 							// Draw Debug Inventory Grid
-							Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(mirror, 1), itemSize.ToVector2(), Color.Yellow);
+							Primitives2D.DrawRectangle(spriteBatch, screenPosition - itemPosition.ToVector2() * new Vector2(-mirror, 1), itemSize.ToVector2(), Color.Yellow);
 
 							//Draw Icon
 							icon = weapons.ElementAt<Weapon>(i).inventoryIcon;

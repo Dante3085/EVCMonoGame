@@ -62,8 +62,10 @@ namespace EVCMonoGame.src.statemachine.riku
             }
 
             riku.WorldPosition += riku.movementVector;
-
-            CollisionManager.IsCollisionAfterMove(riku, true, true);
+			if (riku.isPhaseMode)
+				CollisionManager.IsCollisionAfterMove(riku, true, true, CollisionManager.enemyCollisionChannel.Concat(CollisionManager.playerCollisionChannel).ToList<Collidable>());
+			else
+				CollisionManager.IsCollisionAfterMove(riku, true, true);
 
             riku.Sprite.Position = riku.WorldPosition;
 
