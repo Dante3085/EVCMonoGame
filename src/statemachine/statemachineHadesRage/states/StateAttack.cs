@@ -9,6 +9,7 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.projectiles;
+using Microsoft.Xna.Framework.Audio;
 
 namespace EVCMonoGame.src.statemachine.hadesRage
 
@@ -45,7 +46,6 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            Console.WriteLine("Hades entered ATTACKSTATE");
             Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRangeMeteor + 10);
 
             hades.CombatArgs.NewId();
@@ -92,6 +92,9 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             {
                 hades.Sprite.SetAnimation("RAGE_FIRE_BLAST_LEFT");
             }
+            SoundEffectInstance fire = AssetManager.GetSoundEffect(ESoundEffect.FLAMETHROWER).CreateInstance();
+            fire.Volume = 0.8f;
+            fire.Play();
         }
         public void Meteor()
         {
@@ -125,7 +128,9 @@ namespace EVCMonoGame.src.statemachine.hadesRage
                 hades.Sprite.SetAnimation("RAGE_METEOR_LEFT");
             }
             missileTarget = targetPlayer;
-
+            SoundEffectInstance channeling = AssetManager.GetSoundEffect(ESoundEffect.ENERGY_CHANNELING).CreateInstance();
+            channeling.Volume = 0.8f;
+            channeling.Play();
         }
         public override void Exit(GameTime gameTime)
         {

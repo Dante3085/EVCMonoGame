@@ -56,6 +56,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 
             MediaPlayer.Play(AssetManager.GetSong(ESong.BEGINNING));
             MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.8f;
         }
 
         public override void Update(GameTime gameTime)

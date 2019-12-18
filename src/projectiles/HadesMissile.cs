@@ -17,6 +17,8 @@ using EVCMonoGame.src.utility;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.statemachine.sora;
+using Microsoft.Xna.Framework.Audio;
+
 namespace EVCMonoGame.src.projectiles
 {
     public class HadesMissile : MagicMissile
@@ -42,7 +44,7 @@ namespace EVCMonoGame.src.projectiles
             movementVector = Utility.ScaleVectorTo(directionVector, movementSpeed);
 
             combatArgs = new CombatArgs(this, null, CombatantType.PLAYER);
-            combatArgs.damage = 150;
+            combatArgs.damage = 250;
             combatArgs.atackOrientation = Orientation.DOWN;
             if (CollisionManager.IsCollisionWithWall(this))
             {
@@ -91,6 +93,9 @@ namespace EVCMonoGame.src.projectiles
         public override void OnCombatCollision(CombatArgs combatArgs)
         {
             Console.WriteLine("Combat args id:" + combatArgs.id);
+            SoundEffectInstance booom = AssetManager.GetSoundEffect(ESoundEffect.BOOOM).CreateInstance();
+            booom.Volume = 0.8f;
+            booom.Play();
             FlaggedForRemove = true;
         }
     }

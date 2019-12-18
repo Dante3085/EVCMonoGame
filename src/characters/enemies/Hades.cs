@@ -11,6 +11,7 @@ using EVCMonoGame.src.statemachine.hades;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.animation;
 using EVCMonoGame.src.projectiles;
+using C3.MonoGame;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -68,6 +69,13 @@ namespace EVCMonoGame.src.characters.enemies
             foreach (MagicMissile m in missiles)
             {
                 m.Draw(gameTime, spriteBatch);
+            }
+            if (false)
+            {
+                Primitives2D.DrawCircle(spriteBatch, WorldPosition, attackRange, 16, Color.Red, 3);
+                Primitives2D.DrawCircle(spriteBatch, WorldPosition, attackRangeMeteor, 16, Color.Orange, 3);
+                Primitives2D.DrawCircle(spriteBatch, WorldPosition, innerAttackRangeFireBlast, 16, Color.OrangeRed, 3);
+                Primitives2D.DrawCircle(spriteBatch, WorldPosition, outerAttackRangeFireBlast, 16, Color.OrangeRed, 3);
             }
         }
 
