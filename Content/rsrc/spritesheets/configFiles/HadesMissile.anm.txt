@@ -1,0 +1,12 @@
+
+SPRITESHEET = rsrc/spritesheets/HadesMissile
+
+[ANIMATION]
+NAME          = HADESMISSILE
+FRAMES        = (42, 51, 42, 43), (127, 51, 42, 43), (210, 49, 42, 43), (283, 50, 42, 43), (352, 50, 42, 44),  (430, 54, 42, 43)  
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = SAME_AS_FRAME
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true

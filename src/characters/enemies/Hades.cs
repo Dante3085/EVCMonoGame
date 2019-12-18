@@ -15,7 +15,9 @@ namespace EVCMonoGame.src.characters.enemies
 {
     public class Hades : Enemy
     {
-
+        public float attackRangeMeteor;
+        public float outerAttackRangeFireBlast;
+        public float innerAttackRangeFireBlast;
         public Hades(Vector2 position)
             : base
             (
@@ -34,6 +36,9 @@ namespace EVCMonoGame.src.characters.enemies
 				  spawn: GameplayState.Lane.LaneBoth
 			)
         {
+            attackRangeMeteor = sightRange * 2;
+            outerAttackRangeFireBlast = 550;
+            innerAttackRangeFireBlast = 400;
             sprite = new AnimatedSprite(position, 5.0f, true);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/hades.anm.txt");
             sprite.SetAnimation("RAGE_STRIKE_LEFT");
