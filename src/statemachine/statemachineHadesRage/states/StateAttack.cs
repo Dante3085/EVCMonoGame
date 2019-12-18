@@ -45,7 +45,6 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         public override void Enter(GameTime gameTime)
         {
             base.Enter(gameTime);
-            Console.WriteLine("Hades entered ATTACKSTATE");
             Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRangeMeteor + 10);
 
             hades.CombatArgs.NewId();

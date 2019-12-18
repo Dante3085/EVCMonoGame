@@ -30,7 +30,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             bool cooldownStrikeCondition = (Game1.totalGametime - stateAttack.lastStrikeAttack) > stateAttack.cooldownStrike;
             bool cooldownFireBlastCondition = (Game1.totalGametime - stateAttack.lastFireBlastAttack) > stateAttack.cooldownFireBlast;
             bool cooldownMeteorCondition = (Game1.totalGametime - stateAttack.lastMeteorAttack) > stateAttack.cooldownMeteor;
-            Console.WriteLine("wsdfghjgfedghgtrewrh            "+cooldownMeteorCondition);
+            
             if (rangeStrikeCondition && cooldownStrikeCondition)
             {
                 stateAttack.nextAttack = NEXTATTACK.STRIKE;
