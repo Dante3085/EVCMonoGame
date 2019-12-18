@@ -35,7 +35,6 @@ namespace EVCMonoGame.src.scenes
 
         public override void OnEnterScene()
         {
-            base.OnEnterScene();
 
             camera.FollowPlayers();
 
@@ -92,7 +91,7 @@ namespace EVCMonoGame.src.scenes
 			// Shop
 			Item healtpotion = new Healthpotion(Vector2.Zero);
 			Item bearTrapItem = new BearTrapItem(Vector2.Zero);
-			Shop soraShop = new Shop(new Vector2(700, 3250), new List<Item> { healtpotion, bearTrapItem }, GameplayState.Lane.LaneOne);
+			Shop soraShop = new Shop(new Vector2(800, 3250), new List<Item> { healtpotion, bearTrapItem }, GameplayState.Lane.LaneOne);
             
             // Shop
             Item bounceMissle = new BounceMissle(new Vector2(0, 0));
@@ -120,6 +119,8 @@ namespace EVCMonoGame.src.scenes
 			updateables.Add(rikuShop);
 
 			MediaPlayer.Play(AssetManager.GetSong(ESong.REST_ROOM));
+
+			base.OnEnterScene();
 		}
 
         public override void LoadContent(ContentManager contentManager)

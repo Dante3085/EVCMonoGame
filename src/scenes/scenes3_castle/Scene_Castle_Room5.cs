@@ -51,23 +51,25 @@ namespace EVCMonoGame.src.scenes.castle
 		{
 			List<Trap> spikeTraps = new List<Trap>();
 
-			for (int i = 0; i < 4; i++)
-				for (int j = 0; j < 4; j++)
-				{
-					if (i == 1 && j == 1 || i == 1 && j == 2 || i == 2 && j == 1 || i == 2 && j == 2)
-					{
-						SpikeTrap spikeTrap = new SpikeTrap(pos + new Vector2(j * 150, i * 130));
-						updateables.Add(spikeTrap);
-						drawables.Add(spikeTrap);
-						spikeTraps.Add(spikeTrap);
-					}
-					else
-					{
-						FireTrap fireTrap = new FireTrap(pos + new Vector2(j * 150, i * 130));
-						updateables.Add(fireTrap);
-						drawables.Add(fireTrap);
-					}
-				}
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == 1 && j == 1 || i == 1 && j == 2 || i == 2 && j == 1 || i == 2 && j == 2)
+                    {
+                        SpikeTrap spikeTrap = new SpikeTrap(pos + new Vector2(j * 150, i * 130));
+                        updateables.Add(spikeTrap);
+                        drawables.Add(spikeTrap);
+                        spikeTraps.Add(spikeTrap);
+                    }
+                    else
+                    {
+                        FireTrap fireTrap = new FireTrap(pos + new Vector2(j * 150, i * 130));
+                        updateables.Add(fireTrap);
+                        drawables.Add(fireTrap);
+                    }
+                }
+            }
 
 
 			TrapRemote remote = new TrapRemote(pos + new Vector2(0, 600), spikeTraps);
@@ -146,22 +148,6 @@ namespace EVCMonoGame.src.scenes.castle
             }
 
             hadesWasPreviouslyAlive = hades.IsAlive;
-            UpdateCamera();
-        }
-
-        private void UpdateCamera()
-        {
-            //// RoomTopHalf
-            //if (roomTopHalf.Contains(sora.WorldPosition) && !roomTopHalf.Contains(sora.PreviousWorldPosition))
-            //{
-            //    camera.MoveCamera(roomBottomHalfPosition, roomTopHalfPosition, 1000);
-            //}
-
-            //// RoomBottomHalf
-            //else if (roomBottomHalf.Contains(sora.WorldPosition) && !roomBottomHalf.Contains(sora.PreviousWorldPosition))
-            //{
-            //    camera.MoveCamera(roomTopHalfPosition, roomBottomHalfPosition, 1000);
-            //}
         }
     }
 }

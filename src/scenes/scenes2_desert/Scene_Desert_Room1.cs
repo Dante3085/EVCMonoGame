@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.tilemap;
@@ -83,6 +84,8 @@ namespace EVCMonoGame.src.scenes.desert
             });
 
             base.OnEnterScene();
+
+            MediaPlayer.Play(AssetManager.GetSong(ESong.ARABIAN_DESERT));
         }
 
         public override void Update(GameTime gameTime)

@@ -13,7 +13,7 @@ namespace EVCMonoGame.src
 	{
 
 		// Menu
-		public static bool skipMenu             = true;
+		public static bool skipMenu             = false;
 		public static bool exitGameOnEscapeKey  = false;
 		public static bool startWithLevelEditor = false;
 		

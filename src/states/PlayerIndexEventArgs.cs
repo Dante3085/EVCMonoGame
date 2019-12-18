@@ -11,7 +11,7 @@ namespace EVCMonoGame.src.states
     internal class PlayerIndexEventArgs : EventArgs
     {
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the <see cref="PlayerIndexEventArgs"/> class.
         /// </summary>
         public PlayerIndexEventArgs(PlayerIndex playerIndex)
         {

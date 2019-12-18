@@ -38,7 +38,7 @@ namespace EVCMonoGame.src.scenes
             camera.SetCameraToPosition(Vector2.Zero, Screenpoint.UP_LEFT_EDGE);
             camera.Zoom = 0.5f;
 
-            credits = new Credits(new Vector2(1100, -1300), sceneManager.GraphicsDevice.Viewport, 100, sceneManager, 60,
+            credits = new Credits(new Vector2(1100, -1300), sceneManager.GraphicsDevice.Viewport, 100, sceneManager, 90,
                       new string[]
             {
                 "Programmers",
@@ -46,14 +46,17 @@ namespace EVCMonoGame.src.scenes
                 "      Dennis Frac",
                 "      Moritz Schaefer",
 
-                "Libraries",
+                "Libraries/Literature",
                 "      MonoGame.Primitives2D",
                 "      Robert Penner's Easing Functions",
+                "      Computergraphik Vorlesung 2",
+                "      Game programming algorithms and techniques",
+                "      Artificial Intelligence For Games - Second Edition",
 
                 "Assets",
                 "      Final Fantasy 6 Tilesets",
                 "      Kingdom Hearts - Chain of Memories(GBA) Spritesheets",
-				"	   Chests Sprites by hiddenone, Kadokawa, & Avery",
+				"      Chests Sprites by hiddenone, Kadokawa, und Avery",
 			});
 
             updateables.AddRange(new IUpdateable[]

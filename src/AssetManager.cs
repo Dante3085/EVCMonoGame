@@ -37,6 +37,7 @@ public enum ESong
     REST_ROOM,
     TRAIN_STATION,
     SYNTH_TRAIN,
+    ARABIAN_DESERT,
 }
 
 public enum ESoundEffect
@@ -78,6 +79,7 @@ public static class AssetManager
         { "rsrc/audio/music/RestRoom", ESong.REST_ROOM },
         { "rsrc/audio/music/TrainStation", ESong.TRAIN_STATION },
         { "rsrc/audio/music/SynthTrain", ESong.SYNTH_TRAIN },
+        { "rsrc/audio/music/ArabianDesert", ESong.ARABIAN_DESERT },
     };
 
     private static Dictionary<String, ESoundEffect> sfxNames = new Dictionary<string, ESoundEffect>()

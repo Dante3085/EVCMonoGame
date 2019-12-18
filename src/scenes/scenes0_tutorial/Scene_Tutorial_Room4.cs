@@ -47,7 +47,7 @@ namespace EVCMonoGame.src.scenes.tutorial
 
 			updateables.AddRange(new IUpdateable[]
             {
-                //defenderSora,
+                defenderSora,
                 defenderRiku,
 				teleporter
 			});
@@ -56,7 +56,7 @@ namespace EVCMonoGame.src.scenes.tutorial
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                //defenderSora,
+                defenderSora,
                 defenderRiku,
 				teleporter
 			});

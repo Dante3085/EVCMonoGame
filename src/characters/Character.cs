@@ -267,8 +267,6 @@ namespace EVCMonoGame.src.characters
             //enemyHealthbar.CurrentHp -= combatArgs.damage;
             //enemySprite.Position += combatArgs.knockBack;
 
-            
-
             if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
             {
                 currentHp -= combatArgs.damage;
@@ -287,7 +285,6 @@ namespace EVCMonoGame.src.characters
                 {
                     OnDeath();
                 }
-
             }
         }
 
@@ -297,6 +294,7 @@ namespace EVCMonoGame.src.characters
 
 			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.combatCollidableMarkAsRemove.Add(this);
+            // CollisionManager.RemoveCombatCollidable(this);
         }
     }
 }

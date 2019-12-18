@@ -125,7 +125,6 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             CombatArgs combatArgs = sora.CombatArgs;
             combatArgs.NewId();
-            combatArgs.damage += 10;
 
             switch (sora.playerOrientation)
             {
@@ -144,7 +143,6 @@ namespace EVCMonoGame.src.statemachine.sora
         {
             CombatArgs combatArgs = sora.CombatArgs;
             combatArgs.NewId();
-            combatArgs.damage += 15;
 
             switch (sora.playerOrientation)
             {
