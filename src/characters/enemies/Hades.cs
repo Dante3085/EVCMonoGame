@@ -10,6 +10,7 @@ using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.statemachine.hades;
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.animation;
+using EVCMonoGame.src.projectiles;
 
 namespace EVCMonoGame.src.characters.enemies
 {
@@ -18,6 +19,7 @@ namespace EVCMonoGame.src.characters.enemies
         public float attackRangeMeteor;
         public float outerAttackRangeFireBlast;
         public float innerAttackRangeFireBlast;
+        public List<HadesMissile> missiles = new List<HadesMissile>();
         public Hades(Vector2 position)
             : base
             (
@@ -51,13 +53,22 @@ namespace EVCMonoGame.src.characters.enemies
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            foreach (HadesMissile m in missiles)
+            {
+                m.Update(gameTime);
+            }
+            
+            missiles.RemoveAll((a) => { return a.FlaggedForRemove; });
 
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
+            foreach (MagicMissile m in missiles)
+            {
+                m.Draw(gameTime, spriteBatch);
+            }
         }
 
         public override void LoadContent(ContentManager content)

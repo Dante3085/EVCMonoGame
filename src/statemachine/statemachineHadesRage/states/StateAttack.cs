@@ -8,6 +8,7 @@ using EVCMonoGame.src.collision;
 using EVCMonoGame.src.characters;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.projectiles;
 
 namespace EVCMonoGame.src.statemachine.hadesRage
 
@@ -22,6 +23,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
     class StateAttack : State
     {
         public NEXTATTACK nextAttack = NEXTATTACK.UNDEFINED;
+        Player missileTarget;
         public StateManagerHadesRage stateManagerHadesRage;
         public TimeSpan lastFireBlastAttack = new TimeSpan(0, 0, 0);
         public TimeSpan lastStrikeAttack = new TimeSpan(0, 0, 0);
@@ -29,9 +31,9 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         public bool setFireBlastTime = false;
         public bool setStrikeTime = false;
         public bool setMeteorTime = false;
-        public TimeSpan cooldownFireBlast = new TimeSpan(0, 0, 5);
-        public TimeSpan cooldownStrike = new TimeSpan(0, 0, 1);
-        public TimeSpan cooldownMeteor = new TimeSpan(0, 0, 15);
+        public TimeSpan cooldownFireBlast = new TimeSpan(0, 0, 500);
+        public TimeSpan cooldownStrike = new TimeSpan(0, 0, 100);
+        public TimeSpan cooldownMeteor = new TimeSpan(0, 0, 3/*15*/);
         public bool meteorLeft = false;
         public bool meteorRight = false;
         public Hades hades;
@@ -44,7 +46,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         {
             base.Enter(gameTime);
             Console.WriteLine("Hades entered ATTACKSTATE");
-            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRangeMeteor+ 10);
+            Player nearestPlayer = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRangeMeteor + 10);
 
             hades.CombatArgs.NewId();
 
@@ -94,14 +96,22 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         public void Meteor()
         {
             Player targetPlayer;
-            if((GameplayState.PlayerOne.worldPosition-hades.worldPosition).Length()>
+            if ((GameplayState.PlayerOne.worldPosition - hades.worldPosition).Length() >
                 (GameplayState.PlayerTwo.worldPosition - hades.worldPosition).Length())
             {
                 targetPlayer = GameplayState.PlayerOne;
+                if (!targetPlayer.IsAlive)
+                {
+                    targetPlayer = GameplayState.PlayerTwo;
+                }
             }
             else
             {
                 targetPlayer = GameplayState.PlayerTwo;
+                if (!targetPlayer.IsAlive)
+                {
+                    targetPlayer = GameplayState.PlayerOne;
+                }
             }
             setMeteorTime = true;
             if (targetPlayer.Sprite.Bounds.Center.X > hades.CollisionBox.Center.X)
@@ -114,6 +124,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
                 meteorLeft = true;
                 hades.Sprite.SetAnimation("RAGE_METEOR_LEFT");
             }
+            missileTarget = targetPlayer;
 
         }
         public override void Exit(GameTime gameTime)
@@ -129,6 +140,20 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             {
                 lastMeteorAttack = gameTime.TotalGameTime;
                 setMeteorTime = false;
+                if (meteorLeft)
+                {
+                    meteorLeft = false;
+                    HadesMissile missile = new HadesMissile(hades.WorldPosition+new Vector2(-300, 50), (missileTarget.WorldPosition - hades.WorldPosition), true , 10);
+                    missile.LoadContent(MagicMissile.content);
+                    hades.missiles.Add(missile);
+                }
+                else
+                {
+                    meteorRight = false;
+                    HadesMissile missile = new HadesMissile(hades.WorldPosition+new Vector2(300+hades.CollisionBox.Width,50), (missileTarget.WorldPosition - hades.WorldPosition),false, 10);
+                    missile.LoadContent(MagicMissile.content);
+                    hades.missiles.Add(missile);
+                }
             }
             if (setFireBlastTime)
             {
@@ -141,7 +166,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         {
             base.Update(gameTime);
             CollisionManager.CheckCombatCollisions(hades);
-            if (setMeteorTime) { }
+
         }
     }
 }
