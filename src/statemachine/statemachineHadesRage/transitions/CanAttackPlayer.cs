@@ -20,10 +20,33 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         }
         public override bool checkCondition()
         {
-            bool rangeCondition = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRange) != null;//lane mit einbringen
+            
+            bool rangeStrikeCondition = CollisionManager.GetNearestPlayerInRange(hades, hades.attackRange) != null;
+            bool rangeFireBlastCondition = CollisionManager.GetNearestPlayerInRange(hades, hades.innerAttackRangeFireBlast) == null
+                && CollisionManager.GetNearestPlayerInRange(hades, hades.outerAttackRangeFireBlast) != null;
+
             StateAttack stateAttack = ((StateAttack)stateManagerHadesRage.states.Find((a) => { return a.stateId == "Attack"; }));
-            bool cooldownCondition = (Game1.totalGametime - stateAttack.lastAttack) > stateAttack.cooldown;
-            return rangeCondition && cooldownCondition;
+
+            bool cooldownStrikeCondition = (Game1.totalGametime - stateAttack.lastStrikeAttack) > stateAttack.cooldownStrike;
+            bool cooldownFireBlastCondition = (Game1.totalGametime - stateAttack.lastFireBlastAttack) > stateAttack.cooldownFireBlast;
+            bool cooldownMeteorCondition = (Game1.totalGametime - stateAttack.lastMeteorAttack) > stateAttack.cooldownMeteor;
+            Console.WriteLine("wsdfghjgfedghgtrewrh            "+cooldownMeteorCondition);
+            if (rangeStrikeCondition && cooldownStrikeCondition)
+            {
+                stateAttack.nextAttack = NEXTATTACK.STRIKE;
+                return true;
+            }
+            else if (rangeFireBlastCondition && cooldownFireBlastCondition)
+            {
+                stateAttack.nextAttack = NEXTATTACK.FIREBLAST;
+                return true;
+            }
+            else if (cooldownMeteorCondition)
+            {
+                stateAttack.nextAttack = NEXTATTACK.METEOR;
+                return true;
+            }
+            return false;
         }
     }
 }

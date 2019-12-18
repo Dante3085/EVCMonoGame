@@ -18,12 +18,14 @@ namespace EVCMonoGame.src.statemachine.hadesRage
             this.states.Add(new StateStanding(hades,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
-                new StandingFinished("Patrol", this)
+                new StandingFinished("Patrol", this),
+                new CanAttackPlayer("Attack", this)
             ));
             this.states.Add(new StatePatrol(hades,
                 new IsDying("Dying", this),
                 new PlayerInSightRange("Charge", this),
-                new PatrolFinished("Standing", this)
+                new PatrolFinished("Standing", this),
+                new CanAttackPlayer("Attack", this)
             ));
             this.states.Add(new StateCharge(hades,
                 new IsDying("Dying", this),
