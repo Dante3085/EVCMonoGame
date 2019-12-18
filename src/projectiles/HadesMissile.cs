@@ -42,7 +42,7 @@ namespace EVCMonoGame.src.projectiles
             movementVector = Utility.ScaleVectorTo(directionVector, movementSpeed);
 
             combatArgs = new CombatArgs(this, null, CombatantType.PLAYER);
-            combatArgs.damage = 150;
+            combatArgs.damage = 250;
             combatArgs.atackOrientation = Orientation.DOWN;
             if (CollisionManager.IsCollisionWithWall(this))
             {
