@@ -76,7 +76,7 @@ namespace EVCMonoGame.src.Items
 			// Lege Items aus
 			ArrangeItems();
 
-			goldSpendGoal = InteractableBounds.Center.ToVector2() + new Vector2(0, -200);
+			goldSpendGoal = InteractableBounds.Center.ToVector2() + new Vector2(0, -300);
 
 			goldSpend = new List<Vector2>[2];
 			goldSpend[0] = new List<Vector2>();	// PlayerOne
@@ -106,6 +106,7 @@ namespace EVCMonoGame.src.Items
 
 		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
 		{
+
 			foreach (Item sellableItem in sellableItems)
 			{
 				sellableItem.Draw(gameTime, spriteBatch);
@@ -126,7 +127,8 @@ namespace EVCMonoGame.src.Items
 				{
 					goldSpendSprite.WorldPosition = playerGoldSpendLocation;
 					goldSpendSprite.Draw(gameTime, spriteBatch);
-				}
+                    spriteBatch.DrawString(font, "EA", goldSpendGoal, Color.WhiteSmoke);
+                }
 		}
 
 
