@@ -75,7 +75,7 @@ namespace EVCMonoGame.src.statemachine.riku
 
         private void OnXPressed(GameTime gameTime)
         {
-            cooldown = TimeSpan.FromMilliseconds(500);
+            cooldown = TimeSpan.FromMilliseconds(250);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
 			MagicMissileNormal missile = new MagicMissileNormal(Vector2.Zero, Orientation.DOWN);
@@ -158,7 +158,7 @@ namespace EVCMonoGame.src.statemachine.riku
                 return;
             }
 
-                cooldown = TimeSpan.FromMilliseconds(1000);
+                cooldown = TimeSpan.FromMilliseconds(500);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileBounce missile = new MagicMissileBounce(Vector2.Zero, Orientation.DOWN);
@@ -247,7 +247,7 @@ namespace EVCMonoGame.src.statemachine.riku
                 OnXPressed(gameTime);
                 return;
             }
-            cooldown = TimeSpan.FromMilliseconds(1500);
+            cooldown = TimeSpan.FromMilliseconds(750);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissilePenetrate missile = new MagicMissilePenetrate(Vector2.Zero, Orientation.DOWN);
@@ -336,7 +336,7 @@ namespace EVCMonoGame.src.statemachine.riku
                 OnXPressed(gameTime);
                 return;
             }
-            cooldown = TimeSpan.FromMilliseconds(2500);
+            cooldown = TimeSpan.FromMilliseconds(1250);
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
             MagicMissileSplit missile = new MagicMissileSplit(Vector2.Zero, Orientation.DOWN);
@@ -424,7 +424,7 @@ namespace EVCMonoGame.src.statemachine.riku
                 OnXPressed(gameTime);
                 return;
             }
-            cooldown = TimeSpan.FromMilliseconds(3000);
+            cooldown = TimeSpan.FromMilliseconds(1500);
             //Inventory... = cooldown.TotalMilliseconds;
             CombatArgs combatArgs = riku.CombatArgs;
             combatArgs.NewId();
