@@ -43,6 +43,12 @@ public enum ESong
 public enum ESoundEffect
 {
     GARGOYLE,
+    BOOOM,
+    SWISCH,
+    SANDWIND,
+    MISSILE_LAUNCH,
+    FLAMETHROWER,
+    ENERGY_CHANNELING
 }
 
 public static class AssetManager
@@ -85,6 +91,12 @@ public static class AssetManager
     private static Dictionary<String, ESoundEffect> sfxNames = new Dictionary<string, ESoundEffect>()
     {
         { "rsrc/audio/sfx/Gargoyle", ESoundEffect.GARGOYLE },
+        { "rsrc/audio/sfx/Booom", ESoundEffect.BOOOM },
+        { "rsrc/audio/sfx/Energy_Channeling", ESoundEffect.ENERGY_CHANNELING },
+        { "rsrc/audio/sfx/Flamethrower", ESoundEffect.FLAMETHROWER },
+        { "rsrc/audio/sfx/Missile_Launch", ESoundEffect.MISSILE_LAUNCH },
+        { "rsrc/audio/sfx/Sandwind", ESoundEffect.SANDWIND },
+        { "rsrc/audio/sfx/Swisch", ESoundEffect.SWISCH },
     };
 
     public static void LoadAssets(ContentManager contentManager)

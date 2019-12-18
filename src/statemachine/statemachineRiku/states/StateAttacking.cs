@@ -12,6 +12,7 @@ using EVCMonoGame.src.input;
 using EVCMonoGame.src.projectiles;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.Items;
+using Microsoft.Xna.Framework.Audio;
 
 namespace EVCMonoGame.src.statemachine.riku
 {
@@ -57,6 +58,9 @@ namespace EVCMonoGame.src.statemachine.riku
             }
 
             riku.Sprite.SetAnimation(nextAttackAnimation);
+            SoundEffectInstance launch = AssetManager.GetSoundEffect(ESoundEffect.MISSILE_LAUNCH).CreateInstance();
+            launch.Volume = 0.8f;
+            launch.Play();
         }
 
         public override void Update(GameTime gameTime)
