@@ -117,12 +117,22 @@ namespace EVCMonoGame.src.scenes.desert
             doorPlayerOne = new Door(new Vector2(1090, 0));
             doorPlayerTwo = new Door(new Vector2(3500, 0));
 
+			LaneTeleporter teleporter_sora = new LaneTeleporter(new Vector2(820, 2250), sora, new Vector2(3331, 2372), 12000);
+			LaneTeleporter teleporter_riku = new LaneTeleporter(new Vector2(3400, 3980), riku, new Vector2(850, 4400), 12000);
 
-            drawables.AddRange(new IDrawable[]
+			updateables.AddRange(new IUpdateable[]
+			{
+				teleporter_sora,
+				teleporter_riku
+			});
+
+			drawables.AddRange(new IDrawable[]
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-            });
+				teleporter_sora,
+				teleporter_riku
+			});
 
             base.OnEnterScene();
         }

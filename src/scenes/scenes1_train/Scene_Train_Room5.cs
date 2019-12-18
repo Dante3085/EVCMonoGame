@@ -86,7 +86,7 @@ namespace EVCMonoGame.src.scenes.train
             }
         }
 
-        public override void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 

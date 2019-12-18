@@ -18,7 +18,7 @@ using EVCMonoGame.src.animation;
 
 namespace EVCMonoGame.src
 {
-    public class LaneTeleporter : Lever, scenes.IDrawable, Interactable, scenes.IUpdateable
+    public class LaneTeleporter : Lever, scenes.IUpdateable
 	{
 
 		private Vector2 position;
@@ -71,7 +71,7 @@ namespace EVCMonoGame.src
 
 		public override void Interact(Player player)
 		{
-			if (usedOnce == false)
+			if (usedOnce == false && player == traveler)
 			{
 				base.Interact(player);
 

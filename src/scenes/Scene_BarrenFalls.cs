@@ -53,7 +53,8 @@ namespace EVCMonoGame.src.scenes
                 "Assets",
                 "      Final Fantasy 6 Tilesets",
                 "      Kingdom Hearts - Chain of Memories(GBA) Spritesheets",
-            });
+				"	   Chests Sprites by hiddenone, Kadokawa, & Avery",
+			});
 
             updateables.AddRange(new IUpdateable[]
             {

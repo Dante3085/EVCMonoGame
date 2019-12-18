@@ -1,0 +1,23 @@
+
+SPRITESHEET = rsrc/spritesheets/bear_trap
+
+[ANIMATION]
+NAME          = COOLDOWN
+FRAMES        = (6, 5, 20, 18)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+
+[ANIMATION]
+NAME          = DO_DMG
+FRAMES        = (38, 5, 20, 18), (70, 5, 20, 18), (102, 5, 20, 18),
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false

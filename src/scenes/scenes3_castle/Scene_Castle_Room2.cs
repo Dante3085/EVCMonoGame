@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Traps;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -26,7 +27,31 @@ namespace EVCMonoGame.src.scenes.castle
 
         public override void OnEnterScene()
         {
-            tilemap = new Tilemap(Vector2.Zero,
+			SpikeTrap spikeTrap_1 = new SpikeTrap(new Vector2(1700, 1950), false, false);
+			SpikeTrap spikeTrap_2 = new SpikeTrap(new Vector2(1700, 1750), false, false);
+			SpikeTrap spikeTrap_3 = new SpikeTrap(new Vector2(1700, 1550), false, false);
+			SpikeTrap spikeTrap_4 = new SpikeTrap(new Vector2(1700, 1350), false, false);
+
+			TrapRemote trapRemote = new TrapRemote(new Vector2(2100, 1650), new List<Trap>() { spikeTrap_1, spikeTrap_2, spikeTrap_3, spikeTrap_4 });
+			updateables.AddRange(new IUpdateable[]
+			{
+				spikeTrap_1,
+				spikeTrap_2,
+				spikeTrap_3,
+				spikeTrap_4,
+				trapRemote,
+			});
+
+			drawables.AddRange(new IDrawable[]
+			{
+				spikeTrap_1,
+				spikeTrap_2,
+				spikeTrap_3,
+				spikeTrap_4,
+				trapRemote,
+			});
+
+			tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room2.tm.txt");
 
             sora.WorldPosition = new Vector2(2789, 2770);

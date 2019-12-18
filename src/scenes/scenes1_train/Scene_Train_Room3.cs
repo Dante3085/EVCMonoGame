@@ -35,10 +35,12 @@ namespace EVCMonoGame.src.scenes.train
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes1_train/room3.tm.txt");
 
-            sora.WorldPosition = new Vector2(255, 1095);
-            riku.WorldPosition = new Vector2(312, 394);
+            sora.WorldPosition = new Vector2(312, 394);
+			riku.WorldPosition = new Vector2(255, 1095);
 
-            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
+
+
+			enemySpawnLocationsLeftLane.AddRange(new Vector2[]
             {
                 new Vector2(600, 436),
                 new Vector2(880, 463),

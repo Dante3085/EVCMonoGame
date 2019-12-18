@@ -113,10 +113,11 @@ namespace EVCMonoGame.src.Items
             for (int i = drawSelledItems.Count - 1; i >= 0; i--)
                 drawSelledItems.ElementAt<Item>(i).Draw(gameTime, spriteBatch);
 
+			// Draw Price from Active Item
 			if (drawPlayerGold)
 			{
 				playerGoldSprite.Draw(gameTime, spriteBatch);
-				spriteBatch.DrawString(font, "x" + activeItem.shopPrice, activeItem.WorldPosition + new Vector2(50, 75), Color.White);
+				spriteBatch.DrawString(font, "x" + activeItem.shopPrice, activeItem.WorldPosition + new Vector2(50, 115), Color.White);
 			}
 
 			// Draw dragged spended gold
@@ -180,7 +181,7 @@ namespace EVCMonoGame.src.Items
 			if (drawPlayerGold)
 			{
 				playerGoldSprite.Scale = 1f;
-				playerGoldSprite.WorldPosition = activeItem.WorldPosition + new Vector2(-10, 65);
+				playerGoldSprite.WorldPosition = activeItem.WorldPosition + new Vector2(-10, 105);
 				playerGoldSprite.Update(gameTime);
 			}
 			else

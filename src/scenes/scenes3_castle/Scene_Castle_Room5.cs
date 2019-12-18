@@ -47,26 +47,49 @@ namespace EVCMonoGame.src.scenes.castle
 
         }
 
+		public void spawnTraps(Vector2 pos)
+		{
+			List<Trap> spikeTraps = new List<Trap>();
+
+			for (int i = 0; i < 4; i++)
+				for (int j = 0; j < 4; j++)
+				{
+					if (i == 1 && j == 1 || i == 1 && j == 2 || i == 2 && j == 1 || i == 2 && j == 2)
+					{
+						SpikeTrap spikeTrap = new SpikeTrap(pos + new Vector2(j * 150, i * 130));
+						updateables.Add(spikeTrap);
+						drawables.Add(spikeTrap);
+						spikeTraps.Add(spikeTrap);
+					}
+					else
+					{
+						FireTrap fireTrap = new FireTrap(pos + new Vector2(j * 150, i * 130));
+						updateables.Add(fireTrap);
+						drawables.Add(fireTrap);
+					}
+				}
+
+
+			TrapRemote remote = new TrapRemote(pos + new Vector2(0, 600), spikeTraps);
+			updateables.Add(remote);
+			drawables.Add(remote);
+		}
+
         public override void OnEnterScene()
 		{
-			FireTrap fireTrap_1 = new FireTrap(new Vector2(1700, 2000));
-			updateables.AddRange(new IUpdateable[]
-			{
-				fireTrap_1,
-			});
 
-			drawables.AddRange(new IDrawable[]
-			{
-				fireTrap_1,
-			});
+			spawnTraps(new Vector2(900, 3000));
+			spawnTraps(new Vector2(2600, 3000));
+			spawnTraps(new Vector2(900, 1400));
+			spawnTraps(new Vector2(2600, 1400));
 
 			base.OnEnterScene();
 
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt");
 
-            sora.WorldPosition = new Vector2(1700, 2000);
-            riku.WorldPosition = new Vector2(2500, 2000);
+            sora.WorldPosition = new Vector2(1800, 4000);
+            riku.WorldPosition = new Vector2(2200, 4000);
 
             shadow = new Shadow(new Vector2(2000, 3000));
             shadow2 = new Shadow(new Vector2(2500, 3000));
