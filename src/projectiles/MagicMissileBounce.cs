@@ -177,6 +177,7 @@ namespace EVCMonoGame.src.projectiles
             {
                 
                 bounceCounter++;
+                combatArgs.damage += 50;
                 this.orientation=GetBounceOrientation(CollisionManager.GetCollidingWall(this));
                 setMovementVector(movementSpeed, orientation);
                 setAnimation();
