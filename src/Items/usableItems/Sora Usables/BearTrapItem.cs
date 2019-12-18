@@ -8,33 +8,34 @@ using EVCMonoGame.src.characters;
 using EVCMonoGame.src.collision;
 using EVCMonoGame.src.scenes;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Traps;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace EVCMonoGame.src.Items
 {
-	public class Healthpotion : UsableItem
+	public class BearTrapItem : UsableItem
 	{
 		public int heals = 100;
 
-		public Healthpotion(Vector2 position) 
+		public BearTrapItem(Vector2 position) 
 			: base(
 				  position,
-				  inventoryIconPath: "rsrc/spritesheets/singleImages/castlevania_healthpotion",
-				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/healthpotion.anm.txt",
-				  idleAnim: "IDLE",
-				  lane: GameplayState.Lane.LaneBoth,
-				  itemName: "Healthpotion"
+				  inventoryIconPath: "rsrc/spritesheets/singleImages/bear_trap",
+				  anmConfigFile: "Content/rsrc/spritesheets/configFiles/bear_trap.anm.txt",
+				  idleAnim: "COOLDOWN",
+				  lane: GameplayState.Lane.LaneOne,
+				  itemName: "BearTrap"
 				  )
 		{
-			shopPrice = 5;
+			shopPrice = 20;
 			sprite.Scale = 4;
 		}
 
 		public override Item Copy()
 		{
-			return new Healthpotion(WorldPosition);
+			return new BearTrapItem(WorldPosition);
 		}
 
 		public override void PickUp(Player player)
@@ -46,7 +47,10 @@ namespace EVCMonoGame.src.Items
 		{
 			base.Use(player);
 
-			player.CurrentHp += heals;
+			BearTrap bearTrapItem = new BearTrap(player.WorldPosition + new Vector2(0, 100));
+			bearTrapItem.LoadContent(GameplayState.globalContentManager);
+			Scene.updateablesToAdd.Add(bearTrapItem);
+			Scene.drawablesToAdd.Add(bearTrapItem);
 		}
 	}
 }

@@ -144,12 +144,12 @@ namespace EVCMonoGame.src.scenes.desert
             if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.One) &&
                 CollisionManager.IsPlayerInArea(PlayerIndex.One, bigDoor2InteractionArea))
             {
-                sceneManager.SceneTransition(EScene.CASTLE_ROOM_1);
+                sceneManager.SceneTransitionNextRoom();
             }
             else if (InputManager.OnButtonPressed(Buttons.A, PlayerIndex.Two) &&
                 CollisionManager.IsPlayerInArea(PlayerIndex.Two, bigDoor2InteractionArea))
             {
-                sceneManager.SceneTransition(EScene.CASTLE_ROOM_1);
+                sceneManager.SceneTransitionNextRoom();
             }
         }
     }

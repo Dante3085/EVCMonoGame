@@ -19,13 +19,13 @@ namespace EVCMonoGame.src
 {
     public class Lever : scenes.IDrawable, Interactable
     {
-        private Texture2D texture;
+        protected Texture2D texture;
         private Vector2 position;
 
-        private Rectangle deactivatedTextureRec = new Rectangle(368, 128, 16, 16);
-        private Rectangle activatedTextureRec = new Rectangle(384, 128, 16, 16);
+        protected Rectangle deactivatedTextureRec = new Rectangle(368, 128, 16, 16);
+        protected Rectangle activatedTextureRec = new Rectangle(384, 128, 16, 16);
 
-        private Rectangle interactionArea;
+        protected Rectangle interactionArea;
 
         private Rectangle screenBounds;
 

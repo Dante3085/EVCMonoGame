@@ -38,25 +38,25 @@ namespace EVCMonoGame.src.statemachine.defender
 
             if (nearestPlayer.Sprite.Bounds.Center.X > defender.CollisionBox.Center.X)
             {
-                if (distanceFromPlayer <= 600)
+                if (distanceFromPlayer <= 180)
                 {
                     defender.Sprite.SetAnimation("SHIELD_SPIN_RIGHT");
                 }
-                else if (distanceFromPlayer > 600)
+                else if (distanceFromPlayer > 180)
                 {
-                    defender.CombatArgs.knockBack = new Vector2(150, 0);
+                    defender.CombatArgs.knockBack = new Vector2(25, 0);
                     defender.Sprite.SetAnimation("SHIELD_CHARGE_RIGHT");
                 }
             }
             else
             {
-                if (distanceFromPlayer <= 600)
+                if (distanceFromPlayer <= 180)
                 {
                     defender.Sprite.SetAnimation("SHIELD_SPIN_LEFT");
                 }
-                else if (distanceFromPlayer > 600)
+                else if (distanceFromPlayer > 180)
                 {
-                    defender.CombatArgs.knockBack = new Vector2(-150, 0);
+                    defender.CombatArgs.knockBack = new Vector2(-25, 0);
                     defender.Sprite.SetAnimation("SHIELD_CHARGE_LEFT");
                 }
             }

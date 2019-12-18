@@ -27,7 +27,7 @@ namespace EVCMonoGame.src.Items
 				"PenetrateMissle"
 			)
 		{
-			shopPrice = 5;
+			shopPrice = 8;
 			sprite.Scale = 3;
 			sprite.RescaleOffsets();
 		}

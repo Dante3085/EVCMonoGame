@@ -15,6 +15,7 @@ using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.input;
 using EVCMonoGame.src.Items.usableItems;
 using EVCMonoGame.src.collision;
+using EVCMonoGame.src.Traps;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -46,33 +47,70 @@ namespace EVCMonoGame.src.scenes.castle
 
         }
 
+		public void spawnTraps(Vector2 pos)
+		{
+			List<Trap> spikeTraps = new List<Trap>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == 1 && j == 1 || i == 1 && j == 2 || i == 2 && j == 1 || i == 2 && j == 2)
+                    {
+                        SpikeTrap spikeTrap = new SpikeTrap(pos + new Vector2(j * 150, i * 130));
+                        updateables.Add(spikeTrap);
+                        drawables.Add(spikeTrap);
+                        spikeTraps.Add(spikeTrap);
+                    }
+                    else
+                    {
+                        FireTrap fireTrap = new FireTrap(pos + new Vector2(j * 150, i * 130));
+                        updateables.Add(fireTrap);
+                        drawables.Add(fireTrap);
+                    }
+                }
+            }
+
+
+			TrapRemote remote = new TrapRemote(pos + new Vector2(0, 600), spikeTraps);
+			updateables.Add(remote);
+			drawables.Add(remote);
+		}
+
         public override void OnEnterScene()
-        {
-            base.OnEnterScene();
+		{
+
+			spawnTraps(new Vector2(900, 3000));
+			spawnTraps(new Vector2(2600, 3000));
+			spawnTraps(new Vector2(900, 1400));
+			spawnTraps(new Vector2(2600, 1400));
+
+			base.OnEnterScene();
 
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room5.tm.txt");
 
-            sora.WorldPosition = new Vector2(1700, 2000);
-            riku.WorldPosition = new Vector2(2500, 2000);
+            sora.WorldPosition = new Vector2(1800, 4000);
+            riku.WorldPosition = new Vector2(2200, 4000);
 
             shadow = new Shadow(new Vector2(2000, 3000));
             shadow2 = new Shadow(new Vector2(2500, 3000));
             hades = new Hades(new Vector2(2000, 2000));
 
+
             updateables.AddRange(new IUpdateable[]
-            {
-                shadow,
+			{
+				shadow,
                 shadow2,
                 hades,
-            });
+			});
 
             drawables.AddRange(new IDrawable[]
-            {
-                shadow,
+			{
+				shadow,
                 shadow2,
                 hades,
-            });
+			});
         }
 
         public override void Update(GameTime gameTime)
@@ -110,22 +148,6 @@ namespace EVCMonoGame.src.scenes.castle
             }
 
             hadesWasPreviouslyAlive = hades.IsAlive;
-            UpdateCamera();
-        }
-
-        private void UpdateCamera()
-        {
-            //// RoomTopHalf
-            //if (roomTopHalf.Contains(sora.WorldPosition) && !roomTopHalf.Contains(sora.PreviousWorldPosition))
-            //{
-            //    camera.MoveCamera(roomBottomHalfPosition, roomTopHalfPosition, 1000);
-            //}
-
-            //// RoomBottomHalf
-            //else if (roomBottomHalf.Contains(sora.WorldPosition) && !roomBottomHalf.Contains(sora.PreviousWorldPosition))
-            //{
-            //    camera.MoveCamera(roomTopHalfPosition, roomBottomHalfPosition, 1000);
-            //}
         }
     }
 }

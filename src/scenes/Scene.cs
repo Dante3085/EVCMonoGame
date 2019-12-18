@@ -48,6 +48,8 @@ namespace EVCMonoGame.src.scenes
         protected List<Vector2> enemySpawnLocationsLeftLane = new List<Vector2>();
         protected List<Vector2> enemySpawnLocationsRightLane = new List<Vector2>();
 
+        protected bool isSynthTrainPlaying = false;
+
         #endregion
         #region Constructors
         public Scene(SceneManager sceneManager)

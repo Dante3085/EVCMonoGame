@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.characters
         PLAYER,
         ENEMY,
         MISSILE,
+		TRAP,
         UNDEFINED
     }
 
@@ -46,6 +47,8 @@ namespace EVCMonoGame.src.characters
         public float movementSpeed = 8;
         private Healthbar healthbar;
         public CombatantType combatant;
+		protected Vector2 knockBackGoal = Vector2.Zero;
+		protected Easer knockBackEaser;
 
 
         protected Vector2 collisionBoxOffset = Vector2.Zero;
@@ -219,6 +222,8 @@ namespace EVCMonoGame.src.characters
 
             WorldPosition = position;
 
+			knockBackEaser = new Easer(knockBackGoal, Vector2.Zero, 1000 ,Easing.ExpoEaseOut);
+
             combatArgs = new CombatArgs(this, null, CombatantType.UNDEFINED);
             combatArgs.damage = 50;
             //combatArgs.knockBack = new Vector2(50, 0);
@@ -228,10 +233,17 @@ namespace EVCMonoGame.src.characters
         {
             sprite.Update(gameTime);
             healthbar.Position = sprite.Position - new Vector2(0, healthbar.Size.Y);
-            // collisionBox = sprite.Bounds;
-        }
+			// collisionBox = sprite.Bounds;
 
-        public virtual void LoadContent(ContentManager content)
+			//Knockback
+			knockBackEaser.Update(gameTime);
+			if(knockBackEaser.DoUpdate)
+				WorldPosition += knockBackEaser.CurrentValue / 6;
+			//WorldPosition += knockBackEaser.CurrentValue;
+			CollisionManager.IsCollisionAfterMove(this, true, false);
+		}
+
+		public virtual void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
             //collisionBox = sprite.Bounds;
@@ -255,30 +267,34 @@ namespace EVCMonoGame.src.characters
             //enemyHealthbar.CurrentHp -= combatArgs.damage;
             //enemySprite.Position += combatArgs.knockBack;
 
-            
-
             if (!receivedAttackIds.Contains(combatArgs.id) && combatArgs.victim == this)
             {
                 currentHp -= combatArgs.damage;
                 healthbar.CurrentHp = currentHp;
 
-                WorldPosition += combatArgs.knockBack;
-                CollisionManager.IsCollisionAfterMove(this, true, false);
+                knockBackGoal = combatArgs.knockBack;
+				if (knockBackGoal != Vector2.Zero)
+				{
+					knockBackEaser.From = knockBackGoal;
+					knockBackEaser.Start();
+				}
 
-                receivedAttackIds.Add(combatArgs.id);
+				receivedAttackIds.Add(combatArgs.id);
 
                 if (currentHp <= 0.0f)
                 {
                     OnDeath();
                 }
-
             }
         }
 
         public virtual void OnDeath()
         {
-            CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
+			HasActiveHurtBounds = false;
+
+			CollisionManager.RemoveCollidable(this, CollisionManager.obstacleCollisionChannel);
             CollisionManager.combatCollidableMarkAsRemove.Add(this);
+            // CollisionManager.RemoveCombatCollidable(this);
         }
     }
 }

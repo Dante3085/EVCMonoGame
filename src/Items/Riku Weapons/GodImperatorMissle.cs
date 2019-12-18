@@ -27,7 +27,7 @@ namespace EVCMonoGame.src.Items
                 "GodImperatorMissle"
             )
 		{
-			shopPrice = 100;
+			shopPrice = 50;
 			sprite.Scale = 3;
 			sprite.RescaleOffsets();
 		}

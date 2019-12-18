@@ -1,0 +1,33 @@
+
+SPRITESHEET = rsrc/spritesheets/chest
+
+[ANIMATION]
+NAME          = CLOSED
+FRAMES        = (0, 196, 48, 47)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true
+
+
+[ANIMATION]
+NAME          = OPEN
+FRAMES        = (0, 243, 48, 47), (0, 290, 48, 47), (0, 337, 48, 47)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = false
+
+[ANIMATION]
+NAME          = OPENED
+FRAMES        = (0, 337, 48, 47)
+HURT_BOUNDS   = NONE
+ATTACK_BOUNDS = NONE
+FRAME_DELAYS  = 130@all
+FRAME_OFFSETS = (0, 0)@all
+IS_MIRRORED   = false
+IS_LOOPED     = true

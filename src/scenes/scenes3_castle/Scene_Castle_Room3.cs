@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters.enemies;
 using EVCMonoGame.src.states;
+using EVCMonoGame.src.Traps;
 
 namespace EVCMonoGame.src.scenes.castle
 {
@@ -26,7 +27,56 @@ namespace EVCMonoGame.src.scenes.castle
 
         public override void OnEnterScene()
         {
-            tilemap = new Tilemap(Vector2.Zero,
+
+			SpikeTrap spikeTrap_1 = new SpikeTrap(new Vector2(760, 2600));
+			SpikeTrap spikeTrap_2 = new SpikeTrap(new Vector2(960, 2600));
+			SpikeTrap spikeTrap_3 = new SpikeTrap(new Vector2(1160, 2600));
+
+			SpikeTrap spikeTrap_4 = new SpikeTrap(new Vector2(1500, 2600));
+			SpikeTrap spikeTrap_5 = new SpikeTrap(new Vector2(1700, 2600));
+			SpikeTrap spikeTrap_6 = new SpikeTrap(new Vector2(1900, 2600));
+
+
+			SpikeTrap spikeTrap_7 = new SpikeTrap(new Vector2(260, 1600));
+			SpikeTrap spikeTrap_8 = new SpikeTrap(new Vector2(460, 1600));
+			SpikeTrap spikeTrap_9 = new SpikeTrap(new Vector2(660, 1600));
+
+			SpikeTrap spikeTrap_10 = new SpikeTrap(new Vector2(1900, 1600));
+			SpikeTrap spikeTrap_11 = new SpikeTrap(new Vector2(2100, 1600));
+			SpikeTrap spikeTrap_12 = new SpikeTrap(new Vector2(2300, 1600));
+
+			updateables.AddRange(new IUpdateable[]
+			{
+				spikeTrap_1,
+				spikeTrap_2,
+				spikeTrap_3,
+				spikeTrap_4,
+				spikeTrap_5,
+				spikeTrap_6,
+				spikeTrap_7,
+				spikeTrap_8,
+				spikeTrap_9,
+				spikeTrap_10,
+				spikeTrap_11,
+				spikeTrap_12
+			});
+
+			drawables.AddRange(new IDrawable[]
+			{
+				spikeTrap_1,
+				spikeTrap_2,
+				spikeTrap_3,
+				spikeTrap_4,
+				spikeTrap_5,
+				spikeTrap_6,
+				spikeTrap_7,
+				spikeTrap_8,
+				spikeTrap_9,
+				spikeTrap_10,
+				spikeTrap_11,
+				spikeTrap_12
+			});
+			tilemap = new Tilemap(Vector2.Zero,
                "Content/rsrc/tilesets/configFiles/tilemaps/scenes3_castle/room3.tm.txt");
 
             sora.WorldPosition = new Vector2(950, 2900);

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.tilemap;
@@ -71,6 +72,12 @@ namespace EVCMonoGame.src.scenes.train
 
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
+            }
+
+            if (!isSynthTrainPlaying)
+            {
+                isSynthTrainPlaying = true;
+                MediaPlayer.Play(AssetManager.GetSong(ESong.SYNTH_TRAIN));
             }
         }
 

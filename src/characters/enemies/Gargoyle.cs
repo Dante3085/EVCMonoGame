@@ -77,7 +77,7 @@ namespace EVCMonoGame.src.characters.enemies
 																"Content/rsrc/spritesheets/configFiles/coin.anm.txt",
 																"COIN",
 																GameplayState.Lane.LaneBoth);
-				coin.gold = random.Next(5, 15);
+				coin.gold = random.Next(2, 5);
 
 				Vector2 rndExpBottlePosition = WorldPosition + new Vector2(random.Next(-250, 0), random.Next(-250, 0));
 				InstantConsumable expBottle = new InstantConsumable(rndExpBottlePosition,
@@ -85,14 +85,14 @@ namespace EVCMonoGame.src.characters.enemies
 																		"EXP",
 																		GameplayState.Lane.LaneBoth,
 																		0.5f);
-				expBottle.exp = random.Next(15, 25);
+				expBottle.exp = random.Next(8, 20);
 
 				Vector2 rndHealthorbPosition = WorldPosition + new Vector2(random.Next(-250, 250), random.Next(-250, 250));
 				InstantConsumable healthorb = new InstantConsumable(rndHealthorbPosition, "Content/rsrc/spritesheets/configFiles/healthorb.anm.txt",
 																	"IDLE", GameplayState.Lane.LaneBoth, 3);
-				healthorb.heal = random.Next(20, 25);
+				healthorb.heal = random.Next(10, 18);
 
-				if (random.Next(1, 100) < 30)
+				if (random.Next(1, 100) < 20)
 				{
 					Vector2 rndHealthpotionPosition = WorldPosition + new Vector2(random.Next(-100, 100), random.Next(-100, 100));
 					Healthpotion healthpotion = new Healthpotion(rndHealthpotionPosition);

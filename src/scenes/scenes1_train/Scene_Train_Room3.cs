@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.states;
 using EVCMonoGame.src.tilemap;
@@ -34,10 +35,12 @@ namespace EVCMonoGame.src.scenes.train
             tilemap = new Tilemap(Vector2.Zero,
                 "Content/rsrc/tilesets/configFiles/tilemaps/scenes1_train/room3.tm.txt");
 
-            sora.WorldPosition = new Vector2(255, 1095);
-            riku.WorldPosition = new Vector2(312, 394);
+            sora.WorldPosition = new Vector2(312, 394);
+			riku.WorldPosition = new Vector2(255, 1095);
 
-            enemySpawnLocationsLeftLane.AddRange(new Vector2[]
+
+
+			enemySpawnLocationsLeftLane.AddRange(new Vector2[]
             {
                 new Vector2(600, 436),
                 new Vector2(880, 463),
@@ -73,6 +76,12 @@ namespace EVCMonoGame.src.scenes.train
 
                 updateables.Add(shadows[i]);
                 drawables.Add(shadows[i]);
+            }
+
+            if (!isSynthTrainPlaying)
+            {
+                isSynthTrainPlaying = true;
+                MediaPlayer.Play(AssetManager.GetSong(ESong.SYNTH_TRAIN));
             }
         }
 
