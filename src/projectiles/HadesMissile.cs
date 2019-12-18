@@ -23,15 +23,22 @@ namespace EVCMonoGame.src.projectiles
     {
 
 
-        public HadesMissile(Vector2 position, Vector2 directionVector, float movementSpeed = 10)
+        public HadesMissile(Vector2 position, Vector2 directionVector, bool left, float movementSpeed = 10)
         {
             this.movementSpeed = movementSpeed;
-            sprite = new AnimatedSprite(position, 3);
+            sprite = new AnimatedSprite(position, 5);
             WorldPosition = position;
             sprite.Position = (WorldPosition);
             sprite.LoadAnimationsFromFile("Content/rsrc/spritesheets/configFiles/HadesMissile.anm.txt", true);
-
-            CollisionBox = new Rectangle(worldPosition.ToPoint(),new Point(20,20));
+            if (left)
+            {
+                sprite.SetAnimation("HADESMISSILE_LEFT");
+            }
+            else
+            {
+                sprite.SetAnimation("HADESMISSILE_RIGHT");
+            }
+            CollisionBox = AttackBounds;
             movementVector = Utility.ScaleVectorTo(directionVector, movementSpeed);
 
             combatArgs = new CombatArgs(this, null, CombatantType.PLAYER);
@@ -49,12 +56,11 @@ namespace EVCMonoGame.src.projectiles
             }
         }
 
-        
-        
+
+
         public override void LoadContent(ContentManager content)
         {
             sprite.LoadContent(content);
-            sprite.SetAnimation("HADESMISSILE");
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
