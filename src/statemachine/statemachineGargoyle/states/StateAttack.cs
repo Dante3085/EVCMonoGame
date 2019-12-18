@@ -81,7 +81,9 @@ namespace EVCMonoGame.src.statemachine.gargoyle
 
         private void BattleCry(Player nearestPlayer)
         {
-            gargoyle.scream.CreateInstance().Play();
+            SoundEffectInstance scream = gargoyle.scream.CreateInstance();
+            scream.Volume = 1;
+
             setCryTime = true;
             gargoyle.attackDmg = 20;
             if (nearestPlayer.Sprite.Bounds.Center.X > gargoyle.CollisionBox.Center.X)
