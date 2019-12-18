@@ -31,9 +31,9 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         public bool setFireBlastTime = false;
         public bool setStrikeTime = false;
         public bool setMeteorTime = false;
-        public TimeSpan cooldownFireBlast = new TimeSpan(0, 0, 500);
-        public TimeSpan cooldownStrike = new TimeSpan(0, 0, 100);
-        public TimeSpan cooldownMeteor = new TimeSpan(0, 0, 3/*15*/);
+        public TimeSpan cooldownFireBlast = new TimeSpan(0, 0, 5);
+        public TimeSpan cooldownStrike = new TimeSpan(0, 0, 1);
+        public TimeSpan cooldownMeteor = new TimeSpan(0, 0, 15);
         public bool meteorLeft = false;
         public bool meteorRight = false;
         public Hades hades;
