@@ -27,7 +27,7 @@ namespace EVCMonoGame.src
 
 		private GameplayState.Lane lane;
 
-		private double pickUpCooldown = 1500;
+		private double pickUpCooldown = 700;
 
 		private bool interactOnced = false;
 

@@ -46,7 +46,7 @@ namespace EVCMonoGame.src
 		private int gold;
 
         // Weapons Inventory
-        protected List<Weapon> weapons;
+        public List<Weapon> weapons;
 		protected Weapon activeWeapon;
 
 		// Items Inventory
@@ -210,17 +210,26 @@ namespace EVCMonoGame.src
 				}
 			}
 		}
-		public virtual void ActivateSpecialAttack(GameTime gameTime)
+		public virtual void ActivateSpecialAttack(GameTime gameTime, Weapon weapon = null)
 		{
 			// Input Threshold
-			if (gameTime.TotalGameTime.TotalMilliseconds - lastUseTimeWeapons > inputUseThresholdWeapons)
-			{
-				lastUseTimeWeapons = gameTime.TotalGameTime.TotalMilliseconds;
+			//if (gameTime.TotalGameTime.TotalMilliseconds - lastUseTimeWeapons > inputUseThresholdWeapons)
+			//{
+			//	lastUseTimeWeapons = gameTime.TotalGameTime.TotalMilliseconds;
 
-				if (activeWeapon != null)
-				{
-					activeWeapon.ActivateSpecial(owner, gameTime);
-				}
+			//	if (activeWeapon != null)
+			//	{
+			//		activeWeapon.ActivateSpecial(owner, gameTime);
+			//	}
+			//}
+
+			if (weapon == null)
+			{
+				activeWeapon.ActivateSpecial(owner, gameTime);
+			}
+			else
+			{
+				weapon.ActivateSpecial(owner, gameTime);
 			}
 		}
 

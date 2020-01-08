@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters.enemies;
@@ -127,6 +128,12 @@ namespace EVCMonoGame.src.scenes.castle
             camera.FollowPlayers();
 
             base.OnEnterScene();
+
+            if (!isCreepyCastlePlaying)
+            {
+                isCreepyCastlePlaying = true;
+                MediaPlayer.Play(AssetManager.GetSong(ESong.CREEPY_CASTLE));
+            }
         }
 
         public override void Update(GameTime gameTime)

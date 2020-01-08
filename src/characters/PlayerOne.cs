@@ -146,12 +146,12 @@ namespace EVCMonoGame.src.characters
                 if (InputManager.OnButtonPressed(Buttons.DPadLeft, PlayerIndex.One))
                 {
                     inventory.NavigateWeapons(gameTime, Inventory.Direction.LEFT);
-                    inventory.ActivateSpecialAttack(gameTime);
+                    inventory.ActivateSpecialAttack(gameTime, inventory.weapons[inventory.GetNextWeaponPos()]);
                 }
                 else if (InputManager.OnButtonPressed(Buttons.DPadRight, PlayerIndex.One))
                 {
                     inventory.NavigateWeapons(gameTime, Inventory.Direction.RIGHT);
-                    inventory.ActivateSpecialAttack(gameTime);
+                    inventory.ActivateSpecialAttack(gameTime, inventory.weapons[inventory.GetPrevWeaponPos()]);
                 }
             }
             else

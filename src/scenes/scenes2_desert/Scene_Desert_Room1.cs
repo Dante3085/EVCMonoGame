@@ -85,7 +85,11 @@ namespace EVCMonoGame.src.scenes.desert
 
             base.OnEnterScene();
 
-            MediaPlayer.Play(AssetManager.GetSong(ESong.ARABIAN_DESERT));
+            if (!isArabianDesertPlaying)
+            {
+                isArabianDesertPlaying = true;
+                MediaPlayer.Play(AssetManager.GetSong(ESong.ARABIAN_DESERT));
+            }
         }
 
         public override void Update(GameTime gameTime)

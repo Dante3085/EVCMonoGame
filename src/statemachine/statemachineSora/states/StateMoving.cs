@@ -78,7 +78,8 @@ namespace EVCMonoGame.src.statemachine.sora
 
             sora.WorldPosition += sora.movementVector;
 			if (sora.isPhaseMode)
-				CollisionManager.IsCollisionAfterMove(sora, true, true, CollisionManager.enemyCollisionChannel.Concat(CollisionManager.playerCollisionChannel).ToList<Collidable>() );
+				CollisionManager.IsCollisionAfterMove(sora, true, true, 
+                    CollisionManager.enemyCollisionChannel.Concat(CollisionManager.playerCollisionChannel).ToList<Collidable>() );
 			else
 				CollisionManager.IsCollisionAfterMove(sora, true, true);
 

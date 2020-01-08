@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 using EVCMonoGame.src.tilemap;
 using EVCMonoGame.src.characters;
@@ -111,6 +112,8 @@ namespace EVCMonoGame.src.scenes.castle
                 shadow2,
                 hades,
 			});
+
+            MediaPlayer.Play(AssetManager.GetSong(ESong.BOSS));
         }
 
         public override void Update(GameTime gameTime)

@@ -102,6 +102,7 @@ namespace EVCMonoGame.src.characters
             previousMovementVector = movementVector;
             DoesUpdateMovement = true;
             flinching = false;
+
         }
         #endregion
         #region IDrawable

@@ -34,7 +34,7 @@ namespace EVCMonoGame.src.statemachine.sora
             CombatArgs soraCombatArgs = sora.CombatArgs;
             previousCombatArgs = soraCombatArgs;
 
-            soraCombatArgs.damage += sora.weapon.strength;
+            // soraCombatArgs.damage += sora.weapon.strength;
 
 
             if (InputManager.OnButtonPressed(Buttons.X, PlayerIndex.One) ||

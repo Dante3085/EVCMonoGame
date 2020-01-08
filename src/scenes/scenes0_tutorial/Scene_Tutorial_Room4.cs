@@ -41,13 +41,13 @@ namespace EVCMonoGame.src.scenes.tutorial
             doorPlayerOne = new Door(new Vector2(494, 100));
             doorPlayerTwo = new Door(new Vector2(1712, 104));
 
-            defenderSora = new Defender(new Vector2(600, 600), hpBonus: 1000);
+            // defenderSora = new Defender(new Vector2(600, 600), hpBonus: 1000);
             defenderRiku = new Defender(new Vector2(1712, 900), hpBonus: 1000);
 			LaneTeleporter teleporter = new LaneTeleporter(new Vector2(500, 750), sora, new Vector2(1712, 900), 10000);
 
 			updateables.AddRange(new IUpdateable[]
             {
-                defenderSora,
+                // defenderSora,
                 defenderRiku,
 				teleporter
 			});
@@ -56,7 +56,7 @@ namespace EVCMonoGame.src.scenes.tutorial
             {
                 doorPlayerOne,
                 doorPlayerTwo,
-                defenderSora,
+                // defenderSora,
                 defenderRiku,
 				teleporter
 			});

@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
         METEOR,
         UNDEFINED
     }
+
     class StateAttack : State
     {
         public NEXTATTACK nextAttack = NEXTATTACK.UNDEFINED;
@@ -93,7 +94,7 @@ namespace EVCMonoGame.src.statemachine.hadesRage
                 hades.Sprite.SetAnimation("RAGE_FIRE_BLAST_LEFT");
             }
             SoundEffectInstance fire = AssetManager.GetSoundEffect(ESoundEffect.FLAMETHROWER).CreateInstance();
-            fire.Volume = 0.8f;
+            fire.Volume = 1f;
             fire.Play();
         }
         public void Meteor()

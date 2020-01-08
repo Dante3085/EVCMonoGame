@@ -22,7 +22,7 @@ namespace EVCMonoGame.src.Items
         private float finderRange;
 
         private List<Item> itemsToPullList;
-        private float itemDraggingSpeed = 4.0f;
+        private float itemDraggingSpeed = 8.2f;
 
         public bool FlaggedForRemove
         {

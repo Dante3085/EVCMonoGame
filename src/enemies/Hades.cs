@@ -21,6 +21,7 @@ namespace EVCMonoGame.src.characters.enemies
         public float outerAttackRangeFireBlast;
         public float innerAttackRangeFireBlast;
         public List<HadesMissile> missiles = new List<HadesMissile>();
+
         public Hades(Vector2 position)
             : base
             (
