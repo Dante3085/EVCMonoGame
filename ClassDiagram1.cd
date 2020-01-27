@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="&quot;updateablesToAdd&quot; und &quot;updateablesToRemove&quot; werden benötigt, um das Hinzufügen/Entfernen von Updateables zur Laufzeit zu ermöglichen.">
+    <Position X="14.176" Y="2.035" Height="1.148" Width="2.069" />
+  </Comment>
+  <Comment CommentText="&quot;drawablesToAdd&quot; und &quot;drawablesToRemove&quot; werden benötigt, um das Hinzufügen/Entfernen von Updateables zur Laufzeit zu ermöglichen.">
+    <Position X="22.191" Y="1.927" Height="1.148" Width="2.069" />
+  </Comment>
+  <Comment CommentText="Um der Übersicht beizutragen, sind die restlichen 20+ Unterklassen von Scene hier weggelassen worden.">
+    <Position X="19.161" Y="5.539" Height="0.839" Width="1.926" />
+  </Comment>
+  <Class Name="EVCMonoGame.src.scenes.Scene" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>IgQgQAAAAkEAIgUgAEBAgQDwgAAAEgAABAAABKAUACQ=</HashCode>
+      <FileName>src\scenes\Scene.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="camera" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="updateables" />
+      <Field Name="drawables" />
+      <Field Name="updateablesToAdd" />
+      <Field Name="drawablesToAdd" />
+      <Field Name="updateablesToRemove" />
+      <Field Name="drawablesToRemove" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EVCMonoGame.src.scenes.Scene_BarrenFalls" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>src\scenes\Scene_BarrenFalls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.scenes.SceneManager" Collapsed="true">
+    <Position X="17.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACEAQCgIiAwgAMABGIIAAAAAQACAMYAAkEAYACAQ=</HashCode>
+      <FileName>src\scenes\SceneManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="scenes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.Character" Collapsed="true">
+    <Position X="37.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GSaAcBCiACESohEhAIEAEYiBABjEAAAYRBgABgQUASY=</HashCode>
+      <FileName>src\characters\Character.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="stateManager" />
+      <Field Name="sprite" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.Enemy" Collapsed="true">
+    <Position X="36.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQCMAAAAAAAAkAAJkCAAJAhIAIAABAAAEEAEAAAQgQ=</HashCode>
+      <FileName>src\characters\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.Player" Collapsed="true">
+    <Position X="38.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgYIAAGAAAAgAhBQBAAEAAAAAAAAAAgCIEEABAEAAkQ=</HashCode>
+      <FileName>src\characters\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.PlayerOne" Collapsed="true">
+    <Position X="40.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIEAAAAAAIAgAIAAAQQAABCAAAACBAIAAAAAAAAAQ=</HashCode>
+      <FileName>src\characters\PlayerOne.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.PlayerTwo" Collapsed="true">
+    <Position X="42.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIEAAAAAAoAgACAAAQQAABAAAAABAAIAEAAAAAAAQ=</HashCode>
+      <FileName>src\characters\PlayerTwo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="missiles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.enemies.Defender" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\enemies\Defender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.enemies.Gargoyle" Collapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAACAAAAAAAAAAAAAAAAAAAAEAAQ=</HashCode>
+      <FileName>src\enemies\Gargoyle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.enemies.Hades" Collapsed="true">
+    <Position X="36" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAIAAAAgAAAAAAAAAAAAAAABAAAABAAAAAAAQ=</HashCode>
+      <FileName>src\enemies\Hades.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.characters.enemies.Shadow" Collapsed="true">
+    <Position X="37.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAACAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\enemies\Shadow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.animation.AnimatedSprite" Collapsed="true">
+    <Position X="41" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQGAAACIiBCkhAgAAYAMEASAABAEBAAEAFSIAAhRyQ=</HashCode>
+      <FileName>src\animation\AnimatedSprite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.input.InputManager">
+    <Position X="17" Y="8.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gEQwgEQhAQsgUIAIQAAIEVQIUAAAkBQQwCJBAAQYBQA=</HashCode>
+      <FileName>src\input\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissile" Collapsed="true">
+    <Position X="48.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQLEACgQCAAohEAAAAAEAgAABCAAAAIBAgABAQEAQQ=</HashCode>
+      <FileName>src\projectiles\MagicMissile.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="sprite" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissileBounce" Collapsed="true">
+    <Position X="44.5" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gCQAEAIAAAAAAgAAAAAAIAAAAAAAAAEAEAAAAAAAAAQ=</HashCode>
+      <FileName>src\projectiles\MagicMissileBounce.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissileGodImperator" Collapsed="true">
+    <Position X="47" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gCQAEAAAQAAAAkAAAAAAIAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\projectiles\MagicMissileGodImperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissileNormal" Collapsed="true">
+    <Position X="49.75" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gCQAEAAAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\projectiles\MagicMissileNormal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissilePenetrate" Collapsed="true">
+    <Position X="52" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gCQAUAAAAAAACgAAAAAAIAAAAAAAAAAAAAAACAAAAAQ=</HashCode>
+      <FileName>src\projectiles\MagicMissilePenetrate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.projectiles.MagicMissileSplit" Collapsed="true">
+    <Position X="54.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCQAEAAAQAAAAgAAAAAAIAAAAAAAAAAAAAAAAAQAAAQ=</HashCode>
+      <FileName>src\projectiles\MagicMissileSplit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.scenes.Camera" Collapsed="true">
+    <Position X="19.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAaAhQBCAAUAQAAA0KAAEDQAATAAAEIAAABDJACAApQ=</HashCode>
+      <FileName>src\scenes\Camera.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.scenes.castle.Scene_Castle_Room5" Collapsed="true">
+    <Position X="17" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AASAQAAAQAAwIEAgIAAAAAAAAAAAAAgBAAAAQAAAAAA=</HashCode>
+      <FileName>src\scenes\scenes3_castle\Scene_Castle_Room5.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.statemachine.State">
+    <Position X="29.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAEAAAAAAEAAAAAAEAAAAIAAAAAAAAAg=</HashCode>
+      <FileName>src\statemachine\State.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="transitions" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.statemachine.Transition">
+    <Position X="26.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\statemachine\Transition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.statemachine.StateManager">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAACAAAAIAAAEAAAAAAAAAAEAAAAAAAAQAA=</HashCode>
+      <FileName>src\statemachine\StateManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="states" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.utility.Utility" Collapsed="true">
+    <Position X="21.25" Y="9.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAgAAEEAAAAAAAAAAQQAAAigAQBAGkABAU=</HashCode>
+      <FileName>src\utility\Utility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.utility.ConfigFileUtility" Collapsed="true">
+    <Position X="23.25" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEEAAQABAAAAAQAgAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\utility\ConfigFileUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="C3.MonoGame.Primitives2D">
+    <Position X="22.75" Y="12.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAACAQAAAAAAEAABIAAAQAACAAABABIEAAAAAAAAA=</HashCode>
+      <FileName>src\Primitives2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.Easer" Collapsed="true">
+    <Position X="24.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgQAAAIAICAQAAAAAAAAEAgAAAAaCAAABAACAEQABAA=</HashCode>
+      <FileName>src\Easer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.Easing" Collapsed="true">
+    <Position X="21.25" Y="11.25" Width="2" />
+    <NestedTypes>
+      <Delegate Name="EVCMonoGame.src.Easing.EasingFunction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Easing.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AABAEDRASCgAEgAgAAAQCAkBCEIAAAgEIDBAAAHIQAA=</HashCode>
+      <FileName>src\Easing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.tilemap.Tilemap" Collapsed="true">
+    <Position X="35" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAgAAAAEQIAAAAggAAAAAAAAQAAAAAAQ=</HashCode>
+      <FileName>src\tilemap\Tilemap.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="tiles" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.tilemap.Tile" Collapsed="true">
+    <Position X="35" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAACAAAAEAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\tilemap\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.tilemap.tilemapEditor.TileSelection" Collapsed="true">
+    <Position X="37.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAYAADAABQAAAgEiAAAABAADCggAAAIIAQQCAQGEAgQ=</HashCode>
+      <FileName>src\tilemap\tilemapEditor\TileSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.tilemap.tilemapEditor.TilemapEditor" Collapsed="true">
+    <Position X="35" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYCAAAAAAAAAggCBAEAoAAAAAAAAACAAAQAAAACBAQ=</HashCode>
+      <FileName>src\tilemap\tilemapEditor\TilemapEditor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tileSelection" />
+      <Field Name="drawingArea" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EVCMonoGame.src.tilemap.tilemapEditor.DrawingArea" Collapsed="true">
+    <Position X="32.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEQBYsCowERoBlAAACEQqBCwAhRQAFagACJSCAIAEAQ=</HashCode>
+      <FileName>src\tilemap\tilemapEditor\DrawingArea.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="tiles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EVCMonoGame.src.collision.CollisionManager">
+    <Position X="33.5" Y="17.25" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AIQUIAAAQAFCAmJIcAEAABHoEgCAsBAEBoFkQCAAiQI=</HashCode>
+      <FileName>src\collision\CollisionManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.collision.CombatArgs">
+    <Position X="29.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAIAhhEAAAAAAAAAAAAAAAAAAAAAAAAEAAgI=</HashCode>
+      <FileName>src\collision\CombatArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.collision.GeometryBox" Collapsed="true">
+    <Position X="29.5" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAgBAgAAAAAAAAAAAAAAAAAABCAAAAAwA=</HashCode>
+      <FileName>src\collision\GeometryBox.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.collision.CollidableHelper" Collapsed="true">
+    <Position X="29.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgBAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>src\collision\CollidableHelper.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.Door" Collapsed="true">
+    <Position X="52.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAACAAAAAAIgAAACAgMAAAIAAAAgAAAAAAACAAAAQ=</HashCode>
+      <FileName>src\Interactables\Door.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.Chest" Collapsed="true">
+    <Position X="49" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAADAAAAAAAAAAAgAAAAAIAAAAAAAAAAABAEAAAQ=</HashCode>
+      <FileName>src\Interactables\Chest.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.LaneTeleporter" Collapsed="true">
+    <Position X="52.25" Y="13.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="EVCMonoGame.src.LaneTeleporter.TeleporterState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Interactables\LaneTeleporter.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AIQAYAAAAAAACgAAEAAQIBAEIARABAAAAAAAAAQAAEQ=</HashCode>
+      <FileName>src\Interactables\LaneTeleporter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.Lever" Collapsed="true">
+    <Position X="49" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBAAAAAAACAAoBAAEAgcAAAIAAAAgAAAAAAAAAAAgQ=</HashCode>
+      <FileName>src\Interactables\Lever.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.LeverManager" Collapsed="true">
+    <Position X="46.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAACACgMAAAAAAAEAAAQABAAAAAAAQ=</HashCode>
+      <FileName>src\Interactables\LeverManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.TrapRemote" Collapsed="true">
+    <Position X="49" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACQAAAAAAAAAAAAAACAIAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>src\Interactables\TrapRemote.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EVCMonoGame.src.Traps.BearTrap" Collapsed="true">
+    <Position X="46.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIgAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>src\Traps\BearTrap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.Traps.FireTrap" Collapsed="true">
+    <Position X="49.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Traps\FireTrap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.Traps.SpikeTrap" Collapsed="true">
+    <Position X="52.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIgAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>src\Traps\SpikeTrap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EVCMonoGame.src.Traps.Trap" Collapsed="true">
+    <Position X="49" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQBEAigACAASikAIAAAkACCAACAAABgJAgAJAAkAAQ=</HashCode>
+      <FileName>src\Traps\Trap.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="EVCMonoGame.src.scenes.IDrawable" Collapsed="true">
+    <Position X="22" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\scenes\IDrawable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EVCMonoGame.src.scenes.IUpdateable" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\scenes\IUpdateable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="EVCMonoGame.src.Interactable" Collapsed="true">
+    <Position X="46.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Interactables\Interactable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
